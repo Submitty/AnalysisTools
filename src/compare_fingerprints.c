@@ -30,39 +30,41 @@ unsigned int hexstring_to_int(char *str)
 
 int main(int argc, char **argv)
 {
-	if (argc != 3) {
-		fprintf(stderr, "Invalid arguments\n");
-		exit(1);
-	}
-	FILE *first = fopen(argv[1], "r");
-	FILE *second = fopen(argv[2], "r");
+	char firstpath[1024], secondpath[1024];
 
-	unsigned int first_matchcount[HASH_BOUND] = {0};
-	unsigned int second_matchcount[HASH_BOUND] = {0};
+	while(fscanf(stdin, "%s", firstpath) == 1) {
+		fscanf(stdin, "%s", secondpath);
+		FILE *first = fopen(firstpath, "r");
+		FILE *second = fopen(secondpath, "r");
 
+		unsigned int first_matchcount[HASH_BOUND] = {0};
+		unsigned int second_matchcount[HASH_BOUND] = {0};
 
-	char *hash;
-	int result;
-	while (1) {
-		result = fscanf(first, "%ms", &hash);
-		if (result != 1) break;
-		first_matchcount[hexstring_to_int(hash)] += 1;
-		free(hash);
-	}
-	while (1) {
-		result = fscanf(second, "%ms", &hash);
-		if (result != 1) break;
-		second_matchcount[hexstring_to_int(hash)] += 1;
-		free(hash);
+		char *hash;
+		int result;
+		while (1) {
+			result = fscanf(first, "%ms", &hash);
+			if (result != 1) break;
+			first_matchcount[hexstring_to_int(hash)] += 1;
+			free(hash);
+		}
+		while (1) {
+			result = fscanf(second, "%ms", &hash);
+			if (result != 1) break;
+			second_matchcount[hexstring_to_int(hash)] += 1;
+			free(hash);
+		}
+
+		int match = 0;
+		int total = 0;
+		for (int i = 0; i < HASH_BOUND; ++i) {
+			if (first_matchcount[i] && second_matchcount[i]) match += 1;
+			if (first_matchcount[i] || second_matchcount[i]) total += 1;
+		}
+		printf("%f : %s | %s\n", ((float) match)/((float) total) * 100.0, firstpath, secondpath);
+		fclose(first);
+		fclose(second);
 	}
 
-	int match = 0;
-	int total = 0;
-	for (int i = 0; i < HASH_BOUND; ++i) {
-		if (first_matchcount[i] && second_matchcount[i]) match += 1;
-		if (first_matchcount[i] || second_matchcount[i]) total += 1;
-	}
-	printf("%f\n", ((float) match)/((float) total) * 100.0);
-	fclose(first);
-	fclose(second);
+	return 0;
 }

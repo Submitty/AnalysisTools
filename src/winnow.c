@@ -167,4 +167,6 @@ int main(int argc, char **argv)
 		printf("%04x ", fingerprints[i]);
 	}
 	puts("");
+
+	return 0;
 }

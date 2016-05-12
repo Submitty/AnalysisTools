@@ -70,9 +70,11 @@ int walk_fn(const char *path, const struct stat *sb, int typeflag)
 int main(int argc, char **argv)
 {
 	TIMESTAMP = time(NULL);
-	printf("%d\n", TIMESTAMP);
 	mkdir(WORKING_DIR, 0777);
 	snprintf(SPRINTF_BUFFER, 1024, WORKING_DIR "/%d", TIMESTAMP);
 	mkdir(SPRINTF_BUFFER, 0777);
 	ftw(argv[1], walk_fn, 8);
+	printf("%d\n", TIMESTAMP);
+
+	return 0;
 }

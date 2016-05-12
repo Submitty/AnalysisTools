@@ -33,4 +33,6 @@ int main(int argc, char **argv)
 		execute_bg(withsentinel[0], withsentinel);
 	}
 	while (wait(NULL) > 0);
+
+	return 0;
 }
