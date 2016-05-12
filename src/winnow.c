@@ -7,12 +7,13 @@
 
 #include <ctype.h>
 
-#define HASH_BOUND (256 * 256)
+#include "config.h"
 
 /*
  * Compute a hash on a string using the standard djb2 hashing algorithm.
  */
-int hash(char *key, int len) {
+int hash(char *key, int len)
+{
 	int h = 5381;
 	for (int i = 0; i < len; ++i) {
 		h = h * 33 + key[i];
@@ -42,7 +43,8 @@ int hash(char *key, int len) {
  * treated to be equivalent, no trivial change will modify the resulting
  * fingerprint.
  */
-void filter(char *buf, char *data) {
+void filter(char *buf, char *data)
+{
 	int buf_index = 0;
 	int len = strlen(data);
 	for (int data_index = 0; data_index < len; ++data_index) {
@@ -64,7 +66,8 @@ void filter(char *buf, char *data) {
  *    -> buf = {hash("hello"), hash("ellow"), hash("llowo"), hash("lowor"), hash("oworl"), hash("world")}
  *
  */
-void fingerprint(int *buf, char *data, int k) {
+void fingerprint(int *buf, char *data, int k)
+{
 	int len = strlen(data);
 	for (int data_index = 0; data_index <= len - k; ++data_index) {
 		buf[data_index] = hash(&data[data_index], k);
@@ -119,7 +122,8 @@ void fingerprint(int *buf, char *data, int k) {
  * within the original fingerprint, it would be trivial to allow a tool for
  * plagiarism detection to report specific locations of matches within each file.
  */
-int winnow(int *buf, int *fingerprints, int fingerprints_size, int t, int k) {
+int winnow(int *buf, int *fingerprints, int fingerprints_size, int t, int k)
+{
 	int window_size = t - k + 1;
 	int selected_index = 0;
 	for (int fingerprints_index = 0; fingerprints_index < fingerprints_size - window_size; ++fingerprints_index) {
@@ -143,7 +147,8 @@ int winnow(int *buf, int *fingerprints, int fingerprints_size, int t, int k) {
 	return selected_index;
 }
 
-int main(int argc, char **argv) {
+int main(int argc, char **argv)
+{
 	int t = atoi(argv[1]);
 	int k = atoi(argv[2]);
 
