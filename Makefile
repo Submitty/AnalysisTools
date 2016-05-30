@@ -6,14 +6,14 @@ BINARIES = $(addprefix $(BUILD_DIR)/, $(SRCS:.c=))
 
 LEXERS = lexer/c/lex lexer/python/lex
 
-CFLAGS_gcc = -Iinclude -std=c99 -g -Wall -Werror
+CFLAGS_gcc = -Iinclude -std=c99 -O2 -g -Wall -Werror -Wno-unused-result
 CFLAGS = $(CFLAGS_$(CC))
 LINKER_FLAGS_gcc = -lm
 LINKER_FLAGS = $(LINKER_FLAGS_$(CC))
 
 vpath %.c src
 
-.PHONY: all directories
+.PHONY: all directories clean
 
 all: directories $(BINARIES) $(LEXERS)
 
@@ -28,3 +28,7 @@ $(BUILD_DIR)/%: %.c
 lexer/%/lex: lexer/%/lex.l lexer/%/symtab.h
 	flex -o $@.out.c $@.l
 	$(CC) $@.out.c -o $@ -lfl
+
+clean:
+	rm $(BINARIES)
+	rm moss_data -r

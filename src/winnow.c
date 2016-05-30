@@ -24,9 +24,9 @@ int hash(int *key, int len)
 }
 
 /*
- * Given a sequence like that produced by filter or another tokenizer,
- * generate the fingerprints of the sequence. In this context, fingerprints
- * are sequences of hashed k-grams, where k is a user-provided value.
+ * Given a sequence produced a tokenizer, generate the fingerprints of the
+ * sequence. In this context, fingerprints are sequences of hashed k-grams,
+ * where k is a user-provided value.
  *
  * Example:
  *

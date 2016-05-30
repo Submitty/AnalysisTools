@@ -11,9 +11,28 @@
 
 #include "config.h"
 
+typedef struct file_fingerprints {
+	char path[1024];
+	unsigned int matchcount[HASH_BOUND];
+	unsigned int lineno[HASH_BOUND];
+	struct file_fingerprints *next;
+} file_fingerprints;
+
+file_fingerprints FINGERPRINT_CACHE[256];
+
+int hash(char *key)
+{
+	int h = 5381;
+	for (int i = 0; i < strlen(key); ++i) {
+		h = h * 33 + key[i];
+	}
+	return abs(h % 256);
+}
+
 unsigned int hexstring_to_int(char *str)
 {
-	int len = strlen(str);
+	//int len = strlen(str);
+	int len = 4;
 	unsigned int total = 0;
 	for (int i = 0; i < len; ++i) {
 		total *= 16;
@@ -28,52 +47,56 @@ unsigned int hexstring_to_int(char *str)
 	return total;
 }
 
+void read_fingerprints(file_fingerprints *buf, char *path)
+{
+	FILE *f = fopen(path, "r");
+	char *hash;
+	int result;
+	int lineno;
+
+	while ((result = fscanf(f, "%ms %d ", &hash, &lineno)) == 2) {
+		int index = hexstring_to_int(hash);
+		buf->matchcount[index] += 1;
+		buf->lineno[index] = lineno;
+		free(hash);
+	}
+	fclose(f);
+}
+
+file_fingerprints *get_fingerprints(char *path)
+{
+	int hashed = hash(path);
+	file_fingerprints *entry = &FINGERPRINT_CACHE[hashed];
+
+	while (strncmp(path, entry->path, 1024) != 0) {
+		if (entry->next == NULL) {
+			entry->next = (file_fingerprints *) malloc(sizeof(file_fingerprints));
+			strncpy(entry->next->path, path, 1024);
+			read_fingerprints(entry->next, path);
+			entry->next->next = NULL;
+		}
+		entry = entry->next;
+	}
+	return entry;
+}
+
 int main(int argc, char **argv)
 {
 	char firstpath[1024], secondpath[1024];
 
-	while(fscanf(stdin, "%s", firstpath) == 1) {
-		fscanf(stdin, "%s", secondpath);
-		FILE *first = fopen(firstpath, "r");
-		FILE *second = fopen(secondpath, "r");
+	while(fscanf(stdin, "%s %s ", firstpath, secondpath) == 2) {
 
-		unsigned int first_matchcount[HASH_BOUND] = {0};
-		unsigned int second_matchcount[HASH_BOUND] = {0};
-		int first_lineno[HASH_BOUND] = {0};
-		int second_lineno[HASH_BOUND] = {0};
-
-		char *hash;
-		int result;
-		int lineno;
-
-		while (1) {
-			result = fscanf(first, "%ms %d ", &hash, &lineno);
-			if (result != 2) break;
-			int index = hexstring_to_int(hash);
-			first_matchcount[index] += 1;
-			first_lineno[index] = lineno;
-			free(hash);
-		}
-		fclose(first);
-
-		while (1) {
-			result = fscanf(second, "%ms %d ", &hash, &lineno);
-			if (result != 2) break;
-			int index = hexstring_to_int(hash);
-			second_matchcount[index] += 1;
-			second_lineno[index] = lineno;
-			free(hash);
-		}
-		fclose(second);
+		file_fingerprints *first = get_fingerprints(firstpath);
+		file_fingerprints *second = get_fingerprints(secondpath);
 
 		int match = 0;
 		int total = 0;
 		for (int i = 0; i < HASH_BOUND; ++i) {
-			if (first_matchcount[i] && second_matchcount[i]) match += 1;
-			if (first_matchcount[i] || second_matchcount[i]) total += 1;
+			if (first->matchcount[i] && second->matchcount[i]) match += 1;
+			if (first->matchcount[i] || second->matchcount[i]) total += 1;
 		}
-		printf("%f : %s | %s |", ((float) match)/((float) total) * 100.0, firstpath, secondpath);
-		for (int i = 0; i < HASH_BOUND; ++i) if (first_matchcount[i] && second_matchcount[i]) printf("%d %d, ", first_lineno[i], second_lineno[i]);
+		printf("%9.5f | %s | %s |", ((float) match)/((float) total) * 100.0, firstpath, secondpath);
+		for (int i = 0; i < HASH_BOUND; ++i) if (first->matchcount[i] && second->matchcount[i]) printf(" %d %d,", first->lineno[i], second->lineno[i]);
 		puts("");
 	}
 
