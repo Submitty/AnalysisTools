@@ -2,5 +2,5 @@
 
 #define WORKING_DIR "moss_data"
 
-#define UPPER_BOUND 9
-#define LOWER_BOUND 5
+#define UPPER_BOUND 30
+#define LOWER_BOUND 15

@@ -56,8 +56,8 @@ int walk_fn(const char *path, const struct stat *sb, int typeflag)
 	if (S_ISREG(sb->st_mode)) {
 		filetype f = determine_type(get_extension(path));
 		if (f != FT_UNKNOWN) {
-			snprintf(SPRINTF_BUFFER, 1024, "cat '%s' | ./lexer/%s/lex | ./bin/winnow '%d' '%d' > " WORKING_DIR "/%d/%s",
-					path, LEXERS[f], UPPER_BOUND, LOWER_BOUND, TIMESTAMP, path);
+			snprintf(SPRINTF_BUFFER, 1024, "cat '%s' | ./lexer/%s/lex | ./bin/winnow > " WORKING_DIR "/%d/%s",
+					path, LEXERS[f], TIMESTAMP, path);
 			system(SPRINTF_BUFFER);
 		}
 	} else {

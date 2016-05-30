@@ -27,4 +27,4 @@ $(BUILD_DIR)/%: %.c
 
 lexer/%/lex: lexer/%/lex.l lexer/%/symtab.h
 	flex -o $@.out.c $@.l
-	gcc $(CFLAGS) $@.out.c -o $@ -lfl
+	$(CC) $@.out.c -o $@ -lfl

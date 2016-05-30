@@ -1,3 +1,5 @@
+%option yylineno
+
 %{
 #include <stdio.h>
 #include "symtab.h"
@@ -102,6 +104,6 @@
 int main() {
 	token c;
 	while (c = yylex()) {
-		printf("%d ", c);
+		printf("%d %d ", c, yylineno);
 	}
 }

@@ -7,52 +7,20 @@
 
 #include <ctype.h>
 
+#include <getopt.h>
+
 #include "config.h"
 
 /*
  * Compute a hash on a string using the standard djb2 hashing algorithm.
  */
-int hash(char *key, int len)
+int hash(int *key, int len)
 {
 	int h = 5381;
 	for (int i = 0; i < len; ++i) {
 		h = h * 33 + key[i];
 	}
 	return abs(h % HASH_BOUND);
-}
-
-/*
- * Remove all "unnecessary" data from data, storing the result in buf as a
- * standard null-terminated C string.  Of course, what is unneccessary differs
- * from application to application.  Here, we simply remove symbols, numbers,
- * and whitespace while also converting all letters to lowercase.
- *
- * Examples:
- *
- * filter(&buf, "Hello, world!");
- *    -> buf = "helloworld
- *
- * filter(&buf, "123456789");
- *    -> buf = ""
- *
- * In analyzing the similarity of programs, it is likely better to use a
- * language-specific system for token generation, which is easily implemented
- * and requires only syntactic understanding of the language. It also has the
- * advantage of stopping some obvious plagiarism tactics, such as changing
- * variable names: if all tokens representing, for example, identifiers are
- * treated to be equivalent, no trivial change will modify the resulting
- * fingerprint.
- */
-void filter(char *buf, char *data)
-{
-	int buf_index = 0;
-	int len = strlen(data);
-	for (int data_index = 0; data_index < len; ++data_index) {
-		if (isalpha(data[data_index])) {
-			buf[buf_index++] = tolower(data[data_index]);
-		}
-	}
-	buf[buf_index] = 0;
 }
 
 /*
@@ -66,10 +34,9 @@ void filter(char *buf, char *data)
  *    -> buf = {hash("hello"), hash("ellow"), hash("llowo"), hash("lowor"), hash("oworl"), hash("world")}
  *
  */
-void fingerprint(int *buf, char *data, int k)
+void fingerprint(int *buf, int *data, int data_size, int k)
 {
-	int len = strlen(data);
-	for (int data_index = 0; data_index <= len - k; ++data_index) {
+	for (int data_index = 0; data_index <= data_size - k; ++data_index) {
 		buf[data_index] = hash(&data[data_index], k);
 	}
 }
@@ -122,7 +89,7 @@ void fingerprint(int *buf, char *data, int k)
  * within the original fingerprint, it would be trivial to allow a tool for
  * plagiarism detection to report specific locations of matches within each file.
  */
-int winnow(int *buf, int *fingerprints, int fingerprints_size, int t, int k)
+int winnow(int *buf, int *lineno_buf, int *fingerprints, int *lineno, int fingerprints_size, int t, int k)
 {
 	int window_size = t - k + 1;
 	int selected_index = 0;
@@ -142,6 +109,7 @@ int winnow(int *buf, int *fingerprints, int fingerprints_size, int t, int k)
 		if (do_add) buf[selected_index++] = min_index;
 	}
 	for (int i = 0; i < selected_index; ++i) {
+		lineno_buf[i] = lineno[buf[i]];
 		buf[i] = fingerprints[buf[i]];
 	}
 	return selected_index;
@@ -149,22 +117,34 @@ int winnow(int *buf, int *fingerprints, int fingerprints_size, int t, int k)
 
 int main(int argc, char **argv)
 {
-	int t = atoi(argv[1]);
-	int k = atoi(argv[2]);
+	int t = UPPER_BOUND;
+	int k = LOWER_BOUND;
 
-	char data[2048];
-	for (int i = 0; fscanf(stdin, "%d", (int *) &data[i++]) == 1 && i < 2048;);
+	int arg;
+	while ((arg = getopt(argc, argv, "t:k:")) != -1) {
+		switch (arg) {
+			case 't':
+				t = atoi(optarg);
+				break;
+			case 'k':
+				k = atoi(optarg);
+				break;
+		}
+	}
 
-	char buf[2048];
-	filter(buf, data);
+	int data[4096];
+	int lineno[4096];
+	int data_size = 0;
+	for (;fscanf(stdin, "%d %d ", &data[data_size], &lineno[data_size]) == 2 && data_size < 4096; ++data_size);
 
-	int hashes[2048];
-	fingerprint(hashes, buf, k);
+	int hashes[4096];
+	fingerprint(hashes, data, data_size, k);
 
-	int fingerprints[2058];
-	int len = winnow(fingerprints, hashes, strlen(buf) - k, t, k);
+	int fingerprints[4096];
+	int lineno_new[4096];
+	int len = winnow(fingerprints, lineno_new, hashes, lineno, data_size - k, t, k);
 	for (int i = 0; i < len; ++i) {
-		printf("%04x ", fingerprints[i]);
+		printf("%04x %d ", fingerprints[i], lineno_new[i]);
 	}
 	puts("");
 

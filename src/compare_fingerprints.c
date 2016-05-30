@@ -39,21 +39,32 @@ int main(int argc, char **argv)
 
 		unsigned int first_matchcount[HASH_BOUND] = {0};
 		unsigned int second_matchcount[HASH_BOUND] = {0};
+		int first_lineno[HASH_BOUND] = {0};
+		int second_lineno[HASH_BOUND] = {0};
 
 		char *hash;
 		int result;
+		int lineno;
+
 		while (1) {
-			result = fscanf(first, "%ms", &hash);
-			if (result != 1) break;
-			first_matchcount[hexstring_to_int(hash)] += 1;
+			result = fscanf(first, "%ms %d ", &hash, &lineno);
+			if (result != 2) break;
+			int index = hexstring_to_int(hash);
+			first_matchcount[index] += 1;
+			first_lineno[index] = lineno;
 			free(hash);
 		}
+		fclose(first);
+
 		while (1) {
-			result = fscanf(second, "%ms", &hash);
-			if (result != 1) break;
-			second_matchcount[hexstring_to_int(hash)] += 1;
+			result = fscanf(second, "%ms %d ", &hash, &lineno);
+			if (result != 2) break;
+			int index = hexstring_to_int(hash);
+			second_matchcount[index] += 1;
+			second_lineno[index] = lineno;
 			free(hash);
 		}
+		fclose(second);
 
 		int match = 0;
 		int total = 0;
@@ -61,9 +72,9 @@ int main(int argc, char **argv)
 			if (first_matchcount[i] && second_matchcount[i]) match += 1;
 			if (first_matchcount[i] || second_matchcount[i]) total += 1;
 		}
-		printf("%f : %s | %s\n", ((float) match)/((float) total) * 100.0, firstpath, secondpath);
-		fclose(first);
-		fclose(second);
+		printf("%f : %s | %s |", ((float) match)/((float) total) * 100.0, firstpath, secondpath);
+		for (int i = 0; i < HASH_BOUND; ++i) if (first_matchcount[i] && second_matchcount[i]) printf("%d %d, ", first_lineno[i], second_lineno[i]);
+		puts("");
 	}
 
 	return 0;
