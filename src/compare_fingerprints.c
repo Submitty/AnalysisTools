@@ -2,17 +2,19 @@
 #include <stdlib.h>
 #include <stddef.h>
 #include <stdbool.h>
-
 #include <string.h>
 
-#include <ctype.h>
-
-#include <math.h>
-
 #include "config.h"
-#include "fingerprints.h"
+#include "utils.h"
 
-static file_fingerprints FINGERPRINT_CACHE[256];
+typedef struct file_fingerprints {
+	char path[1024];
+	unsigned int matchcount[HASH_BOUND];
+	unsigned int lineno[HASH_BOUND];
+	struct file_fingerprints *next;
+} file_fingerprints;
+
+file_fingerprints FINGERPRINT_CACHE[FINGERPRINT_CACHE_SIZE];
 
 int hash(char *key)
 {
@@ -20,11 +22,12 @@ int hash(char *key)
 	for (int i = 0; i < strlen(key); ++i) {
 		h = h * 33 + key[i];
 	}
-	return abs(h % 256);
+	return abs(h % FINGERPRINT_CACHE_SIZE);
 }
 
-void read_fingerprints(file_fingerprints *buf, FILE *f)
+void read_fingerprints(file_fingerprints *buf, char *path)
 {
+	FILE *f = fopen(path, "r");
 	char *hash;
 	int lineno;
 
@@ -46,7 +49,7 @@ file_fingerprints *get_fingerprints(char *path)
 		if (entry->next == NULL) {
 			entry->next = (file_fingerprints *) malloc(sizeof(file_fingerprints));
 			strncpy(entry->next->path, path, 1024);
-			read_fingerprints(entry->next, fopen(path, "r"));
+			read_fingerprints(entry->next, path);
 			entry->next->next = NULL;
 		}
 		entry = entry->next;

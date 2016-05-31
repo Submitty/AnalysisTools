@@ -2,10 +2,7 @@
 #include <stdlib.h>
 #include <stddef.h>
 #include <stdbool.h>
-
 #include <string.h>
-
-#include <ctype.h>
 
 #include <getopt.h>
 

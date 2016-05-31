@@ -3,6 +3,8 @@
 
 #define HASH_BOUND (256 * 256)
 
+#define FINGERPRINT_CACHE_SIZE 256
+
 #define WORKING_DIR "moss_data"
 #define GLOBAL_FILE_NAME "__global_fingerprint_count__"
 
