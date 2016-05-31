@@ -10,13 +10,7 @@
 #include <math.h>
 
 #include "config.h"
-
-typedef struct file_fingerprints {
-	char path[1024];
-	unsigned int matchcount[HASH_BOUND];
-	unsigned int lineno[HASH_BOUND];
-	struct file_fingerprints *next;
-} file_fingerprints;
+#include "fingerprints.h"
 
 static file_fingerprints FINGERPRINT_CACHE[256];
 
@@ -29,32 +23,12 @@ int hash(char *key)
 	return abs(h % 256);
 }
 
-unsigned int hexstring_to_int(char *str)
+void read_fingerprints(file_fingerprints *buf, FILE *f)
 {
-	//int len = strlen(str);
-	int len = 4;
-	unsigned int total = 0;
-	for (int i = 0; i < len; ++i) {
-		total *= 16;
-		if (str[i] >= '0' && str[i] <= '9') {
-			total += (str[i] - '0');
-		} else if (str[i] >= 'a' && str[i] <= 'f') {
-			total += (str[i] - 'a' + 0xa);
-		} else if (str[i] >= 'A' && str[i] <= 'F') {
-			total += (str[i] - 'A' + 0xa);
-		}
-	}
-	return total;
-}
-
-void read_fingerprints(file_fingerprints *buf, char *path)
-{
-	FILE *f = fopen(path, "r");
 	char *hash;
-	int result;
 	int lineno;
 
-	while ((result = fscanf(f, "%ms %d ", &hash, &lineno)) == 2) {
+	while (fscanf(f, "%ms %d ", &hash, &lineno) == 2) {
 		int index = hexstring_to_int(hash);
 		buf->matchcount[index] += 1;
 		buf->lineno[index] = lineno;
@@ -72,7 +46,7 @@ file_fingerprints *get_fingerprints(char *path)
 		if (entry->next == NULL) {
 			entry->next = (file_fingerprints *) malloc(sizeof(file_fingerprints));
 			strncpy(entry->next->path, path, 1024);
-			read_fingerprints(entry->next, path);
+			read_fingerprints(entry->next, fopen(path, "r"));
 			entry->next->next = NULL;
 		}
 		entry = entry->next;

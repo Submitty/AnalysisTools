@@ -17,9 +17,7 @@
 #include <sys/wait.h>
 
 #include "config.h"
-
-static char SPRINTF_BUFFER[1024];
-static int TIMESTAMP;
+#include "fingerprints.h"
 
 typedef enum filetype {
 	FT_UNKNOWN = 0,
@@ -31,6 +29,11 @@ static char *LEXERS[] = {
 	[FT_C] = "c",
 	[FT_PYTHON] = "python",
 };
+
+static char SPRINTF_BUFFER[1024];
+static int TIMESTAMP;
+
+static file_fingerprints GLOBAL_FINGERPRINTS;
 
 char *get_extension(const char *path)
 {
@@ -154,8 +157,24 @@ int walk_fn(const char *path, const struct stat *sb, int typeflag)
 			int file = open(path, O_RDONLY);
 			snprintf(SPRINTF_BUFFER, 1024, "./lexer/%s/lex", LEXERS[f]);
 			int lexer_o = ex_pi(file, SPRINTF_BUFFER, NULL);
+			int winnow_o = ex_pi(lexer_o, "./bin/winnow", NULL);
+			FILE *in = fdopen(winnow_o, "r");
+
 			snprintf(SPRINTF_BUFFER, 1024, WORKING_DIR "/%d/%s", TIMESTAMP, path);
-			ex_io(lexer_o, creat(SPRINTF_BUFFER, 0644), "./bin/winnow", NULL);
+			FILE *out = fopen(SPRINTF_BUFFER, "w+");
+
+			char *hash;
+			int lineno;
+			while (fscanf(in, "%ms %d ", &hash, &lineno) == 2) {
+				int index = hexstring_to_int(hash);
+				GLOBAL_FINGERPRINTS.matchcount[index] += 1;
+				fprintf(out, "%s %d ", hash, lineno);
+				free(hash);
+			}
+
+			fclose(in);
+			fclose(out);
+
 			while (wait(NULL) > 0);
 		}
 	} else {
@@ -172,6 +191,14 @@ int main(int argc, char **argv)
 	snprintf(SPRINTF_BUFFER, 1024, WORKING_DIR "/%d", TIMESTAMP);
 	mkdir(SPRINTF_BUFFER, 0777);
 	ftw(argv[1], walk_fn, 8);
+
+	snprintf(SPRINTF_BUFFER, 1024, WORKING_DIR "/%d/" GLOBAL_FILE_NAME, TIMESTAMP);
+	FILE *global_output = fopen(SPRINTF_BUFFER, "w+");
+	for (int i = 0; i < HASH_BOUND; ++i) {
+		if (GLOBAL_FINGERPRINTS.matchcount[i]) fprintf(global_output, "%04x %d ", i, GLOBAL_FINGERPRINTS.matchcount[i]);
+	}
+	fclose(global_output);
+
 	printf("%d\n", TIMESTAMP);
 
 	return 0;
