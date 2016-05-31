@@ -2,19 +2,24 @@
 #include <stdlib.h>
 #include <stddef.h>
 #include <stdbool.h>
-
+#include <stdarg.h>
 #include <string.h>
 
+#include <errno.h>
+
+#include <unistd.h>
+#include <fcntl.h>
 #include <ftw.h>
 #include <time.h>
 
 #include <sys/stat.h>
 #include <sys/types.h>
+#include <sys/wait.h>
 
 #include "config.h"
 
 static char SPRINTF_BUFFER[1024];
-int TIMESTAMP;
+static int TIMESTAMP;
 
 typedef enum filetype {
 	FT_UNKNOWN = 0,
@@ -22,7 +27,7 @@ typedef enum filetype {
 	FT_PYTHON
 } filetype;
 
-char *LEXERS[] = {
+static char *LEXERS[] = {
 	[FT_C] = "c",
 	[FT_PYTHON] = "python",
 };
@@ -51,14 +56,107 @@ filetype determine_type(char *ext)
 	}
 }
 
+void execute(int input, int output, int toclose, char **args)
+{
+	int pid = fork();
+	if (pid == 0) {
+		if (toclose != -1) close(toclose);
+		if (input != -1) {
+			if (dup2(input, STDIN_FILENO) == -1) {
+				fprintf(stderr, "Error duplicating input.\n");
+				exit(1);
+			}
+			close(input);
+		}
+		if (output != -1) {
+			if (dup2(output, STDOUT_FILENO) == -1) {
+				fprintf(stderr, "Error duplicating output.\n");
+				exit(1);
+			}
+			close(output);
+		}
+
+		int res = execve(args[0], args, NULL);
+		fprintf(stderr, "Error: %s\n", strerror(errno));
+		exit(res);
+	} else if (pid > 0) {
+		if (input != -1) close(input);
+		if (output != -1) close(output);
+	} else {
+		if (input != -1) close(input);
+		if (output != -1) close(output);
+	}
+}
+
+int ex_pi(int input, char *path, ...)
+{
+	char *args[32];
+	va_list al;
+	va_start(al, path);
+	char *cur = path;
+	int i;
+	for (i = 0; cur != NULL && i < 32; cur = va_arg(al, char *), ++i) {
+		args[i] = cur;
+	}
+	args[i] = NULL;
+
+	int stdout_fds[2];
+	if (pipe(stdout_fds) < 0) {
+		printf("Error allocating pipe.\n");
+		return -1;
+	}
+	execute(input, stdout_fds[1], stdout_fds[0], args);
+	close(stdout_fds[1]);
+	return stdout_fds[0];
+}
+
+int ex_po(int output, char *path, ...)
+{
+	char *args[32];
+	va_list al;
+	va_start(al, path);
+	char *cur = path;
+	int i;
+	for (i = 0; cur != NULL && i < 32; cur = va_arg(al, char *), ++i) {
+		args[i] = cur;
+	}
+	args[i] = NULL;
+
+	int stdin_fds[2];
+	if (pipe(stdin_fds) < 0) {
+		printf("Error allocating pipe.\n");
+		return -1;
+	}
+	execute(stdin_fds[0], output, stdin_fds[1], args);
+	close(stdin_fds[0]);
+	return stdin_fds[1];
+}
+
+void ex_io(int input, int output, char *path, ...)
+{
+	char *args[32];
+	va_list al;
+	va_start(al, path);
+	char *cur = path;
+	int i;
+	for (i = 0; cur != NULL && i < 32; cur = va_arg(al, char *), ++i) {
+		args[i] = cur;
+	}
+	args[i] = NULL;
+	execute(input, output, -1, args);
+}
+
 int walk_fn(const char *path, const struct stat *sb, int typeflag)
 {
 	if (S_ISREG(sb->st_mode)) {
 		filetype f = determine_type(get_extension(path));
 		if (f != FT_UNKNOWN) {
-			snprintf(SPRINTF_BUFFER, 1024, "cat '%s' | ./lexer/%s/lex | ./bin/winnow > " WORKING_DIR "/%d/%s",
-					path, LEXERS[f], TIMESTAMP, path);
-			system(SPRINTF_BUFFER);
+			int file = open(path, O_RDONLY);
+			snprintf(SPRINTF_BUFFER, 1024, "./lexer/%s/lex", LEXERS[f]);
+			int lexer_o = ex_pi(file, SPRINTF_BUFFER, NULL);
+			snprintf(SPRINTF_BUFFER, 1024, WORKING_DIR "/%d/%s", TIMESTAMP, path);
+			ex_io(lexer_o, creat(SPRINTF_BUFFER, 0644), "./bin/winnow", NULL);
+			while (wait(NULL) > 0);
 		}
 	} else {
 		snprintf(SPRINTF_BUFFER, 1024, WORKING_DIR "/%d/%s", TIMESTAMP, path);

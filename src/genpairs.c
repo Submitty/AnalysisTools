@@ -17,6 +17,8 @@ typedef struct path_node {
 	struct path_node *next;
 } path_node;
 
+static path_node *PATHS = NULL;
+
 path_node *make_node(const char *path)
 {
 	path_node *ret = (path_node *) malloc(sizeof(path_node));
@@ -24,8 +26,6 @@ path_node *make_node(const char *path)
 	ret->next = NULL;
 	return ret;
 }
-
-path_node *PATHS = NULL;
 
 void push_path(const char *path)
 {

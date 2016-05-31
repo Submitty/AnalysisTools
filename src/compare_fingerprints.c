@@ -18,7 +18,7 @@ typedef struct file_fingerprints {
 	struct file_fingerprints *next;
 } file_fingerprints;
 
-file_fingerprints FINGERPRINT_CACHE[256];
+static file_fingerprints FINGERPRINT_CACHE[256];
 
 int hash(char *key)
 {

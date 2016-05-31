@@ -4,7 +4,7 @@ BUILD_DIR = bin
 LIB_DIR = lib_$(CC)
 BINARIES = $(addprefix $(BUILD_DIR)/, $(SRCS:.c=))
 
-LEXERS = lexer/c/lex lexer/python/lex
+LEXERS = lexer/c/lex lexer/python/lex lexer/java/lex
 
 CFLAGS_gcc = -Iinclude -std=c99 -O2 -g -Wall -Werror -Wno-unused-result
 CFLAGS = $(CFLAGS_$(CC))
