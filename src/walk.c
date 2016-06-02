@@ -71,16 +71,17 @@ int walk_fn(const char *path, const struct stat *sb, int typeflag)
 			int winnow_o = ex_pi(lexer_o, "./bin/winnow", NULL);
 			FILE *in = fdopen(winnow_o, "r");
 
-			snprintf(SPRINTF_BUFFER, 1024, WORKING_DIR "/%d/%s", TIMESTAMP, path);
+			snprintf(SPRINTF_BUFFER, 1024, WORKING_DIR "/%u/%s", TIMESTAMP, path);
 			FILE *out = fopen(SPRINTF_BUFFER, "w+");
 
+			memset(LOCAL_FINGERPRINTS, 0, sizeof(LOCAL_FINGERPRINTS));
 			char *hash;
 			unsigned int lineno;
-			while (fscanf(in, "%ms %ud ", &hash, &lineno) == 2) {
+			while (fscanf(in, "%ms %u ", &hash, &lineno) == 2) {
 				unsigned int index = hexstring_to_int(hash);
 				LOCAL_FINGERPRINTS[index] += 1;
 				if (LOCAL_FINGERPRINTS[index] == 1) GLOBAL_FINGERPRINTS[index] += 1;
-				fprintf(out, "%s %d ", hash, lineno);
+				fprintf(out, "%s %u ", hash, lineno);
 				free(hash);
 			}
 			NUM_FILES += 1;
@@ -91,7 +92,7 @@ int walk_fn(const char *path, const struct stat *sb, int typeflag)
 			while (wait(NULL) > 0);
 		}
 	} else {
-		snprintf(SPRINTF_BUFFER, 1024, WORKING_DIR "/%d/%s", TIMESTAMP, path);
+		snprintf(SPRINTF_BUFFER, 1024, WORKING_DIR "/%u/%s", TIMESTAMP, path);
 		mkdir(SPRINTF_BUFFER, 0777);
 	}
 	return 0;
@@ -101,18 +102,20 @@ int main(int argc, char **argv)
 {
 	TIMESTAMP = time(NULL);
 	mkdir(WORKING_DIR, 0777);
-	snprintf(SPRINTF_BUFFER, 1024, WORKING_DIR "/%d", TIMESTAMP);
+	snprintf(SPRINTF_BUFFER, 1024, WORKING_DIR "/%u", TIMESTAMP);
 	mkdir(SPRINTF_BUFFER, 0777);
 	ftw(argv[1], walk_fn, 8);
 
-	snprintf(SPRINTF_BUFFER, 1024, WORKING_DIR "/%d/" GLOBAL_FILE_NAME, TIMESTAMP);
+	snprintf(SPRINTF_BUFFER, 1024, WORKING_DIR "/%u/" GLOBAL_FILE_NAME, TIMESTAMP);
 	FILE *global_output = fopen(SPRINTF_BUFFER, "w+");
 	for (unsigned int i = 0; i < HASH_BOUND; ++i) {
-		if (GLOBAL_FINGERPRINTS[i]) fprintf(global_output, "%04x %lf ", i, (double) GLOBAL_FINGERPRINTS[i] / (double) NUM_FILES);
+		if (GLOBAL_FINGERPRINTS[i]) {
+			fprintf(global_output, "%04x %lf ", i, (double) GLOBAL_FINGERPRINTS[i] / (double) NUM_FILES);
+		}
 	}
 	fclose(global_output);
 
-	printf("%d\n", TIMESTAMP);
+	printf("%u\n", TIMESTAMP);
 
 	return 0;
 }

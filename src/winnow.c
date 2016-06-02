@@ -133,7 +133,7 @@ int main(int argc, char **argv)
 	unsigned int data[4096];
 	unsigned int lineno[4096];
 	unsigned int data_size = 0;
-	for (;fscanf(stdin, "%ud %ud ", &data[data_size], &lineno[data_size]) == 2 && data_size < 4096; ++data_size);
+	for (;fscanf(stdin, "%u %u ", &data[data_size], &lineno[data_size]) == 2 && data_size < 4096; ++data_size);
 
 	unsigned int hashes[4096];
 	fingerprint(hashes, data, data_size, k);
@@ -142,7 +142,7 @@ int main(int argc, char **argv)
 	unsigned int lineno_new[4096];
 	unsigned int len = winnow(fingerprints, lineno_new, hashes, lineno, data_size - k, t, k);
 	for (unsigned int i = 0; i < len; ++i) {
-		printf("%04x %d ", hash(&fingerprints[i], 1), lineno_new[i]);
+		printf("%04x %u ", hash(&fingerprints[i], 1), lineno_new[i]);
 	}
 	puts("");
 

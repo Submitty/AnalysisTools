@@ -43,7 +43,9 @@ int walk_fn(const char *path, const struct stat *sb, int typeflag)
 
 int main(int argc, char **argv)
 {
-	ftw(argv[1], walk_fn, 8);
+	char buffer[1024];
+	snprintf(buffer, 1024, "%s/%s", WORKING_DIR, argv[1]);
+	ftw(buffer, walk_fn, 8);
 	for (path_node *n = PATHS; n != NULL; n = n->next) {
 		for (path_node *p = PATHS; p != NULL; p = p->next) {
 			if (strcmp(n->path, p->path)) {

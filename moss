@@ -1,0 +1,5 @@
+#!/bin/bash
+
+TIMESTAMP=$(./bin/walk $@)
+
+./bin/genpairs $TIMESTAMP | ./bin/compare_fingerprints $TIMESTAMP | sort -nr | less -S

@@ -13,7 +13,7 @@ LINKER_FLAGS = $(LINKER_FLAGS_$(CC))
 
 vpath %.c src
 
-.PHONY: all directories clean
+.PHONY: all directories run clean
 
 all: directories $(BINARIES) $(LEXERS)
 
