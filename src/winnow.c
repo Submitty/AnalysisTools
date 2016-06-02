@@ -11,10 +11,10 @@
 /*
  * Compute a hash on a string using the standard djb2 hashing algorithm.
  */
-int hash(int *key, int len)
+unsigned int hash(unsigned int *key, unsigned int len)
 {
-	int h = 5381;
-	for (int i = 0; i < len; ++i) {
+	unsigned int h = 5381;
+	for (unsigned int i = 0; i < len; ++i) {
 		h = h * 33 + key[i];
 	}
 	return abs(h % HASH_BOUND);
@@ -31,9 +31,9 @@ int hash(int *key, int len)
  *    -> buf = {hash("hello"), hash("ellow"), hash("llowo"), hash("lowor"), hash("oworl"), hash("world")}
  *
  */
-void fingerprint(int *buf, int *data, int data_size, int k)
+void fingerprint(unsigned int *buf, unsigned int *data, unsigned int data_size, unsigned int k)
 {
-	for (int data_index = 0; data_index <= data_size - k; ++data_index) {
+	for (unsigned int data_index = 0; data_index <= data_size - k; ++data_index) {
 		buf[data_index] = hash(&data[data_index], k);
 	}
 }
@@ -86,26 +86,27 @@ void fingerprint(int *buf, int *data, int data_size, int k)
  * within the original fingerprint, it would be trivial to allow a tool for
  * plagiarism detection to report specific locations of matches within each file.
  */
-int winnow(int *buf, int *lineno_buf, int *fingerprints, int *lineno, int fingerprints_size, int t, int k)
+int winnow(unsigned int *buf, unsigned int *lineno_buf, unsigned int *fingerprints, unsigned int *lineno,
+		unsigned int fingerprints_size, unsigned int t, unsigned int k)
 {
-	int window_size = t - k + 1;
-	int selected_index = 0;
-	for (int fingerprints_index = 0; fingerprints_index < fingerprints_size - window_size; ++fingerprints_index) {
-		int min = HASH_BOUND;
-		int min_index = -1;
-		for (int window_index = 0; window_index < window_size; ++window_index) {
+	unsigned int window_size = t - k + 1;
+	unsigned int selected_index = 0;
+	for (unsigned int fingerprints_index = 0; fingerprints_index < fingerprints_size - window_size; ++fingerprints_index) {
+		unsigned int min = HASH_BOUND;
+		unsigned int min_index = -1;
+		for (unsigned int window_index = 0; window_index < window_size; ++window_index) {
 			if (fingerprints[fingerprints_index + window_index] < min) {
 				min = fingerprints[fingerprints_index + window_index];
 				min_index = fingerprints_index + window_index;
 			}
 		}
 		bool do_add = true;
-		for (int i = 0; i < selected_index; ++i) {
+		for (unsigned int i = 0; i < selected_index; ++i) {
 			if (buf[i] == min_index) {do_add = false; break;}
 		}
 		if (do_add) buf[selected_index++] = min_index;
 	}
-	for (int i = 0; i < selected_index; ++i) {
+	for (unsigned int i = 0; i < selected_index; ++i) {
 		lineno_buf[i] = lineno[buf[i]];
 		buf[i] = fingerprints[buf[i]];
 	}
@@ -114,10 +115,10 @@ int winnow(int *buf, int *lineno_buf, int *fingerprints, int *lineno, int finger
 
 int main(int argc, char **argv)
 {
-	int t = UPPER_BOUND;
-	int k = LOWER_BOUND;
+	unsigned int t = UPPER_BOUND;
+	unsigned int k = LOWER_BOUND;
 
-	int arg;
+	unsigned int arg;
 	while ((arg = getopt(argc, argv, "t:k:")) != -1) {
 		switch (arg) {
 			case 't':
@@ -129,19 +130,19 @@ int main(int argc, char **argv)
 		}
 	}
 
-	int data[4096];
-	int lineno[4096];
-	int data_size = 0;
-	for (;fscanf(stdin, "%d %d ", &data[data_size], &lineno[data_size]) == 2 && data_size < 4096; ++data_size);
+	unsigned int data[4096];
+	unsigned int lineno[4096];
+	unsigned int data_size = 0;
+	for (;fscanf(stdin, "%ud %ud ", &data[data_size], &lineno[data_size]) == 2 && data_size < 4096; ++data_size);
 
-	int hashes[4096];
+	unsigned int hashes[4096];
 	fingerprint(hashes, data, data_size, k);
 
-	int fingerprints[4096];
-	int lineno_new[4096];
-	int len = winnow(fingerprints, lineno_new, hashes, lineno, data_size - k, t, k);
-	for (int i = 0; i < len; ++i) {
-		printf("%04x %d ", fingerprints[i], lineno_new[i]);
+	unsigned int fingerprints[4096];
+	unsigned int lineno_new[4096];
+	unsigned int len = winnow(fingerprints, lineno_new, hashes, lineno, data_size - k, t, k);
+	for (unsigned int i = 0; i < len; ++i) {
+		printf("%04x %d ", hash(&fingerprints[i], 1), lineno_new[i]);
 	}
 	puts("");
 

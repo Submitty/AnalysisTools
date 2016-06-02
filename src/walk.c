@@ -30,9 +30,11 @@ static char *LEXERS[] = {
 };
 
 static char SPRINTF_BUFFER[1024];
-static int TIMESTAMP;
+static unsigned int TIMESTAMP;
 
 static unsigned int GLOBAL_FINGERPRINTS[HASH_BOUND] = {0};
+static unsigned int LOCAL_FINGERPRINTS[HASH_BOUND] = {0};
+static unsigned int NUM_FILES = 0;
 
 char *get_extension(const char *path)
 {
@@ -73,13 +75,15 @@ int walk_fn(const char *path, const struct stat *sb, int typeflag)
 			FILE *out = fopen(SPRINTF_BUFFER, "w+");
 
 			char *hash;
-			int lineno;
-			while (fscanf(in, "%ms %d ", &hash, &lineno) == 2) {
-				int index = hexstring_to_int(hash);
-				GLOBAL_FINGERPRINTS[index] += 1;
+			unsigned int lineno;
+			while (fscanf(in, "%ms %ud ", &hash, &lineno) == 2) {
+				unsigned int index = hexstring_to_int(hash);
+				LOCAL_FINGERPRINTS[index] += 1;
+				if (LOCAL_FINGERPRINTS[index] == 1) GLOBAL_FINGERPRINTS[index] += 1;
 				fprintf(out, "%s %d ", hash, lineno);
 				free(hash);
 			}
+			NUM_FILES += 1;
 
 			fclose(in);
 			fclose(out);
@@ -103,8 +107,8 @@ int main(int argc, char **argv)
 
 	snprintf(SPRINTF_BUFFER, 1024, WORKING_DIR "/%d/" GLOBAL_FILE_NAME, TIMESTAMP);
 	FILE *global_output = fopen(SPRINTF_BUFFER, "w+");
-	for (int i = 0; i < HASH_BOUND; ++i) {
-		if (GLOBAL_FINGERPRINTS[i]) fprintf(global_output, "%04x %d ", i, GLOBAL_FINGERPRINTS[i]);
+	for (unsigned int i = 0; i < HASH_BOUND; ++i) {
+		if (GLOBAL_FINGERPRINTS[i]) fprintf(global_output, "%04x %lf ", i, (double) GLOBAL_FINGERPRINTS[i] / (double) NUM_FILES);
 	}
 	fclose(global_output);
 

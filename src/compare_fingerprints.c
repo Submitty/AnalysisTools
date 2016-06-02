@@ -15,11 +15,12 @@ typedef struct file_fingerprints {
 } file_fingerprints;
 
 file_fingerprints FINGERPRINT_CACHE[FINGERPRINT_CACHE_SIZE];
+unsigned int GLOBAL_FINGERPRINTS[HASH_BOUND] = {0};
 
-int hash(char *key)
+unsigned int hash(char *key)
 {
-	int h = 5381;
-	for (int i = 0; i < strlen(key); ++i) {
+	unsigned int h = 5381;
+	for (unsigned int i = 0; i < strlen(key); ++i) {
 		h = h * 33 + key[i];
 	}
 	return abs(h % FINGERPRINT_CACHE_SIZE);
@@ -29,10 +30,10 @@ void read_fingerprints(file_fingerprints *buf, char *path)
 {
 	FILE *f = fopen(path, "r");
 	char *hash;
-	int lineno;
+	unsigned int lineno;
 
-	while (fscanf(f, "%ms %d ", &hash, &lineno) == 2) {
-		int index = hexstring_to_int(hash);
+	while (fscanf(f, "%ms %ud ", &hash, &lineno) == 2) {
+		unsigned int index = hexstring_to_int(hash);
 		buf->matchcount[index] += 1;
 		buf->lineno[index] = lineno;
 		free(hash);
@@ -42,7 +43,7 @@ void read_fingerprints(file_fingerprints *buf, char *path)
 
 file_fingerprints *get_fingerprints(char *path)
 {
-	int hashed = hash(path);
+	unsigned int hashed = hash(path);
 	file_fingerprints *entry = &FINGERPRINT_CACHE[hashed];
 
 	while (strncmp(path, entry->path, 1024) != 0) {
@@ -61,19 +62,35 @@ int main(int argc, char **argv)
 {
 	char firstpath[1024], secondpath[1024];
 
+	FILE *f = fopen(argv[1], "r");
+	char *hash;
+	double ratio;
+
+	while (fscanf(f, "%ms %lf ", &hash, &ratio) == 2) {
+		unsigned int index = hexstring_to_int(hash);
+		GLOBAL_FINGERPRINTS[index] = ratio;
+		free(hash);
+	}
+	fclose(f);
+
 	while(fscanf(stdin, "%s %s ", firstpath, secondpath) == 2) {
 
 		file_fingerprints *first = get_fingerprints(firstpath);
 		file_fingerprints *second = get_fingerprints(secondpath);
 
-		int match = 0;
-		int total = 0;
-		for (int i = 0; i < HASH_BOUND; ++i) {
-			if (first->matchcount[i] && second->matchcount[i]) match += 1;
-			if (first->matchcount[i] || second->matchcount[i]) total += 1;
+		unsigned int match = 0;
+		unsigned int total = 0;
+		for (unsigned int i = 0; i < HASH_BOUND; ++i) {
+			printf("test\n");
+			if (GLOBAL_FINGERPRINTS[i] <= SHARED_THRESHOLD) {
+				if (first->matchcount[i] && second->matchcount[i]) match += 1;
+				if (first->matchcount[i] || second->matchcount[i]) total += 1;
+			}
 		}
 		printf("%9.5f | %s | %s |", ((float) match)/((float) total) * 100.0, firstpath, secondpath);
-		for (int i = 0; i < HASH_BOUND; ++i) if (first->matchcount[i] && second->matchcount[i]) printf(" %d %d,", first->lineno[i], second->lineno[i]);
+		for (unsigned int i = 0; i < HASH_BOUND; ++i) {
+			if (first->matchcount[i] && second->matchcount[i]) printf(" %d %d,", first->lineno[i], second->lineno[i]);
+		}
 		puts("");
 	}
 

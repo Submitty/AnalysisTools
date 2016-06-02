@@ -8,6 +8,8 @@
 #define WORKING_DIR "moss_data"
 #define GLOBAL_FILE_NAME "__global_fingerprint_count__"
 
+#define SHARED_THRESHOLD 0.6
+
 #define UPPER_BOUND 30
 #define LOWER_BOUND 15
 
