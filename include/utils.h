@@ -17,8 +17,7 @@
 
 unsigned int hexstring_to_int(char *str)
 {
-	//int len = strlen(str);
-	int len = 4;
+	int len = strlen(str);
 	unsigned int total = 0;
 	for (int i = 0; i < len; ++i) {
 		total *= 16;

@@ -48,7 +48,9 @@ int main(int argc, char **argv)
 	ftw(buffer, walk_fn, 8);
 	for (path_node *n = PATHS; n != NULL; n = n->next) {
 		for (path_node *p = PATHS; p != NULL; p = p->next) {
-			if (strcmp(n->path, p->path)) {
+			if (strcmp(n->path, p->path)
+					&& strcmp(n->path, GLOBAL_FILE_NAME)
+					&& strcmp(p->path, GLOBAL_FILE_NAME)) {
 				printf("%s\n%s\n", n->path, p->path);
 			}
 		}

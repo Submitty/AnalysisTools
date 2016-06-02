@@ -109,8 +109,8 @@ int main(int argc, char **argv)
 	snprintf(SPRINTF_BUFFER, 1024, WORKING_DIR "/%u/" GLOBAL_FILE_NAME, TIMESTAMP);
 	FILE *global_output = fopen(SPRINTF_BUFFER, "w+");
 	for (unsigned int i = 0; i < HASH_BOUND; ++i) {
-		if (GLOBAL_FINGERPRINTS[i]) {
-			fprintf(global_output, "%04x %lf ", i, (double) GLOBAL_FINGERPRINTS[i] / (double) NUM_FILES);
+		if (GLOBAL_FINGERPRINTS[i] && (double) GLOBAL_FINGERPRINTS[i] / (double) NUM_FILES > SHARED_THRESHOLD) {
+			fprintf(global_output, "%04x ", i);
 		}
 	}
 	fclose(global_output);

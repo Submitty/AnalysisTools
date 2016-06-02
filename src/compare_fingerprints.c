@@ -65,12 +65,10 @@ int main(int argc, char **argv)
 	snprintf(firstpath, 1024, "%s/%s/%s", WORKING_DIR, argv[1], GLOBAL_FILE_NAME);
 	FILE *f = fopen(firstpath, "r");
 	char *hash;
-	double ratio;
 
-	while (fscanf(f, "%ms %lf ", &hash, &ratio) == 2) {
+	while (fscanf(f, "%ms ", &hash) == 1) {
 		unsigned int index = hexstring_to_int(hash);
-		GLOBAL_FINGERPRINTS[index] = ratio;
-		printf("%lf", ratio);
+		GLOBAL_FINGERPRINTS[index] = 1;
 		free(hash);
 	}
 	fclose(f);
@@ -83,7 +81,7 @@ int main(int argc, char **argv)
 		unsigned int match = 0;
 		unsigned int total = 0;
 		for (unsigned int i = 0; i < HASH_BOUND; ++i) {
-			if (GLOBAL_FINGERPRINTS[i] <= SHARED_THRESHOLD) {
+			if (!GLOBAL_FINGERPRINTS[i]) {
 				if (first->matchcount[i] && second->matchcount[i]) match += 1;
 				if (first->matchcount[i] || second->matchcount[i]) total += 1;
 			}
