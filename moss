@@ -1,5 +1,25 @@
 #!/bin/bash
 
+while getopts ":o:" opt; do
+    case $opt in
+        o)
+            OUTPUTFILE=$OPTARG
+            ;;
+        \?)
+            echo "Invalid option: -$OPTARG" >&2
+            exit 1
+            ;;
+        :)
+            echo "Option -$OPTARG requires an argument." >&2
+            exit 1
+            ;;
+    esac
+done
+
 TIMESTAMP=$(./bin/walk $@)
 
-./bin/genpairs $TIMESTAMP | ./bin/compare_fingerprints $TIMESTAMP | sort -nr | less -S
+if [ -z "$OUTPUTFILE" ]; then
+    ./bin/genpairs $TIMESTAMP | ./bin/compare_fingerprints $TIMESTAMP | sort -nr | less -S;
+else
+    ./bin/genpairs $TIMESTAMP | ./bin/compare_fingerprints $TIMESTAMP | sort -nr > $OUTPUTFILE;
+fi
