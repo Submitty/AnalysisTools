@@ -9,7 +9,8 @@
 #include "config.h"
 
 /*
- * Compute a hash on a string using the standard djb2 hashing algorithm.
+ * Compute a hash on an array of unsigned integers using the standard djb2
+ * hashing algorithm.
  */
 unsigned int hash(unsigned int *key, unsigned int len)
 {

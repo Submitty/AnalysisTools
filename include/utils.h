@@ -15,6 +15,9 @@
 #include <sys/stat.h>
 #include <sys/types.h>
 
+/*
+ * Convert a string containing hexadecimal digits to an integer.
+ */
 unsigned int hexstring_to_int(char *str)
 {
 	int len = strlen(str);
@@ -32,6 +35,14 @@ unsigned int hexstring_to_int(char *str)
 	return total;
 }
 
+/*
+ * Given file descriptors input, output, and toclose and complete
+ * arguments args, run the executable at path args[0], providing args as
+ * arguments and using input and output as standard input and output
+ * respectively. This function does not call wait; the process will run in
+ * the background and the caller is responsible for taking appropriate
+ * action to ensure it is cleaned.
+ */
 void execute(int input, int output, int toclose, char **args)
 {
 	int pid = fork();
@@ -64,8 +75,13 @@ void execute(int input, int output, int toclose, char **args)
 	}
 }
 
+/*
+ * Runs the executable at path with args arg1, arg2, etc. using input as
+ * standard input. Returns a pipe for the standard output of the
+ * executable.
+ */ 
 int ex_pi(int input, char *path, ...)
-{
+{                             /* char *arg1, char *arg2, ... */
 	char *args[32];
 	va_list al;
 	va_start(al, path);
@@ -86,8 +102,13 @@ int ex_pi(int input, char *path, ...)
 	return stdout_fds[0];
 }
 
+/*
+ * Runs the executable at path with args arg1, arg2, etc. using output as
+ * standard output. Returns a pipe for the standard input of the
+ * executable.
+ */ 
 int ex_po(int output, char *path, ...)
-{
+{                              /* char *arg1, char *arg2, ... */
 	char *args[32];
 	va_list al;
 	va_start(al, path);
@@ -108,8 +129,12 @@ int ex_po(int output, char *path, ...)
 	return stdin_fds[1];
 }
 
+/*
+ * Runs the executable at path with args arg1, arg2, etc. using input as
+ * standard input and output as standard output.
+ */
 void ex_io(int input, int output, char *path, ...)
-{
+{                                          /* char *arg1, char *arg2, ... */
 	char *args[32];
 	va_list al;
 	va_start(al, path);
