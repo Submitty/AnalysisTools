@@ -83,6 +83,11 @@ file_fingerprints *get_fingerprints(char *path)
 
 int main(int argc, char **argv)
 {
+	if (argc < 2) {
+		fprintf(stderr, "Usage: %s <timestamp>\n", argv[0]);
+		exit(1);
+	}
+
 	char firstpath[1024], secondpath[1024];
 	char prefix[1024];
 	char format[1024];

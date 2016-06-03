@@ -57,6 +57,11 @@ int walk_fn(const char *path, const struct stat *sb, int typeflag)
 
 int main(int argc, char **argv)
 {
+	if (argc < 2) {
+		fprintf(stderr, "Usage: %s <timestamp>\n", argv[0]);
+		exit(1);
+	}
+
 	char buffer[1024];
 	snprintf(buffer, 1024, "%s/%s", WORKING_DIR, argv[1]);
 	ftw(buffer, walk_fn, 8);
