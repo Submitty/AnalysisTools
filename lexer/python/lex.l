@@ -2,7 +2,7 @@
 
 %{
 #include <stdio.h>
-#include "symtab.h"
+#include "tokens.h"
 
 #define START (continuing = 1)
 #define STOP (continuing = 0)

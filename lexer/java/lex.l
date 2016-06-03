@@ -2,7 +2,7 @@
 
 %{
 #include <stdio.h>
-#include "symtab.h"
+#include "tokens.h"
 %}
 
 %%
