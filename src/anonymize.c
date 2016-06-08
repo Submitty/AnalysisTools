@@ -15,9 +15,14 @@ typedef struct name_entry {
 	struct name_entry *next;
 } name_entry;
 
-name_entry *NAMES = NULL;
+typedef struct regexp_entry {
+	pcre *re;
+	char sub[1024];
+	struct regexp_entry *next;
+} regexp_entry;
 
-char *RIN_PATTERN = "(66[0-9]{7})";
+name_entry *NAMES = NULL;
+regexp_entry *REGEXPS = NULL;
 
 void add_name(char *name, char *new)
 {
@@ -26,6 +31,33 @@ void add_name(char *name, char *new)
 	strncpy(n->new, new, 1024);
 	n->next = NAMES;
 	NAMES = n;
+}
+
+void add_regexp(char *input)
+{
+	char regexp[1024];
+	char sub[1024];
+	sscanf(input, "s/%[^/]/%[^/]/", regexp, sub);
+	const char *error;
+	int erroroffset;
+	pcre *re = pcre_compile(
+			regexp,
+			0,
+			&error,
+			&erroroffset,
+			NULL);
+	if (re == NULL) {
+		fprintf(stderr,
+				"Regular expression compilation failed at offset %d: %s\n",
+				erroroffset, error);
+		exit(1);
+	} else {
+		regexp_entry *r = (regexp_entry *) malloc(sizeof(regexp_entry));
+		r->re = re;
+		strncpy(r->sub, sub, 1024);
+		r->next = REGEXPS;
+		REGEXPS = r;
+	}
 }
 
 unsigned int hash(char *key)
@@ -78,7 +110,7 @@ void read_names(char *path, bool twocol)
 int main(int argc, char **argv)
 {
 	int arg;
-	while ((arg = getopt(argc, argv, "t:n:")) != -1) {
+	while ((arg = getopt(argc, argv, "t:n:r:")) != -1) {
 		switch (arg) {
 			case 'n':
 				read_names(optarg, false);
@@ -86,23 +118,14 @@ int main(int argc, char **argv)
 			case 't':
 				read_names(optarg, true);
 				break;
+			case 'r':
+
+				add_regexp(optarg);
+				break;
 		}
 	}
 
 	char line[4096];
-	const char *error;
-	int erroroffset;
-	pcre *rin_re = pcre_compile(
-			RIN_PATTERN,
-			0,
-			&error,
-			&erroroffset,
-			NULL);
-	if (rin_re == NULL)
-	{
-		fprintf(stderr, "PCRE2 compilation failed at offset %d: %s\n", erroroffset, error);
-		return 1;
-	}
 	int ovector[30];
 	while (fgets(line, 4096, stdin) != NULL) {
 		char buf[4096];
@@ -110,13 +133,16 @@ int main(int argc, char **argv)
 			apply_replace(buf, line, n);
 			memcpy(line, buf, 4096);
 		}
-		int rc;
-		while ((rc = pcre_exec(rin_re, NULL, line, strlen(line), 0, 0, ovector, 30)) > 0) {
-			char *start = line + ovector[0];
-			char buffer[10] = {0};
-			memcpy(buffer, start, 9);
-			snprintf(buffer, 10, "%09d", atoi(buffer) % 523);
-			memcpy(start, buffer, 9);
+		for (regexp_entry *r = REGEXPS; r != NULL; r = r->next) {
+			int rc;
+			while ((rc = pcre_exec(r->re, NULL, line, strlen(line), 0, 0, ovector, 30)) > 0) {
+				memset(buf, 0, 4096);
+				memcpy(buf, line, ovector[0]);
+				int sublen = strlen(r->sub);
+				memcpy(buf + ovector[0], r->sub, sublen);
+				memcpy(buf + ovector[0] + sublen, line + ovector[1], 4095 - (ovector[0] + sublen));
+				memcpy(line, buf, 4096);
+			}
 		}
 		printf("%s", line);
 	}

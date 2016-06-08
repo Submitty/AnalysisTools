@@ -9,7 +9,6 @@
 #include <unistd.h>
 #include <fcntl.h>
 #include <ftw.h>
-#include <time.h>
 
 #include <sys/stat.h>
 #include <sys/types.h>
@@ -65,4 +64,5 @@ int main(int argc, char **argv)
 	mkdir(WORKING_DIR, 0777);
 	mkdir(WORKING_DIR "/anonymized", 0777);
 	ftw(argv[1], walk_fn, 8);
+	free(COMMAND);
 }
