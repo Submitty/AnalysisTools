@@ -39,7 +39,7 @@ unsigned int hash(char *key)
 
 void scramble_name(char *name, char *new)
 {
-	snprintf(new, 1024, "REDACTED_%3u", hash(name));
+	snprintf(new, 1024, "REDACTED_%03u", hash(name));
 }
 
 void apply_replace(char *buf, char *str, name_entry *entry)
@@ -58,25 +58,9 @@ void apply_replace(char *buf, char *str, name_entry *entry)
 	}
 }
 
-int main(int argc, char **argv)
+void read_names(char *path, bool twocol)
 {
-	bool twocol = false;
-
-	int arg;
-	while ((arg = getopt(argc, argv, "t")) != -1) {
-		switch (arg) {
-			case 't':
-				twocol = true;
-				break;
-		}
-	}
-
-	FILE *name_file;
-	if (optind < argc) {
-		name_file = fopen(argv[optind], "r");
-	} else {
-		exit(1);
-	}
+	FILE *name_file = fopen(path, "r");
 	if (twocol) {
 		char name[1024], new[1024];
 		while (fscanf(name_file, " %[^,],%s ", name, new) == 2) {
@@ -87,6 +71,21 @@ int main(int argc, char **argv)
 		while (fscanf(name_file, "  %s  ", name) == 1) {
 			scramble_name(name, new);
 			add_name(name, new);
+		}
+	}
+}
+
+int main(int argc, char **argv)
+{
+	int arg;
+	while ((arg = getopt(argc, argv, "t:n:")) != -1) {
+		switch (arg) {
+			case 'n':
+				read_names(optarg, false);
+				break;
+			case 't':
+				read_names(optarg, true);
+				break;
 		}
 	}
 

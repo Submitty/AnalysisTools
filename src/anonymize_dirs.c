@@ -19,8 +19,8 @@
 #include "utils.h"
 
 char SPRINTF_BUFFER[1024];
-bool TWOCOL = false;
-char INPUT_PATH[1024];
+
+char **COMMAND;
 
 /*
  * Callback passed to ftw. For the given path, if that path is a
@@ -44,11 +44,7 @@ int walk_fn(const char *path, const struct stat *sb, int typeflag)
 		if (output < 0) { perror(SPRINTF_BUFFER); exit(1); }
 
 		/* Run ./bin/anonymize with the appropriate arguments */
-		if (TWOCOL) {
-			ex_io(input, output, "./bin/anonymize", "-t", INPUT_PATH, NULL);
-		} else {
-			ex_io(input, output, "./bin/anonymize", INPUT_PATH, NULL);
-		}
+		execute(input, output, -1, COMMAND);
 
 		/* Clean child processes */
 		while (wait(NULL) > 0);
@@ -61,22 +57,12 @@ int walk_fn(const char *path, const struct stat *sb, int typeflag)
 
 int main(int argc, char **argv)
 {
-	int arg;
-	while ((arg = getopt(argc, argv, "t")) != -1) {
-		switch (arg) {
-			case 't':
-				TWOCOL = true;
-				break;
-		}
-	}
-
-	if (optind + 1 < argc) {
-		strncpy(INPUT_PATH, argv[optind], 1024);
-	} else {
-		exit(1);
-	}
+	COMMAND = (char **) malloc(argc * sizeof(char *));
+	memcpy(COMMAND+1, argv+2, (argc - 2) * sizeof(char *));
+	COMMAND[0] = "./bin/anonymize";
+	COMMAND[argc-1] = NULL;
 
 	mkdir(WORKING_DIR, 0777);
 	mkdir(WORKING_DIR "/anonymized", 0777);
-	ftw(argv[optind + 1], walk_fn, 8);
+	ftw(argv[1], walk_fn, 8);
 }
