@@ -21,10 +21,16 @@ typedef struct regexp_entry {
 	struct regexp_entry *next;
 } regexp_entry;
 
-name_entry *NAMES = NULL;
-regexp_entry *REGEXPS = NULL;
+/*
+ * Linked lists containing names and regular expressions to replace.
+ */
+static name_entry *NAMES = NULL;
+static regexp_entry *REGEXPS = NULL;
 
-void add_name(char *name, char *new)
+/*
+ * Add a name and corresponding replacement string to NAMES.
+ */
+static void add_name(char *name, char *new)
 {
 	name_entry *n = (name_entry *) malloc(sizeof(name_entry));
 	strncpy(n->name, name, 1024);
@@ -33,7 +39,11 @@ void add_name(char *name, char *new)
 	NAMES = n;
 }
 
-void add_regexp(char *input)
+/*
+ * Compile a regular expression and add it to REGEXPS alongside its
+ * replacement string.
+ */
+static void add_regexp(char *input)
 {
 	char regexp[1024];
 	char sub[1024];
@@ -60,7 +70,7 @@ void add_regexp(char *input)
 	}
 }
 
-unsigned int hash(char *key)
+static unsigned int hash(char *key)
 {
 	unsigned int h = 5381;
 	for (unsigned int i = 0; i < strlen(key); ++i) {
@@ -69,12 +79,13 @@ unsigned int hash(char *key)
 	return abs(h % FINGERPRINT_CACHE_SIZE);
 }
 
-void scramble_name(char *name, char *new)
+static void scramble_name(char *name, char *new)
 {
+	// TODO: This should probably be user provided.
 	snprintf(new, 1024, "REDACTED_%03u", hash(name));
 }
 
-void apply_replace(char *buf, char *str, name_entry *entry)
+static void apply_replace(char *buf, char *str, name_entry *entry)
 {
 	memset(buf, 0, 1024);
 	int len = strlen(str);

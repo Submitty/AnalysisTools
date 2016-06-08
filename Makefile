@@ -23,7 +23,7 @@ $(BUILD_DIR):
 	mkdir -p $(BUILD_DIR)
 
 $(BUILD_DIR)/%: %.c
-	$(CC) -o $@ $(CFLAGS) $(LINKER_FLAGS) $<
+	$(CC) -o $@ $(CFLAGS) $< $(LINKER_FLAGS)
 
 lexer/%/lex: lexer/%/lex.l lexer/%/tokens.h
 	flex -o $@.out.c $@.l
