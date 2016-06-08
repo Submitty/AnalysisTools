@@ -79,7 +79,7 @@ int main(int argc, char **argv)
 	}
 	if (twocol) {
 		char name[1024], new[1024];
-		while (fscanf(name_file, " %[^ \t\n\r,] , %s ", name, new) == 2) {
+		while (fscanf(name_file, " %[^,],%s ", name, new) == 2) {
 			add_name(name, new);
 		}
 	} else {
