@@ -39,7 +39,7 @@ unsigned int hash(char *key)
 
 void scramble_name(char *name, char *new)
 {
-	snprintf(new, 1024, "REDACTED_NAME_%3u", hash(name));
+	snprintf(new, 1024, "REDACTED_%3u", hash(name));
 }
 
 void apply_replace(char *buf, char *str, name_entry *entry)
@@ -60,21 +60,32 @@ void apply_replace(char *buf, char *str, name_entry *entry)
 
 int main(int argc, char **argv)
 {
-	bool read_1 = false, read_2 = false;
-	FILE *name_file, *new_file;
-	if (argc >= 2) {
-		read_1 = true;
-		name_file = fopen(argv[1], "r");
+	bool twocol = false;
+
+	int arg;
+	while ((arg = getopt(argc, argv, "t")) != -1) {
+		switch (arg) {
+			case 't':
+				twocol = true;
+				break;
+		}
 	}
-	if (argc >= 3) {
-		read_2 = true;
-		new_file = fopen(argv[2], "r");
+
+	FILE *name_file;
+	if (optind < argc) {
+		name_file = fopen(argv[optind], "r");
+	} else {
+		exit(1);
 	}
-	if (read_1) {
+	if (twocol) {
 		char name[1024], new[1024];
-		while (fscanf(name_file, " %s ", name) == 1) {
-			if (read_2) fscanf(new_file, " %s ", new);
-			else scramble_name(name, new);
+		while (fscanf(name_file, " %[^ \t\n\r,] , %s ", name, new) == 2) {
+			add_name(name, new);
+		}
+	} else {
+		char name[1024], new[1024];
+		while (fscanf(name_file, "  %s  ", name) == 1) {
+			scramble_name(name, new);
 			add_name(name, new);
 		}
 	}

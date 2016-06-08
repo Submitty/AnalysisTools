@@ -15,7 +15,9 @@
  * terrible results alongside very poor performance due to the dynamic
  * allocation necessary on a collision.
  */
+#ifndef HASH_BOUND
 #define HASH_BOUND (128 * 128)
+#endif
 
 /*
  * The number of entries in the hash table used in the comparison step to
@@ -23,18 +25,24 @@
  * is preferable to keep this value as small as possible without
  * significantly impacting performance.
  */
+#ifndef FINGERPRINT_CACHE_SIZE
 #define FINGERPRINT_CACHE_SIZE 256
+#endif
 
 /*
  * The directory in which the system saves metadata for each execution.
  */
+#ifndef WORKING_DIR
 #define WORKING_DIR "moss_data"
+#endif
 
 /*
  * The name of the file within WORKING_DIR where cumulative totals of
  * fingerprint data are stored.
  */
+#ifndef GLOBAL_FILE_NAME
 #define GLOBAL_FILE_NAME "__global_fingerprint_count__"
+#endif
 
 /*
  * The threshold for a particular fingerprint to be deemed shared code or
@@ -42,7 +50,9 @@
  * value of 0.6, for example, more than 60% of files must contain a
  * fingerprint for that fingerprint to be ignored.
  */
+#ifndef SHARED_THRESHOLD
 #define SHARED_THRESHOLD 0.6
+#endif
 
 /*
  * Boundary values used by the winnowing algorithm. All token sequences
@@ -52,7 +62,11 @@
  * values for these boundaries are likely dependent on the language, but
  * some sane defaults are provided here.
  */
+#ifndef UPPER_BOUND
 #define UPPER_BOUND 30
+#endif
+#ifndef LOWER_BOUND
 #define LOWER_BOUND 15
+#endif
 
 #endif
