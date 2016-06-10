@@ -1,5 +1,5 @@
 CC = gcc
-SRCS = $(foreach file,$(wildcard src/*),$(notdir $(file)))
+SRCS = $(foreach file,$(wildcard src/*.c),$(notdir $(file)))
 BUILD_DIR = bin
 LIB_DIR = lib_$(CC)
 BINARIES = $(addprefix $(BUILD_DIR)/, $(SRCS:.c=))

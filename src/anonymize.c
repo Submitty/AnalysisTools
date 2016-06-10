@@ -6,6 +6,8 @@
 
 #include <pcre.h>
 
+#include <ctype.h>
+
 #include "config.h"
 #include "utils.h"
 
@@ -92,7 +94,9 @@ static void apply_replace(char *buf, char *str, name_entry *entry)
 	int name_len = strlen(entry->name);
 	int new_len = strlen(entry->new);
 	for (int i = 0; i < len; ++i) {
-		if (strncmp(str + i, entry->name, name_len) == 0) {
+		if (strncmp(str + i, entry->name, name_len) == 0
+		    && (i == 0            || !isalpha(str[i-1]))
+		    && (i+name_len == len || !isalpha(str[i+name_len]))) {
 			strncat(buf, entry->new, new_len);
 			i += name_len - 1;
 		} else {
