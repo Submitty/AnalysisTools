@@ -51,7 +51,7 @@
  * fingerprint for that fingerprint to be ignored.
  */
 #ifndef SHARED_THRESHOLD
-#define SHARED_THRESHOLD 0.6
+#define SHARED_THRESHOLD 0.8
 #endif
 
 /*
@@ -62,11 +62,11 @@
  * values for these boundaries are likely dependent on the language, but
  * some sane defaults are provided here.
  */
-#ifndef UPPER_BOUND
-#define UPPER_BOUND 30
+#ifndef DEFAULT_UPPER_BOUND
+#define DEFAULT_UPPER_BOUND 30
 #endif
-#ifndef LOWER_BOUND
-#define LOWER_BOUND 15
+#ifndef DEFAULT_LOWER_BOUND
+#define DEFAULT_LOWER_BOUND 15
 #endif
 
 #endif

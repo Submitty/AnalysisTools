@@ -64,7 +64,7 @@ int main(int argc, char **argv)
 
 	char buffer[1024];
 	snprintf(buffer, 1024, "%s/%s", WORKING_DIR, argv[1]);
-	ftw(buffer, walk_fn, 8);
+	ftw(buffer, walk_fn, 20);
 	snprintf(buffer, 1024, "%s/%s/%s", WORKING_DIR, argv[1], GLOBAL_FILE_NAME);
 	for (path_node *n = PATHS; n != NULL; n = n->next) {
 		for (path_node *p = PATHS; p != NULL; p = p->next) {

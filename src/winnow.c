@@ -116,16 +116,16 @@ int winnow(unsigned int *buf, unsigned int *lineno_buf, unsigned int *fingerprin
 
 int main(int argc, char **argv)
 {
-	unsigned int t = UPPER_BOUND;
-	unsigned int k = LOWER_BOUND;
+	unsigned int t = DEFAULT_UPPER_BOUND;
+	unsigned int k = DEFAULT_LOWER_BOUND;
 
 	unsigned int arg;
-	while ((arg = getopt(argc, argv, "t:k:")) != -1) {
+	while ((arg = getopt(argc, argv, "u:l:")) != -1) {
 		switch (arg) {
-			case 't':
+			case 'u':
 				t = atoi(optarg);
 				break;
-			case 'k':
+			case 'l':
 				k = atoi(optarg);
 				break;
 		}

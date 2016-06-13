@@ -21,6 +21,7 @@ token process_indent(char *line);
 ^[ \t]*\n			{ /* blank line */ }
 ^[ ]*[^ \n]+			{
 	int last = yyleng - 1;
+	yylineno++;
 	token res = process_indent(yytext);
 	while ((last >= 0) && (yytext[last] != ' ')) {
 		unput(yytext[last]);
@@ -151,6 +152,6 @@ int main()
 	indent_stack[0] = 0;
 	token c;
 	while (c = yylex()) {
-		printf("%d %d", c, yylineno);
+		printf("%d %d ", c, yylineno);
 	}
 }

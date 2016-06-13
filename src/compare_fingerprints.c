@@ -119,14 +119,14 @@ int main(int argc, char **argv)
 				if (first->matchcount[i] && second->matchcount[i]) {
 					match += 1;
 					memcpy(swap, lines, 4096);
-					snprintf(lines, 4096, "%s%u %u, ", swap, first->lineno[i], second->lineno[i]);
+					snprintf(lines, 4096, "%s(%u %u) ", swap, first->lineno[i], second->lineno[i]);
 				}
 				if (first->matchcount[i] || second->matchcount[i]) total += 1;
 			}
 		}
 		sscanf(firstpath, format, firstpath);
 		sscanf(secondpath, format, secondpath);
-		printf("%9.5f | %s | %s | %s\n", ((float) match)/((float) total) * 100.0, firstpath, secondpath, lines);
+		printf("%9.5f,%s,%s,%s\n", ((float) match)/((float) total) * 100.0, firstpath, secondpath, lines);
 	}
 
 	return 0;

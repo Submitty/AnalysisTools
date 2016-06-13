@@ -1,0 +1,24 @@
+#!/usr/bin/python
+
+import argparse
+import json
+import subprocess
+
+parser = argparse.ArgumentParser(description="Run plagiarism detection system")
+parser.add_argument("filetype")
+parser.add_argument("directory")
+parser.add_argument("-c", "--config", type=int)
+args = parser.parse_args()
+
+with open(args.config if args.config else "config/moss.json") as f:
+    config = json.load(f)
+
+timestamp = subprocess.check_output(["./bin/walk"] +
+        (["-u", str(config[args.filetype]["UpperBound"]),
+            "-l", str(config[args.filetype]["LowerBound"])] if config[args.filetype] else []) +
+        [args.filetype, args.directory]).decode("utf-8").strip()
+
+subprocess.call("./bin/genpairs " + timestamp +
+        " | ./bin/compare_fingerprints " + timestamp +
+        " | sort -nr | less -S",
+        shell=True)
