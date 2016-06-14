@@ -3,9 +3,9 @@
 ## identity tool
 To make source files anonymous, run `./bin/anonymize_dirs` upon a directory. This tool accepts three flags (each with one argument), allowing the user to specify what should be replaced. Output files are placed in `moss_data/anonymized`.
 
-`-n <f>` replaces all strings that occur in the whitespace-delimited file `f`.
+`-n <f>` case-insensitively replaces all strings that occur in the whitespace-delimited file `f`.
 
-`-t <f>` replaces all strings that occur in the first column of the CSV file `f` with the values in the second column. For example, if `f` contains `foo,bar`, all instances of `foo` will be replaced with `bar`.
+`-t <f>` case-insensitively replaces all strings that occur in the first column of the CSV file `f` with the values in the second column. For example, if `f` contains `foo,bar`, all instances of `foo` will be replaced with `bar`.
 
 `-r <substitution>` takes a regular expression substitution in `s/pattern/replace/` form, where pattern is a Perl-style regular expression and `replace` is a string. Currently, `replace` is inserted verbatim, but in the future it might be extended to perform some standard substitutions if necessary.
 
