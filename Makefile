@@ -6,7 +6,7 @@ BINARIES = $(addprefix $(BUILD_DIR)/, $(SRCS:.c=))
 
 LEXERS = lexer/c/lex lexer/python/lex lexer/java/lex
 
-CFLAGS_gcc = -Iinclude -std=c99 -O2 -g -Wall -Werror -D_POSIX_C_SOURCE=200809 -Wno-unused-result
+CFLAGS_gcc = -Iinclude -std=c99 -O2 -g -Wall -Werror -D_POSIX_C_SOURCE=200809 -D_DEFAULT_SOURCE -Wno-unused-result
 CFLAGS = $(CFLAGS_$(CC))
 LINKER_FLAGS_gcc = -lm -lpcre
 LINKER_FLAGS = $(LINKER_FLAGS_$(CC))

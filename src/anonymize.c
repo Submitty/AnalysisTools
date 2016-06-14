@@ -146,16 +146,18 @@ static char next_word(char *buf, int size)
 int main(int argc, char **argv)
 {
 	int arg;
-	while ((arg = getopt(argc, argv, "t:n:r:")) != -1) {
+	while ((arg = getopt(argc, argv, "t:n:r:l:")) != -1) {
 		switch (arg) {
-			case 'n':
-				read_names(optarg, false);
-				break;
 			case 't':
 				read_names(optarg, true);
 				break;
+			case 'n':
+				read_names(optarg, false);
+				break;
 			case 'r':
 				add_regexp(optarg);
+				break;
+			case 'l':
 				break;
 		}
 	}
