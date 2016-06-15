@@ -1,0 +1,21 @@
+{
+	"WorkingDir" : "moss_data",
+	"HashBound" : 65536,
+	"GlobalFileName" : "__global_fingerprint_count__",
+	"SharedThreshold" : 0.6,
+
+	"c" : {
+		"UpperBound" : 30,
+		"LowerBound" : 15
+	},
+
+	"python" : {
+		"UpperBound" : 20,
+		"LowerBound" : 10
+	},
+
+	"java" : {
+		"UpperBound" : 30,
+		"LowerBound" : 15
+	}
+}

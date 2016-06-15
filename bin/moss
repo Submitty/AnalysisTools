@@ -18,7 +18,9 @@ timestamp = subprocess.check_output(["./bin/walk"] +
             "-l", str(config[args.filetype]["LowerBound"])] if config[args.filetype] else []) +
         [args.filetype, args.directory]).decode("utf-8").strip()
 
-subprocess.call("./bin/genpairs " + timestamp +
-        " | ./bin/compare_fingerprints " + timestamp +
-        " | sort -nr | less -S",
-        shell=True)
+genpairs = subprocess.Popen(["./bin/genpairs", timestamp],
+        stdout=subprocess.PIPE)
+compare_fingerprints = subprocess.Popen(["./bin/compare_fingerprints", timestamp],
+        stdin=genpairs.stdout, stdout=subprocess.PIPE)
+sort = subprocess.Popen(["sort", "-nr"],
+        stdin=compare_fingerprints.stdout)
