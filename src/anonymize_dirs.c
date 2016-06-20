@@ -102,10 +102,14 @@ static void walk(const char *path, int (*cb)(const char *, bool))
 
 	DIR *dir = opendir(complete_path);
 	struct dirent *ent;
+	struct stat statbuf;
+	char stat_path[1024];
 	while ((ent = readdir(dir))) {
-		if (ent->d_type == DT_DIR && ent->d_name[0] != '.') {
+		snprintf(stat_path, 1024, "%s%s", complete_path, ent->d_name);
+		stat(stat_path, &statbuf);
+		if (S_ISDIR(statbuf.st_mode) && ent->d_name[0] != '.') {
 			walk(ent->d_name, cb);
-		} else if (ent->d_type == DT_REG) {
+		} else if (S_ISREG(statbuf.st_mode)) {
 			cb(ent->d_name, true);
 		}
 	}
