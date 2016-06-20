@@ -119,7 +119,7 @@ int main(int argc, char **argv)
 				if (first->matchcount[i] && second->matchcount[i]) {
 					match += 1;
 					memcpy(swap, lines, 4096);
-					snprintf(lines, 4096, "%s(%u %u) ", swap, first->lineno[i], second->lineno[i]);
+					snprintf(lines, 4096, "%s(%u %u):", swap, first->lineno[i], second->lineno[i]);
 				}
 				if (first->matchcount[i] || second->matchcount[i]) total += 1;
 			}

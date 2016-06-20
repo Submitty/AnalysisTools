@@ -35,6 +35,19 @@ unsigned int hexstring_to_int(char *str)
 	return total;
 }
 
+unsigned int pair_id(char *first, char *second)
+{
+	unsigned int size = strlen(first) + strlen(second);
+	char *buf = (char *) malloc(size + 1);
+	snprintf(buf, size + 1, "%s%s", first, second);
+	unsigned int h = 5381;
+	for (unsigned int i = 0; i < size; ++i) {
+		h = h * 33 + buf[i];
+	}
+	free(buf);
+	return h;
+}
+
 /*
  * Given file descriptors input, output, and toclose and complete
  * arguments args, run the executable at path args[0], providing args as
