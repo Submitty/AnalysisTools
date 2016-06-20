@@ -103,7 +103,7 @@
 
 int main() {
 	token c;
-	while (c = yylex()) {
+	while ((c = yylex())) {
 		printf("%d %d ", c, yylineno);
 	}
 }

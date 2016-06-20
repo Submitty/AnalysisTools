@@ -18,7 +18,7 @@ unsigned int hash(unsigned int *key, unsigned int len)
 	for (unsigned int i = 0; i < len; ++i) {
 		h = h * 33 + key[i];
 	}
-	return abs(h % HASH_BOUND);
+        return (h % HASH_BOUND);
 }
 
 /*

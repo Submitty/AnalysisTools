@@ -18,6 +18,7 @@
 #include "config.h"
 #include "utils.h"
 
+
 typedef struct name_entry {
 	char name[1024];
 	char new[1024];
@@ -38,7 +39,7 @@ static unsigned int hash(char *key)
 	for (unsigned int i = 0; i < strlen(key); ++i) {
 		h = h * 33 + key[i];
 	}
-	return abs(h % FINGERPRINT_CACHE_SIZE);
+	return (h % FINGERPRINT_CACHE_SIZE);
 }
 
 static void add_name(char *name, char *new)
