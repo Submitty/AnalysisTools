@@ -10,7 +10,7 @@ parser.add_argument("directory")
 parser.add_argument("-c", "--config", type=int)
 args = parser.parse_args()
 
-with open(args.config if args.config else "config/moss.json") as f:
+with open(args.config if args.config else "config/plagiarism.json") as f:
     config = json.load(f)
 
 timestamp = subprocess.check_output(["./bin/walk"] +

@@ -43,4 +43,4 @@ lang/%: lang/%/lex.l lang/%/parse.y lang/ast_node.o
 
 clean:
 	rm $(BINARIES)
-	rm moss_data -r
+	rm .analysis_data -r
