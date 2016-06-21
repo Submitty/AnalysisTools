@@ -171,8 +171,10 @@ int main(int argc, char **argv)
 		memcpy(lower, word, 128);
 		make_lowercase(lower);
 		for (name_entry *n = NAMES[hash(lower)]; n != NULL; n = n->next) {
-			apply_replace(buf, lower, n);
-			memcpy(word, buf, 128);
+			if (!strncmp(lower, n->name, 128)) {
+				apply_replace(buf, lower, n);
+				memcpy(word, buf, 128);
+			}
 		}
 		for (regexp_entry *r = REGEXPS; r != NULL; r = r->next) {
 			int rc;
