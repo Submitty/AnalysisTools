@@ -14,3 +14,12 @@ A typical use case might look like the following: `./bin/anonymize_dirs source_d
 ## plagiarism detection
 To run the plagiarism detection system, call the provided `moss` script with a directory containing source files as an argument: `./moss source_dir`.
 By default, the script displays an output summary using `less`, but an optional `-o` argument can be used to write output to a file: `./moss source_dir -o results.out`. To output an HTML table rather than plain text, pass the `-h` flag.
+
+##Java Parser
+The eclipse jdt library is required. 
+
+##Class Structure Analysis
+python-graph-tool required.
+use: `python CSA.py student\_structure\_file subgraph\_structure\_file`
+
+
