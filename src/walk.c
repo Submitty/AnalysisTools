@@ -101,6 +101,15 @@ int main(int argc, char **argv)
 	mkdir(WORKING_DIR, 0777);
 	snprintf(SPRINTF_BUFFER, 1024, WORKING_DIR "/%u", TIMESTAMP);
 	mkdir(SPRINTF_BUFFER, 0777);
+
+	char swap[1024];
+	char *d = strtok(argv[optind + 1], "/");
+	do {
+		snprintf(swap, 1024, "%s/%s", SPRINTF_BUFFER, d);
+		mkdir(swap, 0777);
+		strncpy(SPRINTF_BUFFER, swap, 1024);
+	} while ((d = strtok(NULL, "/")) != NULL);
+
 	ftw(argv[optind + 1], walk_fn, 8);
 
 	snprintf(SPRINTF_BUFFER, 1024, WORKING_DIR "/%u/" GLOBAL_FILE_NAME, TIMESTAMP);
