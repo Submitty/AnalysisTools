@@ -105,7 +105,6 @@ static void apply_replace(char *buf, char *str, name_entry *entry)
 			*(strchr(buf, 0)) = str[i];
 		}
 	}
-	fprintf(stderr, "%s -> %s : %s -> %s\n", str, buf, entry->name, entry->new);
 }
 
 static inline void make_lowercase(char *b)

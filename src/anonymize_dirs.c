@@ -178,9 +178,18 @@ int main(int argc, char **argv)
 				break;
 		}
 	}
-
 	mkdir(WORKING_DIR, 0777);
 	mkdir(WORKING_DIR "/anonymized", 0777);
+
+	char buf[256] = WORKING_DIR "/anonymized";
+	char swap[256];
+	char *d = strtok(argv[1], "/");
+	do {
+		snprintf(swap, 256, "%s/%s", buf, d);
+		mkdir(swap, 0777);
+		strncpy(buf, swap, 256);
+	} while ((d = strtok(NULL, "/")) != NULL);
+
 	walk(argv[1], walk_fn);
 	free(COMMAND);
 }
