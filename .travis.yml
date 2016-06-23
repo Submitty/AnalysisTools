@@ -4,6 +4,6 @@ compiler: gcc
 
 before_install:
  - sudo apt-get update -qq
- - sudo apt-get install -qq flex bison pcre splint
+ - sudo apt-get install -qq flex bison libpcre3 libpcre3-dev splint
 
 script: make
