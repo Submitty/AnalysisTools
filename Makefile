@@ -1,4 +1,3 @@
-CC = gcc
 SRCS = $(foreach file,$(wildcard src/*.c),$(notdir $(file)))
 BUILD_DIR = bin
 LIB_DIR = lib_$(CC)
