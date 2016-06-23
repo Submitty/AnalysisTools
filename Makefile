@@ -25,7 +25,7 @@ $(BUILD_DIR):
 	mkdir -p $(BUILD_DIR)
 
 $(BUILD_DIR)/%: %.c
-	splint $< -I include -mustdefine -compdef -retvalint -nullpass -nullstate -warnposix -usedef -formatcode -mayaliasunique -unrecog -unqualifiedtrans -noeffect -mustfreefresh -observertrans
+	splint $< -I include -I /usr/local/include -mustdefine -compdef -retvalint -nullpass -nullstate -warnposix -usedef -formatcode -mayaliasunique -unrecog -unqualifiedtrans -noeffect -mustfreefresh -observertrans
 	$(CC) -o $@ $(CFLAGS) $< $(LINKER_FLAGS)
 
 lexer/%/lex: lexer/%/lex.l lexer/%/tokens.h
