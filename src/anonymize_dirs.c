@@ -129,10 +129,28 @@ static void walk(const char *path, int (*cb)(const char *, bool))
  */
 static int walk_fn(const char *path, bool isreg)
 {
-	char fake_path[1024], real_path[1024], buf[1024];
+	char fake_path[1024], real_path[1024], buf[1024], new_name[1024];
 	if (isreg) { /* If this is a regular file: */
+		bool rep = false;
+		strncpy(new_name, path, 1024);
+		strncpy(buf, path, 1024);
+		char *base = strtok(buf, ".");
+		make_lowercase(base);
+		fprintf(stderr, "%s %s\n", base, new_name);
+		for (name_entry *n = NAMES[hash(base)]; n != NULL; n = n->next) {
+			if (strncmp(n->name, base, 1024) == 0) {
+				strncpy(new_name, n->new, 1024);
+				strcat(new_name, ".");
+				strcat(new_name, buf + strlen(base) + 1);
+				rep = true;
+				break;
+			}
+		}
+		if (!rep) strncpy(new_name, path, 1024);
+		fprintf(stderr, "%s\n", new_name);
+
 		construct_path(buf, 1024, true);
-		snprintf(fake_path, 1024, WORKING_DIR "/anonymized/%s%s", buf, path);
+		snprintf(fake_path, 1024, WORKING_DIR "/anonymized/%s%s", buf, new_name);
 		construct_path(buf, 1024, false);
 		snprintf(real_path, 1024, "%s%s", buf, path);
 		/* Open the input file */
