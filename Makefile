@@ -14,7 +14,7 @@ LINKER_FLAGS = $(LINKER_FLAGS_$(CC))
 
 vpath %.c src
 
-.PHONY: all directories clean
+.PHONY: all directories clean lint
 
 all: directories $(BINARIES) #$(LEXERS)
 #	$(MAKE) $(LANGUAGES)
@@ -26,6 +26,7 @@ $(BUILD_DIR):
 	mkdir -p $(BUILD_DIR)
 
 $(BUILD_DIR)/%: %.c
+	splint $< -I include -mustdefine -compdef -retvalint -nullpass -nullstate -warnposix -usedef -formatcode -mayaliasunique -unrecog -unqualifiedtrans -noeffect -mustfreefresh -observertrans
 	$(CC) -o $@ $(CFLAGS) $< $(LINKER_FLAGS)
 
 lexer/%/lex: lexer/%/lex.l lexer/%/tokens.h
@@ -44,3 +45,5 @@ lang/%: lang/%/lex.l lang/%/parse.y lang/ast_node.o
 clean:
 	rm $(BINARIES) -f
 	rm .analysis_data -rf
+
+lint:

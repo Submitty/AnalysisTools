@@ -27,8 +27,8 @@ static string LOWER_BOUND;
 
 static unsigned int TIMESTAMP;
 
-static unsigned int GLOBAL_FINGERPRINTS[HASH_BOUND] = {0};
-static unsigned int LOCAL_FINGERPRINTS[HASH_BOUND] = {0};
+static unsigned int GLOBAL_FINGERPRINTS[HASH_BOUND];
+static unsigned int LOCAL_FINGERPRINTS[HASH_BOUND];
 static unsigned int NUM_FILES = 0;
 
 
@@ -40,21 +40,24 @@ static unsigned int NUM_FILES = 0;
  * output by the winnowing step, the entry in GLOBAL_FINGERPRINTS is
  * incremented by one.
  */
-static int walk_fn(const char *path, const struct stat *sb, int typeflag)
+static int walk_fn(const char *path, const struct stat *sb, /*@unused@*/ int typeflag)
 {
 	if (S_ISREG(sb->st_mode)) {
-		int file = open(path, O_RDONLY);
-		snprintf(SPRINTF_BUFFER, STRING_LENGTH, "./lexer/%s/lex", FILETYPE);
-		int lexer_o = ex_pi(file, SPRINTF_BUFFER, NULL);
-		int winnow_o = ex_pi(lexer_o, "./bin/winnow", "-u", UPPER_BOUND, "-l", LOWER_BOUND, NULL);
-		FILE *in = fdopen(winnow_o, "r");
-
-		snprintf(SPRINTF_BUFFER, STRING_LENGTH, WORKING_DIR "/%u/%s", TIMESTAMP, path);
-		FILE *out = fopen(SPRINTF_BUFFER, "w+");
-
-		memset(LOCAL_FINGERPRINTS, 0, sizeof(LOCAL_FINGERPRINTS));
+		int file, lexer_o, winnow_o;
+		FILE *in, *out;
 		char *hash;
 		unsigned int lineno;
+
+		file = open(path, O_RDONLY);
+		snprintf(SPRINTF_BUFFER, STRING_LENGTH, "./lexer/%s/lex", FILETYPE);
+		lexer_o = ex_pi(file, SPRINTF_BUFFER, NULL);
+		winnow_o = ex_pi(lexer_o, "./bin/winnow", "-u", UPPER_BOUND, "-l", LOWER_BOUND, NULL);
+		in = fdopen(winnow_o, "r");
+
+		snprintf(SPRINTF_BUFFER, STRING_LENGTH, WORKING_DIR "/%u/%s", TIMESTAMP, path);
+		out = fopen(SPRINTF_BUFFER, "w+");
+
+		memset(LOCAL_FINGERPRINTS, 0, sizeof(LOCAL_FINGERPRINTS));
 		while (fscanf(in, "%ms %u ", &hash, &lineno) == 2) {
 			unsigned int index = hexstring_to_int(hash);
 			LOCAL_FINGERPRINTS[index] += 1;
@@ -77,7 +80,12 @@ static int walk_fn(const char *path, const struct stat *sb, int typeflag)
 
 int main(int argc, char **argv)
 {
-	unsigned int arg;
+	int arg;
+	string swap;
+	const char *d;
+	unsigned int i;
+	FILE *global_output;
+
 	snprintf(UPPER_BOUND, STRING_LENGTH, "%u", DEFAULT_UPPER_BOUND);
 	snprintf(LOWER_BOUND, STRING_LENGTH, "%d", DEFAULT_LOWER_BOUND);
 	while ((arg = getopt(argc, argv, "u:l:")) != -1) {
@@ -93,18 +101,17 @@ int main(int argc, char **argv)
 
 	if (argc - optind < 2) {
 		fprintf(stderr, "Usage: %s <filetype> <directory>\n", argv[0]);
-		exit(1);
+		exit(EXIT_FAILURE);
 	}
 
 	strncpy(FILETYPE, argv[optind], STRING_LENGTH);
 
-	TIMESTAMP = time(NULL);
+	TIMESTAMP = (unsigned int) time(NULL);
 	mkdir(WORKING_DIR, 0777);
 	snprintf(SPRINTF_BUFFER, STRING_LENGTH, WORKING_DIR "/%u", TIMESTAMP);
 	mkdir(SPRINTF_BUFFER, 0777);
 
-	string swap;
-	const char *d = strtok(argv[optind + 1], "/");
+	d = strtok(argv[optind + 1], "/");
 	do {
 		snprintf(swap, STRING_LENGTH, "%s/%s", SPRINTF_BUFFER, d);
 		mkdir(swap, 0777);
@@ -114,9 +121,9 @@ int main(int argc, char **argv)
 	ftw(argv[optind + 1], walk_fn, 8);
 
 	snprintf(SPRINTF_BUFFER, STRING_LENGTH, WORKING_DIR "/%u/" GLOBAL_FILE_NAME, TIMESTAMP);
-	FILE *global_output = fopen(SPRINTF_BUFFER, "w+");
-	for (unsigned int i = 0; i < HASH_BOUND; ++i) {
-		if (GLOBAL_FINGERPRINTS[i] && (double) GLOBAL_FINGERPRINTS[i] / (double) NUM_FILES > SHARED_THRESHOLD) {
+	global_output = fopen(SPRINTF_BUFFER, "w+");
+	for (i = 0; i < HASH_BOUND; ++i) {
+		if (GLOBAL_FINGERPRINTS[i] != 0 && (double) GLOBAL_FINGERPRINTS[i] / (double) NUM_FILES > SHARED_THRESHOLD) {
 			fprintf(global_output, "%04x ", i);
 		}
 	}

@@ -18,14 +18,14 @@ typedef struct file_fingerprints {
 	struct file_fingerprints *next; /* The next file_fingerprints in this bucket */
 } file_fingerprints;
 
-file_fingerprints FINGERPRINT_CACHE[FINGERPRINT_CACHE_SIZE];
+static file_fingerprints FINGERPRINT_CACHE[FINGERPRINT_CACHE_SIZE];
 
 /*
  * Array storing cumulative data for all files (read in from
  * GLOBAL_FILE_NAME). GLOBAL_FINGERPRINTS[i] is true if fingerprint i is a
  * shared fingerprint that should be ignored, false otherwise.
  */
-bool GLOBAL_FINGERPRINTS[HASH_BOUND] = {false};
+static bool GLOBAL_FINGERPRINTS[HASH_BOUND];
 
 /*
  * Compute a hash on a string using the standard djb2 hashing algorithm.
@@ -33,8 +33,9 @@ bool GLOBAL_FINGERPRINTS[HASH_BOUND] = {false};
 static unsigned int hash(const char *key)
 {
 	unsigned int h = 5381;
-	for (unsigned int i = 0; i < strlen(key); ++i) {
-		h = h * 33 + key[i];
+	unsigned int i;
+	for (i = 0; i < (unsigned int) strlen(key); ++i) {
+		h = h * 33 + (unsigned int) key[i];
 	}
 	return h % FINGERPRINT_CACHE_SIZE;
 }
@@ -49,7 +50,7 @@ static void read_fingerprints(file_fingerprints *buf, const char *path)
 	char *hash;
 	unsigned int lineno;
 
-	while (fscanf(f, "%ms %d ", &hash, &lineno) == 2) {
+	while (fscanf(f, "%ms %u ", &hash, &lineno) == 2) {
 		unsigned int index = hexstring_to_int(hash);
 		buf->matchcount[index] += 1;
 		buf->lineno[index] = lineno;
@@ -64,7 +65,7 @@ static void read_fingerprints(file_fingerprints *buf, const char *path)
  * entry stored in the cache or by reading the file (and making a new cache
  * entry).
  */
-static file_fingerprints *get_fingerprints(const char *path)
+static /*@shared@*/ file_fingerprints *get_fingerprints(const char *path)
 {
 	unsigned int hashed = hash(path);
 	file_fingerprints *entry = &FINGERPRINT_CACHE[hashed];
@@ -72,6 +73,7 @@ static file_fingerprints *get_fingerprints(const char *path)
 	while (strncmp(path, entry->path, STRING_LENGTH) != 0) {
 		if (entry->next == NULL) {
 			entry->next = (file_fingerprints *) malloc(sizeof(file_fingerprints));
+			if (entry->next == NULL) exit(EXIT_FAILURE);
 			strncpy(entry->next->path, path, STRING_LENGTH);
 			read_fingerprints(entry->next, path);
 			entry->next->next = NULL;
@@ -83,18 +85,20 @@ static file_fingerprints *get_fingerprints(const char *path)
 
 int main(int argc, char **argv)
 {
+	string firstpath, secondpath, prefix, format;
+	FILE *f;
+	char *hash;
+
 	if (argc < 2) {
 		fprintf(stderr, "Usage: %s <timestamp>\n", argv[0]);
-		exit(1);
+		exit(EXIT_FAILURE);
 	}
 
-	string firstpath, secondpath, prefix, format;
 	snprintf(prefix, STRING_LENGTH, "%s/%s/", WORKING_DIR, argv[1]);
 	snprintf(format, STRING_LENGTH, "%s%%s", prefix);
 
 	snprintf(firstpath, STRING_LENGTH, "%s%s", prefix, GLOBAL_FILE_NAME);
-	FILE *f = fopen(firstpath, "r");
-	char *hash;
+	f = fopen(firstpath, "r");
 
 	while (fscanf(f, "%ms ", &hash) == 1) {
 		unsigned int index = hexstring_to_int(hash);
@@ -112,14 +116,16 @@ int main(int argc, char **argv)
 		unsigned int total = 0;
 		string lines = "";
 		string swap;
-		for (unsigned int i = 0; i < HASH_BOUND; ++i) {
+		unsigned int i;
+
+		for (i = 0; i < HASH_BOUND; ++i) {
 			if (!GLOBAL_FINGERPRINTS[i]) {
-				if (first->matchcount[i] && second->matchcount[i]) {
+				if (first->matchcount[i] != 0 && second->matchcount[i] != 0) {
 					match += 1;
 					memcpy(swap, lines, STRING_LENGTH);
 					snprintf(lines, STRING_LENGTH, "%s(%u %u):", swap, first->lineno[i], second->lineno[i]);
 				}
-				if (first->matchcount[i] || second->matchcount[i]) total += 1;
+				if (first->matchcount[i] != 0 || second->matchcount[i] != 0) total += 1;
 			}
 		}
 		sscanf(firstpath, format, firstpath);
