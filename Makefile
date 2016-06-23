@@ -42,5 +42,5 @@ lang/%: lang/%/lex.l lang/%/parse.y lang/ast_node.o
 	$(CC) -Ilang $@/main.c $@/lex.out.c $@/parse.o lang/ast_node.o -o $@/lex -lfl -lpython3.4
 
 clean:
-	rm $(BINARIES)
-	rm .analysis_data -r
+	rm $(BINARIES) -f
+	rm .analysis_data -rf

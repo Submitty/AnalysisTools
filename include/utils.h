@@ -15,10 +15,14 @@
 #include <sys/stat.h>
 #include <sys/types.h>
 
+#include "config.h"
+
+typedef char string[1024];
+
 /*
  * Convert a string containing hexadecimal digits to an integer.
  */
-unsigned int hexstring_to_int(char *str)
+unsigned int hexstring_to_int(const char *str)
 {
 	int len = strlen(str);
 	unsigned int total = 0;
@@ -35,7 +39,7 @@ unsigned int hexstring_to_int(char *str)
 	return total;
 }
 
-unsigned int pair_id(char *first, char *second)
+unsigned int pair_id(const char *first, const char *second)
 {
 	unsigned int size = strlen(first) + strlen(second);
 	char *buf = (char *) malloc(size + 1);

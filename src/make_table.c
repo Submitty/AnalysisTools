@@ -10,7 +10,7 @@
 #include "config.h"
 #include "utils.h"
 
-void write_diff(char *path, int count, int *a, int *b)
+static void write_diff(const char *path, int count, int *a, int *b)
 {
 	FILE *f = fopen(path, "w");
 	fputs("{", f);
@@ -33,13 +33,13 @@ void write_diff(char *path, int count, int *a, int *b)
 	fclose(f);
 }
 
-void write_php(char *first, char *second)
+static void write_php(const char *first, const char *second)
 {
 	unsigned int id = pair_id(first, second);
-	char buf[256];
-	snprintf(buf, 256, "html_summary/%u.php", id);
+	string buf;
+	snprintf(buf, STRING_LENGTH, "html_summary/%u.php", id);
 	FILE *f = fopen(buf, "w");
-	snprintf(buf, 256, "html_summary/%u.json", id);
+	snprintf(buf, STRING_LENGTH, "html_summary/%u.json", id);
 	fprintf(f, "\
 <?php\n\
 require_once(\"php/lib/DiffViewer.php\");\n\
@@ -68,9 +68,9 @@ HTML;\n\
 	fclose(f);
 }
 
-int parse_pairs(char *pairs, int *a, int *b)
+static int parse_pairs(const char *pairs, int *a, int *b)
 {
-	char *cur = pairs;
+	const char *cur = pairs;
 	int count = 0;
 	while (sscanf(cur, " ( %d %d ) ", &a[count], &b[count]) == 2) {
 		++count;
@@ -81,7 +81,7 @@ int parse_pairs(char *pairs, int *a, int *b)
 	return count;
 }
 
-int smudge_pairs(int *a2, int *b2, int *a, int *b, int count)
+static int smudge_pairs(int *a2, int *b2, int *a, int *b, int count)
 {
 	memcpy(a2, a, count * sizeof(int));
 	memcpy(b2, b, count * sizeof(int));
@@ -126,16 +126,16 @@ int main(int argc, char **argv)
 	int count, a[4096], b[4096], a2[4096], b2[4096];
 	puts("<table>");
 	while (fgets(line, 4096, stdin) != NULL) {
-		char *percent_match = strtok(line, ",");
-		char *first = strtok(NULL, ",");
-		char *second = strtok(NULL, ",");
-		char *pairs = strtok(NULL, ",");
+		const char *percent_match = strtok(line, ",");
+		const char *first = strtok(NULL, ",");
+		const char *second = strtok(NULL, ",");
+		const char *pairs = strtok(NULL, ",");
 		printf("<tr><td>%s</td><td><a href=html_summary/%u.html>view</a></td><td>%s</td><td>%s</td></tr>\n",
 				percent_match, pair_id(first, second), first, second);
 		count = parse_pairs(pairs, a, b);
 		count = smudge_pairs(a2, b2, a, b, count);
-		char buf[256];
-		snprintf(buf, 256, "html_summary/%u.json", pair_id(first, second));
+		string buf;
+		snprintf(buf, STRING_LENGTH, "html_summary/%u.json", pair_id(first, second));
 		write_diff(buf, count, a2, b2);
 		write_php(first, second);
 	}

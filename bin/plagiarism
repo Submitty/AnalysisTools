@@ -24,3 +24,5 @@ compare_fingerprints = subprocess.Popen(["./bin/compare_fingerprints", timestamp
         stdin=genpairs.stdout, stdout=subprocess.PIPE)
 sort = subprocess.Popen(["sort", "-nr"],
         stdin=compare_fingerprints.stdout)
+
+sort.wait();

@@ -2,6 +2,13 @@
 #define CONFIG_H
 
 /*
+ * Length used for character buffers holding paths.
+ */
+#ifndef STRING_LENGTH
+#define STRING_LENGTH 1024
+#endif
+
+/*
  * The bounds of the hash function used in the winnowing process. This
  * value has a significant impact on both accuracy and performance: low
  * values lead to a high collision count, greatly reducing both accuracy

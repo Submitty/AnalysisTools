@@ -12,13 +12,13 @@
  * Compute a hash on an array of unsigned integers using the standard djb2
  * hashing algorithm.
  */
-unsigned int hash(unsigned int *key, unsigned int len)
+static unsigned int hash(unsigned int *key, unsigned int len)
 {
 	unsigned int h = 5381;
 	for (unsigned int i = 0; i < len; ++i) {
 		h = h * 33 + key[i];
 	}
-        return (h % HASH_BOUND);
+        return h % HASH_BOUND;
 }
 
 /*
@@ -32,7 +32,7 @@ unsigned int hash(unsigned int *key, unsigned int len)
  *    -> buf = {hash("hello"), hash("ellow"), hash("llowo"), hash("lowor"), hash("oworl"), hash("world")}
  *
  */
-void fingerprint(unsigned int *buf, unsigned int *data, unsigned int data_size, unsigned int k)
+static void fingerprint(unsigned int *buf, unsigned int *data, unsigned int data_size, unsigned int k)
 {
 	for (unsigned int data_index = 0; data_index <= data_size - k; ++data_index) {
 		buf[data_index] = hash(&data[data_index], k);
@@ -87,7 +87,7 @@ void fingerprint(unsigned int *buf, unsigned int *data, unsigned int data_size, 
  * within the original fingerprint, it would be trivial to allow a tool for
  * plagiarism detection to report specific locations of matches within each file.
  */
-int winnow(unsigned int *buf, unsigned int *lineno_buf, unsigned int *fingerprints, unsigned int *lineno,
+static int winnow(unsigned int *buf, unsigned int *lineno_buf, unsigned int *fingerprints, unsigned int *lineno,
 		unsigned int fingerprints_size, unsigned int t, unsigned int k)
 {
 	unsigned int window_size = t - k + 1;
