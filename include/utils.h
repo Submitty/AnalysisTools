@@ -24,17 +24,17 @@ typedef char string[1024];
  */
 unsigned int hexstring_to_int(const char *str)
 {
-	unsigned int len = (unsigned int) strlen(str);
+	unsigned int len = (unsigned int)strlen(str);
 	unsigned int total = 0;
 	unsigned int i;
 	for (i = 0; i < len; ++i) {
 		total *= 16;
 		if (str[i] >= '0' && str[i] <= '9') {
-			total += (unsigned int) (str[i] - '0');
+			total += (unsigned int)(str[i] - '0');
 		} else if (str[i] >= 'a' && str[i] <= 'f') {
-			total += (unsigned int) (str[i] - 'a' + (char) 0xa);
+			total += (unsigned int)(str[i] - 'a' + (char)0xa);
 		} else if (str[i] >= 'A' && str[i] <= 'F') {
-			total += (unsigned int) (str[i] - 'A' + (char) 0xa);
+			total += (unsigned int)(str[i] - 'A' + (char)0xa);
 		}
 	}
 	return total;
@@ -42,15 +42,16 @@ unsigned int hexstring_to_int(const char *str)
 
 unsigned int pair_id(const char *first, const char *second)
 {
-	unsigned int size = (unsigned int) strlen(first)
-		+ (unsigned int) strlen(second);
-	char *buf = (char *) malloc((size_t) size + 1);
+	unsigned int size = (unsigned int)strlen(first)
+	    + (unsigned int)strlen(second);
+	char *buf = (char *)malloc((size_t) size + 1);
 	unsigned int h = 5381;
 	unsigned int i;
-	if (buf == NULL) exit(EXIT_FAILURE);
+	if (buf == NULL)
+		exit(EXIT_FAILURE);
 	snprintf(buf, (size_t) size + 1, "%s%s", first, second);
 	for (i = 0; i < size; ++i) {
-		h = h * 33 + (unsigned int) buf[i];
+		h = h * 33 + (unsigned int)buf[i];
 	}
 	free(buf);
 	return h;
@@ -70,7 +71,8 @@ static void execute(int input, int output, int toclose, char **args)
 	if (pid == 0) {
 		int res;
 
-		if (toclose != -1) close(toclose);
+		if (toclose != -1)
+			close(toclose);
 		if (input != -1) {
 			if (dup2(input, STDIN_FILENO) == -1) {
 				fprintf(stderr, "Error duplicating input.\n");
@@ -89,11 +91,15 @@ static void execute(int input, int output, int toclose, char **args)
 		fprintf(stderr, "Error: %s\n", strerror(errno));
 		exit(res);
 	} else if (pid > 0) {
-		if (input != -1) close(input);
-		if (output != -1) close(output);
+		if (input != -1)
+			close(input);
+		if (output != -1)
+			close(output);
 	} else {
-		if (input != -1) close(input);
-		if (output != -1) close(output);
+		if (input != -1)
+			close(input);
+		if (output != -1)
+			close(output);
 	}
 }
 
@@ -101,14 +107,14 @@ static void execute(int input, int output, int toclose, char **args)
  * Runs the executable at path with args arg1, arg2, etc. using input as
  * standard input. Returns a pipe for the standard output of the
  * executable.
- */ 
+ */
 int ex_pi(int input, char *path, ...)
-{                             /* char *arg1, char *arg2, ... */
+{				/* char *arg1, char *arg2, ... */
 	char *args[32];
 	va_list al;
 	char *cur;
 	int i;
-	int stdout_fds[2];
+	int stdout_fds[2] = {-1, -1};
 
 	va_start(al, path);
 	cur = path;
@@ -131,14 +137,14 @@ int ex_pi(int input, char *path, ...)
  * Runs the executable at path with args arg1, arg2, etc. using output as
  * standard output. Returns a pipe for the standard input of the
  * executable.
- */ 
+ */
 int ex_po(int output, char *path, ...)
-{                              /* char *arg1, char *arg2, ... */
+{				/* char *arg1, char *arg2, ... */
 	char *args[32];
 	va_list al;
 	char *cur;
 	int i;
-	int stdin_fds[2];
+	int stdin_fds[2] = {-1, -1};
 
 	va_start(al, path);
 	cur = path;
@@ -162,7 +168,7 @@ int ex_po(int output, char *path, ...)
  * standard input and output as standard output.
  */
 void ex_io(int input, int output, char *path, ...)
-{                                          /* char *arg1, char *arg2, ... */
+{				/* char *arg1, char *arg2, ... */
 	char *args[32];
 	va_list al;
 	char *cur;

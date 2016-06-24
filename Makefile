@@ -6,7 +6,7 @@ BINARIES = $(addprefix $(BUILD_DIR)/, $(SRCS:.c=))
 LEXERS = lexer/c/lex lexer/python/lex lexer/java/lex
 LANGUAGES = lang/newc
 
-CFLAGS_gcc = -Iinclude -I/usr/local/include -std=c99 -O2 -g -Wall -Werror -D_POSIX_C_SOURCE=200809 -D_DEFAULT_SOURCE -Wno-unused-result
+CFLAGS_gcc = -Iinclude -I/usr/local/include -O2 -g -Wall -Werror -D_POSIX_C_SOURCE=200809 -D_DEFAULT_SOURCE -Wno-unused-result
 CFLAGS = $(CFLAGS_$(CC))
 LINKER_FLAGS_gcc = -lm -lpcre
 LINKER_FLAGS = $(LINKER_FLAGS_$(CC))
@@ -25,7 +25,11 @@ $(BUILD_DIR):
 	mkdir -p $(BUILD_DIR)
 
 $(BUILD_DIR)/%: %.c
-	splint $< -I include -I /usr/include/x86_64-linux-gnu -mustdefine -compdef -retvalint -nullpass -nullstate -warnposix -usedef -formatcode -mayaliasunique -unrecog -unqualifiedtrans -noeffect -mustfreefresh -observertrans
+	splint $< -I include -I /usr/include/x86_64-linux-gnu \
+		-compdef -retvalint -nullpass -nullstate -warnposix -formatcode -mayaliasunique -unrecog \
+		-unqualifiedtrans -noeffect -mustfreefresh -observertrans -nullassign -onlytrans -statictrans -paramuse \
+		-immediatetrans -globstate -nullret -mustfreeonly -branchstate -compdestroy
+	indent $< -linux -st | diff - $<
 	$(CC) -o $@ $(CFLAGS) $< $(LINKER_FLAGS)
 
 lexer/%/lex: lexer/%/lex.l lexer/%/tokens.h
