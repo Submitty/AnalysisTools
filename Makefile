@@ -4,6 +4,7 @@ LIB_DIR = lib_$(CC)
 BINARIES = $(addprefix $(BUILD_DIR)/, $(SRCS:.c=))
 
 SPLINT = $(shell command -v splint 2> /dev/null)
+PYLINT = $(shell command -v pylint 2> /dev/null)
 INDENT = $(shell command -v indent 2> /dev/null)
 
 SCRIPTLINT_PYTHON= bin/plagiarism
@@ -60,5 +61,7 @@ clean:
 	rm .analysis_data -rf
 
 $(BUILD_DIR)/.lintstate: $(SCRIPTLINT_PYTHON)
+ifdef PYLINT
 	pylint --max-line-length=80 $(SCRIPTLINT_PYTHON)
+endif
 	touch $@
