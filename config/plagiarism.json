@@ -1,5 +1,5 @@
 {
-	"WorkingDir" : "moss_data",
+	"WorkingDir" : ".analysis_data",
 	"HashBound" : 65536,
 	"GlobalFileName" : "__global_fingerprint_count__",
 	"SharedThreshold" : 0.6,

@@ -33,7 +33,7 @@
  * The directory in which the system saves metadata for each execution.
  */
 #ifndef WORKING_DIR
-#define WORKING_DIR "moss_data"
+#define WORKING_DIR ".analysis_data"
 #endif
 
 /*
