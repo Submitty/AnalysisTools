@@ -1,26 +1,44 @@
 #!/usr/bin/env python3
 
+"""
+Run plagiarism detection system.
+"""
+
 import argparse
 import json
 import subprocess
 
-parser = argparse.ArgumentParser(description="Run plagiarism detection system")
-parser.add_argument("filetype")
-parser.add_argument("directory")
-parser.add_argument("-c", "--config", type=int)
-args = parser.parse_args()
+ARGPARSER = argparse.ArgumentParser(\
+        description="Run plagiarism detection system")
+ARGPARSER.add_argument("filetype")
+ARGPARSER.add_argument("directory")
+ARGPARSER.add_argument("-c", "--config", type=int)
+ARGS = ARGPARSER.parse_args()
 
-with open(args.config if args.config else "config/plagiarism.json") as f:
-    config = json.load(f)
+with open(ARGS.config if ARGS.config else "config/plagiarism.json")\
+        as f:
+    CONFIG = json.load(f)
 
-timestamp = subprocess.check_output(["./bin/walk"] +
-        (["-u", str(config[args.filetype]["UpperBound"]),
-            "-l", str(config[args.filetype]["LowerBound"])] if config[args.filetype] else []) +
-        [args.filetype, args.directory]).decode("utf-8").strip()
+if CONFIG[ARGS.filetype]:
+    WALK_FLAGS = ["-u",
+                  str(CONFIG[ARGS.filetype]["UpperBound"]),
+                  "-l",
+                  str(CONFIG[ARGS.filetype]["LowerBound"])]
+else:
+    WALK_FLAGS = []
 
-genpairs = subprocess.Popen(["./bin/genpairs", timestamp],
-        stdout=subprocess.PIPE)
-compare_fingerprints = subprocess.Popen(["./bin/compare_fingerprints", timestamp],
-        stdin=genpairs.stdout, stdout=subprocess.PIPE)
-sort = subprocess.Popen(["sort", "-nr"],
-        stdin=compare_fingerprints.stdout)
+TIMESTAMP = subprocess.check_output(["./bin/walk"]
+                                    + WALK_FLAGS
+                                    + [ARGS.filetype, ARGS.directory])\
+                                            .decode("utf-8").strip()
+
+GENPAIRS = subprocess.Popen(["./bin/genpairs", TIMESTAMP],
+                            stdout=subprocess.PIPE)
+COMPARE_FINGERPRINTS = subprocess.Popen(["./bin/compare_fingerprints",
+                                         TIMESTAMP],
+                                        stdin=GENPAIRS.stdout,
+                                        stdout=subprocess.PIPE)
+SORT = subprocess.Popen(["sort", "-nr"],
+                        stdin=COMPARE_FINGERPRINTS.stdout)
+
+SORT.wait()
