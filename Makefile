@@ -3,6 +3,8 @@ BUILD_DIR = bin
 LIB_DIR = lib_$(CC)
 BINARIES = $(addprefix $(BUILD_DIR)/, $(SRCS:.c=))
 
+SCRIPTLINT_PYTHON= bin/plagiarism
+
 LEXERS = lexer/c/lex lexer/python/lex lexer/java/lex
 LANGUAGES = lang/newc
 
@@ -13,9 +15,9 @@ LINKER_FLAGS = $(LINKER_FLAGS_$(CC))
 
 vpath %.c src
 
-.PHONY: all directories clean lint
+.PHONY: all directories clean scriptlint
 
-all: directories $(BINARIES) #$(LEXERS)
+all: scriptlint directories $(BINARIES) #$(LEXERS)
 #	$(MAKE) $(LANGUAGES)
 #	python setup.py build
 
@@ -49,4 +51,5 @@ clean:
 	rm $(BINARIES) -f
 	rm .analysis_data -rf
 
-lint:
+scriptlint: $(SCRIPTLINT_PYTHON)
+	pylint $(SCRIPTLINT_PYTHON)
