@@ -8,6 +8,8 @@ This repository contains a variety of tools used for source code analysis.
 * PCRE (tested on version 8.38)
 * Python (tested on version 3.43)
 
+Optionally, if GNU Indent, Splint, and/or Pylint are installed, they will be incorporated into the build process to check for common stylistic and logical errors. It is recommended to install these tools if you wish to make a large contribution.
+
 ## Building
 Simply run `make` in the repository root. This will build a number of executables, described below, to the `bin/` directory. In the interest of providing examples that fully express the usage of the tool, each example uses the complete set of available flags. However, *every* flag is optional, as a rule. Default values can be set at three different levels: at the lowest level of precedence, build-wide values can be set in `include/config.h`. Single values in `include/config.h` can be overwritten for a specific executable by setting `CFLAGS` when calling `make`. Finally, language-specific values and some other runtime configuration used by `bin/plagiarism` can be modified in `config/plagiarism.json` by default (or by passing the `-c config_file.json` flag to `bin/plagiarism`).
 
