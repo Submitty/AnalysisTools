@@ -52,4 +52,4 @@ clean:
 	rm .analysis_data -rf
 
 scriptlint: $(SCRIPTLINT_PYTHON)
-	pylint $(SCRIPTLINT_PYTHON)
+	pylint --max-line-length=80 $(SCRIPTLINT_PYTHON)
