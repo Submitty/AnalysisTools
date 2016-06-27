@@ -19,7 +19,7 @@ LINKER_FLAGS = $(LINKER_FLAGS_$(CC))
 
 vpath %.c src
 
-.PHONY: all directories clean
+.PHONY: all directories clean indent
 
 all: $(BUILD_DIR)/.lintstate directories $(BINARIES) #$(LEXERS)
 #	$(MAKE) $(LANGUAGES)
@@ -65,3 +65,6 @@ ifdef PYLINT
 	pylint --max-line-length=80 $(SCRIPTLINT_PYTHON)
 endif
 	touch $@
+
+indent:
+	indent -linux src/*.c

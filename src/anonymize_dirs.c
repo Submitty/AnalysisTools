@@ -106,6 +106,36 @@ static void construct_path(char *buf, unsigned int bufsize, bool sub)
 	}
 }
 
+static void apply_filename_replace(char *buf, char *str)
+{
+	char *tok = strtok(str, "_");
+	bool first = true;
+	memset(buf, 0, STRING_LENGTH);
+	do {
+		string lowercase;
+		name_entry *n;
+		bool rep = false;
+
+		if (first) {
+			first = false;
+		} else {
+			strcat(buf, "_");
+		}
+
+		strncpy(lowercase, tok, STRING_LENGTH);
+		make_lowercase(lowercase);
+		for (n = NAMES[hash(lowercase)]; n != NULL; n = n->next) {
+			if (strncmp(n->name, lowercase, STRING_LENGTH) == 0) {
+				strcat(buf, n->new);
+				rep = true;
+				break;
+			}
+		}
+		if (!rep)
+			strcat(buf, tok);
+	} while ((tok = strtok(NULL, "_")) != NULL);
+}
+
 static void walk(const char *path, int (*cb) (const char *, bool))
 {
 	const char *last = strrchr(path, '/');
@@ -150,28 +180,18 @@ static int walk_fn(const char *path, bool isreg)
 {
 	string fake_path = "", real_path = "", buf = "", new_name = "";
 	if (isreg) {		/* If this is a regular file: */
-		bool rep = false;
-		char *base;
-		name_entry *n;
+		char *base, *ext;
 		int input, output;
 
 		strncpy(new_name, path, STRING_LENGTH);
 		strncpy(buf, path, STRING_LENGTH);
 		base = strtok(buf, ".");
-		make_lowercase(base);
-		fprintf(stderr, "%s %s\n", base, new_name);
-		for (n = NAMES[hash(base)]; n != NULL; n = n->next) {
-			if (strncmp(n->name, base, STRING_LENGTH) == 0) {
-				strncpy(new_name, n->new, STRING_LENGTH);
-				strcat(new_name, ".");
-				strcat(new_name, buf + strlen(base) + 1);
-				rep = true;
-				break;
-			}
+		ext = buf + strlen(base) + 1;
+		apply_filename_replace(new_name, base);
+		if (strlen(ext) != 0) {
+			strcat(new_name, ".");
+			strcat(new_name, ext);
 		}
-		if (!rep)
-			strncpy(new_name, path, STRING_LENGTH);
-		fprintf(stderr, "%s\n", new_name);
 
 		construct_path(buf, STRING_LENGTH, true);
 		snprintf(fake_path, STRING_LENGTH,
@@ -240,10 +260,12 @@ int main(int argc, char **argv)
 	do {
 		snprintf(swap, STRING_LENGTH, "%s/%s", buf, d);
 		mkdir(swap, 0777);
+		strncpy(DIR_STACK[DIR_STACK_INDEX++], d, STRING_LENGTH);
 		strncpy(buf, swap, STRING_LENGTH);
 	} while ((d = strtok(NULL, "/")) != NULL);
+	DIR_STACK_INDEX--;
 
-	walk(argv[1], walk_fn);
+	walk(DIR_STACK[DIR_STACK_INDEX], walk_fn);
 	free(COMMAND);
 
 	return 0;
