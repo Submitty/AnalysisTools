@@ -92,7 +92,7 @@ static void add_regexp(const char *input)
 
 static void scramble_name(const char *name, char *new)
 {
-	snprintf(new, STRING_LENGTH, "REDACTED_%03u", hash(name));
+	snprintf(new, STRING_LENGTH, "REDACTED%03u", hash(name));
 }
 
 static void apply_replace(char *buf, const char *str, name_entry * entry)
