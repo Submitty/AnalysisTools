@@ -54,14 +54,28 @@ public class Loader {
 					out = args[i+1];
 					i = i + 1;
 				}
+				else if (args[i].equals("-h"))
+				{
+					printHelp();
+					return;
+				}
 				else
 				{
-					System.out.println("invalid flag");
+					System.err.println("invalid flag");
 					return;
 				}
 			}
 			else
+			{
+				if (ind == files.length)
+				{
+					System.err.println("missing argument error");
+					printHelp();
+					return;
+				}
 				files[ind++] = args[i];
+		
+			}
 		}
 		if (out.length() == 0)
 		{
@@ -105,6 +119,11 @@ public class Loader {
 			writer.print(XMLTree(asts));
 		}
 		writer.close();
+	}
+	public static void printHelp()
+	{
+		System.out.println("Arguments: [-h for this message |-u for hierarchical output | -t for xml tree] java files -o output file");
+		return;
 	}
 	public static ASTParser getParser()
 	{
