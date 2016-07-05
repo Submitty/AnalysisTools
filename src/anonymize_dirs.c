@@ -80,6 +80,7 @@ static void construct_path(char *buf, unsigned int bufsize, bool sub)
 {
 	string component;
 	unsigned int i;
+	bool anyrep = false;
 	memset(buf, 0, (size_t) bufsize);
 	for (i = 0; i < DIR_STACK_INDEX; ++i) {
 		if (sub && i + 1 == REPLACE_LEVEL) {
@@ -94,6 +95,7 @@ static void construct_path(char *buf, unsigned int bufsize, bool sub)
 				    == 0) {
 					strncat(buf, n->new, (size_t) bufsize);
 					rep = true;
+					anyrep = true;
 					break;
 				}
 			}
@@ -104,6 +106,8 @@ static void construct_path(char *buf, unsigned int bufsize, bool sub)
 		}
 		strncat(buf, "/", (size_t) bufsize);
 	}
+	if (anyrep)
+		fprintf(stderr, "Applied substitution in path %s\n", buf);
 }
 
 static void apply_filename_replace(char *buf, char *str)
@@ -126,6 +130,9 @@ static void apply_filename_replace(char *buf, char *str)
 		make_lowercase(lowercase);
 		for (n = NAMES[hash(lowercase)]; n != NULL; n = n->next) {
 			if (strncmp(n->name, lowercase, STRING_LENGTH) == 0) {
+				fprintf(stderr,
+					"Applied substitution in filename: %s for %s\n",
+					n->new, lowercase);
 				strcat(buf, n->new);
 				rep = true;
 				break;

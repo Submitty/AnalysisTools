@@ -9,7 +9,7 @@ import json
 import subprocess
 
 ARGPARSER = argparse.ArgumentParser(\
-        description="Run plagiarism detection system")
+        description="Run plagiarism detection system.")
 ARGPARSER.add_argument("filetype")
 ARGPARSER.add_argument("directory")
 ARGPARSER.add_argument("-c", "--config", type=int)

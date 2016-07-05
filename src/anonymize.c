@@ -76,7 +76,7 @@ static void add_regexp(const char *input)
 	re = pcre_compile(regexp, 0, &error, &erroroffset, NULL);
 	if (re == NULL) {
 		fprintf(stderr,
-			"Regular expression compilation failed at offset %d: %s\n",
+			"--- Regular expression compilation failed at offset %d: %s\n",
 			erroroffset, error);
 		exit(EXIT_FAILURE);
 	} else {
@@ -92,7 +92,7 @@ static void add_regexp(const char *input)
 
 static void scramble_name(const char *name, char *new)
 {
-	snprintf(new, STRING_LENGTH, "REDACTED%03u", hash(name));
+	snprintf(new, STRING_LENGTH, REDACTION_PATTERN, hash(name));
 }
 
 static void apply_replace(char *buf, const char *str, name_entry * entry)
@@ -187,6 +187,8 @@ int main(int argc, char **argv)
 
 		for (n = NAMES[hash(lower)]; n != NULL; n = n->next) {
 			if (strncmp(lower, n->name, STRING_LENGTH) == 0) {
+				fprintf(stderr, "Replaced %s with %s\n", word,
+					n->new);
 				apply_replace(buf, lower, n);
 				memcpy(word, buf, STRING_LENGTH);
 			}

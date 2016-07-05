@@ -76,4 +76,12 @@
 #define DEFAULT_LOWER_BOUND 15
 #endif
 
+/*
+ * Pattern used to redact matched names with no provided replacement in
+ * the anonymization tool.
+ */
+#ifndef REDACTION_PATTERN
+#define REDACTION_PATTERN "REDACTED%03u"
+#endif
+
 #endif
