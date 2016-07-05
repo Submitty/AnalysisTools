@@ -3,7 +3,11 @@ BUILD_DIR = bin
 LIB_DIR = lib_$(CC)
 BINARIES = $(addprefix $(BUILD_DIR)/, $(SRCS:.c=))
 
-SCRIPTLINT_PYTHON= bin/plagiarism
+SPLINT = $(shell command -v splint 2> /dev/null)
+PYLINT = $(shell command -v pylint 2> /dev/null)
+INDENT = $(shell command -v indent 2> /dev/null)
+
+SCRIPTLINT_PYTHON = bin/plagiarism bin/anonymization bin/anonymize_log
 
 LEXERS = lexer/c/lex lexer/python/lex lexer/java/lex
 LANGUAGES = lang/newc
@@ -15,9 +19,9 @@ LINKER_FLAGS = $(LINKER_FLAGS_$(CC))
 
 vpath %.c src
 
-.PHONY: all directories clean scriptlint
+.PHONY: all directories clean indent
 
-all: scriptlint directories $(BINARIES) #$(LEXERS)
+all: $(BUILD_DIR)/.lintstate directories $(BINARIES) #$(LEXERS)
 #	$(MAKE) $(LANGUAGES)
 #	python setup.py build
 
@@ -27,11 +31,15 @@ $(BUILD_DIR):
 	mkdir -p $(BUILD_DIR)
 
 $(BUILD_DIR)/%: %.c
+ifdef SPLINT
 	splint $< -I include -I /usr/include/x86_64-linux-gnu \
 		-compdef -retvalint -nullpass -nullstate -warnposix -formatcode -mayaliasunique -unrecog \
 		-unqualifiedtrans -noeffect -mustfreefresh -observertrans -nullassign -onlytrans -statictrans -paramuse \
 		-immediatetrans -globstate -nullret -mustfreeonly -branchstate -compdestroy
+endif
+ifdef INDENT
 	indent $< -linux -st | diff - $<
+endif
 	$(CC) -o $@ $(CFLAGS) $< $(LINKER_FLAGS)
 
 lexer/%/lex: lexer/%/lex.l lexer/%/tokens.h
@@ -49,7 +57,14 @@ lang/%: lang/%/lex.l lang/%/parse.y lang/ast_node.o
 
 clean:
 	rm $(BINARIES) -f
+	rm $(BUILD_DIR)/.lintstate -f
 	rm .analysis_data -rf
 
-scriptlint: $(SCRIPTLINT_PYTHON)
+$(BUILD_DIR)/.lintstate: $(SCRIPTLINT_PYTHON)
+ifdef PYLINT
 	pylint --max-line-length=80 $(SCRIPTLINT_PYTHON)
+endif
+	touch $@
+
+indent:
+	indent -linux src/*.c
