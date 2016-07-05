@@ -16,14 +16,14 @@ chomd 755 /bin/type-inference/binary/javai-reim
 cd $prePWD
 
 #################################################################
-# REIMINFIR SETUP
+# Java Parser
 #################
 
 cd lang/java
 wget http://www.java2s.com/Code/JarDownload/jdt/jdt-core-1.2.0.jar.zip 
 unzip jdt-core-1.2.0.jar.zip
-javac -cp jdt-core-1.2.0.jar ./lang/java/*.java
-
+javac -cp jdt-core-1.2.0.jar /*.java
+cd $prePWD
 
 ##################################################################
 # GRAPH-TOOL INSTALLATION
