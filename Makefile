@@ -7,7 +7,7 @@ SPLINT = $(shell command -v splint 2> /dev/null)
 PYLINT = $(shell command -v pylint 2> /dev/null)
 INDENT = $(shell command -v indent 2> /dev/null)
 
-SCRIPTLINT_PYTHON= bin/plagiarism
+SCRIPTLINT_PYTHON = bin/plagiarism bin/anonymization bin/anonymize_log
 
 LEXERS = lexer/c/lex lexer/python/lex lexer/java/lex
 LANGUAGES = lang/newc

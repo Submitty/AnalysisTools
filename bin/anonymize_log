@@ -35,11 +35,13 @@ def print_csv():
 
     print("=== REPLACEMENTS IN FILENAMES ===")
     for key in FILE_NAMES.keys():
-        print(key + "," + FILE_NAMES[key]["new"] + "," + str(FILE_NAMES[key]["count"]))
+        print(key + "," + FILE_NAMES[key]["new"] + "," +
+              str(FILE_NAMES[key]["count"]))
 
     print("=== REPLACEMENTS IN FILES ===")
     for key in INTERNAL_NAMES.keys():
-        print(key + "," + INTERNAL_NAMES[key]["new"] + "," + str(INTERNAL_NAMES[key]["count"]))
+        print(key + "," + INTERNAL_NAMES[key]["new"] + "," +
+              str(INTERNAL_NAMES[key]["count"]))
 
 def print_gnuplot():
     """
@@ -58,7 +60,8 @@ for line in sys.stdin:
     if match:
         DIRECTORY_NAMES[match.group(1)] += 1
         continue
-    match = re.search(r"Applied substitution in filename: (\w+) for (\w+)", line)
+    match = re.search(r"Applied substitution in filename: (\w+) for (\w+)",
+                      line)
     if match:
         FILE_NAMES[match.group(2)]["new"] = match.group(1)
         FILE_NAMES[match.group(2)]["count"] += 1
