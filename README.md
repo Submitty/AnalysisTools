@@ -7,6 +7,8 @@ This repository contains a variety of tools used for source code analysis.
 * GNU Bison (tested on version 3.0.4)
 * PCRE (tested on version 8.38)
 * Python (tested on version 3.43)
+* Eclipse JDT Library
+* python-graph-tool
 
 Optionally, if GNU Indent, Splint, and/or Pylint are installed, they will be incorporated into the build process to check for common stylistic and logical errors. It is recommended to install these tools if you wish to make a large contribution.
 
@@ -19,19 +21,6 @@ Usage example: `cat file.c | ./bin/anonymize -n name_list.txt -t to_replace.csv 
 Anonymizes standard input, writing to standard output. In the example above, case-insensitively redacts all words found in the whitespace-delimited list in `name_list.txt`, replaces any word found in the first column of the two-column CSV file `to_replace.csv` with the corresponding word in the second column, and replaces any string matching regular expression `foo` with the string `bar`.
 
 Multiple instances of each flag may be passed. For example, `./bin/anonymize -n name_list.txt -n name_list_2.txt` will replace words found in either list.
-
-## plagiarism detection
-To run the plagiarism detection system, call the provided `moss` script with a directory containing source files as an argument: `./moss source_dir`.
-By default, the script displays an output summary using `less`, but an optional `-o` argument can be used to write output to a file: `./moss source_dir -o results.out`. To output an HTML table rather than plain text, pass the `-h` flag.
-
-##Java Parser
-The eclipse jdt library is required. 
-Arguments: \[javafile ...\] \[ -t for XML ast \|  -u for class hierarchical data\] -o filename
-
-##Class Structure Analysis
-python-graph-tool required.
-use: `python CSA.py student\_structure\_file subgraph\_structure\_file`
-
 
 ### `bin/anonymize_dirs`
 Usage example: `./bin/anonymize_dirs source_dir -t first_names.csv -t last_names.csv -n rcs_ids.txt -r 's/66[0-9]{7}/RIN/' -l 3`.
@@ -62,3 +51,9 @@ Generates all pairs of files in the directory `.analysis_data/<timestamp>`, writ
 Usage example: `cat pairs | ./bin/genpairs <timestamp>`
 
 Reads pairs from standard input, reads fingeprint data from `.analysis_data/<timestamp>`, and computes match data, writing to standard output.
+
+### Java Parser
+Arguments: \[javafile ...\] \[ -t for XML ast \|  -u for class hierarchical data\] -o filename
+
+### Class Structure Analysis
+Usage example: `python CSA.py student\_structure\_file subgraph\_structure\_file`
