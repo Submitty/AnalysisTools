@@ -62,7 +62,7 @@ clean:
 
 $(BUILD_DIR)/.lintstate: $(SCRIPTLINT_PYTHON)
 ifdef PYLINT
-	python3 -m pylint --max-line-length=80 $(SCRIPTLINT_PYTHON)
+	pylint --max-line-length=80 $(SCRIPTLINT_PYTHON)
 endif
 	touch $@
 
