@@ -36,8 +36,8 @@ sub_graph = readFile(sys.argv[2])
 sub_iso = subgraph_isomorphism(sub_graph[2], sub_graph[2], edge_label=(sub_graph[1],sub_graph[1]))
 sub_student = subgraph_isomorphism(sub_graph[2], student_graph[2], edge_label=(sub_graph[1], student_graph[1]))
 
-print "number of isomorphic subgraphs: " + str(len(sub_iso))
-print "instances of subraph isomorphism: " + str(len(sub_student))
+print("number of isomorphic subgraphs: " + str(len(sub_iso)))
+print("instances of subraph isomorphism: " + str(len(sub_student)))
 
 for nodename in sub_graph[0]:
     tmp = nodename + " could be: "
@@ -49,7 +49,7 @@ for nodename in sub_graph[0]:
             aset.add(vertex_index)
             tmp = tmp +  student_graph[3][student_graph[2].vertex(vertex_index)] + ", "
     tmp = tmp[0:len(tmp) - 2] + "\n"
-    print tmp
+    print(tmp)
 
 #vertex_font_size=12, edge_font_size=12,
 FontSize = 14 
