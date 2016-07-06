@@ -27,7 +27,7 @@ def readFile(readfile):
                 edges[e] = tokens[1]
     
     inFile.close()
-    return (vertexes,edges, graph, vertex_map)
+    return (vertexes, edges, graph, vertex_map)
 
 ##
 
@@ -53,12 +53,12 @@ for nodename in sub_graph[0]:
 
 #vertex_font_size=12, edge_font_size=12,
 FontSize = 14 
-graph_draw(student_graph[2],vertex_font_size=FontSize,
+graph_draw(student_graph[2], vertex_font_size=FontSize,
 	 edge_font_size=FontSize, edge_text=student_graph[1], 
 	vertex_text=student_graph[3], output="student_graph.png",
 	edge_color=[0,0,0,1], vertex_fill_color=[0.50, 0.50, 0.50, 1.0])
 
-graph_draw(sub_graph[2],vertex_font_size=FontSize,
+graph_draw(sub_graph[2], vertex_font_size=FontSize,
 	 edge_font_size=FontSize,  edge_text=sub_graph[1], 
 	vertex_text=sub_graph[3], output="sub_graph.png",
 	edge_color=[0,0,0,1], vertex_fill_color=[0.50, 0.50, 0.50, 1.0])
