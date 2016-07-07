@@ -21,7 +21,7 @@ vpath %.c src
 
 .PHONY: all directories clean indent
 
-all: $(BUILD_DIR)/.lintstate directories $(BINARIES) #$(LEXERS)
+all: $(BUILD_DIR)/.lintstate directories $(BINARIES) $(LEXERS)
 #	$(MAKE) $(LANGUAGES)
 #	python setup.py build
 
