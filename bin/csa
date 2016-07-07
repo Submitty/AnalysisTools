@@ -8,9 +8,9 @@ import sys
 ##isa and hasa relations in the forms:
 #nodeA isa nodeB
 #nodeD hasa nodeE
-#the isa node is connected to a node with a loopback and 
+#the isa node is connected to a node with a loopback and
 #connection to the hasa graph
-#returns ({node name : [isa graph vertex refrence, inter vertex 
+#returns ({node name : [isa graph vertex refrence, inter vertex
 #hasa graph vertex refrence]}, Graph)
 def readFile(readfile):
     inFile = open(readfile, 'r')
@@ -35,10 +35,10 @@ def readFile(readfile):
 
 student_graph = readFile(sys.argv[1])
 sub_graph = readFile(sys.argv[2])
-sub_iso = subgraph_isomorphism(sub_graph[2], sub_graph[2], 
-	edge_label=(sub_graph[1], sub_graph[1]))
-sub_student = subgraph_isomorphism(sub_graph[2], student_graph[2], 
-	edge_label=(sub_graph[1], student_graph[1]))
+sub_iso = subgraph_isomorphism(sub_graph[2], sub_graph[2],
+           edge_label=(sub_graph[1], sub_graph[1]))
+sub_student = subgraph_isomorphism(sub_graph[2], student_graph[2],
+           edge_label=(sub_graph[1], student_graph[1]))
 
 print("number of isomorphic subgraphs: " + str(len(sub_iso)))
 print("instances of subraph isomorphism: " + str(len(sub_student)))
@@ -56,13 +56,13 @@ for nodename in sub_graph[0]:
     print(tmp)
 
 #vertex_font_size=12, edge_font_size=12,
-FontSize = 14 
+FontSize = 14
 graph_draw(student_graph[2], vertex_font_size=FontSize,
-        edge_font_size=FontSize, edge_text=student_graph[1], 
-        vertex_text=student_graph[3], output="student_graph.png",
-        edge_color=[0, 0, 0, 1], vertex_fill_color=[0.50, 0.50, 0.50, 1.0])
+           edge_font_size=FontSize, edge_text=student_graph[1],
+           vertex_text=student_graph[3], output="student_graph.png",
+           edge_color=[0, 0, 0, 1], vertex_fill_color=[0.50, 0.50, 0.50, 1.0])
 
 graph_draw(sub_graph[2], vertex_font_size=FontSize,
-        edge_font_size=FontSize,  edge_text=sub_graph[1], 
-        vertex_text=sub_graph[3], output="sub_graph.png",
-        edge_color=[0, 0, 0, 1], vertex_fill_color=[0.50, 0.50, 0.50, 1.0])
+           edge_font_size=FontSize, edge_text=sub_graph[1],
+           vertex_text=sub_graph[3], output="sub_graph.png",
+           edge_color=[0, 0, 0, 1], vertex_fill_color=[0.50, 0.50, 0.50, 1.0])
