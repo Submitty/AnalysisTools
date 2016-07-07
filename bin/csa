@@ -1,6 +1,9 @@
 #!/usr/bin/env python3
 
-from graph_tool.all import *
+from graph_tool.all import Graph
+from graph_tool.all import subgraph_isomorphism
+from graph_tool.all import graph_draw
+from graph_tool.all import PropertyMap
 import sys
 
 #file format:
