@@ -10,10 +10,6 @@ before_install:
  - sudo apt-get install -qq build-essential flex bison libpcre3 libpcre3-dev splint indent
  - sudo apt-get install -qq python3 python3-pip
  - sudo python3 -m pip install pylint
- - sudo add-apt-repository "http://downloads.skewed.de/apt/trusty universe"
- - sudo add-apt-repository ppa:ubuntu-toolchain-r/test
- - sudo apt-get update
- - sudo apt-get --yes --force-yes install python3-graph-tool
 
 
 

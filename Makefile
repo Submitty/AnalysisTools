@@ -62,7 +62,7 @@ clean:
 
 $(BUILD_DIR)/.lintstate: $(SCRIPTLINT_PYTHON)
 ifdef PYLINT
-	pylint --max-line-length=80 $(SCRIPTLINT_PYTHON)
+	pylint --disable=import-error --max-line-length=80 $(SCRIPTLINT_PYTHON)
 endif
 	touch $@
 
