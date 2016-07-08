@@ -19,10 +19,10 @@ from graph_tool.all import graph_draw
 
 def read_file(readfile):
     """Reads the file and returns a tuple which includes a graph.
-    
+
     takes String which is a filename
-    returns ({string vertex name: vertex object refrence }, 
-    property map {edge object refrence:edge label}, 
+    returns ({string vertex name: vertex object refrence },
+    property map {edge object refrence:edge label},
     graph, propery map{vertex object refrence :stringvertex name })
     """
     in_file = open(readfile, 'r')
