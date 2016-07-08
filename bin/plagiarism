@@ -15,8 +15,7 @@ ARGPARSER.add_argument("directory")
 ARGPARSER.add_argument("-c", "--config", type=int)
 ARGS = ARGPARSER.parse_args()
 
-with open(ARGS.config if ARGS.config else "config/plagiarism.json")\
-        as f:
+with open(ARGS.config if ARGS.config else "config/plagiarism.json") as f:
     CONFIG = json.load(f)
 
 if CONFIG[ARGS.filetype]:

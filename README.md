@@ -22,10 +22,12 @@ Anonymizes standard input, writing to standard output. In the example above, cas
 
 Multiple instances of each flag may be passed. For example, `./bin/anonymize -n name_list.txt -n name_list_2.txt` will replace words found in either list.
 
-### `bin/anonymize_dirs`
-Usage example: `./bin/anonymize_dirs source_dir -t first_names.csv -t last_names.csv -n rcs_ids.txt -r 's/66[0-9]{7}/RIN/' -l 3`.
+### `bin/anonymization`
+Usage example: `./bin/anonymization source_dir -n first_names.txt -n last_names.txt -t rcs_ids.txt -r 's/66[0-9]{7}/RIN/' -l 3`.
 
 Anonymizes all files in the given directory tree. The `-n`, `-t`, and `-r` flags have the same meaning as those passed to `bin/anonymize`. One additional flag is also accepted: `-l`, which allows the user to specify a level in the directory tree (as an integer). Any directories at this level will also have their names anonymized according to the CSV files passed using the `-t` flag. Note that only those CSV files will be used for the replacement: simple name lists passed with `-n` will not be used for directory replacement.
+
+Capture the STDOUT of this run to see the stats of the # of replacements in directory names, file names, and file contents.
 
 ### `bin/plagiarism`
 Usage example: `./bin/plagiarism java source_dir`
