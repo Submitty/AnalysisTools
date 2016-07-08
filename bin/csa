@@ -16,10 +16,15 @@ from graph_tool.all import Graph
 from graph_tool.all import subgraph_isomorphism
 from graph_tool.all import graph_draw
 
-#returns ({node name : [isa graph vertex refrence, inter vertex
-#hasa graph vertex refrence]}, Graph)
 
 def read_file(readfile):
+    """Reads the file and returns a tuple which includes a graph.
+    
+    takes String which is a filename
+    returns ({string vertex name: vertex object refrence }, 
+    property map {edge object refrence:edge label}, 
+    graph, propery map{vertex object refrence :stringvertex name })
+    """
     in_file = open(readfile, 'r')
     graph = Graph()
     edges = graph.new_edge_property("string")
