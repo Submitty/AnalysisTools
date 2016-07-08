@@ -40,7 +40,7 @@ static unsigned int hash(const char *key)
 	for (i = 0; i < (unsigned int)strlen(key); ++i) {
 		h = h * 33 + (unsigned int)key[i];
 	}
-	return h % FINGERPRINT_CACHE_SIZE;
+	return h % 256;
 }
 
 /*

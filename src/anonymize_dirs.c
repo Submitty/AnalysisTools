@@ -28,6 +28,7 @@ static char **COMMAND = NULL;
 
 static string DIR_STACK[64];
 static unsigned int DIR_STACK_INDEX = 0;
+static bool ABSOLUTE_PATH = false;
 static unsigned int REPLACE_LEVEL = 0;
 
 static name_entry *NAMES[256];
@@ -39,7 +40,7 @@ static unsigned int hash(const char *key)
 	for (i = 0; i < (unsigned int)strlen(key); ++i) {
 		h = h * 33 + (unsigned int)key[i];
 	}
-	return h % FINGERPRINT_CACHE_SIZE;
+	return h % 256;
 }
 
 static void add_name(const char *name, const char *new)
@@ -82,7 +83,12 @@ static void construct_path(char *buf, unsigned int bufsize, bool sub)
 	unsigned int i;
 	bool anyrep = false;
 	memset(buf, 0, (size_t) bufsize);
+	if (!sub && ABSOLUTE_PATH)
+		buf[0] = '/';
 	for (i = 0; i < DIR_STACK_INDEX; ++i) {
+		if (sub && strncmp(DIR_STACK[i], "..", STRING_LENGTH) == 0)
+			continue;
+
 		if (sub && i + 1 == REPLACE_LEVEL) {
 			bool rep = false;
 			name_entry *n;
@@ -205,6 +211,7 @@ static int walk_fn(const char *path, bool isreg)
 			 WORKING_DIR "/anonymized/%s%s", buf, new_name);
 		construct_path(buf, STRING_LENGTH, false);
 		snprintf(real_path, STRING_LENGTH, "%s%s", buf, path);
+
 		/* Open the input file */
 		input = open(real_path, O_RDONLY);
 		if (input < 0) {
@@ -263,12 +270,17 @@ int main(int argc, char **argv)
 	mkdir(WORKING_DIR, 0777);
 	mkdir(WORKING_DIR "/anonymized", 0777);
 
+	if (argv[1][0] == '/')
+		ABSOLUTE_PATH = true;
+
 	d = strtok(argv[1], "/");
 	do {
-		snprintf(swap, STRING_LENGTH, "%s/%s", buf, d);
-		mkdir(swap, 0777);
+		if (strncmp(d, "..", STRING_LENGTH) != 0) {
+			snprintf(swap, STRING_LENGTH, "%s/%s", buf, d);
+			mkdir(swap, 0777);
+			strncpy(buf, swap, STRING_LENGTH);
+		}
 		strncpy(DIR_STACK[DIR_STACK_INDEX++], d, STRING_LENGTH);
-		strncpy(buf, swap, STRING_LENGTH);
 	} while ((d = strtok(NULL, "/")) != NULL);
 	DIR_STACK_INDEX--;
 
