@@ -9,7 +9,7 @@ SPLINT = $(shell which splint 2> /dev/null)
 PYLINT = $(shell which pylint 2> /dev/null)
 INDENT = $(shell which indent 2> /dev/null)
 
-SCRIPTLINT_PYTHON = bin/plagiarism bin/anonymization bin/anonymize_log
+SCRIPTLINT_PYTHON = bin/plagiarism bin/anonymization bin/anonymize_log bin/csa
 
 LEXERS = lexer/c/lex lexer/python/lex lexer/java/lex
 LANGUAGES = lang/newc
@@ -64,7 +64,7 @@ clean:
 
 $(BUILD_DIR)/.lintstate: $(SCRIPTLINT_PYTHON)
 ifdef PYLINT
-	$(PYLINT) --max-line-length=80 $(SCRIPTLINT_PYTHON)
+	$(PYLINT) --disable=import-error --max-line-length=80 $(SCRIPTLINT_PYTHON)
 endif
 	touch $@
 

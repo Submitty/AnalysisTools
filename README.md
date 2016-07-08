@@ -7,6 +7,8 @@ This repository contains a variety of tools used for source code analysis.
 * GNU Bison (tested on version 3.0.4)
 * PCRE (tested on version 8.38)
 * Python (tested on version 3.43)
+* Eclipse JDT Library
+* python-graph-tool
 
 Optionally, if GNU Indent, Splint, and/or Pylint are installed, they will be incorporated into the build process to check for common stylistic and logical errors. It is recommended to install these tools if you wish to make a large contribution.
 
@@ -51,3 +53,9 @@ Generates all pairs of files in the directory `.analysis_data/<timestamp>`, writ
 Usage example: `cat pairs | ./bin/genpairs <timestamp>`
 
 Reads pairs from standard input, reads fingeprint data from `.analysis_data/<timestamp>`, and computes match data, writing to standard output.
+
+### Java Parser
+Arguments: \[javafile ...\] \[ -t for XML ast \|  -u for class hierarchical data\] -o filename
+
+### Class Structure Analysis
+Usage example: `python CSA.py student\_structure\_file subgraph\_structure\_file`

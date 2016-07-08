@@ -8,7 +8,7 @@ import org.eclipse.jdt.core.dom.*;
  * on sequential trees wihtout losing data, 
  * 
  */
-public class UMLvisitor extends ASTVisitor {
+public class HierarchyVisitor extends ASTVisitor {
 
 	private HashMap<String, ClassData> data;
 	private Stack<String> class_names;
@@ -16,7 +16,7 @@ public class UMLvisitor extends ASTVisitor {
 	{
 		return data;
 	}
-	public UMLvisitor()
+	public HierarchyVisitor()
 	{
 		data = new HashMap<String, ClassData>();
 		class_names = new Stack<String>();
