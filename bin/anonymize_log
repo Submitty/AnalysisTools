@@ -25,6 +25,7 @@ DIRECTORY_NAMES = defaultdict(lambda: 0)
 FILE_NAMES = defaultdict(lambda: defaultdict(lambda: 0))
 INTERNAL_NAMES = defaultdict(lambda: defaultdict(lambda: 0))
 IGNORED_NAMES = defaultdict(lambda: defaultdict(lambda: 0))
+IGNORED_FILE_NAMES = defaultdict(lambda: 0)
 
 def print_csv():
     """
@@ -44,6 +45,10 @@ def print_csv():
         print(key + "," + INTERNAL_NAMES[key]["new"] + "," +
               str(INTERNAL_NAMES[key]["count"]))
 
+    print("=== IGNORED IN FILENAMES ===")
+    for key in IGNORED_FILE_NAMES.keys():
+        print(key + "," + str(IGNORED_FILE_NAMES[key]))
+
     print("=== IGNORED IN FILES ===")
     for key in IGNORED_NAMES.keys():
         print(key + "," + IGNORED_NAMES[key]["new"] + "," +
@@ -62,7 +67,7 @@ for line in sys.stdin:
         INTERNAL_NAMES[match.group(1)]["new"] = match.group(2)
         INTERNAL_NAMES[match.group(1)]["count"] += 1
         continue
-    match = re.search(r"Applied substitution in path ([\w|/]+)", line)
+    match = re.search(r"Applied substitution in path ([\w|/.]+)", line)
     if match:
         DIRECTORY_NAMES[match.group(1)] += 1
         continue
@@ -77,6 +82,11 @@ for line in sys.stdin:
     if match:
         IGNORED_NAMES[match.group(1)]["new"] = match.group(2)
         IGNORED_NAMES[match.group(1)]["count"] += 1
+        continue
+    match = re.search(r"Ignored file ([\w|/.]+)",
+                      line)
+    if match:
+        IGNORED_FILE_NAMES[match.group(1)] += 1
         continue
 
 if ARGS.plot:

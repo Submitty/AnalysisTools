@@ -31,6 +31,9 @@ static unsigned int DIR_STACK_INDEX = 0;
 static bool ABSOLUTE_PATH = false;
 static unsigned int REPLACE_LEVEL = 0;
 
+static char **IGNORED_PATHS = NULL;
+static unsigned int IGNORED_COUNT = 0;
+
 static name_entry *NAMES[256];
 
 static unsigned int hash(const char *key)
@@ -57,6 +60,16 @@ static void add_name(const char *name, const char *new)
 	h = hash(n->name);
 	n->next = NAMES[h];
 	NAMES[h] = n;
+}
+
+static bool should_ignore(const char *name)
+{
+	unsigned int i;
+	for (i = 0; i < IGNORED_COUNT; ++i) {
+		if (strcmp(IGNORED_PATHS[i], name) == 0)
+			return true;
+	}
+	return false;
 }
 
 static inline void make_lowercase(char *b)
@@ -149,7 +162,7 @@ static void apply_filename_replace(char *buf, char *str)
 	} while ((tok = strtok(NULL, "_")) != NULL);
 }
 
-static void walk(const char *path, int (*cb) (const char *, bool))
+static void walk(const char *path, void (*cb) (const char *, bool))
 {
 	const char *last = strrchr(path, '/');
 	string complete_path = "", stat_path = "";
@@ -189,12 +202,20 @@ static void walk(const char *path, int (*cb) (const char *, bool))
  * is also passed as a flag, telling ./bin/anonymize to parse a two-column
  * CSV file rather than a simple list of names.
  */
-static int walk_fn(const char *path, bool isreg)
+static void walk_fn(const char *path, bool isreg)
 {
 	string fake_path = "", real_path = "", buf = "", new_name = "";
 	if (isreg) {		/* If this is a regular file: */
 		char *base, *ext;
 		int input, output;
+
+		construct_path(buf, STRING_LENGTH, false);
+		snprintf(real_path, STRING_LENGTH, "%s%s", buf, path);
+
+		if (should_ignore(real_path)) {
+			fprintf(stderr, "Ignored file %s\n", real_path);
+			return;
+		}
 
 		strncpy(new_name, path, STRING_LENGTH);
 		strncpy(buf, path, STRING_LENGTH);
@@ -209,8 +230,6 @@ static int walk_fn(const char *path, bool isreg)
 		construct_path(buf, STRING_LENGTH, true);
 		snprintf(fake_path, STRING_LENGTH,
 			 WORKING_DIR "/anonymized/%s%s", buf, new_name);
-		construct_path(buf, STRING_LENGTH, false);
-		snprintf(real_path, STRING_LENGTH, "%s%s", buf, path);
 
 		/* Open the input file */
 		input = open(real_path, O_RDONLY);
@@ -237,7 +256,7 @@ static int walk_fn(const char *path, bool isreg)
 			 buf);
 		mkdir(fake_path, 0777);
 	}
-	return 0;
+	return;
 }
 
 int main(int argc, char **argv)
@@ -268,6 +287,11 @@ int main(int argc, char **argv)
 			break;
 		}
 	}
+
+	++optind;
+	IGNORED_PATHS = argv + optind;
+	IGNORED_COUNT = (unsigned int)argc - optind;
+
 	mkdir(WORKING_DIR, 0777);
 	mkdir(WORKING_DIR "/anonymized", 0777);
 
