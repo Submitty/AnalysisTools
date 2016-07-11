@@ -33,6 +33,9 @@ static name_entry *NAMES[256];
  */
 static regexp_entry *REGEXPS = NULL;
 
+static unsigned int CURRENT_LINE = 0;
+static unsigned int LINES_TO_PARSE = (unsigned int)-1;
+
 static unsigned int hash(const char *key)
 {
 	unsigned int h = 5381;
@@ -162,7 +165,7 @@ int main(int argc, char **argv)
 	static int ovector[30];
 	static char delim;
 
-	while ((arg = getopt(argc, argv, "t:n:r:l:")) != -1) {
+	while ((arg = getopt(argc, argv, "t:n:r:a:l:")) != -1) {
 		switch (arg) {
 		case 't':
 			read_names(optarg, true);
@@ -172,6 +175,9 @@ int main(int argc, char **argv)
 			break;
 		case 'r':
 			add_regexp(optarg);
+			break;
+		case 'a':
+			LINES_TO_PARSE = (unsigned int)atoi(optarg);
 			break;
 		case 'l':
 			break;
@@ -187,10 +193,16 @@ int main(int argc, char **argv)
 
 		for (n = NAMES[hash(lower)]; n != NULL; n = n->next) {
 			if (strncmp(lower, n->name, STRING_LENGTH) == 0) {
-				fprintf(stderr, "Replaced %s with %s\n", word,
-					n->new);
-				apply_replace(buf, lower, n);
-				memcpy(word, buf, STRING_LENGTH);
+				if (CURRENT_LINE < LINES_TO_PARSE) {
+					fprintf(stderr, "Replaced %s with %s\n",
+						word, n->new);
+					apply_replace(buf, lower, n);
+					memcpy(word, buf, STRING_LENGTH);
+				} else {
+					fprintf(stderr,
+						"Ignored potential replacement of %s with %s\n",
+						word, n->new);
+				}
 			}
 		}
 		for (r = REGEXPS; r != NULL; r = r->next) {
@@ -213,6 +225,8 @@ int main(int argc, char **argv)
 			}
 		}
 		printf("%s%c", word, delim);
+		if (delim == '\n')
+			++CURRENT_LINE;
 	}
 
 	return 0;

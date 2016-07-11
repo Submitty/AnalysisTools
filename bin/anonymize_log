@@ -24,6 +24,7 @@ with open(ARGS.config if ARGS.config else "config/anonymization.json")\
 DIRECTORY_NAMES = defaultdict(lambda: 0)
 FILE_NAMES = defaultdict(lambda: defaultdict(lambda: 0))
 INTERNAL_NAMES = defaultdict(lambda: defaultdict(lambda: 0))
+IGNORED_NAMES = defaultdict(lambda: defaultdict(lambda: 0))
 
 def print_csv():
     """
@@ -42,6 +43,11 @@ def print_csv():
     for key in INTERNAL_NAMES.keys():
         print(key + "," + INTERNAL_NAMES[key]["new"] + "," +
               str(INTERNAL_NAMES[key]["count"]))
+
+    print("=== IGNORED IN FILES ===")
+    for key in IGNORED_NAMES.keys():
+        print(key + "," + IGNORED_NAMES[key]["new"] + "," +
+              str(IGNORED_NAMES[key]["count"]))
 
 def print_gnuplot():
     """
@@ -65,6 +71,12 @@ for line in sys.stdin:
     if match:
         FILE_NAMES[match.group(2)]["new"] = match.group(1)
         FILE_NAMES[match.group(2)]["count"] += 1
+        continue
+    match = re.search(r"Ignored potential replacement of (\w+) with (\w+)",
+                      line)
+    if match:
+        IGNORED_NAMES[match.group(1)]["new"] = match.group(2)
+        IGNORED_NAMES[match.group(1)]["count"] += 1
         continue
 
 if ARGS.plot:

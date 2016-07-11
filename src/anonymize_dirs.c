@@ -254,13 +254,14 @@ int main(int argc, char **argv)
 	COMMAND[0] = "./bin/anonymize";
 	COMMAND[argc - 1] = NULL;
 
-	while ((arg = getopt(argc - 1, COMMAND, "t:n:r:l:")) != -1) {
+	while ((arg = getopt(argc - 1, COMMAND, "t:n:r:a:l:")) != -1) {
 		switch (arg) {
 		case 't':
 			read_names(optarg);
 			break;
 		case 'n':
 		case 'r':
+		case 'a':
 			break;
 		case 'l':
 			REPLACE_LEVEL = (unsigned int)atoi(optarg) + 1;
