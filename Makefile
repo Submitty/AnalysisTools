@@ -74,8 +74,8 @@ indent:
 	indent -linux src/*.c
 
 ubuntudeps:
-	add-apt-repository "http://downloads.skewed.de/apt/trusty universe"
-	add-apt-repository ppa:ubuntu-toolchain-r/test
+	add-apt-repository "http://downloads.skewed.de/apt/trusty universe" -y
+	add-apt-repository ppa:ubuntu-toolchain-r/test -y
 	apt-get update -qq
 	apt-get install -qq build-essential flex bison
 	apt-get install -qq libpcre3 libpcre3-dev
