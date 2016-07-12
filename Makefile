@@ -82,4 +82,4 @@ ubuntudeps:
 	apt-get install -qq splint indent
 	apt-get install -qq python3 python3-pip
 	python3 -m pip install pylint
-	apt-get install -qq python3-graph-tool
+	apt-get install -qq --force-yes python3-graph-tool
