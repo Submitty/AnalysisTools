@@ -13,6 +13,7 @@ SCRIPTLINT_PYTHON = bin/plagiarism bin/anonymization bin/anonymize_log bin/csa
 
 LEXERS = lexer/c/lex lexer/python/lex lexer/java/lex
 LANGUAGES = lang/newc
+LANGUAGES_STATE = $(foreach file,$(LANGUAGES),$(file)/.buildstate)
 
 CFLAGS_gcc = -Iinclude -I/usr/local/include -O2 -g -Wall -Werror -D_POSIX_C_SOURCE=200809 -D_DEFAULT_SOURCE -Wno-unused-result
 CFLAGS = $(CFLAGS_$(CC))
@@ -21,11 +22,10 @@ LINKER_FLAGS = $(LINKER_FLAGS_$(CC))
 
 vpath %.c src
 
-.PHONY: all directories clean indent
+.PHONY: all directories clean indent ubuntudeps
 
-all: $(BUILD_DIR)/.lintstate directories $(BINARIES) $(LEXERS)
-#	$(MAKE) $(LANGUAGES)
-#	python setup.py build
+all: $(BUILD_DIR)/.lintstate directories $(BINARIES) $(LEXERS) $(LANGUAGES_STATE)
+	python3 setup.py build
 
 directories: $(BUILD_DIR)
 
@@ -51,13 +51,15 @@ lexer/%/lex: lexer/%/lex.l lexer/%/tokens.h
 lang/ast_node.o: lang/ast_node.c
 	$(CC) -o $@ $(CFLAGS) -c $<
 
-lang/%: lang/%/lex.l lang/%/parse.y lang/ast_node.o
-	bison --defines=$@/parser.h --output=$@/parse.out.c $@/parse.y
-	$(CC) -Ilang $@/parse.out.c -c -o $@/parse.o
-	flex -o $@/lex.out.c $@/lex.l
-	$(CC) -Ilang $@/main.c $@/lex.out.c $@/parse.o lang/ast_node.o -o $@/lex -lfl -lpython3.4
+lang/%/.buildstate: lang/% lang/%/lex.l lang/%/parse.y lang/ast_node.o
+	bison --defines=$</parser.h --output=$</parse.out.c $</parse.y
+	$(CC) -Ilang $</parse.out.c -c -o $</parse.o
+	flex -o $</lex.out.c $</lex.l
+	$(CC) -Ilang $</main.c $</lex.out.c $</parse.o lang/ast_node.o -o $</lex -lfl -lpython3.4
+	touch $@
 
 clean:
+	rm $(LANGUAGES_STATE) -f
 	rm $(BINARIES) -f
 	rm $(BUILD_DIR)/.lintstate -f
 	rm .analysis_data -rf
@@ -70,3 +72,14 @@ endif
 
 indent:
 	indent -linux src/*.c
+
+ubuntudeps:
+	add-apt-repository "http://downloads.skewed.de/apt/trusty universe"
+	add-apt-repository ppa:ubuntu-toolchain-r/test
+	apt-get update -qq
+	apt-get install -qq build-essential flex bison
+	apt-get install -qq libpcre3 libpcre3-dev
+	apt-get install -qq splint indent
+	apt-get install -qq python3 python3-pip
+	python3 -m pip install pylint
+	apt-get install -qq python3-graph-tool
