@@ -55,7 +55,7 @@ lang/%/.buildstate: lang/% lang/%/lex.l lang/%/parse.y lang/ast_node.o
 	bison --defines=$</parser.h --output=$</parse.out.c $</parse.y
 	$(CC) -Ilang $</parse.out.c -c -o $</parse.o
 	flex -o $</lex.out.c $</lex.l
-	$(CC) -Ilang $</main.c $</lex.out.c $</parse.o lang/ast_node.o -o $</lex -lfl -lpython3.4
+	$(CC) -Ilang $</main.c $</lex.out.c $</parse.o lang/ast_node.o -o $</lex -lfl `pkg-config --libs python-3.4`
 	touch $@
 
 clean:
