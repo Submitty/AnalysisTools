@@ -24,6 +24,11 @@ typedef struct name_entry {
 	struct name_entry *next;
 } name_entry;
 
+typedef struct ignore_entry {
+	string name;
+	struct ignore_entry *next;
+} ignore_entry;
+
 static char **COMMAND = NULL;
 
 static string DIR_STACK[64];
@@ -31,10 +36,8 @@ static unsigned int DIR_STACK_INDEX = 0;
 static bool ABSOLUTE_PATH = false;
 static unsigned int REPLACE_LEVEL = 0;
 
-static char **IGNORED_PATHS = NULL;
-static unsigned int IGNORED_COUNT = 0;
-
-static name_entry *NAMES[256];
+static name_entry *NAMES[1024];
+static ignore_entry *IGNORED[1024];
 
 static unsigned int hash(const char *key)
 {
@@ -43,7 +46,7 @@ static unsigned int hash(const char *key)
 	for (i = 0; i < (unsigned int)strlen(key); ++i) {
 		h = h * 33 + (unsigned int)key[i];
 	}
-	return h % 256;
+	return h % 1024;
 }
 
 static void add_name(const char *name, const char *new)
@@ -62,12 +65,29 @@ static void add_name(const char *name, const char *new)
 	NAMES[h] = n;
 }
 
+static void add_ignored(const char *name)
+{
+	ignore_entry *n;
+	unsigned int h;
+
+	n = (ignore_entry *) malloc(sizeof(ignore_entry));
+	if (n == NULL)
+		exit(EXIT_FAILURE);
+
+	strncpy(n->name, name, STRING_LENGTH);
+
+	h = hash(n->name);
+	n->next = IGNORED[h];
+	IGNORED[h] = n;
+}
+
 static bool should_ignore(const char *name)
 {
-	unsigned int i;
-	for (i = 0; i < IGNORED_COUNT; ++i) {
-		if (strcmp(IGNORED_PATHS[i], name) == 0)
+	ignore_entry *n;
+	for (n = IGNORED[hash(name)]; n != NULL; n = n->next) {
+		if (strncmp(n->name, name, STRING_LENGTH) == 0) {
 			return true;
+		}
 	}
 	return false;
 }
@@ -176,7 +196,11 @@ static void walk(const char *path, void (*cb) (const char *, bool))
 	cb(NULL, false);
 
 	construct_path(complete_path, STRING_LENGTH, false);
-	//printf("+%s | %s\n", last, complete_path);
+
+	if (should_ignore(complete_path)) {
+		fprintf(stderr, "Ignored file %s\n", complete_path);
+		return;
+	}
 
 	dir = opendir(complete_path);
 	while ((ent = readdir(dir))) {
@@ -288,9 +312,9 @@ int main(int argc, char **argv)
 		}
 	}
 
-	++optind;
-	IGNORED_PATHS = argv + optind;
-	IGNORED_COUNT = (unsigned int)argc - optind;
+	for (++optind; optind < argc; ++optind) {
+		add_ignored(argv[optind]);
+	}
 
 	mkdir(WORKING_DIR, 0777);
 	mkdir(WORKING_DIR "/anonymized", 0777);
