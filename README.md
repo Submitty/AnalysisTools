@@ -29,7 +29,7 @@ Anonymizes all files in the given directory tree. The `-n`, `-t`, `-a`, and `-r`
 
 Any additional arguments passed after the above flags are treated as files to ignore. To ignore entire directories, ensure the paths are well-formed, i.e. `foo/bar/baz/` (noting the `/` at the end).
 
-Capture the standard output of this run to see the statisticss regarding the number of replacements in directory names, file names, and file contents.
+Capture the standard output of this run to see the statistics regarding the number of replacements in directory names, file names, and file contents.
 
 ### `bin/plagiarism`
 Usage example: `./bin/plagiarism java source_dir`
@@ -39,7 +39,7 @@ Checks every source file in the given language contained in `source_dir` (or a s
 ### `bin/winnow`
 Usage example: `cat tokens | ./bin/winnow -u 30 -l 15`
 
-Applys the winnowing algorithm to a sequence of whitespace-separated integer-valued tokens read from standard input using upper bound `30` and lower bound `15`. Writes the selected fingerprints to standard output.
+Applies the winnowing algorithm to a sequence of whitespace-separated integer-valued tokens read from standard input using upper bound `30` and lower bound `15`. Writes the selected fingerprints to standard output.
 
 ### `bin/walk`
 Usage example: `./bin/walk -u 30 -l 15 python source_dir`
@@ -54,10 +54,10 @@ Generates all pairs of files in the directory `.analysis_data/<timestamp>`, writ
 ### `bin/compare_fingerprints`
 Usage example: `cat pairs | ./bin/genpairs <timestamp>`
 
-Reads pairs from standard input, reads fingeprint data from `.analysis_data/<timestamp>`, and computes match data, writing to standard output.
+Reads pairs from standard input, reads fingerprint data from `.analysis_data/<timestamp>`, and computes match data, writing to standard output.
 
 ### Java Parser
-Arguments: \[javafile ...\] \[ -t for XML ast \|  -u for class hierarchical data\] -o filename
+Arguments: `\[javafile ...\] \[ -t for XML AST \|  -u for class hierarchical data\] -o filename`
 
 ### Class Structure Analysis
 Usage example: `python CSA.py student\_structure\_file subgraph\_structure\_file`
