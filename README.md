@@ -27,7 +27,7 @@ Usage example: `./bin/anonymization source_dir -n first_names.txt -n last_names.
 
 Anonymizes all files in the given directory tree. The `-n`, `-t`, `-a`, and `-r` flags have the same meaning as those passed to `bin/anonymize`. One additional flag is also accepted: `-l`, which allows the user to specify a level in the directory tree (as an integer). Any directories at this level will also have their names anonymized according to the CSV files passed using the `-t` flag. Note that only those CSV files will be used for the replacement: simple name lists passed with `-n` will not be used for directory replacement.
 
-Any additional arguments passed after the above flags are treated as files to ignore.
+Any additional arguments passed after the above flags are treated as files to ignore. To ignore entire directories, ensure the paths are well-formed, i.e. `foo/bar/baz/` (noting the `/` at the end).
 
 Capture the standard output of this run to see the statisticss regarding the number of replacements in directory names, file names, and file contents.
 
