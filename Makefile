@@ -80,6 +80,6 @@ ubuntudeps:
 	apt-get install -qq build-essential flex bison
 	apt-get install -qq libpcre3 libpcre3-dev
 	apt-get install -qq splint indent
-	apt-get install -qq python3 python3-dev python3-pip
+	apt-get install -qq python3 python3-dev libpython3.4 python3-pip
 	python3 -m pip install pylint
 	apt-get install -qq --force-yes python3-graph-tool
