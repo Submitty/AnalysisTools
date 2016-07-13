@@ -80,17 +80,17 @@ static void comment(void);
 
 {L}{A}*					{ yylval.node = make_ast_node("identifier", NULL, NULL); return IDENTIFIER; }
 
-{HP}{H}+{IS}?				{ return I_CONSTANT; }
-{NZ}{D}*{IS}?				{ return I_CONSTANT; }
-"0"{O}*{IS}?				{ return I_CONSTANT; }
-{CP}?"'"([^'\\\n]|{ES})+"'"		{ return I_CONSTANT; }
+{HP}{H}+{IS}?				{ return INTEGER_LITERAL; }
+{NZ}{D}*{IS}?				{ return INTEGER_LITERAL; }
+"0"{O}*{IS}?				{ return INTEGER_LITERAL; }
+{CP}?"'"([^'\\\n]|{ES})+"'"		{ return INTEGER_LITERAL; }
 
-{D}+{E}{FS}?				{ return F_CONSTANT; }
-{D}*"."{D}+{E}?{FS}?			{ return F_CONSTANT; }
-{D}+"."{E}?{FS}?			{ return F_CONSTANT; }
-{HP}{H}+{P}{FS}?			{ return F_CONSTANT; }
-{HP}{H}*"."{H}+{P}{FS}?			{ return F_CONSTANT; }
-{HP}{H}+"."{P}{FS}?			{ return F_CONSTANT; }
+{D}+{E}{FS}?				{ return FLOAT_LITERAL; }
+{D}*"."{D}+{E}?{FS}?			{ return FLOAT_LITERAL; }
+{D}+"."{E}?{FS}?			{ return FLOAT_LITERAL; }
+{HP}{H}+{P}{FS}?			{ return FLOAT_LITERAL; }
+{HP}{H}*"."{H}+{P}{FS}?			{ return FLOAT_LITERAL; }
+{HP}{H}+"."{P}{FS}?			{ return FLOAT_LITERAL; }
 
 ({SP}?\"([^"\\\n]|{ES})*\"{WS}*)+	{ yylval.node = make_ast_node("string", NULL, NULL); return STRING_LITERAL; }
 

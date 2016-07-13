@@ -12,7 +12,7 @@ int yydebug = 1;
 %parse-param {ast_node **root}
 
 %token <node> IDENTIFIER STRING_LITERAL
-%token I_CONSTANT F_CONSTANT FUNC_NAME SIZEOF
+%token INTEGER_LITERAL FLOAT_LITERAL FUNC_NAME SIZEOF
 %token PTR_OP INC_OP DEC_OP LEFT_OP RIGHT_OP LE_OP GE_OP EQ_OP NE_OP
 %token AND_OP OR_OP MUL_ASSIGN DIV_ASSIGN MOD_ASSIGN ADD_ASSIGN
 %token SUB_ASSIGN LEFT_ASSIGN RIGHT_ASSIGN AND_ASSIGN
@@ -76,8 +76,8 @@ primary_expression
 	;
 
 constant
-	: I_CONSTANT { $$ = make_ast_node("integer", NULL, NULL); }
-	| F_CONSTANT { $$ = make_ast_node("float", NULL, NULL); }
+	: INTEGER_LITERAL { $$ = make_ast_node("integer", NULL, NULL); }
+	| FLOAT_LITERAL { $$ = make_ast_node("float", NULL, NULL); }
 	;
 
 string

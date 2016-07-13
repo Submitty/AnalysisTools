@@ -105,8 +105,8 @@ TOKENS = {
     "c" : [
         "IDENTIFIER",
         "STRING_LITERAL",
-        "I_CONSTANT",
-        "F_CONSTANT",
+        "INTEGER_LITERAL",
+        "FLOAT_LITERAL",
         "FUNC_NAME",
         "SIZEOF",
         "PTR_OP",
