@@ -48,7 +48,7 @@ static int walk_fn(const char *path, const struct stat *sb, int typeflag)
 		unsigned int lineno;
 
 		file = open(path, O_RDONLY);
-		snprintf(SPRINTF_BUFFER, STRING_LENGTH, "./lexer/%s/lex",
+		snprintf(SPRINTF_BUFFER, STRING_LENGTH, "./lang/%s/lex",
 			 FILETYPE);
 		lexer_o = ex_pi(file, SPRINTF_BUFFER, NULL);
 		winnow_o =

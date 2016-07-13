@@ -11,8 +11,8 @@ INDENT = $(shell which indent 2> /dev/null)
 
 SCRIPTLINT_PYTHON = bin/plagiarism bin/anonymization bin/anonymize_log bin/csa
 
-LEXERS = lexer/c/lex lexer/python/lex lexer/java/lex
-LANGUAGES = lang/newc
+LEXERS = lang/python/lex lang/java/lex
+LANGUAGES = lang/c
 LANGUAGES_STATE = $(foreach file,$(LANGUAGES),$(file)/.buildstate)
 
 CFLAGS_gcc = -Iinclude -I/usr/local/include -O2 -g -Wall -Werror -D_POSIX_C_SOURCE=200809 -D_DEFAULT_SOURCE -Wno-unused-result
@@ -44,7 +44,7 @@ ifdef INDENT
 endif
 	$(CC) -o $@ $(CFLAGS) $< $(LINKER_FLAGS)
 
-lexer/%/lex: lexer/%/lex.l lexer/%/tokens.h
+lang/%/lex: lang/%/lex.l lang/%/tokens.h
 	flex -o $@.out.c $@.l
 	$(CC) $@.out.c -o $@ -lfl
 
@@ -59,6 +59,7 @@ lang/%/.buildstate: lang/% lang/%/lex.l lang/%/parse.y lang/ast_node.o
 	touch $@
 
 clean:
+	rm $(LEXERS) -f
 	rm $(LANGUAGES_STATE) -f
 	rm $(BINARIES) -f
 	rm $(BUILD_DIR)/.lintstate -f
