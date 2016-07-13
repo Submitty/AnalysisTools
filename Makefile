@@ -33,13 +33,13 @@ $(BUILD_DIR):
 	mkdir -p $(BUILD_DIR)
 
 $(BUILD_DIR)/%: %.c
-ifdef SPLINT
+ifneq ($(SPLINT),)
 	$(SPLINT) $< -I include -I /usr/include/x86_64-linux-gnu \
 		-compdef -retvalint -nullpass -nullstate -warnposix -formatcode -mayaliasunique -unrecog \
 		-unqualifiedtrans -noeffect -mustfreefresh -observertrans -nullassign -onlytrans -statictrans -paramuse \
 		-immediatetrans -globstate -nullret -mustfreeonly -branchstate -compdestroy
 endif
-ifdef INDENT
+ifneq ($(INDENT),)
 	$(INDENT) $< -linux -st | diff - $<
 endif
 	$(CC) -o $@ $(CFLAGS) $< $(LINKER_FLAGS)
@@ -66,7 +66,7 @@ clean:
 	rm .analysis_data -rf
 
 $(BUILD_DIR)/.lintstate: $(SCRIPTLINT_PYTHON)
-ifdef PYLINT
+ifneq ($(PYLINT),)
 	$(PYLINT) --disable=import-error --max-line-length=80 $(SCRIPTLINT_PYTHON)
 endif
 	touch $@
@@ -78,7 +78,7 @@ ubuntudeps:
 	add-apt-repository "http://downloads.skewed.de/apt/trusty universe" -y
 	add-apt-repository ppa:ubuntu-toolchain-r/test -y
 	apt-get update -qq
-	apt-get install -qq build-essential flex bison
+	apt-get install -qq build-essential pkg-config flex bison
 	apt-get install -qq libpcre3 libpcre3-dev
 	apt-get install -qq splint indent
 	apt-get install -qq python3 python3-dev libpython3.4 python3-pip
