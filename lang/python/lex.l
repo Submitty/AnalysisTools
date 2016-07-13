@@ -54,6 +54,7 @@ token process_indent(char *line);
 "global"			{ STOP; return GLOBAL; }
 "if"				{ STOP; return IF; }
 "import"			{ STOP; return IMPORT; }
+"in"				{ STOP; return IN; }
 "is"				{ STOP; return IS; }
 "lambda"			{ STOP; return LAMBDA; }
 "nonlocal"			{ STOP; return NONLOCAL; }

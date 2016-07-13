@@ -28,6 +28,11 @@ int yydebug = 1;
 
 %token ALIGNAS ALIGNOF ATOMIC GENERIC NORETURN STATIC_ASSERT THREAD_LOCAL
 
+%token SEMICOLON LEFT_CURLY RIGHT_CURLY COMMA COLON EQUAL LEFT_PAREN RIGHT_PAREN
+%token LEFT_SQUARE RIGHT_SQUARE DOT AMPERSAND EXCLAMATION TILDE
+%token MINUS PLUS ASTERISK SLASH PERCENT LESS_THAN GREATER_THAN
+%token CARET PIPE QUESTION
+
 %type <node> primary_expression constant string
 %type <node> generic_selection generic_assoc_list generic_association
 %type <node> postfix_expression argument_expression_list
@@ -66,7 +71,7 @@ primary_expression
 	: IDENTIFIER { $$ = make_ast_node("identifier", NULL, NULL); }
 	| constant { $$ = $1; }
 	| string { $$ = $1; } 
-	| '(' expression ')' { $$ = $2; }
+	| LEFT_PAREN expression RIGHT_PAREN { $$ = $2; }
 	| generic_selection { $$ = $1; }
 	;
 
@@ -81,7 +86,7 @@ string
 	;
 
 generic_selection
-	: GENERIC '(' assignment_expression ',' generic_assoc_list ')'
+	: GENERIC LEFT_PAREN assignment_expression COMMA generic_assoc_list RIGHT_PAREN
 	{ $$ = make_ast_node("generic_selection", $3, $5); }
 	;
 
@@ -92,29 +97,29 @@ generic_assoc_list
 	;
 
 generic_association
-	: type_name ':' assignment_expression
+	: type_name COLON assignment_expression
 	{ $$ = make_ast_node("generic_association", $1, $3); }
-	| DEFAULT ':' assignment_expression
+	| DEFAULT COLON assignment_expression
 	{ $$ = make_ast_node("generic_association_default", NULL, $3); }
 	;
 
 postfix_expression
 	: primary_expression { $$ = $1; }
-	| postfix_expression '[' expression ']'
+	| postfix_expression LEFT_SQUARE expression RIGHT_SQUARE
 	{ $$ = make_ast_node("array_access", $1, $3); }
-	| postfix_expression '(' ')'
+	| postfix_expression LEFT_PAREN RIGHT_PAREN
 	{ $$ = make_ast_node("func_call", $1, NULL); }
-	| postfix_expression '(' argument_expression_list ')'
+	| postfix_expression LEFT_PAREN argument_expression_list RIGHT_PAREN
 	{ $$ = make_ast_node("func_call", $1, $3); }
-	| postfix_expression '.' IDENTIFIER
+	| postfix_expression DOT IDENTIFIER
 	{ $$ = make_ast_node("element_access", $1, $3); }
 	| postfix_expression PTR_OP IDENTIFIER
 	{ $$ = make_ast_node("deref_element_access", $1, $3); }
 	| postfix_expression INC_OP { $$ = make_ast_node("increment_post", $1, NULL); }
 	| postfix_expression DEC_OP { $$ = make_ast_node("decrement_post", $1, NULL); }
-	| '(' type_name ')' '{' initializer_list '}'
+	| LEFT_PAREN type_name RIGHT_PAREN LEFT_CURLY initializer_list RIGHT_CURLY
 	{ $$ = make_ast_node("literal_struct", $2, $5); }
-	| '(' type_name ')' '{' initializer_list ',' '}'
+	| LEFT_PAREN type_name RIGHT_PAREN LEFT_CURLY initializer_list COMMA RIGHT_CURLY
 	{ $$ = make_ast_node("literal_struct", $2, $5); }
 	;
 
@@ -131,39 +136,39 @@ unary_expression
 	| DEC_OP unary_expression { $$ = make_ast_node("decrement_pre", $2, NULL); }
 	| unary_operator cast_expression { $$ = make_ast_node($1, $2, NULL); }
 	| SIZEOF unary_expression { $$ = make_ast_node("sizeof_expr", $2, NULL); }
-	| SIZEOF '(' type_name ')' { $$ = make_ast_node("sizeof_type", $3, NULL); }
-	| ALIGNOF '(' type_name ')' { $$ = make_ast_node("alignof", $3, NULL); }
+	| SIZEOF LEFT_PAREN type_name RIGHT_PAREN { $$ = make_ast_node("sizeof_type", $3, NULL); }
+	| ALIGNOF LEFT_PAREN type_name RIGHT_PAREN { $$ = make_ast_node("alignof", $3, NULL); }
 	;
 
 unary_operator
-	: '&' { $$ = "reference"; }
-	| '*' { $$ = "dereference"; }
-	| '+' { $$ = "positive"; }
-	| '-' { $$ = "negative"; }
-	| '~' { $$ = "tilde"; }
-	| '!' { $$ = "not"; }
+	: AMPERSAND { $$ = "reference"; }
+	| ASTERISK { $$ = "dereference"; }
+	| PLUS { $$ = "positive"; }
+	| MINUS { $$ = "negative"; }
+	| TILDE { $$ = "tilde"; }
+	| EXCLAMATION { $$ = "not"; }
 	;
 
 cast_expression
 	: unary_expression { $$ = $1; }
-	| '(' type_name ')' cast_expression { $$ = make_ast_node("cast", $2, $4); }
+	| LEFT_PAREN type_name RIGHT_PAREN cast_expression { $$ = make_ast_node("cast", $2, $4); }
 	;
 
 multiplicative_expression
 	: cast_expression { $$ = $1; }
-	| multiplicative_expression '*' cast_expression
+	| multiplicative_expression ASTERISK cast_expression
 	{ $$ = make_ast_node("multiply", $1, $3); }
-	| multiplicative_expression '/' cast_expression
+	| multiplicative_expression SLASH cast_expression
 	{ $$ = make_ast_node("divide", $1, $3); }
-	| multiplicative_expression '%' cast_expression
+	| multiplicative_expression PERCENT cast_expression
 	{ $$ = make_ast_node("modulo", $1, $3); }
 	;
 
 additive_expression
 	: multiplicative_expression { $$ = $1; }
-	| additive_expression '+' multiplicative_expression
+	| additive_expression PLUS multiplicative_expression
 	{ $$ = make_ast_node("add", $1, $3); }
-	| additive_expression '-' multiplicative_expression
+	| additive_expression MINUS multiplicative_expression
 	{ $$ = make_ast_node("subtract", $1, $3); }
 	;
 
@@ -177,9 +182,9 @@ shift_expression
 
 relational_expression
 	: shift_expression { $$ = $1; }
-	| relational_expression '<' shift_expression
+	| relational_expression LESS_THAN shift_expression
 	{ $$ = make_ast_node("less_than", $1, $3); }
-	| relational_expression '>' shift_expression
+	| relational_expression GREATER_THAN shift_expression
 	{ $$ = make_ast_node("greater_than", $1, $3); }
 	| relational_expression LE_OP shift_expression
 	{ $$ = make_ast_node("less_equal", $1, $3); }
@@ -197,19 +202,19 @@ equality_expression
 
 and_expression
 	: equality_expression { $$ = $1; }
-	| and_expression '&' equality_expression
+	| and_expression AMPERSAND equality_expression
 	{ $$ = make_ast_node("bitwise_and", $1, $3); }
 	;
 
 exclusive_or_expression
 	: and_expression { $$ = $1; }
-	| exclusive_or_expression '^' and_expression
+	| exclusive_or_expression CARET and_expression
 	{ $$ = make_ast_node("bitwise_xor", $1, $3); }
 	;
 
 inclusive_or_expression
 	: exclusive_or_expression { $$ = $1; }
-	| inclusive_or_expression '|' exclusive_or_expression
+	| inclusive_or_expression PIPE exclusive_or_expression
 	{ $$ = make_ast_node("bitwise_or", $1, $3); }
 	;
 
@@ -227,7 +232,7 @@ logical_or_expression
 
 conditional_expression
 	: logical_or_expression { $$ = $1; }
-	| logical_or_expression '?' expression ':' conditional_expression
+	| logical_or_expression QUESTION expression COLON conditional_expression
 	{ $$ = make_ast_node("ternary", $1, make_ast_node("ternary_body", $3, $5)); }
 	;
 
@@ -238,7 +243,7 @@ assignment_expression
 	;
 
 assignment_operator
-	: '=' { $$ = "assign"; }
+	: EQUAL { $$ = "assign"; }
 	| MUL_ASSIGN { $$ = "mul_assign"; }
 	| DIV_ASSIGN { $$ = "div_assign"; }
 	| MOD_ASSIGN { $$ = "mod_assign"; }
@@ -253,7 +258,7 @@ assignment_operator
 
 expression
 	: assignment_expression { $$ = $1; }
-	| expression ',' assignment_expression { $$ = make_ast_node("comma", $1, $3); }
+	| expression COMMA assignment_expression { $$ = make_ast_node("comma", $1, $3); }
 	;
 
 constant_expression
@@ -261,7 +266,7 @@ constant_expression
 	;
 
 declaration
-	: declaration_specifiers ';' { $$ = make_ast_node("declaration", $1, NULL); }
+	: declaration_specifiers SEMICOLON { $$ = make_ast_node("declaration", $1, NULL); }
 	| declaration_specifiers init_declarator_list ';'
 	{ $$ = make_ast_node("declaration", $1, $2); }
 	| static_assert_declaration { $$ = $1; }
@@ -292,12 +297,12 @@ declaration_specifiers
 
 init_declarator_list
 	: init_declarator { $$ = make_ast_node("init_declarator_list", $1, NULL); }
-	| init_declarator_list ',' init_declarator
+	| init_declarator_list COMMA init_declarator
 	{ $$ = make_ast_node("init_declarator_list", $1, $3); }
 	;
 
 init_declarator
-	: declarator '=' initializer { $$ = make_ast_node("init_declarator", $1, $3); }
+	: declarator EQUAL initializer { $$ = make_ast_node("init_declarator", $1, $3); }
 	| declarator { $$ = make_ast_node("init_declarator", $1, NULL); }
 	;
 
@@ -329,9 +334,9 @@ type_specifier
 	;
 
 struct_or_union_specifier
-	: struct_or_union '{' struct_declaration_list '}'
+	: struct_or_union LEFT_CURLY struct_declaration_list RIGHT_CURLY
 	{ $$ = make_ast_node($1, NULL, $3); }
-	| struct_or_union IDENTIFIER '{' struct_declaration_list '}'
+	| struct_or_union IDENTIFIER LEFT_CURLY struct_declaration_list RIGHT_CURLY
 	{ $$ = make_ast_node($1, $2, $4); }
 	| struct_or_union IDENTIFIER
 	{ $$ = make_ast_node($1, $2, NULL); }
@@ -349,7 +354,7 @@ struct_declaration_list
 	;
 
 struct_declaration
-	: specifier_qualifier_list ';'
+	: specifier_qualifier_list SEMICOLON
 	{ $$ = make_ast_node("struct_declaration", $1, NULL); }
 	| specifier_qualifier_list struct_declarator_list ';'
 	{ $$ = make_ast_node("struct_declaration", $1, $2); }
@@ -369,37 +374,37 @@ specifier_qualifier_list
 
 struct_declarator_list
 	: struct_declarator { $$ = make_ast_node("struct_declarator", $1, NULL); }
-	| struct_declarator_list ',' struct_declarator
+	| struct_declarator_list COMMA struct_declarator
 	{ $$ = make_ast_node("struct_declarator", $1, $3); }
 	;
 
 struct_declarator
-	: ':' constant_expression { $$ = make_ast_node("struct_declarator", NULL, $2); }
-	| declarator ':' constant_expression
+	: COLON constant_expression { $$ = make_ast_node("struct_declarator", NULL, $2); }
+	| declarator COLON constant_expression
 	{ $$ = make_ast_node("struct_declarator", $1, $3); }
 	| declarator { $$ = make_ast_node("struct_declarator", $1, NULL); }
 	;
 
 enum_specifier
-	: ENUM '{' enumerator_list '}' { $$ = make_ast_node("enum", NULL, $3); }
-	| ENUM '{' enumerator_list ',' '}' { $$ = make_ast_node("enum", NULL, $3); }
-	| ENUM IDENTIFIER '{' enumerator_list '}' { $$ = make_ast_node("enum", $2, $4); }
-	| ENUM IDENTIFIER '{' enumerator_list ',' '}' { $$ = make_ast_node("enum", $2, $4); }
+	: ENUM LEFT_CURLY enumerator_list RIGHT_CURLY { $$ = make_ast_node("enum", NULL, $3); }
+	| ENUM LEFT_CURLY enumerator_list COMMA RIGHT_CURLY { $$ = make_ast_node("enum", NULL, $3); }
+	| ENUM IDENTIFIER LEFT_CURLY enumerator_list RIGHT_CURLY { $$ = make_ast_node("enum", $2, $4); }
+	| ENUM IDENTIFIER LEFT_CURLY enumerator_list COMMA RIGHT_CURLY { $$ = make_ast_node("enum", $2, $4); }
 	| ENUM IDENTIFIER { $$ = make_ast_node("enum", $2, NULL); }
 	;
 
 enumerator_list
 	: enumerator { $$ = make_ast_node("enum_list", $1, NULL); }
-	| enumerator_list ',' enumerator { $$ = make_ast_node("enum_list", $1, $3); }
+	| enumerator_list COMMA enumerator { $$ = make_ast_node("enum_list", $1, $3); }
 	;
 
 enumerator
-	: IDENTIFIER '=' constant_expression { $$ = make_ast_node("enum_entry", $1, $3); }
+	: IDENTIFIER EQUAL constant_expression { $$ = make_ast_node("enum_entry", $1, $3); }
 	| IDENTIFIER { $$ = make_ast_node("enum_entry", $1, NULL); }
 	;
 
 atomic_type_specifier
-	: ATOMIC '(' type_name ')' { $$ = make_ast_node("atomic_spec", $3, NULL); }
+	: ATOMIC LEFT_PAREN type_name RIGHT_PAREN { $$ = make_ast_node("atomic_spec", $3, NULL); }
 	;
 
 type_qualifier
@@ -415,8 +420,8 @@ function_specifier
 	;
 
 alignment_specifier
-	: ALIGNAS '(' type_name ')' { $$ = make_ast_node("alignas", $3, NULL); }
-	| ALIGNAS '(' constant_expression ')' { $$ = make_ast_node("alignas", $3, NULL); }
+	: ALIGNAS LEFT_PAREN type_name RIGHT_PAREN { $$ = make_ast_node("alignas", $3, NULL); }
+	| ALIGNAS LEFT_PAREN constant_expression RIGHT_PAREN { $$ = make_ast_node("alignas", $3, NULL); }
 	;
 
 declarator
@@ -426,42 +431,42 @@ declarator
 
 direct_declarator
 	: IDENTIFIER { $$ = $1; }
-	| '(' declarator ')' { $$ = $2; }
-	| direct_declarator '[' ']' { $$ = make_ast_node("array", $1, NULL); }
-	| direct_declarator '[' '*' ']' { $$ = make_ast_node("array_star", $1, NULL); }
-	| direct_declarator '[' STATIC type_qualifier_list assignment_expression ']'
+	| LEFT_PAREN declarator RIGHT_PAREN { $$ = $2; }
+	| direct_declarator LEFT_SQUARE RIGHT_SQUARE { $$ = make_ast_node("array", $1, NULL); }
+	| direct_declarator LEFT_SQUARE ASTERISK RIGHT_SQUARE { $$ = make_ast_node("array_star", $1, NULL); }
+	| direct_declarator LEFT_SQUARE STATIC type_qualifier_list assignment_expression RIGHT_SQUARE
 	{ $$ = make_ast_node("array", $1,
 	make_ast_node("array_static_body", $4, $5)); }
-	| direct_declarator '[' STATIC assignment_expression ']'
+	| direct_declarator LEFT_SQUARE STATIC assignment_expression RIGHT_SQUARE
 	{ $$ = make_ast_node("array", $1,
 	make_ast_node("array_static_body", NULL, $4)); }
-	| direct_declarator '[' type_qualifier_list '*' ']'
+	| direct_declarator LEFT_SQUARE type_qualifier_list ASTERISK RIGHT_SQUARE
 	{ $$ = make_ast_node("array", $1,
 	make_ast_node("array_qual_star_body", $3, NULL)); }
-	| direct_declarator '[' type_qualifier_list STATIC assignment_expression ']'
+	| direct_declarator LEFT_SQUARE type_qualifier_list STATIC assignment_expression RIGHT_SQUARE
 	{ $$ = make_ast_node("array", $1,
 	make_ast_node("array_static_body", $3, $5)); }
-	| direct_declarator '[' type_qualifier_list assignment_expression ']'
+	| direct_declarator LEFT_SQUARE type_qualifier_list assignment_expression RIGHT_SQUARE
 	{ $$ = make_ast_node("array", $1,
 	make_ast_node("array_qual_body", $3, $4)); }
-	| direct_declarator '[' type_qualifier_list ']'
+	| direct_declarator LEFT_SQUARE type_qualifier_list RIGHT_SQUARE
 	{ $$ = make_ast_node("array", $1,
 	make_ast_node("array_qual_body", $3, NULL)); }
-	| direct_declarator '[' assignment_expression ']'
+	| direct_declarator LEFT_SQUARE assignment_expression RIGHT_SQUARE
 	{ $$ = make_ast_node("array", $1, $3); }
-	| direct_declarator '(' parameter_type_list ')'
+	| direct_declarator LEFT_PAREN parameter_type_list RIGHT_PAREN
 	{ $$ = make_ast_node("funcptr", $1, $3); }
-	| direct_declarator '(' ')'
+	| direct_declarator LEFT_PAREN RIGHT_PAREN
 	{ $$ = make_ast_node("funcptr", $1, NULL); }
-	| direct_declarator '(' identifier_list ')'
+	| direct_declarator LEFT_PAREN identifier_list RIGHT_PAREN
 	{ $$ = make_ast_node("id_list", $1, $3); }
 	;
 
 pointer
-	: '*' type_qualifier_list pointer { $$ = make_ast_node("pointer", $2, $3); }
-	| '*' type_qualifier_list { $$ = make_ast_node("pointer", $2, NULL); }
-	| '*' pointer { $$ = make_ast_node("pointer", NULL, $2); }
-	| '*' { $$ = make_ast_node("pointer", NULL, NULL); }
+	: ASTERISK type_qualifier_list pointer { $$ = make_ast_node("pointer", $2, $3); }
+	| ASTERISK type_qualifier_list { $$ = make_ast_node("pointer", $2, NULL); }
+	| ASTERISK pointer { $$ = make_ast_node("pointer", NULL, $2); }
+	| ASTERISK { $$ = make_ast_node("pointer", NULL, NULL); }
 	;
 
 type_qualifier_list
@@ -472,13 +477,13 @@ type_qualifier_list
 
 
 parameter_type_list
-	: parameter_list ',' ELLIPSIS { $$ = make_ast_node("ellipsis_params", $1, NULL); }
+	: parameter_list COMMA ELLIPSIS { $$ = make_ast_node("ellipsis_params", $1, NULL); }
 	| parameter_list { $$ = $1; }
 	;
 
 parameter_list
 	: parameter_declaration { $$ = make_ast_node("parameter_list", $1, NULL); }
-	| parameter_list ',' parameter_declaration
+	| parameter_list COMMA parameter_declaration
 	{ $$ = make_ast_node("parameter_list", $1, $3); }
 	;
 
@@ -493,7 +498,7 @@ parameter_declaration
 
 identifier_list
 	: IDENTIFIER { $$ = make_ast_node("identifier_list", $1, NULL); }
-	| identifier_list ',' IDENTIFIER { $$ = make_ast_node("identifier_list", $3, $1); }
+	| identifier_list COMMA IDENTIFIER { $$ = make_ast_node("identifier_list", $3, $1); }
 	;
 
 type_name
@@ -510,58 +515,58 @@ abstract_declarator
 	;
 
 direct_abstract_declarator
-	: '(' abstract_declarator ')' { $$ = make_ast_node("parens_declarator", $2, NULL); }
-	| '[' ']' { $$ = make_ast_node("braces", NULL, NULL); }
-	| '[' '*' ']' { $$ = make_ast_node("braces_star", NULL, NULL); }
-	| '[' STATIC type_qualifier_list assignment_expression ']'
+	: LEFT_PAREN abstract_declarator RIGHT_PAREN { $$ = make_ast_node("parens_declarator", $2, NULL); }
+	| LEFT_SQUARE RIGHT_SQUARE { $$ = make_ast_node("braces", NULL, NULL); }
+	| LEFT_SQUARE ASTERISK RIGHT_SQUARE { $$ = make_ast_node("braces_star", NULL, NULL); }
+	| LEFT_SQUARE STATIC type_qualifier_list assignment_expression RIGHT_SQUARE
 	{ $$ = make_ast_node("braces_static_qual_assign", $3, $4); }
-	| '[' STATIC assignment_expression ']'
+	| LEFT_SQUARE STATIC assignment_expression RIGHT_SQUARE
 	{ $$ = make_ast_node("braces_static_assign", NULL, $3); }
-	| '[' type_qualifier_list STATIC assignment_expression ']'
+	| LEFT_SQUARE type_qualifier_list STATIC assignment_expression RIGHT_SQUARE
 	{ $$ = make_ast_node("braces_static_qual_assign", $2, $4); }
-	| '[' type_qualifier_list assignment_expression ']'
+	| LEFT_SQUARE type_qualifier_list assignment_expression RIGHT_SQUARE
 	{ $$ = make_ast_node("braces_qual_assign", $2, $3); }
-	| '[' type_qualifier_list ']'
+	| LEFT_SQUARE type_qualifier_list RIGHT_SQUARE
 	{ $$ = make_ast_node("braces_qual", $2, NULL); }
-	| '[' assignment_expression ']'
+	| LEFT_SQUARE assignment_expression RIGHT_SQUARE
 	{ $$ = make_ast_node("braces_assign", NULL, $2); }
-	| direct_abstract_declarator '[' ']'
+	| direct_abstract_declarator LEFT_SQUARE RIGHT_SQUARE
 	{ $$ = make_ast_node("pre_abstract_declarator", $1,
 	make_ast_node("braces", NULL, NULL)); }
-	| direct_abstract_declarator '[' '*' ']'
+	| direct_abstract_declarator LEFT_SQUARE ASTERISK RIGHT_SQUARE
 	{ $$ = make_ast_node("pre_abstract_declarator", $1,
 	make_ast_node("braces_star", NULL, NULL)); }
-	| direct_abstract_declarator '[' STATIC type_qualifier_list assignment_expression ']'
+	| direct_abstract_declarator LEFT_SQUARE STATIC type_qualifier_list assignment_expression RIGHT_SQUARE
 	{ $$ = make_ast_node("pre_abstract_declarator", $1,
 	make_ast_node("braces_static_qual_assign", $4, $5)); }
-	| direct_abstract_declarator '[' STATIC assignment_expression ']'
+	| direct_abstract_declarator LEFT_SQUARE STATIC assignment_expression RIGHT_SQUARE
 	{ $$ = make_ast_node("pre_abstract_declarator", $1,
 	make_ast_node("braces_static_assign", NULL, $4)); }
-	| direct_abstract_declarator '[' type_qualifier_list assignment_expression ']'
+	| direct_abstract_declarator LEFT_SQUARE type_qualifier_list assignment_expression RIGHT_SQUARE
 	{ $$ = make_ast_node("pre_abstract_declarator", $1,
 	make_ast_node("braces_qual_assign", $3, $4)); }
-	| direct_abstract_declarator '[' type_qualifier_list STATIC assignment_expression ']'
+	| direct_abstract_declarator LEFT_SQUARE type_qualifier_list STATIC assignment_expression RIGHT_SQUARE
 	{ $$ = make_ast_node("pre_abstract_declarator", $1,
 	make_ast_node("braces_static_assign", NULL, $5)); }
-	| direct_abstract_declarator '[' type_qualifier_list ']'
+	| direct_abstract_declarator LEFT_SQUARE type_qualifier_list RIGHT_SQUARE
 	{ $$ = make_ast_node("pre_abstract_declarator", $1,
 	make_ast_node("braces_qual", $3, NULL)); }
-	| direct_abstract_declarator '[' assignment_expression ']'
+	| direct_abstract_declarator LEFT_SQUARE assignment_expression RIGHT_SQUARE
 	{ $$ = make_ast_node("pre_abstract_declarator", $1,
 	make_ast_node("braces_assign", $3, NULL)); }
-	| '(' ')' { $$ = make_ast_node("parens", NULL, NULL); }
-	| '(' parameter_type_list ')' { $$ = make_ast_node("parens", $2, NULL); }
-	| direct_abstract_declarator '(' ')'
+	| LEFT_PAREN RIGHT_PAREN { $$ = make_ast_node("parens", NULL, NULL); }
+	| LEFT_PAREN parameter_type_list RIGHT_PAREN { $$ = make_ast_node("parens", $2, NULL); }
+	| direct_abstract_declarator LEFT_PAREN RIGHT_PAREN
 	{ $$ = make_ast_node("pre_abstract_declarator", $1,
 	make_ast_node("parens", NULL, NULL)); }
-	| direct_abstract_declarator '(' parameter_type_list ')'
+	| direct_abstract_declarator LEFT_PAREN parameter_type_list RIGHT_PAREN
 	{ $$ = make_ast_node("pre_abstract_declarator", $1,
 	make_ast_node("parens", $3, NULL)); }
 	;
 
 initializer
-	: '{' initializer_list '}' { $$ = $2; }
-	| '{' initializer_list ',' '}' { $$ = $2; }
+	: LEFT_CURLY initializer_list RIGHT_CURLY { $$ = $2; }
+	| LEFT_CURLY initializer_list COMMA RIGHT_CURLY { $$ = $2; }
 	| assignment_expression { $$ = $1; }
 	;
 
@@ -571,15 +576,15 @@ initializer_list
 	make_ast_node("designated", $1, $2), NULL); }
 	| initializer
 	{ $$ = make_ast_node("initializer_list", $1, NULL); }
-	| initializer_list ',' designation initializer
+	| initializer_list COMMA designation initializer
 	{ $$ = make_ast_node("initializer_list",
 	make_ast_node("designated", $3, $4), $1); }
-	| initializer_list ',' initializer
+	| initializer_list COMMA initializer
 	{ $$ = make_ast_node("initializer_list", $3, $1); }
 	;
 
 designation
-	: designator_list '=' { $$ = $1; }
+	: designator_list EQUAL { $$ = $1; }
 	;
 
 designator_list
@@ -588,12 +593,12 @@ designator_list
 	;
 
 designator
-	: '[' constant_expression ']' { $$ = $2; }
-	| '.' IDENTIFIER { $$ = $2; }
+	: LEFT_SQUARE constant_expression RIGHT_SQUARE { $$ = $2; }
+	| DOT IDENTIFIER { $$ = $2; }
 	;
 
 static_assert_declaration
-	: STATIC_ASSERT '(' constant_expression ',' STRING_LITERAL ')' ';'
+	: STATIC_ASSERT LEFT_PAREN constant_expression COMMA STRING_LITERAL RIGHT_PAREN SEMICOLON
 	{ $$ = make_ast_node("static_assert_declaration", $3, $5); }
 	;
 
@@ -607,14 +612,14 @@ statement
 	;
 
 labeled_statement
-	: IDENTIFIER ':' statement { $$ = make_ast_node("label", $1, $3); }
-	| CASE constant_expression ':' statement { $$ = make_ast_node("case", $2, $4); }
-	| DEFAULT ':' statement { $$ = make_ast_node("default", NULL, $3); }
+	: IDENTIFIER COLON statement { $$ = make_ast_node("label", $1, $3); }
+	| CASE constant_expression COLON statement { $$ = make_ast_node("case", $2, $4); }
+	| DEFAULT COLON statement { $$ = make_ast_node("default", NULL, $3); }
 	;
 
 compound_statement
-	: '{' '}' { $$ = make_ast_node("block", NULL, NULL); }
-	| '{'  block_item_list '}' { $$ = make_ast_node("block", $2, NULL); }
+	: LEFT_CURLY RIGHT_CURLY { $$ = make_ast_node("block", NULL, NULL); }
+	| LEFT_CURLY  block_item_list RIGHT_CURLY { $$ = make_ast_node("block", $2, NULL); }
 	;
 
 block_item_list
@@ -628,46 +633,46 @@ block_item
 	;
 
 expression_statement
-	: ';' { $$ = make_ast_node("nop", NULL, NULL); }
-	| expression ';' { $$ = $1; }
+	: SEMICOLON { $$ = make_ast_node("nop", NULL, NULL); }
+	| expression SEMICOLON { $$ = $1; }
 	;
 
 selection_statement
-	: IF '(' expression ')' statement ELSE statement
+	: IF LEFT_PAREN expression RIGHT_PAREN statement ELSE statement
 	{ $$ = make_ast_node("if", $3, make_ast_node("if_body", $5, $7)); }
-	| IF '(' expression ')' statement
+	| IF LEFT_PAREN expression RIGHT_PAREN statement
 	{ $$ = make_ast_node("if", $3, make_ast_node("if_body", $5, NULL)); }
-	| SWITCH '(' expression ')' statement { $$ = make_ast_node("switch", $3, $5); }
+	| SWITCH LEFT_PAREN expression RIGHT_PAREN statement { $$ = make_ast_node("switch", $3, $5); }
 	;
 
 iteration_statement
-	: WHILE '(' expression ')' statement { $$ = make_ast_node("while", $3, $5); }
-	| DO statement WHILE '(' expression ')' ';'
+	: WHILE LEFT_PAREN expression RIGHT_PAREN statement { $$ = make_ast_node("while", $3, $5); }
+	| DO statement WHILE LEFT_PAREN expression RIGHT_PAREN SEMICOLON
 	{ $$ = make_ast_node("dowhile", $5, $2); }
-	| FOR '(' expression_statement expression_statement ')' statement
+	| FOR LEFT_PAREN expression_statement expression_statement RIGHT_PAREN statement
 	{ $$ = make_ast_node("for",
 	make_ast_node("init_and_cond", $3, $4),
 	make_ast_node("modify_and_body", NULL, $6)); }
-	| FOR '(' expression_statement expression_statement expression ')' statement
+	| FOR LEFT_PAREN expression_statement expression_statement expression RIGHT_PAREN statement
 	{ $$ = make_ast_node("for",
 	make_ast_node("init_and_cond", $3, $4),
 	make_ast_node("modify_and_body", $5, $7)); }
-	| FOR '(' declaration expression_statement ')' statement
+	| FOR LEFT_PAREN declaration expression_statement RIGHT_PAREN statement
 	{ $$ = make_ast_node("for",
 	make_ast_node("init_and_cond", $3, $4),
 	make_ast_node("modify_and_body", NULL, $6)); }
-	| FOR '(' declaration expression_statement expression ')' statement
+	| FOR LEFT_PAREN declaration expression_statement expression RIGHT_PAREN statement
 	{ $$ = make_ast_node("for",
 	make_ast_node("init_and_cond", $3, $4),
 	make_ast_node("modify_and_body", $5, $7)); }
 	;
 
 jump_statement
-	: GOTO IDENTIFIER ';' { $$ = make_ast_node("goto", $2, NULL); }
-	| CONTINUE ';' { $$ = make_ast_node("continue", NULL, NULL); }
-	| BREAK ';' { $$ = make_ast_node("break", NULL, NULL); }
-	| RETURN ';' { $$ = make_ast_node("return", NULL, NULL); }
-	| RETURN expression ';' { $$ = make_ast_node("return", $2, NULL); }
+	: GOTO IDENTIFIER SEMICOLON { $$ = make_ast_node("goto", $2, NULL); }
+	| CONTINUE SEMICOLON { $$ = make_ast_node("continue", NULL, NULL); }
+	| BREAK SEMICOLON { $$ = make_ast_node("break", NULL, NULL); }
+	| RETURN SEMICOLON { $$ = make_ast_node("return", NULL, NULL); }
+	| RETURN expression SEMICOLON { $$ = make_ast_node("return", $2, NULL); }
 	;
 
 translation_unit
