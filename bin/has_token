@@ -1,0 +1,40 @@
+#!/usr/bin/env python3
+
+"""
+Determine whether a file contains a token.
+"""
+
+import sys
+import os
+import argparse
+
+DIR = os.path.dirname(os.path.abspath(__file__))
+
+sys.path.append(os.path.join(DIR, ".."))
+
+import lang.lexer
+
+ARGPARSER = argparse.ArgumentParser(\
+        description="Determine whether a file contains a token.")
+ARGPARSER.add_argument("file")
+ARGPARSER.add_argument("token")
+ARGS = ARGPARSER.parse_args()
+
+EXT = os.path.splitext(ARGS.file)[1][1:]
+
+DATA = ""
+with open(ARGS.file, "r") as f:
+    for line in f:
+        DATA += line
+
+LEXER = None
+if EXT in ["c", "cpp", "cc", "C", "h", "hpp", "H"]:
+    LEXER = lang.lexer.c
+elif EXT in ["py"]:
+    LEXER = lang.lexer.python
+
+if LEXER:
+    print(ARGS.token in LEXER(DATA))
+else:
+    print("Error: invalid filetype")
+    sys.exit(1)

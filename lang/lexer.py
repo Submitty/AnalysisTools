@@ -208,7 +208,7 @@ def lexer(lang):
         lex = subprocess.Popen([os.path.join(MOD_PATH, lang, "lex")],
                                stdin=subprocess.PIPE,
                                stdout=subprocess.PIPE)
-        lex.stdin.write(bytes(data, 'UTF-8'))
+        lex.stdin.write(bytes(data, "UTF-8"))
         lex.stdin.close()
         lex.wait()
         lines = [x.decode().strip().split(" ") for x in lex.stdout.readlines()]
