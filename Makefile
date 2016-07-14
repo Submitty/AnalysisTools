@@ -9,7 +9,7 @@ SPLINT = $(shell which splint 2> /dev/null)
 PYLINT = $(shell which pylint 2> /dev/null)
 INDENT = $(shell which indent 2> /dev/null)
 
-SCRIPTLINT_PYTHON = bin/plagiarism bin/anonymization bin/anonymize_log bin/csa
+SCRIPTLINT_PYTHON = bin/plagiarism bin/anonymization bin/anonymize_log bin/csa bin/has_token lang/lexer.py
 
 LEXERS = lang/python/lex lang/java/lex
 LANGUAGES = lang/c
@@ -67,7 +67,7 @@ clean:
 
 $(BUILD_DIR)/.lintstate: $(SCRIPTLINT_PYTHON)
 ifneq ($(PYLINT),)
-	$(PYLINT) --disable=import-error --max-line-length=80 $(SCRIPTLINT_PYTHON)
+	$(PYLINT) --disable=import-error --disable=no-member --max-line-length=80 $(SCRIPTLINT_PYTHON)
 endif
 	touch $@
 

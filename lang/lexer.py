@@ -1,6 +1,7 @@
 """Lexer interface.
 
-This module exposes an interface to the lexer executables in subdirectories of lang/.
+This module exposes an interface to the lexer executables in subdirectories of
+lang/.
 """
 
 import os
@@ -213,7 +214,8 @@ def lexer(lang):
         lex.wait()
         lines = [x.decode().strip().split(" ") for x in lex.stdout.readlines()]
         token_indices = reduce(lambda x, y: x + y, lines)[0::2]
-        return [TOKENS[lang][int(x) - STARTS[lang]].lower() for x in token_indices]
+        return [TOKENS[lang][int(x) - STARTS[lang]].lower()
+                for x in token_indices]
     return __call__
 
 for l in TOKENS.keys():
