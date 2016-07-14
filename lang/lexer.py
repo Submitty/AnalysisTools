@@ -218,5 +218,5 @@ def lexer(lang):
                 for x in token_indices]
     return __call__
 
-for l in TOKENS.keys():
+for l in TOKENS:
     globals()[l] = lexer(l)

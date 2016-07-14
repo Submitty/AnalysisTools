@@ -67,7 +67,7 @@ clean:
 
 $(BUILD_DIR)/.lintstate: $(SCRIPTLINT_PYTHON)
 ifneq ($(PYLINT),)
-	$(PYLINT) --disable=import-error --disable=no-member --max-line-length=80 $(SCRIPTLINT_PYTHON)
+	$(PYLINT) --disable=import-error --disable=no-member --disable=wrong-import-position --max-line-length=80 $(SCRIPTLINT_PYTHON)
 endif
 	touch $@
 
