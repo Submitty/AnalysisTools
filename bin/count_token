@@ -34,7 +34,7 @@ elif EXT in ["py"]:
     LEXER = lang.lexer.python
 
 if LEXER:
-    print(ARGS.token in LEXER(DATA))
+    print(len([x for x in LEXER(DATA) if x == ARGS.token]))
 else:
     print("Error: invalid filetype")
     sys.exit(1)

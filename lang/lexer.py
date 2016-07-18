@@ -205,7 +205,10 @@ TOKENS = {
 def lexer(lang):
     """Generate a function that will call the lexer executable for lang.
     """
-    def __call__(data):
+    def inner(data):
+        """
+        Function lexing data and returning a list of token names.
+        """
         lex = subprocess.Popen([os.path.join(MOD_PATH, lang, "lex")],
                                stdin=subprocess.PIPE,
                                stdout=subprocess.PIPE)
@@ -216,7 +219,7 @@ def lexer(lang):
         token_indices = reduce(lambda x, y: x + y, lines)[0::2]
         return [TOKENS[lang][int(x) - STARTS[lang]].lower()
                 for x in token_indices]
-    return __call__
+    return inner
 
 for l in TOKENS:
     globals()[l] = lexer(l)

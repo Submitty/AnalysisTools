@@ -1,0 +1,54 @@
+#!/usr/bin/env python3
+
+"""
+Determine whether a file contains an AST node.
+"""
+
+import sys
+import os
+import argparse
+
+DIR = os.path.dirname(os.path.abspath(__file__))
+
+sys.path.append(os.path.join(DIR, ".."))
+
+import lang.parser
+
+ARGPARSER = argparse.ArgumentParser(\
+        description="Determine whether a file contains an AST node.")
+ARGPARSER.add_argument("file")
+ARGPARSER.add_argument("node")
+ARGPARSER.add_argument("-l", "--lang", type=str)
+ARGS = ARGPARSER.parse_args()
+
+EXT = os.path.splitext(ARGS.file)[1][1:]
+
+DATA = ""
+with open(ARGS.file, "r") as f:
+    for line in f:
+        DATA += line
+
+PARSER = None
+
+if ARGS.lang:
+    LANG = ARGS.lang
+else:
+    if EXT in ["c", "cpp", "cc", "C", "h", "hpp", "H"]:
+        LANG = "c"
+    elif EXT in ["py"]:
+        LANG = "python"
+
+if LANG == "c":
+    PARSER = lang.parser.c
+elif LANG == "python":
+    PARSER = lang.parser.python
+elif LANG == "python2":
+    PARSER = lang.parser.python2
+
+if PARSER:
+    print(len(
+        [x for x in [n.name for n in list(lang.parser.walk(PARSER(DATA)))]
+         if x == ARGS.node]))
+else:
+    print("Error: invalid filetype")
+    sys.exit(1)
