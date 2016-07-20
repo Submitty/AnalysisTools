@@ -30,11 +30,13 @@ typedef struct ignore_entry {
 } ignore_entry;
 
 static char **COMMAND = NULL;
+static int ARGC;
 
 static string DIR_STACK[64];
 static unsigned int DIR_STACK_INDEX = 0;
 static bool ABSOLUTE_PATH = false;
 static unsigned int REPLACE_LEVEL = 0;
+static unsigned int STARTING_LEVEL;
 
 static name_entry *NAMES[1024];
 static ignore_entry *IGNORED[1024];
@@ -122,7 +124,7 @@ static void construct_path(char *buf, unsigned int bufsize, bool sub)
 		if (sub && strncmp(DIR_STACK[i], "..", STRING_LENGTH) == 0)
 			continue;
 
-		if (sub && i + 1 == REPLACE_LEVEL) {
+		if (sub && i == (REPLACE_LEVEL + STARTING_LEVEL)) {
 			bool rep = false;
 			name_entry *n;
 
@@ -228,7 +230,8 @@ static void walk(const char *path, void (*cb) (const char *, bool))
  */
 static void walk_fn(const char *path, bool isreg)
 {
-	string fake_path = "", real_path = "", buf = "", new_name = "";
+	string fake_path = "", real_path = "", buf = "", new_name =
+	    "", strhash = "";
 	if (isreg) {		/* If this is a regular file: */
 		char *base, *ext;
 		int input, output;
@@ -269,6 +272,17 @@ static void walk_fn(const char *path, bool isreg)
 			exit(EXIT_FAILURE);
 		}
 
+		if (DIR_STACK_INDEX > (REPLACE_LEVEL + STARTING_LEVEL)) {
+			COMMAND[ARGC - 1] = "-h";
+			snprintf(strhash, STRING_LENGTH, "%u",
+				 hash(DIR_STACK
+				      [REPLACE_LEVEL + STARTING_LEVEL]));
+			COMMAND[ARGC] = strhash;
+			COMMAND[ARGC + 1] = NULL;
+		} else {
+			COMMAND[ARGC - 1] = NULL;
+		}
+
 		/* Run ./bin/anonymize with the appropriate arguments */
 		execute(input, output, -1, COMMAND);
 
@@ -290,12 +304,13 @@ int main(int argc, char **argv)
 	string swap;
 	const char *d;
 
-	COMMAND = (char **)malloc(argc * sizeof(char *));
+	COMMAND = (char **)malloc((argc + 2) * sizeof(char *));
 	if (COMMAND == NULL)
 		exit(EXIT_FAILURE);
 	memcpy(COMMAND + 1, argv + 2, (argc - 2) * sizeof(char *));
 	COMMAND[0] = "./bin/anonymize";
 	COMMAND[argc - 1] = NULL;
+	ARGC = argc;
 
 	while ((arg = getopt(argc - 1, COMMAND, "t:n:r:a:l:")) != -1) {
 		switch (arg) {
@@ -332,6 +347,8 @@ int main(int argc, char **argv)
 		strncpy(DIR_STACK[DIR_STACK_INDEX++], d, STRING_LENGTH);
 	} while ((d = strtok(NULL, "/")) != NULL);
 	DIR_STACK_INDEX--;
+
+	STARTING_LEVEL = DIR_STACK_INDEX;
 
 	walk(DIR_STACK[DIR_STACK_INDEX], walk_fn);
 	free(COMMAND);

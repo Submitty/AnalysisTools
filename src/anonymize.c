@@ -35,6 +35,7 @@ static regexp_entry *REGEXPS = NULL;
 
 static unsigned int CURRENT_LINE = 0;
 static unsigned int LINES_TO_PARSE = (unsigned int)-1;
+static unsigned int ADD_HASH = 0;
 
 static unsigned int hash(const char *key)
 {
@@ -95,7 +96,8 @@ static void add_regexp(const char *input)
 
 static void scramble_name(const char *name, char *new)
 {
-	snprintf(new, STRING_LENGTH, REDACTION_PATTERN, hash(name));
+	snprintf(new, STRING_LENGTH, REDACTION_PATTERN,
+		 (hash(name) + ADD_HASH) % 1024);
 }
 
 static void apply_replace(char *buf, const char *str, name_entry * entry)
@@ -165,7 +167,22 @@ int main(int argc, char **argv)
 	static int ovector[30];
 	static char delim;
 
-	while ((arg = getopt(argc, argv, "t:n:r:a:l:")) != -1) {
+	while ((arg = getopt(argc, argv, "t:n:r:a:l:h:")) != -1) {
+		switch (arg) {
+		case 'h':
+			ADD_HASH = (unsigned int)atoi(optarg);
+			break;
+		case 't':
+		case 'n':
+		case 'r':
+		case 'a':
+		case 'l':
+			break;
+		}
+	}
+	optind = 0;
+
+	while ((arg = getopt(argc, argv, "t:n:r:a:l:h:")) != -1) {
 		switch (arg) {
 		case 't':
 			read_names(optarg, true);
@@ -179,6 +196,7 @@ int main(int argc, char **argv)
 		case 'a':
 			LINES_TO_PARSE = (unsigned int)atoi(optarg);
 			break;
+		case 'h':
 		case 'l':
 			break;
 		}
@@ -203,6 +221,7 @@ int main(int argc, char **argv)
 						"Ignored potential replacement of %s with %s\n",
 						word, n->new);
 				}
+				break;
 			}
 		}
 		for (r = REGEXPS; r != NULL; r = r->next) {
