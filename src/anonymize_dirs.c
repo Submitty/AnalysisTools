@@ -275,8 +275,9 @@ static void walk_fn(const char *path, bool isreg)
 
 		if (DIR_STACK_INDEX > (REPLACE_LEVEL + STARTING_LEVEL)) {
 			COMMAND[ARGC - 1] = "-h";
-			construct_path(buf, STRING_LENGTH, false);
-			snprintf(strhash, STRING_LENGTH, "%u", hash(buf));
+			snprintf(strhash, STRING_LENGTH, "%u",
+				 hash(DIR_STACK
+				      [REPLACE_LEVEL + STARTING_LEVEL]));
 			COMMAND[ARGC] = strhash;
 			COMMAND[ARGC + 1] = NULL;
 		} else {
