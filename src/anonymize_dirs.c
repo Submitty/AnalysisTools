@@ -247,12 +247,14 @@ static void walk_fn(const char *path, bool isreg)
 
 		strncpy(new_name, path, STRING_LENGTH);
 		strncpy(buf, path, STRING_LENGTH);
-		base = strtok(buf, ".");
-		ext = buf + strlen(base) + 1;
-		apply_filename_replace(new_name, base);
-		if (strlen(ext) != 0) {
-			strcat(new_name, ".");
-			strcat(new_name, ext);
+		if (buf[0] != '.') {
+			base = strtok(buf, ".");
+			ext = buf + strlen(base) + 1;
+			apply_filename_replace(new_name, base);
+			if (strlen(ext) != 0) {
+				strcat(new_name, ".");
+				strcat(new_name, ext);
+			}
 		}
 
 		construct_path(buf, STRING_LENGTH, true);
