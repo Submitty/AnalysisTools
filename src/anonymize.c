@@ -26,7 +26,7 @@ typedef struct regexp_entry {
 /*
  * Hash table containing names to replace.
  */
-static name_entry *NAMES[256];
+static name_entry *NAMES[ANONIMIZATION_HASH_BOUND];
 
 /*
  * Linked list containing regular expressions to replace.
@@ -44,7 +44,7 @@ static unsigned int hash(const char *key)
 	for (i = 0; i < (unsigned int)strlen(key); ++i) {
 		h = h * 33 + (unsigned int)key[i];
 	}
-	return h % 256;
+	return h % ANONIMIZATION_HASH_BOUND;
 }
 
 /*
@@ -97,7 +97,7 @@ static void add_regexp(const char *input)
 static void scramble_name(const char *name, char *new)
 {
 	snprintf(new, STRING_LENGTH, REDACTION_PATTERN,
-		 (hash(name) + ADD_HASH) % 1024);
+		 (hash(name) + ADD_HASH) % ANONIMIZATION_HASH_BOUND);
 }
 
 static void apply_replace(char *buf, const char *str, name_entry * entry)

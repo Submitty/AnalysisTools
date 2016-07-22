@@ -38,8 +38,8 @@ static bool ABSOLUTE_PATH = false;
 static unsigned int REPLACE_LEVEL = 0;
 static unsigned int STARTING_LEVEL;
 
-static name_entry *NAMES[1024];
-static ignore_entry *IGNORED[1024];
+static name_entry *NAMES[ANONIMIZATION_HASH_BOUND];
+static ignore_entry *IGNORED[ANONIMIZATION_HASH_BOUND];
 
 static unsigned int hash(const char *key)
 {
@@ -48,7 +48,7 @@ static unsigned int hash(const char *key)
 	for (i = 0; i < (unsigned int)strlen(key); ++i) {
 		h = h * 33 + (unsigned int)key[i];
 	}
-	return h % 1024;
+	return h % ANONIMIZATION_HASH_BOUND;
 }
 
 static void add_name(const char *name, const char *new)

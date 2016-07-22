@@ -81,7 +81,11 @@
  * the anonymization tool.
  */
 #ifndef REDACTION_PATTERN
-#define REDACTION_PATTERN "REDACTED%03u"
+#define REDACTION_PATTERN "REDACTED%04u"
+#endif
+
+#ifndef ANONIMIZATION_HASH_BOUND
+#define ANONIMIZATION_HASH_BOUND 9999
 #endif
 
 #endif
