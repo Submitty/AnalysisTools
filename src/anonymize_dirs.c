@@ -184,6 +184,48 @@ static void apply_filename_replace(char *buf, char *str)
 	} while ((tok = strtok(NULL, "_")) != NULL);
 }
 
+static void copy(const char *path, bool isreg)
+{
+	string fake_path = "", real_path = "", buf = "";
+	if (isreg) {		/* If this is a regular file: */
+		int input, output;
+		char *command[] = { "/bin/cat", NULL };
+
+		construct_path(buf, STRING_LENGTH, false);
+		snprintf(real_path, STRING_LENGTH, "%s%s", buf, path);
+
+		construct_path(buf, STRING_LENGTH, true);
+		snprintf(fake_path, STRING_LENGTH,
+			 WORKING_DIR "/anonymized/%s%s", buf, path);
+
+		/* Open the input file */
+		input = open(real_path, O_RDONLY);
+		if (input < 0) {
+			perror(real_path);
+			exit(EXIT_FAILURE);
+		}
+
+		/* Open the output file in WORKING_DIR/anonymized */
+		output = creat(fake_path, 0644);
+		if (output < 0) {
+			perror(fake_path);
+			exit(EXIT_FAILURE);
+		}
+
+		/* Run cat */
+		execute(input, output, -1, command);
+
+		/* Clean child processes */
+		while (wait(NULL) > 0) ;
+	} else {		/* If this is a directory, create it */
+		construct_path(buf, STRING_LENGTH, true);
+		snprintf(fake_path, STRING_LENGTH, WORKING_DIR "/anonymized/%s",
+			 buf);
+		mkdir(fake_path, 0777);
+	}
+	return;
+}
+
 static void walk(const char *path, void (*cb) (const char *, bool))
 {
 	const char *last = strrchr(path, '/');
@@ -201,7 +243,27 @@ static void walk(const char *path, void (*cb) (const char *, bool))
 
 	if (should_ignore(complete_path)) {
 		fprintf(stderr, "Ignored file %s\n", complete_path);
-		--DIR_STACK_INDEX;
+		dir = opendir(complete_path);
+		if (dir == NULL) {
+			perror(complete_path);
+			exit(EXIT_FAILURE);
+		} else {
+			while ((ent = readdir(dir))) {
+				snprintf(stat_path, STRING_LENGTH, "%s%s",
+					 complete_path, ent->d_name);
+				stat(stat_path, &statbuf);
+				if (S_ISDIR(statbuf.st_mode)
+				    && (strcmp(ent->d_name, ".") != 0)
+				    && (strcmp(ent->d_name, "..") != 0)) {
+					walk(ent->d_name, copy);
+				} else if (S_ISREG(statbuf.st_mode)) {
+					copy(ent->d_name, true);
+				}
+			}
+
+			--DIR_STACK_INDEX;
+			closedir(dir);
+		}
 		return;
 	}
 
