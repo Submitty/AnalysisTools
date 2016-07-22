@@ -201,24 +201,31 @@ static void walk(const char *path, void (*cb) (const char *, bool))
 
 	if (should_ignore(complete_path)) {
 		fprintf(stderr, "Ignored file %s\n", complete_path);
+		--DIR_STACK_INDEX;
 		return;
 	}
 
 	dir = opendir(complete_path);
-	while ((ent = readdir(dir))) {
-		snprintf(stat_path, STRING_LENGTH, "%s%s", complete_path,
-			 ent->d_name);
-		stat(stat_path, &statbuf);
-		if (S_ISDIR(statbuf.st_mode) && (strcmp(ent->d_name, ".") != 0)
-		    && (strcmp(ent->d_name, "..") != 0)) {
-			walk(ent->d_name, cb);
-		} else if (S_ISREG(statbuf.st_mode)) {
-			cb(ent->d_name, true);
+	if (dir == NULL) {
+		perror(complete_path);
+		exit(EXIT_FAILURE);
+	} else {
+		while ((ent = readdir(dir))) {
+			snprintf(stat_path, STRING_LENGTH, "%s%s",
+				 complete_path, ent->d_name);
+			stat(stat_path, &statbuf);
+			if (S_ISDIR(statbuf.st_mode)
+			    && (strcmp(ent->d_name, ".") != 0)
+			    && (strcmp(ent->d_name, "..") != 0)) {
+				walk(ent->d_name, cb);
+			} else if (S_ISREG(statbuf.st_mode)) {
+				cb(ent->d_name, true);
+			}
 		}
-	}
 
-	--DIR_STACK_INDEX;
-	closedir(dir);
+		--DIR_STACK_INDEX;
+		closedir(dir);
+	}
 }
 
 /*
