@@ -351,6 +351,7 @@ static void walk_fn(const char *path, bool isreg)
 				      [REPLACE_LEVEL + STARTING_LEVEL]));
 			COMMAND[ARGC] = strhash;
 			COMMAND[ARGC + 1] = NULL;
+			fprintf(stderr, "Passed hash modifier %s\n", strhash);
 		} else {
 			COMMAND[ARGC - 1] = NULL;
 		}
@@ -382,7 +383,6 @@ int main(int argc, char **argv)
 	memcpy(COMMAND + 1, argv + 2, (argc - 2) * sizeof(char *));
 	COMMAND[0] = "./bin/anonymize";
 	COMMAND[argc - 1] = NULL;
-	ARGC = argc;
 
 	while ((arg = getopt(argc - 1, COMMAND, "t:n:r:a:l:")) != -1) {
 		switch (arg) {
@@ -398,6 +398,9 @@ int main(int argc, char **argv)
 			break;
 		}
 	}
+	ARGC = optind + 1;
+
+	COMMAND[optind + 1] = NULL;
 
 	for (++optind; optind < argc; ++optind) {
 		add_ignored(argv[optind]);

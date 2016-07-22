@@ -182,6 +182,8 @@ int main(int argc, char **argv)
 	}
 	optind = 0;
 
+	fprintf(stderr, "Received hash modifier %u\n", ADD_HASH);
+
 	while ((arg = getopt(argc, argv, "t:n:r:a:l:h:")) != -1) {
 		switch (arg) {
 		case 't':
