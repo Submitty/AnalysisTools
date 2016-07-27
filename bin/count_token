@@ -16,8 +16,8 @@ import lang.lexer
 
 ARGPARSER = argparse.ArgumentParser(\
         description="Determine whether a file contains a token.")
-ARGPARSER.add_argument("file")
 ARGPARSER.add_argument("token")
+ARGPARSER.add_argument("file")
 ARGS = ARGPARSER.parse_args()
 
 EXT = os.path.splitext(ARGS.file)[1][1:]
