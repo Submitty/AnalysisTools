@@ -122,18 +122,18 @@ def python_ast_to_node(tree):
     elif ttype is ast.Continue:
         return Node("continue", [], None)
     elif ttype is ast.BoolOp:
-        return Node("bool_op",
+        return Node(python_ast_to_node(tree.op),
                     [python_ast_to_node(n) for n in tree.values],
-                    python_ast_to_node(tree.op))
+                    None)
     elif ttype is ast.BinOp:
-        return Node("bin_op",
+        return Node(python_ast_to_node(tree.op),
                     [python_ast_to_node(tree.left),
                      python_ast_to_node(tree.right)],
-                    python_ast_to_node(tree.op))
+                    None)
     elif ttype is ast.UnaryOp:
-        return Node("unary_op",
+        return Node(python_ast_to_node(tree.op),
                     [python_ast_to_node(tree.operand)],
-                    python_ast_to_node(tree.op))
+                    None)
     elif ttype is ast.Lambda:
         return Node("lambda",
                     [python_ast_to_node(tree.args),
@@ -148,12 +148,12 @@ def python_ast_to_node(tree):
     elif ttype is ast.Dict:
         return Node("dict",
                     [Node("dict_pair", [k, v], None)
-                     for (k, v) in zip(python_ast_to_node(tree.keys)
-                                       if python_ast_to_node(tree.keys)
-                                       else [],
-                                       python_ast_to_node(tree.values)
-                                       if python_ast_to_node(tree.values)
-                                       else [])],
+                     for (k, v) in zip(map(python_ast_to_node,
+                                           tree.keys
+                                           if tree.keys else []),
+                                       map(python_ast_to_node,
+                                           tree.values
+                                           if tree.values else []))],
                     None)
     elif ttype is ast.Set:
         return Node("set",

@@ -143,18 +143,18 @@ def python_ast_to_node(tree):
     elif ttype is ast.Continue:
         return Node("continue", [], None)
     elif ttype is ast.BoolOp:
-        return Node("bool_op",
+        return Node(python_ast_to_node(tree.op),
                     [python_ast_to_node(n) for n in tree.values],
-                    python_ast_to_node(tree.op))
+                    None)
     elif ttype is ast.BinOp:
-        return Node("bin_op",
+        return Node(python_ast_to_node(tree.op),
                     [python_ast_to_node(tree.left),
                      python_ast_to_node(tree.right)],
-                    python_ast_to_node(tree.op))
+                    None)
     elif ttype is ast.UnaryOp:
-        return Node("unary_op",
+        return Node(python_ast_to_node(tree.op),
                     [python_ast_to_node(tree.operand)],
-                    python_ast_to_node(tree.op))
+                    None)
     elif ttype is ast.Lambda:
         return Node("lambda",
                     [python_ast_to_node(tree.args),
