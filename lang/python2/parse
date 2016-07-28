@@ -289,7 +289,7 @@ def python_ast_to_node(tree):
     elif ttype is ast.Sub:
         return "sub"
     elif ttype is ast.Mult:
-        return "mult"
+        return "mul"
     elif ttype is ast.Div:
         return "div"
     elif ttype is ast.Mod:
