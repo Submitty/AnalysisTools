@@ -17,9 +17,13 @@ import lang.parser
 ARGPARSER = argparse.ArgumentParser(\
         description="Determine whether a file contains an AST node.")
 ARGPARSER.add_argument("node")
-ARGPARSER.add_argument("file")
+ARGPARSER.add_argument("file", nargs="?", default=None)
 ARGPARSER.add_argument("-l", "--lang", type=str)
 ARGS = ARGPARSER.parse_args()
+
+if not ARGS.file:
+    print(0)
+    sys.exit(0)
 
 EXT = os.path.splitext(ARGS.file)[1][1:]
 
