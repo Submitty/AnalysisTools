@@ -25,7 +25,7 @@ vpath %.c src
 .PHONY: all directories clean indent ubuntudeps permissions
 
 all: directories $(BUILD_DIR)/.lintstate $(BINARIES) $(LEXERS) $(LANGUAGES_STATE)
-	chmod -R a+r bin
+	chmod -R a+rx bin
 	chmod -R a+r lang
 	chmod a+x lang/python2/parse
 	python3 setup.py build
