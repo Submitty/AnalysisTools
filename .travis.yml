@@ -25,6 +25,6 @@ addons:
       - python-graph-tool
 
 before_install:
- - python3 -m pip install pylint
+ - python3 -m pip install pylint --user
 
 script: make
