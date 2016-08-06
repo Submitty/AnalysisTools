@@ -5,7 +5,26 @@ language: c
 
 compiler: gcc
 
+addons:
+  apt:
+    sources:
+      - http://downloads.skewed.de/apt/trusty universe
+      - ppa:ubuntu-toolchain-r/test
+    packages:
+      - build-essential
+      - pkg-config
+      - flex
+      - bison
+      - libpcre3 
+      - libpcre3-dev
+      - splint
+      - indent
+      - python3
+      - libpython3.4 
+      - python3-pip
+      - python-graph-tool
+
 before_install:
- - sudo make ubuntudeps
+ - python3 -m pip install pylint
 
 script: make
