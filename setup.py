@@ -4,4 +4,5 @@ setup(
         version="0.0",
         ext_modules=[
             Extension("ast_node", ["lang/ast_node.c"]),
-            Extension("c", ["lang/c/pymod.c", "lang/ast_node.c", "lang/c/parse.out.c", "lang/c/lex.out.c"])])
+            Extension("c", ["lang/c/pymod.c", "lang/ast_node.c", "lang/c/parse.out.c", "lang/c/lex.out.c"],
+                      extra_compile_args = ["-w"])])
