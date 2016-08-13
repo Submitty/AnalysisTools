@@ -18,6 +18,7 @@ ARGPARSER = argparse.ArgumentParser(\
         description="Determine whether a file contains a token.")
 ARGPARSER.add_argument("token")
 ARGPARSER.add_argument("file", nargs="?", default=None)
+ARGPARSER.add_argument("-l", "--lang", type=str)
 ARGS = ARGPARSER.parse_args()
 
 if not ARGS.file:
@@ -32,10 +33,21 @@ with open(ARGS.file, "r") as f:
         DATA += line
 
 LEXER = None
-if EXT in ["c", "cpp", "cc", "C", "h", "hpp", "H"]:
+
+if ARGS.lang:
+    LANG = ARGS.lang
+else:
+    if EXT in ["c", "cpp", "cc", "C", "h", "hpp", "H"]:
+        LANG = "c"
+    elif EXT in ["py"]:
+        LANG = "python3"
+
+if LANG == "c":
     LEXER = lang.lexer.c
-elif EXT in ["py"]:
+elif LANG == "python3":
     LEXER = lang.lexer.python
+elif LANG == "python2":
+    LEXER = lang.lexer.python2
 
 if LEXER:
     print(len([x for x in LEXER(DATA) if x == ARGS.token]))

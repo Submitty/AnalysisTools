@@ -40,11 +40,11 @@ else:
     if EXT in ["c", "cpp", "cc", "C", "h", "hpp", "H"]:
         LANG = "c"
     elif EXT in ["py"]:
-        LANG = "python"
+        LANG = "python3"
 
 if LANG == "c":
     PARSER = lang.parser.c
-elif LANG == "python":
+elif LANG == "python3":
     PARSER = lang.parser.python
 elif LANG == "python2":
     PARSER = lang.parser.python2
