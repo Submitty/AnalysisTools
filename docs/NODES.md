@@ -1,4 +1,5 @@
 # Nodes
+The nodes used are those described [here](https://docs.python.org/3/library/ast.html#abstract-grammar) converted to `camel_case`.
 
 ### Python 3
 - `module`

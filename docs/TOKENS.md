@@ -1,5 +1,5 @@
 # Tokens
-Below, the tokens that can be specified as arguments to `bin/count_token` are listed. As these are used at the scanner level, they contain no additional information: they are purely symbolic. Their names should literally correspond with one element in the source.
+Below, the tokens that can be specified as arguments to `bin/count_token` are listed. As these are used at the scanner level, they contain no additional information: they are purely symbolic. Their names should exactly correspond with one element in the source.
 
 ### C
  - `identifier`
