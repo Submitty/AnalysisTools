@@ -17,42 +17,43 @@ import lang.parser
 ARGPARSER = argparse.ArgumentParser(\
         description="Determine whether a file contains an AST node.")
 ARGPARSER.add_argument("node")
-ARGPARSER.add_argument("file", nargs="?", default=None)
+ARGPARSER.add_argument("file", nargs="*", default=None)
 ARGPARSER.add_argument("-l", "--lang", type=str)
 ARGS = ARGPARSER.parse_args()
 
-if not ARGS.file:
-    print(0)
-    sys.exit(0)
+SUM = 0
 
-EXT = os.path.splitext(ARGS.file)[1][1:]
+for file in ARGS.file:
+    EXT = os.path.splitext(file)[1][1:]
 
-DATA = ""
-with open(ARGS.file, "r") as f:
-    for line in f:
-        DATA += line
+    DATA = ""
+    with open(file, "r") as f:
+        for line in f:
+            DATA += line
 
-PARSER = None
+    PARSER = None
 
-if ARGS.lang:
-    LANG = ARGS.lang
-else:
-    if EXT in ["c", "cpp", "cc", "C", "h", "hpp", "H"]:
-        LANG = "c"
-    elif EXT in ["py"]:
-        LANG = "python3"
+    if ARGS.lang:
+        LANG = ARGS.lang
+    else:
+        if EXT in ["c", "cpp", "cc", "C", "h", "hpp", "H"]:
+            LANG = "c"
+        elif EXT in ["py"]:
+            LANG = "python3"
 
-if LANG == "c":
-    PARSER = lang.parser.c
-elif LANG == "python3":
-    PARSER = lang.parser.python
-elif LANG == "python2":
-    PARSER = lang.parser.python2
+    if LANG == "c":
+        PARSER = lang.parser.c
+    elif LANG == "python3":
+        PARSER = lang.parser.python
+    elif LANG == "python2":
+        PARSER = lang.parser.python2
 
-if PARSER:
-    print(len(
-        [x for x in [n.name for n in list(lang.parser.walk(PARSER(DATA)))]
-         if x == ARGS.node]))
-else:
-    print("Error: invalid filetype")
-    sys.exit(1)
+    if PARSER:
+        SUM += len(
+            [x for x in [n.name for n in list(lang.parser.walk(PARSER(DATA)))]
+             if x == ARGS.node])
+    else:
+        print("Error: invalid filetype")
+        sys.exit(1)
+
+print(SUM)
