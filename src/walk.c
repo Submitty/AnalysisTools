@@ -86,7 +86,7 @@ static int walk_fn(const char *path, const struct stat *sb, int typeflag)
 int main(int argc, char **argv)
 {
 	int arg;
-	string swap;
+	string swap, startpath;
 	const char *d;
 	unsigned int i;
 	FILE *global_output;
@@ -110,6 +110,7 @@ int main(int argc, char **argv)
 	}
 
 	strncpy(FILETYPE, argv[optind], STRING_LENGTH);
+	strncpy(startpath, argv[optind + 1], STRING_LENGTH);
 
 	TIMESTAMP = (unsigned int)time(NULL);
 	mkdir(WORKING_DIR, 0777);
@@ -123,7 +124,7 @@ int main(int argc, char **argv)
 		strncpy(SPRINTF_BUFFER, swap, STRING_LENGTH);
 	} while ((d = strtok(NULL, "/")) != NULL);
 
-	ftw(argv[optind + 1], walk_fn, 8);
+	ftw(startpath, walk_fn, 8);
 
 	snprintf(SPRINTF_BUFFER, STRING_LENGTH,
 		 WORKING_DIR "/%u/" GLOBAL_FILE_NAME, TIMESTAMP);

@@ -1,0 +1,40 @@
+#!/usr/bin/env python3
+
+"""
+Iterate over a directory of student submissions, printing out all pairs of newest submissions.
+"""
+
+import argparse
+import os
+import itertools
+
+def find_greatest(directory):
+    def is_int(string):
+        try:
+            int(string)
+        except ValueError:
+            return False
+        return True
+    names = os.listdir(directory)
+    integral = [int(n) for n in names if is_int(n)]
+    return os.path.join(directory, str(max(integral)))
+
+def all_pairs(dir1, dir2):
+    for child1 in os.listdir(dir1):
+        for child2 in os.listdir(dir2):
+            if child1[0] != '.' and child2[0] != '.':
+                print(os.path.join(dir1, child1))
+                print(os.path.join(dir2, child2))
+
+ARGPARSER = argparse.ArgumentParser(\
+        description="Iterate over a directory of student submissions.")
+ARGPARSER.add_argument("directory")
+ARGPARSER.add_argument("-c", "--config", type=int)
+ARGS = ARGPARSER.parse_args()
+
+STUDENT_FOLDERS = os.listdir(ARGS.directory)
+
+STUDENT_NEWEST_FOLDERS = [find_greatest(os.path.join(ARGS.directory, d)) for d in STUDENT_FOLDERS]
+
+for (dir1, dir2) in itertools.combinations(STUDENT_NEWEST_FOLDERS, 2):
+    all_pairs(dir1, dir2)
