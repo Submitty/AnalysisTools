@@ -16,6 +16,8 @@ SP  (u8|u|U|L)
 ES  (\\(['"\?\\abfnrtv]|[0-7]{1,3}|x[a-fA-F0-9]+))
 WS  [ \t\v\n\f]
 
+%x COMMENTSTATE
+
 %{
 #include <stdio.h>
 
@@ -24,13 +26,14 @@ WS  [ \t\v\n\f]
 #include "parser.h"
 
 extern void yyerror(const char *);  /* prints grammar violation message */
-
-static void comment(void);
 %}
 
 %%
-"/*"                                    { comment(); }
-"//".*                                  { /* consume //-comment */ }
+"/*"					{ BEGIN(COMMENTSTATE); }
+<COMMENTSTATE>"*/"			{ BEGIN(INITIAL); }
+<COMMENTSTATE>\n			{ }
+<COMMENTSTATE>.				{ }
+"//".*                                  { }
 
 "auto"					{ return AUTO; }
 "break"					{ return BREAK; }
@@ -149,23 +152,4 @@ static void comment(void);
 int yywrap(void)        /* called at end of input */
 {
     return 1;           /* terminate now */
-}
-
-static void comment(void)
-{
-    int c;
-
-    while ((c = input()) != 0)
-        if (c == '*')
-        {
-            while ((c = input()) == '*')
-                ;
-
-            if (c == '/')
-                return;
-
-            if (c == 0)
-                break;
-        }
-    yyerror("unterminated comment");
 }
