@@ -1,5 +1,7 @@
 %option yylineno
 
+%x COMMENTSTATE
+
 %{
 #include <stdio.h>
 #include "tokens.h"
@@ -9,8 +11,11 @@
 
 [ \t\r\n]			{ }
 
-"//".*				{ }
-"/""*"([^*]|"*"*[^*/])*"*"+"/"	{ }
+"/*"				{ BEGIN(COMMENTSTATE); }
+<COMMENTSTATE>"*/"		{ BEGIN(INITIAL); }
+<COMMENTSTATE>\n		{ }
+<COMMENTSTATE>.			{ }
+"//".*                          { }
 
 "abstract"			{ return ABSTRACT; }
 "assert"			{ return ASSERT; }
