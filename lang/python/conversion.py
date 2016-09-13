@@ -40,7 +40,7 @@ def python_ast_to_node(tree):
                     None)
     elif ttype is ast.Return:
         return Node("return",
-                    python_ast_to_node(tree.value),
+                    [python_ast_to_node(tree.value)],
                     None)
     elif ttype is ast.Delete:
         return Node("delete",
