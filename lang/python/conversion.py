@@ -23,9 +23,9 @@ def python_ast_to_node(tree):
     elif ttype is ast.FunctionDef:
         return Node("function_def",
                     [python_ast_to_node(tree.name),
-                     python_ast_to_node(tree.args),
-                     python_ast_to_node(tree.body),
-                     python_ast_to_node(tree.decorator_list),
+                     python_ast_to_node(tree.args)] +
+                    [python_ast_to_node(n) for n in tree.body] +
+                    [python_ast_to_node(tree.decorator_list),
                      python_ast_to_node(tree.returns)],
                     None)
     elif ttype is ast.ClassDef:
@@ -34,9 +34,9 @@ def python_ast_to_node(tree):
                      python_ast_to_node(tree.bases),
                      python_ast_to_node(tree.keywords),
                      python_ast_to_node(tree.starargs),
-                     python_ast_to_node(tree.kwargs),
-                     python_ast_to_node(tree.body),
-                     python_ast_to_node(tree.decorator_list)],
+                     python_ast_to_node(tree.kwargs)] +
+                    [python_ast_to_node(n) for n in tree.body] +
+                    [python_ast_to_node(tree.decorator_list)],
                     None)
     elif ttype is ast.Return:
         return Node("return",
@@ -263,10 +263,6 @@ def python_ast_to_node(tree):
         return Node("arguments",
                     [python_ast_to_node(n) for n in tree.args] +
                     [python_ast_to_node(tree.vararg)] +
-                    [Node("kwarg_pair", [k, v], None)
-                     for (k, v) in zip(python_ast_to_node(tree.kwargs),
-                                       python_ast_to_node(tree.kw_defaults))] +
-                    [python_ast_to_node(tree.kwarg)] +
                     [python_ast_to_node(n) for n in tree.defaults],
                     None)
     elif ttype is ast.arg:
