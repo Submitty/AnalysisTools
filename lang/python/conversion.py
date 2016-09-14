@@ -53,8 +53,8 @@ def python_ast_to_node(tree):
                     None)
     elif ttype is ast.AugAssign:
         return Node("aug_assign",
-                    [python_ast_to_node(tree.value)] +
-                    [python_ast_to_node(n) for n in tree.targets],
+                    [python_ast_to_node(tree.value),
+                     python_ast_to_node(tree.target)],
                     python_ast_to_node(tree.op))
     elif ttype is ast.For:
         return Node("for",
