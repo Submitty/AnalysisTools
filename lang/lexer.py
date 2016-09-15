@@ -214,7 +214,6 @@ def lexer(lang):
                                stdout=subprocess.PIPE)
         lex.stdin.write(bytes(data, "UTF-8"))
         lex.stdin.close()
-        lex.wait()
         lines = [x.decode().strip().split(" ") for x in lex.stdout.readlines()]
         token_indices = reduce(lambda x, y: x + y, lines)[0::2]
         return [TOKENS[lang][int(x) - STARTS[lang]].lower()
