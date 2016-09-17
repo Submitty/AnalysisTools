@@ -22,7 +22,10 @@ def find_greatest(directory):
 def all_pairs(dir1, dir2):
     for child1 in os.listdir(dir1):
         for child2 in os.listdir(dir2):
-            if child1[0] != '.' and child2[0] != '.':
+            if child1[0] != '.'\
+               and child2[0] != '.'\
+               and not ' ' in child1\
+               and not ' ' in child2:
                 print(os.path.join(dir1, child1))
                 print(os.path.join(dir2, child2))
 
