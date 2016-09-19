@@ -202,8 +202,19 @@ TOKENS = {
         ]
 }
 
+def can_be_int(string):
+    """
+    Return true if string can be converted to an integer.
+    """
+    try:
+        int(string)
+        return True
+    except ValueError:
+        return False
+
 def lexer(lang):
-    """Generate a function that will call the lexer executable for lang.
+    """
+    Generate a function that will call the lexer executable for lang.
     """
     def inner(data):
         """
@@ -214,10 +225,12 @@ def lexer(lang):
                                stdout=subprocess.PIPE)
         lex.stdin.write(bytes(data, "UTF-8"))
         lex.stdin.close()
-        lines = [x.decode().strip().split(" ") for x in lex.stdout.readlines()]
+        stripped = [x.decode().strip() for x in lex.stdout.readlines()]
+        lines = [x.split(" ") for x in stripped if len(x) > 0]
         token_indices = reduce(lambda x, y: x + y, lines)[0::2]
+        filtered = [x for x in token_indices if can_be_int(x)]
         return [TOKENS[lang][int(x) - STARTS[lang]].lower()
-                for x in token_indices]
+                for x in filtered]
     return inner
 
 for l in TOKENS:
