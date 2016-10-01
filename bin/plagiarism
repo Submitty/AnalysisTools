@@ -4,7 +4,6 @@
 Run plagiarism detection system.
 """
 
-import os
 import sys
 import argparse
 import json
@@ -33,15 +32,16 @@ TIMESTAMP = subprocess.check_output(["./bin/walk"]
                                     + [ARGS.filetype, ARGS.directory])\
                                             .decode("utf-8").strip()
 
-#GENPAIRS = subprocess.Popen(["./bin/genpairs", TIMESTAMP],
-#                            stdout=subprocess.PIPE)
-
-GENPAIRS = subprocess.Popen(["./bin/genpairs_layout",
-                             os.path.join(".analysis_data",
-                                          TIMESTAMP,
-                                          ARGS.directory)],
+GENPAIRS = subprocess.Popen(["./bin/genpairs", TIMESTAMP],
                             stdout=subprocess.PIPE,
                             stderr=sys.stderr)
+
+#GENPAIRS = subprocess.Popen(["./bin/genpairs_layout",
+#                             os.path.join(".analysis_data",
+#                                          TIMESTAMP,
+#                                          ARGS.directory)],
+#                            stdout=subprocess.PIPE,
+#                            stderr=sys.stderr)
 
 COMPARE_FINGERPRINTS = subprocess.Popen(["./bin/compare_fingerprints",
                                          TIMESTAMP],
