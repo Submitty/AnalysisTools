@@ -77,7 +77,9 @@ token process_indent(char *line);
 -?[0-9]+\.[0-9]+(e|E)-?[0-9]+		{ STOP; return FLOAT_LITERAL; }
 -?[0-9]+(e|E)-?[0-9]+			{ STOP; return FLOAT_LITERAL; }
 \"([^\\\"]|\\.)*\"			{ STOP; return STRING_LITERAL; }
+\'([^\\\"]|\\.)*\'			{ STOP; return STRING_LITERAL; }
 b\"([^\\\"]|\\.)*\"			{ STOP; return BYTES_LITERAL; }
+b\'([^\\\"]|\\.)*\'			{ STOP; return BYTES_LITERAL; }
 
 "+"				{ STOP; return PLUS; }
 "-"				{ STOP; return MINUS; }
