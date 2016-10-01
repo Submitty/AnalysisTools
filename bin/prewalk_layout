@@ -17,7 +17,7 @@ def find_active(directory):
     """
     with open(os.path.join(directory, "user_assignment_settings.json")) as file:
         user_settings = json.load(file)
-    active_version = user_settings["active_assignment"]
+    active_version = user_settings["active_version"]
     return os.path.join(directory, str(active_version))
 
 ARGPARSER = argparse.ArgumentParser(\
