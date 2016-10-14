@@ -182,11 +182,11 @@ def python_ast_to_node(tree):
                     None)
     elif ttype is ast.Yield:
         return Node("yield",
-                    python_ast_to_node(tree.value),
+                    [python_ast_to_node(tree.value)],
                     None)
     elif ttype is ast.YieldFrom:
         return Node("yield_from",
-                    python_ast_to_node(tree.value),
+                    [python_ast_to_node(tree.value)],
                     None)
     elif ttype is ast.Compare:
         return Node("compare",
