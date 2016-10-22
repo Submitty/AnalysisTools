@@ -33,7 +33,8 @@ if subprocess.call(["./bin/prewalk_layout", ARGS.directory]):
 
 TIMESTAMP = subprocess.check_output(["./bin/walk"]
                                     + WALK_FLAGS
-                                    + [ARGS.filetype, ".analysis_data/concatenated"])\
+                                    + [ARGS.filetype,
+                                       ".analysis_data/concatenated"])\
                                             .decode("utf-8").strip()
 
 GENPAIRS = subprocess.Popen(["./bin/genpairs", TIMESTAMP],
