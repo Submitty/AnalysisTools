@@ -40,6 +40,9 @@ def free_vars(root):
 globals()["python"] = lang.python.conversion.python
 
 def python2(data):
+    """
+    Call external Python 2 parser.
+    """
     parser = subprocess.Popen([os.path.join(MOD_PATH, "python2", "parse")],
                               stdin=subprocess.PIPE,
                               stdout=subprocess.PIPE)

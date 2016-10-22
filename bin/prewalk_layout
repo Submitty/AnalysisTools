@@ -7,6 +7,7 @@ containing concatenated student files.
 
 import argparse
 import os
+import shutil
 import glob
 import json
 import subprocess
@@ -30,6 +31,8 @@ ARGS = ARGPARSER.parse_args()
 STUDENT_FOLDERS = os.listdir(ARGS.directory)
 
 STUDENT_ACTIVE_FOLDERS = [find_active(os.path.join(ARGS.directory, d)) for d in STUDENT_FOLDERS]
+
+shutil.rmtree(os.path.join(".analysis_data", "concatenated"))
 
 try:
     os.mkdir(".analysis_data")
