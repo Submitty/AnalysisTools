@@ -32,7 +32,10 @@ STUDENT_FOLDERS = os.listdir(ARGS.directory)
 
 STUDENT_ACTIVE_FOLDERS = [find_active(os.path.join(ARGS.directory, d)) for d in STUDENT_FOLDERS]
 
-shutil.rmtree(os.path.join(".analysis_data", "concatenated"))
+try:
+    shutil.rmtree(os.path.join(".analysis_data", "concatenated"))
+except FileNotFoundError:
+    pass
 
 try:
     os.mkdir(".analysis_data")
