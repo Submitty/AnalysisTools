@@ -13,6 +13,7 @@ ARGPARSER = argparse.ArgumentParser(\
         description="Run plagiarism detection system.")
 ARGPARSER.add_argument("filetype")
 ARGPARSER.add_argument("directory")
+ARGPARSER.add_argument("pattern", nargs="*", default=None)
 ARGPARSER.add_argument("-c", "--config", type=int)
 ARGS = ARGPARSER.parse_args()
 
@@ -27,7 +28,7 @@ if CONFIG[ARGS.filetype]:
 else:
     WALK_FLAGS = []
 
-if subprocess.call(["./bin/prewalk_layout", ARGS.directory]):
+if subprocess.call(["./bin/prewalk_layout", ARGS.directory] + ARGS.pattern):
     print("Pre-tokenization concatenation failed, exiting.", file=sys.stderr)
     exit(1)
 
