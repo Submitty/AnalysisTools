@@ -14,7 +14,7 @@ ARGPARSER = argparse.ArgumentParser(\
 ARGPARSER.add_argument("filetype")
 ARGPARSER.add_argument("directory")
 ARGPARSER.add_argument("pattern", nargs="*", default=None)
-ARGPARSER.add_argument("-c", "--config", type=int)
+ARGPARSER.add_argument("-c", "--config", type=str)
 ARGS = ARGPARSER.parse_args()
 
 with open(ARGS.config if ARGS.config else "config/plagiarism.json") as f:
