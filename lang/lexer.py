@@ -6,6 +6,7 @@ lang/.
 
 import os
 import subprocess
+# pylint: disable=redefined-builtin
 from functools import reduce
 
 MOD_PATH = os.path.dirname(os.path.abspath(__file__))
