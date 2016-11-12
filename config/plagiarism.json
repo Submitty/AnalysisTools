@@ -2,7 +2,6 @@
 	"WorkingDir" : ".analysis_data",
 	"HashBound" : 65536,
 	"GlobalFileName" : "__global_fingerprint_count__",
-	"SharedThreshold" : 0.6,
 
 	"c" : {
 		"UpperBound" : 30,

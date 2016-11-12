@@ -58,7 +58,7 @@
  * fingerprint for that fingerprint to be ignored.
  */
 #ifndef SHARED_THRESHOLD
-#define SHARED_THRESHOLD 0.8
+#define SHARED_THRESHOLD 0.05
 #endif
 
 /*
