@@ -77,7 +77,7 @@ def python_ast_to_node(tree):
                     None)
     elif ttype is ast.With:
         return Node("with",
-                    [python_ast_to_node(n) for n in tree.withitem] +
+                    [python_ast_to_node(n) for n in tree.items] +
                     [python_ast_to_node(n) for n in tree.body],
                     None)
     elif ttype is ast.Raise:
