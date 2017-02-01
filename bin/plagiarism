@@ -6,9 +6,12 @@ Run plagiarism detection system.
 
 from __future__ import print_function
 import sys
+import os
 import argparse
 import json
 import subprocess
+
+MOD_PATH = os.path.dirname(os.path.abspath(__file__))
 
 ARGPARSER = argparse.ArgumentParser(\
         description="Run plagiarism detection system.")
@@ -18,7 +21,16 @@ ARGPARSER.add_argument("pattern", nargs="*", default=None)
 ARGPARSER.add_argument("-c", "--config", type=str)
 ARGS = ARGPARSER.parse_args()
 
-with open(ARGS.config if ARGS.config else "config/plagiarism.json") as f:
+def binpath(binary):
+    """Returns <MOD_PATH>/<binary>"""
+    return os.path.join(MOD_PATH, binary)
+
+def rootpath(filename, *names):
+    """Returns <MOD_PATH>/../<filename>[/<names>]"""
+    return os.path.join(MOD_PATH, "..", filename, *names)
+
+with open(ARGS.config if ARGS.config
+          else rootpath("config", "plagiarism.json")) as f:
     CONFIG = json.load(f)
 
 if CONFIG[ARGS.filetype]:
@@ -29,28 +41,29 @@ if CONFIG[ARGS.filetype]:
 else:
     WALK_FLAGS = []
 
-if subprocess.call(["./bin/prewalk_layout", ARGS.directory] + ARGS.pattern):
+if subprocess.call([binpath("prewalk_layout"), ARGS.directory] + ARGS.pattern):
     print("Pre-tokenization concatenation failed, exiting.", file=sys.stderr)
     exit(1)
 
-TIMESTAMP = subprocess.check_output(["./bin/walk"]
+TIMESTAMP = subprocess.check_output([binpath("walk")]
                                     + WALK_FLAGS
                                     + [ARGS.filetype,
-                                       ".analysis_data/concatenated"])\
+                                       rootpath(".analysis_data",
+                                                "concatenated")])\
                                             .decode("utf-8").strip()
 
-GENPAIRS = subprocess.Popen(["./bin/genpairs", TIMESTAMP],
+GENPAIRS = subprocess.Popen([binpath("genpairs"), TIMESTAMP],
                             stdout=subprocess.PIPE,
                             stderr=sys.stderr)
 
-#GENPAIRS = subprocess.Popen(["./bin/genpairs_layout",
+#GENPAIRS = subprocess.Popen([binpath("genpairs_layout"),
 #                             os.path.join(".analysis_data",
 #                                          TIMESTAMP,
 #                                          ARGS.directory)],
 #                            stdout=subprocess.PIPE,
 #                            stderr=sys.stderr)
 
-COMPARE_FINGERPRINTS = subprocess.Popen(["./bin/compare_fingerprints",
+COMPARE_FINGERPRINTS = subprocess.Popen([binpath("compare_fingerprints"),
                                          TIMESTAMP],
                                         stdin=GENPAIRS.stdout,
                                         stdout=subprocess.PIPE,
