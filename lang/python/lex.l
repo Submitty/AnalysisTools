@@ -1,5 +1,8 @@
 %option yylineno
 
+%x TRIPLESTATE
+%x DTRIPLESTATE
+
 %{
 #include <stdio.h>
 #include "tokens.h"
@@ -17,6 +20,14 @@ token process_indent(char *line);
 %%
 
 "#".*				{ }
+"\'\'\'"                        { BEGIN(TRIPLESTATE); return STRING_LITERAL; }
+<TRIPLESTATE>"\'\'\'"		{ BEGIN(INITIAL); }
+"\"\"\""                        { BEGIN(DTRIPLESTATE); return STRING_LITERAL; }
+<DTRIPLESTATE>"\"\"\""		{ BEGIN(INITIAL); }
+<TRIPLESTATE>\n		        { }
+<DTRIPLESTATE>\n		{ }
+<TRIPLESTATE>.			{ }
+<DTRIPLESTATE>.			{ }
 
 ^[ \t]*\n			{ /* blank line */ }
 ^[ ]*[^ \n]+			{

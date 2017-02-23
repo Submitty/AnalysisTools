@@ -1,3 +1,0 @@
-#!/bin/bash
-java -cp jdt-core-1.2.0.jar Loader "$@"
-

@@ -20,12 +20,7 @@ WS  [ \t\v\n\f]
 
 %{
 #include <stdio.h>
-
-#include "../ast_node.h"
-
-#include "parser.h"
-
-extern void yyerror(const char *);  /* prints grammar violation message */
+#include "tokens.h"
 %}
 
 %%
@@ -81,7 +76,7 @@ extern void yyerror(const char *);  /* prints grammar violation message */
 "_Thread_local"                         { return THREAD_LOCAL; }
 "__func__"                              { return FUNC_NAME; }
 
-{L}{A}*					{ yylval.node = make_ast_node("identifier", NULL, NULL); return IDENTIFIER; }
+{L}{A}*					{ return IDENTIFIER; }
 
 {HP}{H}+{IS}?				{ return INTEGER_LITERAL; }
 {NZ}{D}*{IS}?				{ return INTEGER_LITERAL; }
@@ -95,7 +90,7 @@ extern void yyerror(const char *);  /* prints grammar violation message */
 {HP}{H}*"."{H}+{P}{FS}?			{ return FLOAT_LITERAL; }
 {HP}{H}+"."{P}{FS}?			{ return FLOAT_LITERAL; }
 
-({SP}?\"([^"\\\n]|{ES})*\"{WS}*)+	{ yylval.node = make_ast_node("string", NULL, NULL); return STRING_LITERAL; }
+({SP}?\"([^"\\\n]|{ES})*\"{WS}*)+	{ return STRING_LITERAL; }
 
 "..."					{ return ELLIPSIS; }
 ">>="					{ return RIGHT_ASSIGN; }
@@ -144,12 +139,14 @@ extern void yyerror(const char *);  /* prints grammar violation message */
 "|"					{ return PIPE; }
 "?"					{ return QUESTION; }
 
-{WS}+					{ /* whitespace separates tokens */ }
-.					{ /* discard bad characters */ }
+{WS}+					{ }
+.					{ }
 
 %%
 
-int yywrap(void)        /* called at end of input */
-{
-    return 1;           /* terminate now */
+int main() {
+	token c;
+	while (c = yylex()) {
+		printf("%d %d ", c, yylineno);
+	}
 }

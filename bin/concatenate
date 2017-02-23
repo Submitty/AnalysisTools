@@ -25,7 +25,6 @@ ARGPARSER = argparse.ArgumentParser(\
         description="Iterate over a directory of student submissions.")
 ARGPARSER.add_argument("directory")
 ARGPARSER.add_argument("pattern", nargs="*", default=None)
-ARGPARSER.add_argument("-c", "--config", type=int)
 ARGS = ARGPARSER.parse_args()
 
 STUDENT_FOLDERS = os.listdir(ARGS.directory)
@@ -33,17 +32,17 @@ STUDENT_FOLDERS = os.listdir(ARGS.directory)
 STUDENT_ACTIVE_FOLDERS = [find_active(os.path.join(ARGS.directory, d)) for d in STUDENT_FOLDERS]
 
 try:
-    shutil.rmtree(os.path.join(".analysis_data", "concatenated"))
+    shutil.rmtree(os.path.join("plagiarism_data", "concatenated"))
 except FileNotFoundError:
     pass
 
 try:
-    os.mkdir(".analysis_data")
+    os.mkdir("plagiarism_data")
 except FileExistsError:
     pass
 
 try:
-    os.mkdir(os.path.join(".analysis_data", "concatenated"))
+    os.mkdir(os.path.join("plagiarism_data", "concatenated"))
 except FileExistsError:
     pass
 
@@ -53,5 +52,6 @@ for (s, active) in zip(STUDENT_FOLDERS, STUDENT_ACTIVE_FOLDERS):
         ALL += glob.glob(os.path.join(active, p))
     ALL = [x for x in ALL if not ' ' in x]
     if len(ALL) > 0:
-        with open(os.path.join(".analysis_data", "concatenated", s), "w") as FILE:
+        with open(os.path.join("plagiarism_data", "concatenated", s), "w") as FILE:
             CAT = subprocess.Popen(["cat"] + ALL, stdout=FILE)
+            CAT.wait()
