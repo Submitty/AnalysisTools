@@ -10,7 +10,7 @@ lang/%/lex: lang/%/lex.l lang/%/tokens.h
 	$(CC) $@.out.c -o $@ -lfl
 
 bin/lichen: app/*.hs src/*.hs .deps
-	stack install
+	stack install --allow-different-user
 
 clean:
 	rm $(LEXERS) -f
@@ -19,10 +19,10 @@ clean:
 
 stack:
 	stack upgrade --install-ghc
-	stack setup
+	stack setup --allow-different-user
 
 .deps:
-	wget -qO- https://get.haskellstack.org/ | sh
+	#wget -qO- https://get.haskellstack.org/ | sh
 	stack upgrade --install-ghc
-	stack setup
+	stack setup --allow-different-user
 	touch .deps
