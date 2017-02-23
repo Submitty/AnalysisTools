@@ -1,5 +1,5 @@
 LEXERS = lang/c/lex lang/python/lex lang/java/lex
-export STACK_ROOT = ${CURDIR}global_stack
+#export STACK_ROOT = ${CURDIR}global_stack
 
 .PHONY: all clean
 

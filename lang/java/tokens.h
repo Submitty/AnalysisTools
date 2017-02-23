@@ -1,4 +1,5 @@
 typedef enum token {
+	INVALID = 0,
 	IDENTIFIER = 1,
 	INTEGER_LITERAL,
 	FLOAT_LITERAL,

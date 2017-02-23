@@ -1,4 +1,5 @@
 typedef enum token {
+	INVALID = 0,
 	AUTO=1,
 	BREAK,
 	CASE,
