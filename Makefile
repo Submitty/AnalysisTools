@@ -21,8 +21,11 @@ stack:
 	stack upgrade --install-ghc
 	stack setup --allow-different-user
 
-.deps:
-	#wget -qO- https://get.haskellstack.org/ | sh
+haskell_script.sh:
+	wget -nc -q -O$@ https://get.haskellstack.org/
+	sh $@ --force
+
+.deps: haskell_script.sh
 	stack upgrade --install-ghc
 	stack setup --allow-different-user
 	touch .deps
