@@ -22,6 +22,18 @@ def walk(node):
         for elem in gen:
             yield elem
 
+def leaf_paths(node):
+    """
+    Return the path to each leaf node.
+    """
+    def recurse(node_, acc):
+        """ Recurse over tree """
+        if node_ and node_.children:
+            return sum([recurse(x, acc + [node_]) for x in node_.children], [])
+        else:
+            return [acc + [node_]]
+    return [[x for x in l if x] for l in recurse(node, [])]
+
 def free_vars(root):
     """
     Obtain a list of the free variables of a node.
