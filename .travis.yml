@@ -1,31 +1,15 @@
 sudo: required
+language: c
 dist: trusty
 
-language: c
-
-compiler: gcc
-
-addons:
-  apt:
-    sources:
-      - sourceline: "deb http://downloads.skewed.de/apt/trusty trusty universe"
-      - ubuntu-toolchain-r-test
-    packages:
-      - build-essential
-      - pkg-config
-      - flex
-      - bison
-      - libpcre3 
-      - libpcre3-dev
-      - splint
-      - indent
-      - python3
-      - python3-dev
-      - libpython3.4 
-      - python3-pip
-      - python-graph-tool
+cache:
+  directories:
+    - $HOME/.stack/
 
 before_install:
- - python3 -m pip install pylint --user
+  - export PATH=$HOME/.local/bin:$PATH
+  - travis_retry curl -L https://www.stackage.org/stack/linux-x86_64 | tar xz --wildcards --strip-components=1 -C ~/.local/bin '*/stack'
 
-script: make
+install:
+  - stack --no-terminal --skip-ghc-check setup
+  - stack build --no-terminal --skip-ghc-check --only-snapshot
