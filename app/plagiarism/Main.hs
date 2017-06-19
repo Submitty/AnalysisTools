@@ -3,23 +3,26 @@
 module Main where
 
 import System.Environment
+import System.Directory
 
 import Data.List
 import Data.Monoid (mconcat, (<>))
-import qualified Data.Text.Lazy as T
-import qualified Data.Text.Lazy.IO as T.IO
+import qualified Data.Text as T
+import qualified Data.Text.IO as T.IO
 
 import Control.Monad
 
-import Lexer
-import Config
-import Language
-import Winnow
-import Compare
-import Walk
+import Lichen.Config
+import Lichen.Plagiarism.Winnow
+import Lichen.Plagiarism.Compare
+import Lichen.Plagiarism.Walk
+import Lichen.Plagiarism.Concatenate
+import Lichen.Plagiarism.Highlight
+import Lichen.Lexer
+import qualified Lichen.Lexer.C as C
 
 langC = Language "c" ["c", "h", "cpp", "hpp", "C", "H", "cc"]
-                 $ Config (256*256) 9 5
+                 C.lex $ WinnowConfig 9 5
 
 basename = last . T.splitOn "/"
 stripext = head . T.splitOn "."
@@ -41,9 +44,9 @@ generateCompare a b = T.IO.writeFile (T.unpack ("plagiarism_data/" <> stripext (
 
 main :: IO ()
 main = do
-        (root:_) <- getArgs
-        sorted <- reverse . sortOn (\(t, _, _) -> t) . crossCompare langC <$> readyWithinSourceDir langC root
-        let short = take 100 sorted in do
-            T.IO.writeFile "plagiarism_data/index.html" $ tablify short
-            mapM_ (\(_, a, b) -> generateCompare a b) short
-
+        [p] <- getArgs
+        dir <- canonicalizePath p
+        concatenate dir
+        highlight dir
+        prints <- fingerprintDir langC ("plagiarism_data/concatenated" ++ dir)
+        print $ crossCompare langC prints

@@ -1,27 +1,23 @@
-module Winnow where
+module Lichen.Plagiarism.Winnow where
 
+import Data.Hashable
 import qualified Data.Set as Set
-import qualified Data.Text.Lazy as T
+import qualified Data.Text as T
+import qualified Data.ByteString as BS
 
-import Config
-import Lexer
-import Language
+import Lichen.Config
+import Lichen.Lexer
 
 type Fingerprint = Int
 type Fingerprints = Set.Set Fingerprint
-
-hash :: Int -> [Token] -> Fingerprint
-hash bound = flip mod bound . go where
-    go [] = 5381
-    go ((x, _):xs) = x + 33 * go xs
 
 windows :: Int -> [a] -> [[a]]
 windows _ [] = []
 windows size lst@(x:xs) | length lst >= size = take size lst:windows size xs
                         | otherwise = []
 
-fingerprint :: ([Token] -> Fingerprint) -> Int -> [Token] -> [Fingerprint]
-fingerprint h k lst = h <$> windows k lst
+fingerprint :: Hashable a => Int -> [a] -> [Fingerprint]
+fingerprint k lst = hash <$> windows k lst
 
 winnow :: Int -> Int -> [Fingerprint] -> Fingerprints
 winnow t k lst = Set.fromList $ go [] allWindows where
@@ -39,9 +35,9 @@ winnow t k lst = Set.fromList $ go [] allWindows where
                                  if mf == mo then go (minimum fil:acc) ws
                                              else go acc ws
 
-processTokens :: Config -> [Token] -> Fingerprints
+processTokens :: Hashable a => WinnowConfig -> [a] -> Fingerprints
 processTokens config = winnow (signalThreshold config) (noiseThreshold config)
-                     . fingerprint (hash $ hashBound config) (noiseThreshold config)
+                     . fingerprint (noiseThreshold config)
 
-processCode :: Language -> T.Text -> IO Fingerprints
-processCode l@(Language _ _ c) src = processTokens c <$> runLexer l src
+processCode :: Hashable a => Language a -> FilePath -> BS.ByteString -> Either LexError Fingerprints
+processCode (Language _ _ lex c) p src = processTokens c <$> lex p src
