@@ -9,6 +9,9 @@ import Lichen.Config
 import Lichen.Lexer
 import Lichen.Plagiarism.Winnow
 
+-- Given language configuration and the path to a directory containing
+-- source files, lex, fingerprint, and winnow each file and associate the
+-- resulting fingerprint sets with the path to their file of origin.
 fingerprintDir :: Hashable a => Language a -> FilePath -> IO [(Fingerprints, FilePath)]
 fingerprintDir lang dir = do
         base <- listDirectory dir

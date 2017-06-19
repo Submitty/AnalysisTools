@@ -10,7 +10,7 @@ import Lichen.Config
 newtype AssignmentSettings = AssignmentSettings { activeVersion :: Int }
 instance FromJSON AssignmentSettings where
         parseJSON = withObject "assignment_settings"
-                    $ \o -> AssignmentSettings <$> o .: "active_assignment"
+                    $ \o -> AssignmentSettings <$> o .: "active_version"
 
 getAssignmentSettings :: FilePath -> IO (Either String AssignmentSettings)
 getAssignmentSettings = fmap eitherDecode . BS.readFile

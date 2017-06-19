@@ -1,24 +1,16 @@
-{-# LANGUAGE OverloadedStrings #-}
-
 module Lichen.Config where
-
-import Data.List.Split
 
 import Lichen.Lexer
 
-data WinnowConfig = WinnowConfig
-            { signalThreshold :: Int
-            , noiseThreshold :: Int
-            }
+-- Configuration for the winnowing algorithm. Token sequences shorter than
+-- noiseThreshold are considered noise, token sequences longer than
+-- signalThreshold are always detected.
+data WinnowConfig = WinnowConfig { signalThreshold :: Int, noiseThreshold :: Int }
 
-data Language a = Language [FilePath] (Lexer a) WinnowConfig
+-- Configuration for a given language. Should typically not need to be
+-- modified, but can be overwritten in the case of unexpected instructor
+-- use cases (non-typical file extensions, etc.).
+data Language a = Language { extensions :: [FilePath], lexer :: Lexer a, winnowConfig :: WinnowConfig }
 
-data Config = Config
-            {
-            }
-
-isSource :: Language a -> FilePath -> Bool
-isSource (Language exts _ _) path = last (splitOn "." path) `elem` exts
-
-isSourceDir :: Language a -> [FilePath] -> Bool
-isSourceDir l = any (isSource l)
+-- Overall configuration for plagiarism execution.
+data PlagiarismConfig = PlagiarismConfig { }
