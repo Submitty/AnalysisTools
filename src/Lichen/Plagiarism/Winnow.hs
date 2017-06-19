@@ -24,7 +24,7 @@ winnow t k lst = Set.fromList $ go [] allWindows where
     allWindows :: [[(Int, Int)]]
     allWindows = windows (t - k + 1) $ zip lst [1, 2 ..]
     go :: [(Int, Int)] -> [[(Int, Int)]] -> [Int]
-    go acc [] = fst $ unzip acc
+    go acc [] = fst <$> acc
     go acc (w:ws) =
         let uz = unzip acc
             fil = filter (\(_, n) -> notElem n $ snd uz) w in

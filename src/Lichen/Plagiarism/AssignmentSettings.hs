@@ -7,7 +7,7 @@ import qualified Data.ByteString.Lazy as BS
 
 import Lichen.Config
 
-data AssignmentSettings = AssignmentSettings { activeVersion :: Int }
+newtype AssignmentSettings = AssignmentSettings { activeVersion :: Int }
 instance FromJSON AssignmentSettings where
         parseJSON = withObject "assignment_settings"
                     $ \o -> AssignmentSettings <$> o .: "active_assignment"
