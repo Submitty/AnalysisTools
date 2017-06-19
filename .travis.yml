@@ -18,6 +18,9 @@ before_install:
 
 install:
   - stack --no-terminal --install-ghc build
+  - stack --no-terminal install hlint
 
 script:
   - stack --no-terminal test --only-dependencies
+  - hlint src
+  - hlint app
