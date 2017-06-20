@@ -18,6 +18,7 @@ library
                      , Lichen.Util
                      , Lichen.Lexer
                      , Lichen.Lexer.C
+                     , Lichen.Lexer.Python
                      , Lichen.Plagiarism.Winnow
                      , Lichen.Plagiarism.Compare
                      , Lichen.Plagiarism.Walk
@@ -51,4 +52,4 @@ executable lichen-plagiarism
 
 source-repository head
   type:     git
-  location: https://github.com/chameco/lichen
+  location: https://github.com/Submitty/AnalysisTools
