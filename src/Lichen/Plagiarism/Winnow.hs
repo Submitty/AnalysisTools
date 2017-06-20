@@ -73,5 +73,5 @@ processTokens :: Hashable a => WinnowConfig -> [a] -> Fingerprints
 processTokens config = winnow (signalThreshold config) (noiseThreshold config)
                      . fingerprint (noiseThreshold config)
 
-processCode :: Hashable a => Language a -> FilePath -> BS.ByteString -> Either LexError Fingerprints
+processCode :: Language -> FilePath -> BS.ByteString -> Either LexError Fingerprints
 processCode (Language _ lex c) p src = processTokens c <$> lex p src

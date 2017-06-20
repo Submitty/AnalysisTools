@@ -1,18 +1,18 @@
 module Lichen.Plagiarism.Highlight where
 
 import System.Directory
+import System.FilePath
+
+import Control.Monad.Reader
+import Control.Arrow ((&&&))
 
 import Lichen.Config
 
--- Given a path p, transform the files in
--- plagiarism_data/concatenated/<dir> into
--- plagiarism_data/highlighted/<dir> where dir is the absolute path of p.
--- This transformation should preserve file names, and is intended to be
--- used to perform syntax highlighting to facilitate better rendering.
-highlight :: FilePath -> IO ()
-highlight p = do
-        srcPath <- (++) <$> pure "plagiarism_data/concatenated" <*> canonicalizePath p
-        dstPath <- (++) <$> pure "plagiarism_data/highlighted" <*> canonicalizePath p
-        createDirectoryIfMissing True dstPath
-        toHighlightSrcDst <- fmap (\x -> (srcPath ++ "/" ++ x, dstPath ++ "/" ++ x)) <$> listDirectory srcPath
-        mapM_ (uncurry copyFile) toHighlightSrcDst
+highlight :: FilePath -> FilePath -> Plagiarism ()
+highlight base p = do
+        config <- ask
+        srcPath <- liftIO $ (++) <$> pure (base </> dataDir config </> concatDir config) <*> canonicalizePath p
+        dstPath <- liftIO $ (++) <$> pure (base </> dataDir config </> highlightDir config) <*> canonicalizePath p
+        liftIO $ removeDirectoryRecursive dstPath >> createDirectoryIfMissing True dstPath
+        toHighlightSrcDst <- liftIO $ fmap ((</>) srcPath &&& (</>) dstPath) <$> listDirectory srcPath
+        liftIO $ mapM_ (uncurry copyFile) toHighlightSrcDst

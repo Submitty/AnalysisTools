@@ -13,6 +13,8 @@ cabal-version:       >=1.10
 library
   hs-source-dirs:      src
   exposed-modules:     Lichen.Config
+                     , Lichen.Config.Languages
+                     , Lichen.Config.Loader
                      , Lichen.Util
                      , Lichen.Lexer
                      , Lichen.Lexer.C
@@ -27,11 +29,14 @@ library
                      , split
                      , text
                      , bytestring
+                     , mtl
                      , hashable
                      , process
                      , directory
+                     , filepath
                      , megaparsec
                      , aeson
+                     , dyre
   default-language:    Haskell2010
 
 executable lichen-plagiarism

@@ -1,5 +1,7 @@
 module Lichen.Util where
 
+import System.FilePath
+
 import Data.List.Split
 
 import Lichen.Config
@@ -23,5 +25,6 @@ purifySnd ((_, Nothing):xs) = purifySnd xs
 purifySnd ((x, Just y):xs) = (x, y):purifySnd xs
 
 -- Ex: containingDir "/usr/bin/gcc" = "/usr/bin"
+-- Only for absolute paths.
 containingDir :: FilePath -> FilePath
-containingDir = foldr1 (\x y -> x ++ "/" ++ y) . init . splitOn "/"
+containingDir = ('/':) . foldr1 (</>) . init . splitOn "/"
