@@ -3,7 +3,6 @@ module Lichen.Plagiarism.Compare where
 import Data.List
 import qualified Data.Set as Set
 
-import Lichen.Config
 import Lichen.Plagiarism.Winnow
 
 -- Naively compare two sets of fingerprints to obtain a percent match.

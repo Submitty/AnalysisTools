@@ -7,8 +7,9 @@ import Text.Megaparsec.ByteString
 import Text.Megaparsec.Error
 import qualified Text.Megaparsec.Lexer as L
 
-type LexError = ParseError (Token BS.ByteString) Dec
-type Lexer a = FilePath -> BS.ByteString -> Either LexError [a]
+import Lichen.Error
+
+type Lexer a = FilePath -> BS.ByteString -> Erring [a]
 
 -- Parse a C-style character literal. Ex: 'a', '@'.
 charLit :: Parser Char
@@ -22,6 +23,3 @@ strLit = char '\"' *> manyTill L.charLiteral (char '\"')
 -- of letters, digits, and underscores).
 ident :: Parser String
 ident = (:) <$> (letterChar <|> char '_') <*> many (alphaNumChar <|> char '_')
-
-printLexError :: LexError -> IO ()
-printLexError = putStrLn . parseErrorPretty

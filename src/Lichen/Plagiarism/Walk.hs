@@ -8,7 +8,8 @@ import qualified Data.ByteString as BS
 
 import Control.Monad.Reader
 
-import Lichen.Config
+import Lichen.Config.Languages
+import Lichen.Config.Plagiarism
 import Lichen.Lexer
 import Lichen.Plagiarism.Winnow
 
@@ -20,7 +21,5 @@ fingerprintDir lang dir = do
         base <- liftIO $ listDirectory dir
         contents <- liftIO . mapM BS.readFile $ (\x -> dir </> x) <$> base
         let pathAssoc = processCode lang <$> base
-        liftIO . purify $ zip (zipWith ($) pathAssoc contents) base
-    where purify ((Left e, _):ps) = printLexError e >> purify ps
-          purify ((Right e, t):ps) = ((e, t):) <$> purify ps
-          purify [] = pure []
+        mapM clean $ zip (zipWith ($) pathAssoc contents) base
+    where clean (p, f) = (,) <$> p <*> pure f

@@ -12,19 +12,23 @@ cabal-version:       >=1.10
 
 library
   hs-source-dirs:      src
-  exposed-modules:     Lichen.Config
+  exposed-modules:     Lichen.Util
+                     , Lichen.Error
+                     , Lichen.Config
                      , Lichen.Config.Languages
-                     , Lichen.Config.Loader
-                     , Lichen.Util
+                     , Lichen.Config.Plagiarism
+                     , Lichen.Config.CountToken
                      , Lichen.Lexer
                      , Lichen.Lexer.C
                      , Lichen.Lexer.Python
+                     , Lichen.Plagiarism.Main
                      , Lichen.Plagiarism.Winnow
                      , Lichen.Plagiarism.Compare
                      , Lichen.Plagiarism.Walk
                      , Lichen.Plagiarism.Concatenate
                      , Lichen.Plagiarism.Highlight
                      , Lichen.Plagiarism.AssignmentSettings
+                     , Lichen.CountToken.Main
   build-depends:       base >= 4.7 && < 5
                      , containers
                      , split
@@ -38,6 +42,7 @@ library
                      , megaparsec
                      , aeson
                      , dyre
+                     , optparse-applicative
   default-language:    Haskell2010
 
 executable lichen-plagiarism
@@ -46,8 +51,14 @@ executable lichen-plagiarism
   ghc-options:         -threaded -rtsopts -with-rtsopts=-N -O2
   build-depends:       base
                      , lichen
-                     , text
-                     , directory
+  default-language:    Haskell2010
+
+executable lichen-count-token
+  hs-source-dirs:      app/count-token
+  main-is:             Main.hs
+  ghc-options:         -threaded -rtsopts -with-rtsopts=-N -O2
+  build-depends:       base
+                     , lichen
   default-language:    Haskell2010
 
 source-repository head

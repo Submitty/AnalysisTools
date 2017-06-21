@@ -1,8 +1,11 @@
 module Lichen.Util where
 
+import System.Directory
 import System.FilePath
 
 import Data.List.Split
+
+import Control.Monad
 
 import Lichen.Config
 
@@ -25,6 +28,8 @@ purifySnd ((_, Nothing):xs) = purifySnd xs
 purifySnd ((x, Just y):xs) = (x, y):purifySnd xs
 
 -- Ex: containingDir "/usr/bin/gcc" = "/usr/bin"
--- Only for absolute paths.
 containingDir :: FilePath -> FilePath
 containingDir = ('/':) . foldr1 (</>) . init . splitOn "/"
+
+removeIfDoesntExist :: FilePath -> IO ()
+removeIfDoesntExist dir = doesDirectoryExist dir >>= flip when (removeDirectoryRecursive dir)

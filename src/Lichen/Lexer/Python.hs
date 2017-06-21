@@ -5,6 +5,7 @@ module Lichen.Lexer.Python where
 import GHC.Generics (Generic)
 
 import Control.Monad
+import Control.Monad.Except
 
 import Data.Hashable
 
@@ -12,6 +13,7 @@ import Text.Megaparsec
 import Text.Megaparsec.ByteString
 import qualified Text.Megaparsec.Lexer as L
 
+import Lichen.Error
 import Lichen.Lexer
 
 data Tok = False | None | True | And | As | Assert | Break | Class | Continue
@@ -26,7 +28,7 @@ data Tok = False | None | True | And | As | Assert | Break | Class | Continue
          | Comma | Colon | Semicolon | At | Equal | AddAssign | SubAssign
          | MulAssign | DivAssign | IntDivAssign | ModAssign | PowAssign
          | AndAssign | OrAssign | XorAssign | LeftAssign | RightAssign
-         deriving (Show, Eq, Generic)
+         deriving (Show, Read, Eq, Generic)
 instance Hashable Tok
 
 sc :: Parser ()
@@ -122,4 +124,6 @@ onetoken = (reserved "False" *> pure Lichen.Lexer.Python.False)
        <|> (reserved ">>=" *> pure RightAssign)
 
 lex :: Lexer Tok
-lex = runParser (many (sc *> onetoken <* sc))
+lex p d = case runParser (many (sc *> onetoken <* sc)) p d of
+              Left e -> throwError $ LexError e
+              Right t -> return t

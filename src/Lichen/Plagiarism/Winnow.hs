@@ -5,7 +5,10 @@ import qualified Data.Set as Set
 import qualified Data.Text as T
 import qualified Data.ByteString as BS
 
-import Lichen.Config
+import Control.Monad.Trans
+
+import Lichen.Config.Languages
+import Lichen.Config.Plagiarism
 import Lichen.Lexer
 
 type Fingerprint = Int
@@ -73,5 +76,6 @@ processTokens :: Hashable a => WinnowConfig -> [a] -> Fingerprints
 processTokens config = winnow (signalThreshold config) (noiseThreshold config)
                      . fingerprint (noiseThreshold config)
 
-processCode :: Language -> FilePath -> BS.ByteString -> Either LexError Fingerprints
-processCode (Language _ lex c) p src = processTokens c <$> lex p src
+-- Cannot use record syntax here due to type variable selection
+processCode :: Language -> FilePath -> BS.ByteString -> Plagiarism Fingerprints
+processCode (Language _ lex c _) p src = lift $ processTokens c <$> lex p src
