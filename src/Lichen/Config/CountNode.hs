@@ -1,18 +1,18 @@
-module Lichen.Config.CountToken where
+module Lichen.Config.CountNode where
 
 import Lichen.Config
 import Lichen.Config.Languages
 
 data Config = Config
             { language :: Language
-            , token :: Maybe String
+            , node :: Maybe String
             , sourceFile :: Maybe FilePath
             }
 
 defaultConfig :: Config
 defaultConfig = Config { language = langDummy
-                       , token = Nothing
+                       , node = Nothing
                        , sourceFile = Nothing
                        }
 
-type CountToken = Configured Config
+type CountNode = Configured Config

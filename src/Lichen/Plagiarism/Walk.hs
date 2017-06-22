@@ -3,14 +3,12 @@ module Lichen.Plagiarism.Walk where
 import System.Directory
 import System.FilePath
 
-import Data.Hashable
 import qualified Data.ByteString as BS
 
 import Control.Monad.Reader
 
 import Lichen.Config.Languages
 import Lichen.Config.Plagiarism
-import Lichen.Lexer
 import Lichen.Plagiarism.Winnow
 
 -- Given language configuration and the path to a directory containing

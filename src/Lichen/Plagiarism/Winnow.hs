@@ -2,14 +2,12 @@ module Lichen.Plagiarism.Winnow where
 
 import Data.Hashable
 import qualified Data.Set as Set
-import qualified Data.Text as T
 import qualified Data.ByteString as BS
 
 import Control.Monad.Trans
 
 import Lichen.Config.Languages
 import Lichen.Config.Plagiarism
-import Lichen.Lexer
 
 type Fingerprint = Int
 type Fingerprints = Set.Set Fingerprint
@@ -17,7 +15,7 @@ type Fingerprints = Set.Set Fingerprint
 -- Produce a list by sliding a window of size k over the list lst.
 windows :: Int -> [a] -> [[a]]
 windows _ [] = []
-windows k lst@(x:xs) | length lst >= k = take k lst:windows k xs
+windows k lst@(_:xs) | length lst >= k = take k lst:windows k xs
                      | otherwise = []
 
 -- Given a token sequence, generate the fingerprints of that sequence.
@@ -78,4 +76,4 @@ processTokens config = winnow (signalThreshold config) (noiseThreshold config)
 
 -- Cannot use record syntax here due to type variable selection
 processCode :: Language -> FilePath -> BS.ByteString -> Plagiarism Fingerprints
-processCode (Language _ lex c _) p src = lift $ processTokens c <$> lex p src
+processCode (Language _ llex c _ _) p src = lift $ processTokens c <$> llex p src

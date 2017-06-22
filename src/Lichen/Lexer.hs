@@ -4,7 +4,6 @@ import qualified Data.ByteString as BS
 
 import Text.Megaparsec
 import Text.Megaparsec.ByteString
-import Text.Megaparsec.Error
 import qualified Text.Megaparsec.Lexer as L
 
 import Lichen.Error

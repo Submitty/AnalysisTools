@@ -7,8 +7,6 @@ import Data.List.Split
 
 import Control.Monad
 
-import Lichen.Config
-
 -- Ex: purify [Maybe 1, Nothing, Maybe 3] = [1, 3]
 purify :: [Maybe a] -> [a]
 purify [] = []

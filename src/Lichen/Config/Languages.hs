@@ -7,10 +7,11 @@ import Data.Hashable
 import Control.Monad.Except
 
 import Lichen.Error
-import Lichen.Config
 import Lichen.Lexer
+import Lichen.Parser
 import qualified Lichen.Lexer.C as C
 import qualified Lichen.Lexer.Python as Python
+import qualified Lichen.Parser.Python as Python
 
 -- Configuration for the winnowing algorithm. Token sequences shorter than
 -- noiseThreshold are considered noise, token sequences longer than
@@ -30,20 +31,26 @@ data Language where
                                             , lexer :: Lexer a
                                             , winnowConfig :: WinnowConfig
                                             , readToken :: String -> a
+                                            , parser :: Parser Node
                                             } -> Language
 
-dummyLex :: Lexer ()
-dummyLex p d = throwError $ InvocationError "No language specified, yet still attempting to lex."
+dummy :: a -> b -> Erring c
+dummy _ _ = throwError $ InvocationError "No language specified, yet still attempting to lex."
 
-langDummy = Language [] dummyLex (WinnowConfig 0 0) (const ())
+langDummy :: Language
+langDummy = Language [] dummy (WinnowConfig 0 0) (const ()) dummy
 
 readC :: String -> C.Tok
 readC = read
-langC = Language [".c", ".h", ".cpp", ".hpp", ".C", ".H", ".cc"] C.lex (WinnowConfig 9 5) readC
+
+langC :: Language
+langC = Language [".c", ".h", ".cpp", ".hpp", ".C", ".H", ".cc"] C.lex (WinnowConfig 9 5) readC dummy
 
 readPython :: String -> Python.Tok
 readPython = read
-langPython = Language [".py"] Python.lex (WinnowConfig 9 5) readPython
+
+langPython :: Language
+langPython = Language [".py"] Python.lex (WinnowConfig 9 5) readPython Python.parse
 
 languageChoice :: Language -> Maybe String -> Language
 languageChoice d Nothing = d
@@ -52,3 +59,4 @@ languageChoice _ (Just "c") = langC
 languageChoice _ (Just "Python") = langPython
 languageChoice _ (Just "python") = langPython
 languageChoice _ (Just "py") = langPython
+languageChoice _ _ = langDummy

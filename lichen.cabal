@@ -18,9 +18,12 @@ library
                      , Lichen.Config.Languages
                      , Lichen.Config.Plagiarism
                      , Lichen.Config.CountToken
+                     , Lichen.Config.CountNode
                      , Lichen.Lexer
                      , Lichen.Lexer.C
                      , Lichen.Lexer.Python
+                     , Lichen.Parser
+                     , Lichen.Parser.Python
                      , Lichen.Plagiarism.Main
                      , Lichen.Plagiarism.Winnow
                      , Lichen.Plagiarism.Compare
@@ -29,6 +32,7 @@ library
                      , Lichen.Plagiarism.Highlight
                      , Lichen.Plagiarism.AssignmentSettings
                      , Lichen.CountToken.Main
+                     , Lichen.CountNode.Main
   build-depends:       base >= 4.7 && < 5
                      , containers
                      , split
@@ -43,12 +47,14 @@ library
                      , aeson
                      , dyre
                      , optparse-applicative
+                     , language-python
+  ghc-options:         -Wall -Werror -fwarn-incomplete-patterns
   default-language:    Haskell2010
 
 executable lichen-plagiarism
   hs-source-dirs:      app/plagiarism
   main-is:             Main.hs
-  ghc-options:         -threaded -rtsopts -with-rtsopts=-N -O2
+  ghc-options:         -threaded -rtsopts -with-rtsopts=-N -O2 -Wall -Werror
   build-depends:       base
                      , lichen
   default-language:    Haskell2010
@@ -56,7 +62,16 @@ executable lichen-plagiarism
 executable lichen-count-token
   hs-source-dirs:      app/count-token
   main-is:             Main.hs
-  ghc-options:         -threaded -rtsopts -with-rtsopts=-N -O2
+  ghc-options:         -threaded -rtsopts -with-rtsopts=-N -O2 -Wall -Werror
+  build-depends:       base
+                     , lichen
+  default-language:    Haskell2010
+
+
+executable lichen-count-node
+  hs-source-dirs:      app/count-node
+  main-is:             Main.hs
+  ghc-options:         -threaded -rtsopts -with-rtsopts=-N -O2 -Wall -Werror
   build-depends:       base
                      , lichen
   default-language:    Haskell2010

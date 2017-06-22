@@ -1,6 +1,5 @@
 module Lichen.Config.Plagiarism where
 
-import Lichen.Error
 import Lichen.Config
 import Lichen.Config.Languages
 

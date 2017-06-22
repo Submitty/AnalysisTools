@@ -1,4 +1,3 @@
-import Lichen.Config
 import Lichen.Config.Languages
 import Lichen.Config.CountToken
 import Lichen.CountToken.Main

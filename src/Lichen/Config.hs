@@ -4,7 +4,6 @@ import Control.Monad.Reader
 import Control.Monad.Except
 
 import Lichen.Error
-import Lichen.Lexer
 
 type Configured c = ReaderT c Erring
 

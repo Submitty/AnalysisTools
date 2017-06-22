@@ -50,6 +50,7 @@ realMain c = do
             liftIO . print $ crossCompare prints
     where opts = info (helper <*> parseOptions c) (fullDesc <> progDesc "Run plagiarism detection" <> header "lichen-plagiarism - plagiarism detection")
 
+run :: Config -> IO ()
 run = Dyre.wrapMain $ Dyre.defaultParams
     { Dyre.projectName = "lichen-plagiarism"
     , Dyre.realMain = realMain
