@@ -4,5 +4,8 @@ SCRIPT=$(readlink -f "$0")
 SCRIPTPATH=$(dirname "$SCRIPT")
 LICHEN_CWD=$PWD
 export LICHEN_CWD
+CMD=$1
 
-(cd "$SCRIPTPATH"; stack exec lichen-$1 -- "${@:2}")
+shift
+
+(cd "$SCRIPTPATH"; stack exec lichen-$CMD -- "$@")
