@@ -37,9 +37,17 @@ countNode l t p = do
         tree <- parser l p src
         return $ P.countTag (T.pack t) tree
 
+countCall :: Language -> String -> FilePath -> Erring Integer
+countCall l t p = do
+        src <- liftIO $ BS.readFile p
+        tree <- parser l p src
+        return $ P.countCall (T.pack t) tree
+
 dispatchCount :: String -> Language -> String -> FilePath -> Erring Integer
 dispatchCount "token" = countToken
 dispatchCount "node" = countNode
+dispatchCount "call" = countCall
+dispatchCount "function" = countCall
 dispatchCount _ = counterDummy
 
 parseOptions :: Config -> Parser Config

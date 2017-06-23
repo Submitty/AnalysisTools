@@ -1,3 +1,5 @@
+{-# LANGUAGE OverloadedStrings #-}
+
 module Lichen.Parser where
 
 import qualified Data.Text as T
@@ -27,3 +29,12 @@ hasTag _ _ = False
 countTag :: T.Text -> Node -> Integer
 countTag t n@(Node _ ns) = (if hasTag t n then 1 else 0) + sum (countTag t <$> ns)
 countTag _ _ = 0
+
+identChild :: T.Text -> Node -> Bool
+identChild t (Node _ ns) = or (identChild t <$> ns)
+identChild t (MetaIdent t') = t == t'
+identChild _ _ = False
+
+countCall :: T.Text -> Node -> Integer
+countCall t n@(Node _ ns) = (if hasTag "call" n then case ns of (f:_) -> if identChild t f then 1 else 0; _ -> 0 else 0) + sum (countCall t <$> ns)
+countCall _ _ = 0
