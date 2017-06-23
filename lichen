@@ -8,4 +8,4 @@ CMD=$1
 
 shift
 
-(cd "$SCRIPTPATH"; stack exec lichen-$CMD -- "$@")
+(cd "$SCRIPTPATH"; stack --allow-different-user exec lichen-$CMD -- "$@")
