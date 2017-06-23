@@ -35,7 +35,7 @@ data Language where
                                             } -> Language
 
 dummy :: a -> b -> Erring c
-dummy _ _ = throwError $ InvocationError "No language specified, yet still attempting to lex."
+dummy _ _ = throwError $ InvocationError "Specified analysis method is undefined for language"
 
 langDummy :: Language
 langDummy = Language [] dummy (WinnowConfig 0 0) (const ()) dummy

@@ -11,24 +11,9 @@ import qualified Data.ByteString.Char8 as BS.C8
 import Language.Python.Common.AST
 import Language.Python.Version3.Parser
 
+import Lichen.Util
 import Lichen.Error
 import Lichen.Parser
-
-(.%) :: (a -> b -> c) -> (c -> d -> e) -> (a -> b -> d -> e)
-(.%) f g x y = g (f x y)
-
-(+++) :: [a] -> [a] -> [a] -> [a]
-(+++) = (++) .% (++)
-
-(++++) :: [a] -> [a] -> [a] -> [a] -> [a]
-(++++) x y = (+++) (x ++ y)
-
-(+:) :: a -> a -> [a]
-(+:) x y = x:[y]
-
-possibly :: Maybe a -> [a]
-possibly (Just x) = [x]
-possibly Nothing = []
 
 convertModule :: Module () -> Erring Node
 convertModule (Module stmts) = Node [Tag "module"] <$> mapM convertStatement stmts

@@ -31,3 +31,19 @@ containingDir = ('/':) . foldr1 (</>) . init . splitOn "/"
 
 removeIfDoesntExist :: FilePath -> IO ()
 removeIfDoesntExist dir = doesDirectoryExist dir >>= flip when (removeDirectoryRecursive dir)
+
+(.%) :: (a -> b -> c) -> (c -> d -> e) -> (a -> b -> d -> e)
+(.%) f g x y = g (f x y)
+
+(+++) :: [a] -> [a] -> [a] -> [a]
+(+++) = (++) .% (++)
+
+(++++) :: [a] -> [a] -> [a] -> [a] -> [a]
+(++++) x y = (+++) (x ++ y)
+
+(+:) :: a -> a -> [a]
+(+:) x y = x:[y]
+
+possibly :: Maybe a -> [a]
+possibly (Just x) = [x]
+possibly Nothing = []
