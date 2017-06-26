@@ -2,7 +2,6 @@
 
 module Lichen.Count.Main where
 
-import System.IO
 import System.Environment
 import System.Directory
 import System.FilePath
@@ -16,8 +15,6 @@ import Control.Monad.Reader
 import Control.Monad.Except
 
 import Options.Applicative
-
-import qualified Config.Dyre as Dyre
 
 import Lichen.Error
 import Lichen.Config
@@ -68,12 +65,3 @@ realMain c = do
             counts <- lift $ mapM (method config (language config) t) ps
             liftIO . print $ sum counts
     where opts = info (helper <*> parseOptions c) (fullDesc <> progDesc "Count occurences of a specific AST node" <> header "lichen-count-node - token counting")
-
-run :: Config -> IO ()
-run = Dyre.wrapMain $ Dyre.defaultParams
-    { Dyre.projectName = "lichen-count"
-    , Dyre.realMain = realMain
-    , Dyre.statusOut = hPutStrLn stderr
-    , Dyre.configDir = Just $ getEnv "LICHEN_CWD"
-    , Dyre.cacheDir = Just $ (</>) <$> getEnv "LICHEN_CWD" <*> pure ".lichen/cache"
-    }

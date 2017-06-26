@@ -2,19 +2,17 @@
 
 module Lichen.Plagiarism.Main where
 
-import System.IO
 import System.Environment
 import System.Directory
 import System.FilePath
 
 import Data.Semigroup ((<>))
+import qualified Data.Text.Lazy.IO as T.IO
 
 import Control.Monad.Reader
 import Control.Monad.Except
 
 import Options.Applicative
-
-import qualified Config.Dyre as Dyre
 
 import Lichen.Error
 import Lichen.Config
@@ -24,6 +22,9 @@ import Lichen.Plagiarism.Concatenate
 import Lichen.Plagiarism.Highlight
 import Lichen.Plagiarism.Walk
 import Lichen.Plagiarism.Compare
+import Lichen.Plagiarism.Render.Index
+
+import Lucid
 
 parseOptions :: Config -> Parser Config
 parseOptions dc = Config
@@ -47,14 +48,5 @@ realMain c = do
             concatenate base dir
             highlight base dir
             prints <- fingerprintDir (language config) (base </> dataDir config </> concatDir config ++ dir)
-            liftIO . print $ crossCompare prints
+            liftIO . T.IO.putStrLn . renderText $ renderTable (crossCompare prints)
     where opts = info (helper <*> parseOptions c) (fullDesc <> progDesc "Run plagiarism detection" <> header "lichen-plagiarism - plagiarism detection")
-
-run :: Config -> IO ()
-run = Dyre.wrapMain $ Dyre.defaultParams
-    { Dyre.projectName = "lichen-plagiarism"
-    , Dyre.realMain = realMain
-    , Dyre.statusOut = hPutStrLn stderr
-    , Dyre.configDir = Just $ getEnv "LICHEN_CWD"
-    , Dyre.cacheDir = Just $ (</>) <$> getEnv "LICHEN_CWD" <*> pure ".lichen/cache"
-    }

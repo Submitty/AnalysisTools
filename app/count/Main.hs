@@ -3,4 +3,4 @@ import Lichen.Config.Count
 import Lichen.Count.Main
 
 main :: IO ()
-main = run $ defaultConfig { language = langC }
+main = realMain $ defaultConfig { language = langC }

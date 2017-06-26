@@ -3,4 +3,4 @@ import Lichen.Config.Plagiarism
 import Lichen.Plagiarism.Main
 
 main :: IO ()
-main = run $ defaultConfig { language = langC }
+main = realMain $ defaultConfig { language = langC }
