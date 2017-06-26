@@ -42,7 +42,6 @@ library
                      , directory
                      , filepath
                      , megaparsec
-                     , aeson
                      , dyre
                      , optparse-applicative
                      , language-python
