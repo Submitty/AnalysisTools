@@ -18,10 +18,6 @@ ARGPARSER.add_argument("-c", "--config", type=int)
 ARGPARSER.add_argument("-p", "--plot", action="store_const", const=True)
 ARGS = ARGPARSER.parse_args()
 
-with open(ARGS.config if ARGS.config else "config/anonymization.json")\
-        as f:
-    CONFIG = json.load(f)
-
 DIRECTORY_NAMES = defaultdict(lambda: 0)
 FILE_NAMES = defaultdict(lambda: defaultdict(lambda: 0))
 INTERNAL_NAMES = defaultdict(lambda: 0)
