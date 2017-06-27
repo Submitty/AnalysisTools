@@ -1,31 +1,27 @@
-sudo: required
 dist: trusty
+sudo: false
 
 language: c
 
-compiler: gcc
+cache:
+  directories:
+    - ~/.stack/
 
 addons:
   apt:
-    sources:
-      - sourceline: "deb http://downloads.skewed.de/apt/trusty trusty universe"
-      - ubuntu-toolchain-r-test
     packages:
-      - build-essential
-      - pkg-config
-      - flex
-      - bison
-      - libpcre3 
-      - libpcre3-dev
-      - splint
-      - indent
-      - python3
-      - python3-dev
-      - libpython3.4 
-      - python3-pip
-      - python-graph-tool
+      - libgmp-dev
 
 before_install:
- - python3 -m pip install pylint --user
+  - mkdir -p ~/.local/bin
+  - export PATH=$HOME/.local/bin:$PATH
+  - travis_retry curl -L https://www.stackage.org/stack/linux-x86_64 | tar xz --wildcards --strip-components=1 -C ~/.local/bin '*/stack'
 
-script: make
+install:
+  - travis_wait 30 stack --no-terminal --install-ghc build
+  - stack --no-terminal install hlint
+
+script:
+  - stack --no-terminal test --only-dependencies
+  - ./hlint '--ignore=Parse error' src # All parse errors should be caught during compilation, and HLint erroneously throws a parse error
+  - ./hlint '--ignore=Parse error' app # when using constrained types alongside a record-syntax GADT declaration (bug in haskell-src-exts).
