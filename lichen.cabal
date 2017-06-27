@@ -30,7 +30,9 @@ library
                      , Lichen.Plagiarism.Concatenate
                      , Lichen.Plagiarism.Highlight
                      , Lichen.Plagiarism.AssignmentSettings
+                     , Lichen.Plagiarism.Render
                      , Lichen.Plagiarism.Render.Index
+                     , Lichen.Plagiarism.Render.Compare
                      , Lichen.Count.Main
   build-depends:       base >= 4.7 && < 5
                      , containers
@@ -42,11 +44,13 @@ library
                      , process
                      , directory
                      , filepath
+                     , json
                      , megaparsec
                      , dyre
                      , optparse-applicative
                      , language-python
-                     , lucid
+                     , blaze-html
+                     , blaze-markup
   ghc-options:         -Wall -Werror -fwarn-incomplete-patterns
   default-language:    Haskell2010
 

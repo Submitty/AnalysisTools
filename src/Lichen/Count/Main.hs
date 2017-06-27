@@ -2,9 +2,7 @@
 
 module Lichen.Count.Main where
 
-import System.Environment
 import System.Directory
-import System.FilePath
 
 import Data.Hashable
 import Data.Semigroup ((<>))
@@ -59,9 +57,8 @@ realMain c = do
         options <- liftIO $ execParser opts
         flip runConfigured options $ do
             config <- ask
-            base <- liftIO $ getEnv "LICHEN_CWD"
             t <- case toCount config of Just t -> return t; Nothing -> throwError $ InvocationError "No countable element specified"
-            ps <- liftIO . mapM (canonicalizePath . (base </>)) $ sourceFiles config
+            ps <- liftIO . mapM canonicalizePath $ sourceFiles config
             counts <- lift $ mapM (method config (language config) t) ps
             liftIO . print $ sum counts
     where opts = info (helper <*> parseOptions c) (fullDesc <> progDesc "Count occurences of a specific AST node" <> header "lichen-count-node - token counting")

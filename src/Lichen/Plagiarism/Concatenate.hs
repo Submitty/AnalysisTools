@@ -32,8 +32,8 @@ runCat dst srcs | null srcs = return ()
                     (_, _, _, ph) <- createProcess (proc "/bin/cat" srcs) { std_out = UseHandle out }
                     void $ waitForProcess ph
 
-concatenate :: FilePath -> FilePath -> Plagiarism ()
-concatenate base p = do
+concatenate :: FilePath -> Plagiarism ()
+concatenate p = do
         config <- ask
         studentDirs <- liftIO $ fmap (\x -> p </> x) <$> listDirectory p
         students <- mapM (clean . second findActive) $ zip studentDirs studentDirs
@@ -41,7 +41,7 @@ concatenate base p = do
         let toCreate = Set.fromList $ containingDir . fst <$> dstSrc
         liftIO $ mapM_ (\x -> removeIfDoesntExist x >> createDirectoryIfMissing True x) toCreate
         liftIO $ mapM_ (uncurry runCat) dstSrc
-    where wd c = base </> dataDir c </> concatDir c
+    where wd c = dataDir c </> concatDir c
           clean (s, m) = (,) <$> pure s <*> m
           toDstSrc c (s, active) = (,) <$> ((wd c ++) <$> canonicalizePath s)
                                        <*> (filter (\x -> takeExtension x `elem` exts (language c)) . fmap (\x -> active </> x) <$> listDirectory active)

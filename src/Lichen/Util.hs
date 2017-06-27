@@ -27,7 +27,7 @@ purifySnd ((x, Just y):xs) = (x, y):purifySnd xs
 
 -- Ex: containingDir "/usr/bin/gcc" = "/usr/bin"
 containingDir :: FilePath -> FilePath
-containingDir = ('/':) . foldr1 (</>) . init . splitOn "/"
+containingDir p = (if head p == '/' then ('/':) else id) . foldr1 (</>) . init . splitOn "/" $ p
 
 removeIfDoesntExist :: FilePath -> IO ()
 removeIfDoesntExist dir = doesDirectoryExist dir >>= flip when (removeDirectoryRecursive dir)

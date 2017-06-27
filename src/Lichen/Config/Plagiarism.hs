@@ -7,16 +7,16 @@ data Config = Config
             { dataDir :: FilePath
             , concatDir :: FilePath
             , highlightDir :: FilePath
-            , sourceDir :: Maybe FilePath
             , language :: Language
+            , sourceDir :: Maybe FilePath
             }
 
 defaultConfig :: Config
 defaultConfig = Config { dataDir = ".lichen"
                        , concatDir = "concatenated"
                        , highlightDir = "highlighted"
-                       , sourceDir = Nothing
                        , language = langDummy
+                       , sourceDir = Nothing
                        }
 
 type Plagiarism = Configured Config
