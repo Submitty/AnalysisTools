@@ -46,7 +46,6 @@ library
                      , filepath
                      , json
                      , megaparsec
-                     , dyre
                      , optparse-applicative
                      , language-python
                      , blaze-html

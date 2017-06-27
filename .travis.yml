@@ -23,5 +23,5 @@ install:
 
 script:
   - stack --no-terminal test --only-dependencies
-  - hlint '--ignore=Parse error' src # All parse errors should be caught during compilation, and HLint erroneously throws a parse error
-  - hlint '--ignore=Parse error' app # when using constrained types alongside a record-syntax GADT declaration (bug in haskell-src-exts).
+  - ./hlint '--ignore=Parse error' src # All parse errors should be caught during compilation, and HLint erroneously throws a parse error
+  - ./hlint '--ignore=Parse error' app # when using constrained types alongside a record-syntax GADT declaration (bug in haskell-src-exts).
