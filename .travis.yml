@@ -1,27 +1,32 @@
 dist: trusty
 sudo: false
-
 language: c
-
 cache:
   directories:
-    - ~/.stack/
-
+  - "~/.stack/"
 addons:
   apt:
     packages:
-      - libgmp-dev
-
+    - libgmp-dev
 before_install:
-  - mkdir -p ~/.local/bin
-  - export PATH=$HOME/.local/bin:$PATH
-  - travis_retry curl -L https://www.stackage.org/stack/linux-x86_64 | tar xz --wildcards --strip-components=1 -C ~/.local/bin '*/stack'
-
+- mkdir -p ~/.local/bin
+- export PATH=$HOME/.local/bin:$PATH
+- travis_retry curl -L https://www.stackage.org/stack/linux-x86_64 | tar xz --wildcards --strip-components=1 -C ~/.local/bin '*/stack'
 install:
-  - travis_wait 30 stack --no-terminal --install-ghc build
+  - travis_wait 30 stack --no-terminal --install-ghc --copy-bins build
   - stack --no-terminal install hlint
-
 script:
-  - stack --no-terminal test --only-dependencies
-  - ./hlint '--ignore=Parse error' src # All parse errors should be caught during compilation, and HLint erroneously throws a parse error
-  - ./hlint '--ignore=Parse error' app # when using constrained types alongside a record-syntax GADT declaration (bug in haskell-src-exts).
+- stack --no-terminal test --only-dependencies
+- "./hlint '--ignore=Parse error' src"
+- "./hlint '--ignore=Parse error' app"
+deploy:
+  provider: releases
+  api_key:
+    secure: zM6T6ZwD1Tv0Igk9LORh3YZJvLlZHtjEbb6vkAQTicQ82Y/Ls88+67C0S4IkJbCkWqLUkfLkCv2x8aaZ7O6cbGi2xDtSPf+NyWfagvA+E2I6T2USJ93iYNs10Ep/SoAx7NEn6hnEKkNJd/kdFYtx/CvgXeN+PYHRfBD+NF106zoV4b9cF/mgSev/fxXqwT3GhaBJ/EEQ9LtEvgek3vjVWiSchCuubDdklgfAcgSBzGoQQLxyCq/BRF28ekFefKRQKiUNS4WI2btv+VnrP8xOvIPXnMSkFeF++druwPI75LRWYrhZA1ayj/5/NMHnn+TE4BMm5a2bdoLocvRHOwFIeK29oS5CdDttfiwpGHIykZGCoMIehfTJIecXyxezs1K8p0E6PV3eoCGyodXCoRDUXMWVUSaGbWnaIR8XcIOi3Rl6aYYfXWJc0MKiaQYSNQ7X2f4CqDDANqu587FPBQyHwlaEpXbb/bxFR6tvGSwnWgeU+bHseSKMesDz+wzhFHbyA77ls48dlKS2jpm/6qGx2Av1agz/cT7AJjrfuOhj8ZhpSIMtl3p1CfUCw1hh6lm42LrwOTRSBLMW7ErYDD5w4xw1YLQKMZVERGDrwYDVcbjgymZO0kE4kE1eh7KJJFZhsMkVCc/C3hi0TCtgjfiZ6uLKs5NYUUmiD9rCbp5UNeY=
+  file:
+    - count
+    - plagiarism
+  skip_cleanup: true
+  on:
+    tags: true
+    repo: Submitty/AnalysisTools
