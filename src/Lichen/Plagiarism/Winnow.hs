@@ -6,10 +6,11 @@ import qualified Data.ByteString as BS
 
 import Control.Monad.Trans
 
+import Lichen.Lexer
 import Lichen.Config.Languages
 import Lichen.Config.Plagiarism
 
-type Fingerprint = Int
+type Fingerprint = (Int, TokPos)
 type Fingerprints = Set.Set Fingerprint
 
 -- Produce a list by sliding a window of size k over the list lst.
@@ -18,9 +19,13 @@ windows _ [] = []
 windows k lst@(_:xs) | length lst >= k = take k lst:windows k xs
                      | otherwise = []
 
+hashWin :: Hashable a => [(a, TokPos)] -> Fingerprint
+hashWin l = (hash . fmap fst $ l, spanPos . fmap snd $ l) where
+    spanPos lst = TokPos (startLine $ head lst) (endLine $ last lst) (startCol $ head lst) (endCol $ last lst)
+
 -- Given a token sequence, generate the fingerprints of that sequence.
-fingerprint :: Hashable a => Int -> [a] -> [Fingerprint]
-fingerprint k lst = hash <$> windows k lst
+fingerprint :: Hashable a => Int -> [(a, TokPos)] -> [Fingerprint]
+fingerprint k lst = hashWin <$> windows k lst
 
 -- Given the fingerprints of some data, selectively prune those
 -- fingerprints to improve efficiency. This process is detailed in
@@ -56,9 +61,9 @@ fingerprint k lst = hash <$> windows k lst
 -- a minimum value present that was not already processed.
 winnow :: Int -> Int -> [Fingerprint] -> Fingerprints
 winnow t k lst = Set.fromList $ go [] allWindows where
-    allWindows :: [[(Int, Int)]]
+    allWindows :: [[(Fingerprint, Int)]]
     allWindows = windows (t - k + 1) $ zip lst [1, 2 ..]
-    go :: [(Int, Int)] -> [[(Int, Int)]] -> [Int]
+    go :: [(Fingerprint, Int)] -> [[(Fingerprint, Int)]] -> [Fingerprint]
     go acc [] = fst <$> acc
     go acc (w:ws) =
         let uz = unzip acc
@@ -70,7 +75,7 @@ winnow t k lst = Set.fromList $ go [] allWindows where
                                  if mf == mo then go (minimum fil:acc) ws
                                              else go acc ws
 
-processTokens :: Hashable a => WinnowConfig -> [a] -> Fingerprints
+processTokens :: Hashable a => WinnowConfig -> [(a, TokPos)] -> Fingerprints
 processTokens config = winnow (signalThreshold config) (noiseThreshold config)
                      . fingerprint (noiseThreshold config)
 

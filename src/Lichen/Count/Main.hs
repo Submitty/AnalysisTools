@@ -24,7 +24,7 @@ countToken :: Language -> String -> FilePath -> Erring Integer
 countToken (Language _ l _ readTok _) t p = do
         src <- liftIO $ BS.readFile p
         tokens <- l p src
-        return . fromIntegral . length . filter (hash (readTok t) ==) . fmap hash $ tokens
+        return . fromIntegral . length . filter (hash (readTok t) ==) . fmap (hash . fst) $ tokens
 
 countNode :: Language -> String -> FilePath -> Erring Integer
 countNode l t p = do

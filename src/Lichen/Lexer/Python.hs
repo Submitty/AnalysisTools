@@ -34,94 +34,94 @@ instance Hashable Tok
 sc :: Parser ()
 sc = L.space (void spaceChar) (L.skipLineComment "#") (L.skipBlockComment "\"\"\"" "\"\"\"")
 
-reserved :: String -> Parser ()
-reserved = void . try . string
+reserved :: String -> Parser String
+reserved = try . string
 
 pyStrLit :: Parser String
 pyStrLit = char '\'' *> manyTill L.charLiteral (char '\'')
         
-onetoken :: Parser Tok
-onetoken = (reserved "False" *> pure Lichen.Lexer.Python.False)
-       <|> (reserved "None" *> pure None)
-       <|> (reserved "True" *> pure Lichen.Lexer.Python.True)
-       <|> (reserved "and" *> pure And)
-       <|> (reserved "as" *> pure As)
-       <|> (reserved "assert" *> pure Assert)
-       <|> (reserved "break" *> pure Break)
-       <|> (reserved "class" *> pure Class)
-       <|> (reserved "continue" *> pure Continue)
-       <|> (reserved "def" *> pure Def)
-       <|> (reserved "del" *> pure Del)
-       <|> (reserved "elif" *> pure Elif)
-       <|> (reserved "else" *> pure Else)
-       <|> (reserved "except" *> pure Except)
-       <|> (reserved "finally" *> pure Finally)
-       <|> (reserved "for" *> pure For)
-       <|> (reserved "from" *> pure From)
-       <|> (reserved "global" *> pure Global)
-       <|> (reserved "if" *> pure If)
-       <|> (reserved "import" *> pure Import)
-       <|> (reserved "in" *> pure In)
-       <|> (reserved "is" *> pure Is)
-       <|> (reserved "lambda" *> pure Lambda)
-       <|> (reserved "nonlocal" *> pure Nonlocal)
-       <|> (reserved "not" *> pure Not)
-       <|> (reserved "or" *> pure Or)
-       <|> (reserved "pass" *> pure Pass)
-       <|> (reserved "raise" *> pure Raise)
-       <|> (reserved "return" *> pure Return)
-       <|> (reserved "try" *> pure Try)
-       <|> (reserved "while" *> pure While)
-       <|> (reserved "with" *> pure With)
-       <|> (reserved "yield" *> pure Yield)
-       <|> (ident *> pure Identifier)
-       <|> (L.integer *> pure IntegerLiteral)
-       <|> (L.float *> pure FloatLiteral)
-       <|> ((strLit <|> pyStrLit) *> pure StringLiteral)
-       <|> (char 'b' *> (strLit <|> pyStrLit) *> pure BytesLiteral)
-       <|> (reserved "+" *> pure Plus)
-       <|> (reserved "-" *> pure Minus)
-       <|> (reserved "*" *> pure Asterisk)
-       <|> (reserved "/" *> pure Slash)
-       <|> (reserved "//" *> pure DoubleSlash)
-       <|> (reserved "%" *> pure Percent)
-       <|> (reserved "**" *> pure DoubleAsterisk)
-       <|> (reserved "==" *> pure EqOp)
-       <|> (reserved "!=" *> pure NeOp)
-       <|> (reserved "<" *> pure LessThan)
-       <|> (reserved ">" *> pure GreaterThan)
-       <|> (reserved "<=" *> pure LeOp)
-       <|> (reserved ">=" *> pure GeOp)
-       <|> (reserved "&" *> pure Ampersand)
-       <|> (reserved "|" *> pure Pipe)
-       <|> (reserved "~" *> pure Tilde)
-       <|> (reserved "^" *> pure Caret)
-       <|> (reserved "<<" *> pure LeftOp)
-       <|> (reserved ">>" *> pure RightOp)
-       <|> (reserved "(" *> pure LeftParen)
-       <|> (reserved ")" *> pure RightParen)
-       <|> (reserved "[" *> pure LeftSquare)
-       <|> (reserved "]" *> pure RightSquare)
-       <|> (reserved "{" *> pure LeftCurly)
-       <|> (reserved "}" *> pure RightCurly)
-       <|> (reserved "." *> pure Dot)
-       <|> (reserved "," *> pure Comma)
-       <|> (reserved ":" *> pure Colon)
-       <|> (reserved ";" *> pure Semicolon)
-       <|> (reserved "@" *> pure At)
-       <|> (reserved "=" *> pure Equal)
-       <|> (reserved "+=" *> pure AddAssign)
-       <|> (reserved "-=" *> pure SubAssign)
-       <|> (reserved "*=" *> pure MulAssign)
-       <|> (reserved "/=" *> pure DivAssign)
-       <|> (reserved "//=" *> pure IntDivAssign)
-       <|> (reserved "%=" *> pure ModAssign)
-       <|> (reserved "**=" *> pure PowAssign)
-       <|> (reserved "&=" *> pure AndAssign)
-       <|> (reserved "|=" *> pure OrAssign)
-       <|> (reserved "^=" *> pure XorAssign)
-       <|> (reserved "<<=" *> pure LeftAssign)
-       <|> (reserved ">>=" *> pure RightAssign)
+onetoken :: Parser (Tok, TokPos)
+onetoken = wrap (reserved "False") Lichen.Lexer.Python.False
+       <|> wrap (reserved "None") None
+       <|> wrap (reserved "True") Lichen.Lexer.Python.True
+       <|> wrap (reserved "and") And
+       <|> wrap (reserved "as") As
+       <|> wrap (reserved "assert") Assert
+       <|> wrap (reserved "break") Break
+       <|> wrap (reserved "class") Class
+       <|> wrap (reserved "continue") Continue
+       <|> wrap (reserved "def") Def
+       <|> wrap (reserved "del") Del
+       <|> wrap (reserved "elif") Elif
+       <|> wrap (reserved "else") Else
+       <|> wrap (reserved "except") Except
+       <|> wrap (reserved "finally") Finally
+       <|> wrap (reserved "for") For
+       <|> wrap (reserved "from") From
+       <|> wrap (reserved "global") Global
+       <|> wrap (reserved "if") If
+       <|> wrap (reserved "import") Import
+       <|> wrap (reserved "in") In
+       <|> wrap (reserved "is") Is
+       <|> wrap (reserved "lambda") Lambda
+       <|> wrap (reserved "nonlocal") Nonlocal
+       <|> wrap (reserved "not") Not
+       <|> wrap (reserved "or") Or
+       <|> wrap (reserved "pass") Pass
+       <|> wrap (reserved "raise") Raise
+       <|> wrap (reserved "return") Return
+       <|> wrap (reserved "try") Try
+       <|> wrap (reserved "while") While
+       <|> wrap (reserved "with") With
+       <|> wrap (reserved "yield") Yield
+       <|> wrap ident Identifier
+       <|> wrap (show <$> L.integer) IntegerLiteral
+       <|> wrap (show <$> L.float) FloatLiteral
+       <|> wrap (show <$> (strLit <|> pyStrLit)) StringLiteral
+       <|> wrap (show <$> (char 'b' *> (strLit <|> pyStrLit))) BytesLiteral
+       <|> wrap (reserved "+") Plus
+       <|> wrap (reserved "-") Minus
+       <|> wrap (reserved "*") Asterisk
+       <|> wrap (reserved "/") Slash
+       <|> wrap (reserved "//") DoubleSlash
+       <|> wrap (reserved "%") Percent
+       <|> wrap (reserved "**") DoubleAsterisk
+       <|> wrap (reserved "==") EqOp
+       <|> wrap (reserved "!=") NeOp
+       <|> wrap (reserved "<") LessThan
+       <|> wrap (reserved ">") GreaterThan
+       <|> wrap (reserved "<=") LeOp
+       <|> wrap (reserved ">=") GeOp
+       <|> wrap (reserved "&") Ampersand
+       <|> wrap (reserved "|") Pipe
+       <|> wrap (reserved "~") Tilde
+       <|> wrap (reserved "^") Caret
+       <|> wrap (reserved "<<") LeftOp
+       <|> wrap (reserved ">>") RightOp
+       <|> wrap (reserved "(") LeftParen
+       <|> wrap (reserved ")") RightParen
+       <|> wrap (reserved "[") LeftSquare
+       <|> wrap (reserved "]") RightSquare
+       <|> wrap (reserved "{") LeftCurly
+       <|> wrap (reserved "}") RightCurly
+       <|> wrap (reserved ".") Dot
+       <|> wrap (reserved ",") Comma
+       <|> wrap (reserved ":") Colon
+       <|> wrap (reserved ";") Semicolon
+       <|> wrap (reserved "@") At
+       <|> wrap (reserved "=") Equal
+       <|> wrap (reserved "+=") AddAssign
+       <|> wrap (reserved "-=") SubAssign
+       <|> wrap (reserved "*=") MulAssign
+       <|> wrap (reserved "/=") DivAssign
+       <|> wrap (reserved "//=") IntDivAssign
+       <|> wrap (reserved "%=") ModAssign
+       <|> wrap (reserved "**=") PowAssign
+       <|> wrap (reserved "&=") AndAssign
+       <|> wrap (reserved "|=") OrAssign
+       <|> wrap (reserved "^=") XorAssign
+       <|> wrap (reserved "<<=") LeftAssign
+       <|> wrap (reserved ">>=") RightAssign
 
 lex :: Lexer Tok
 lex p d = case runParser (many (sc *> onetoken <* sc)) p d of
