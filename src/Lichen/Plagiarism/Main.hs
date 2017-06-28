@@ -6,6 +6,7 @@ import System.Directory
 import System.FilePath
 
 import Data.Semigroup ((<>))
+import qualified Data.Text as T
 import qualified Data.Text.Lazy.Encoding as T.E
 import qualified Data.Text.Lazy.IO as T.IO
 
@@ -24,13 +25,15 @@ import Lichen.Plagiarism.Concatenate
 import Lichen.Plagiarism.Highlight
 import Lichen.Plagiarism.Walk
 import Lichen.Plagiarism.Compare
+import Lichen.Plagiarism.Render
 import Lichen.Plagiarism.Render.Index
 
 parseOptions :: Config -> Parser Config
 parseOptions dc = Config
-               <$> strOption (long "datadir" <> short 'd' <> metavar "DIR" <> showDefault <> value (dataDir dc) <> help "Directory to store internal data")
-               <*> strOption (long "concatdir" <> short 'c' <> metavar "DIR" <> showDefault <> value (concatDir dc) <> help "Subdirectory of data directory storing concatenated student code")
-               <*> strOption (long "highlightdir" <> short 'i' <> metavar "DIR" <> showDefault <> value (highlightDir dc) <> help "Subdirectory of data directory storing syntax-highlighted student code")
+               <$> strOption (long "data-dir" <> short 'd' <> metavar "DIR" <> showDefault <> value (dataDir dc) <> help "Directory to store internal data")
+               <*> strOption (long "concat-dir" <> short 'c' <> metavar "DIR" <> showDefault <> value (concatDir dc) <> help "Subdirectory of data directory storing concatenated student code")
+               <*> strOption (long "highlight-dir" <> short 'i' <> metavar "DIR" <> showDefault <> value (highlightDir dc) <> help "Subdirectory of data directory storing syntax-highlighted student code")
+               <*> (T.pack <$> strOption (long "report-title" <> metavar "TITLE" <> showDefault <> value (T.unpack $ reportTitle dc) <> help "Title of pages in the HTML report"))
                <*> (languageChoice (language dc) <$> (optional . strOption $ long "language" <> short 'l' <> metavar "LANG" <> help "Language of student code"))
                <*> optional (argument str (metavar "SOURCE"))
 
@@ -44,5 +47,5 @@ realMain c = do
             concatenate dir
             highlight dir
             prints <- fingerprintDir (language config) (dataDir config </> concatDir config ++ dir)
-            liftIO . T.IO.putStrLn . T.E.decodeUtf8 . renderHtml $ table (crossCompare prints)
+            liftIO . T.IO.putStrLn . T.E.decodeUtf8 . renderHtml . renderPage config $ table (crossCompare prints)
     where opts = info (helper <*> parseOptions c) (fullDesc <> progDesc "Run plagiarism detection" <> header "lichen-plagiarism - plagiarism detection")

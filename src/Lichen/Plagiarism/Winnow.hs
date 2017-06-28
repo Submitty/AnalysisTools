@@ -1,7 +1,6 @@
 module Lichen.Plagiarism.Winnow where
 
 import Data.Hashable
-import qualified Data.Set as Set
 import qualified Data.ByteString as BS
 
 import Control.Monad.Trans
@@ -11,7 +10,7 @@ import Lichen.Config.Languages
 import Lichen.Config.Plagiarism
 
 type Fingerprint = (Int, TokPos)
-type Fingerprints = Set.Set Fingerprint
+type Fingerprints = [Fingerprint]
 
 -- Produce a list by sliding a window of size k over the list lst.
 windows :: Int -> [a] -> [[a]]
@@ -60,7 +59,7 @@ fingerprint k lst = hashWin <$> windows k lst
 -- second window another 1 is added to the result set, since there is
 -- a minimum value present that was not already processed.
 winnow :: Int -> Int -> [Fingerprint] -> Fingerprints
-winnow t k lst = Set.fromList $ go [] allWindows where
+winnow t k lst = go [] allWindows where
     allWindows :: [[(Fingerprint, Int)]]
     allWindows = windows (t - k + 1) $ zip lst [1, 2 ..]
     go :: [(Fingerprint, Int)] -> [[(Fingerprint, Int)]] -> [Fingerprint]
@@ -75,10 +74,31 @@ winnow t k lst = Set.fromList $ go [] allWindows where
                                  if mf == mo then go (minimum fil:acc) ws
                                              else go acc ws
 
+winnow' :: Int -> Int -> [Fingerprint] -> Fingerprints
+winnow' t k lst = go [] . windows (t - k + 1) $ zip lst [1, 2..] where
+    minf :: [(Fingerprint, Int)] -> Maybe (Fingerprint, Int)
+    minf = gof Nothing where
+        gof acc [] = acc
+        gof Nothing (x:xs) = gof (Just x) xs
+        gof (Just x@((f, _), _)) (y@((f', _), _):ys) = gof (Just $ if f < f' then x else y) ys
+    go :: [(Fingerprint, Int)] -> [[(Fingerprint, Int)]] -> [Fingerprint]
+    go acc [] = fst <$> acc
+    go acc (win:wins) = 
+        let uz = unzip acc
+            fil = filter (\(_, n) -> notElem n $ snd uz) win in
+                if null fil
+                    then go acc wins
+                    else case minf fil of
+                             Nothing -> go acc wins
+                             Just mf -> go (mf:acc) wins
+
 processTokens :: Hashable a => WinnowConfig -> [(a, TokPos)] -> Fingerprints
-processTokens config = winnow (signalThreshold config) (noiseThreshold config)
+processTokens config = winnow' (signalThreshold config) (noiseThreshold config)
                      . fingerprint (noiseThreshold config)
+
+processTokens' :: Hashable a => WinnowConfig -> [(a, TokPos)] -> Fingerprints
+processTokens' config = fingerprint (noiseThreshold config)
 
 -- Cannot use record syntax here due to type variable selection
 processCode :: Language -> FilePath -> BS.ByteString -> Plagiarism Fingerprints
-processCode (Language _ llex c _ _) p src = lift $ processTokens c <$> llex p src
+processCode (Language _ llex c _ _) p src = lift $ processTokens' c <$> llex p src

@@ -7,7 +7,9 @@ import Lichen.Plagiarism.Winnow
 
 -- Naively compare two sets of fingerprints to obtain a percent match.
 compareFingerprints :: Fingerprints -> Fingerprints -> Double
-compareFingerprints a b = fromIntegral (Set.size (Set.intersection a b)) / fromIntegral (Set.size (Set.union a b))
+compareFingerprints al bl = fromIntegral (Set.size (Set.intersection a b)) / fromIntegral (Set.size (Set.union a b)) where
+    a = Set.fromList $ fst <$> al
+    b = Set.fromList $ fst <$> bl
 
 -- Given a list of pairs of fingerprints and an associated tag (typically
 -- the source file from which those fingeprints were generated), compare
