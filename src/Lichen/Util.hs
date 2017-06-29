@@ -29,8 +29,8 @@ purifySnd ((x, Just y):xs) = (x, y):purifySnd xs
 containingDir :: FilePath -> FilePath
 containingDir p = (if head p == '/' then ('/':) else id) . foldr1 (</>) . init . splitOn "/" $ p
 
-removeIfDoesntExist :: FilePath -> IO ()
-removeIfDoesntExist dir = doesDirectoryExist dir >>= flip when (removeDirectoryRecursive dir)
+removeDir :: FilePath -> IO ()
+removeDir dir = doesDirectoryExist dir >>= flip when (removeDirectoryRecursive dir)
 
 (.%) :: (a -> b -> c) -> (c -> d -> e) -> (a -> b -> d -> e)
 (.%) f g x y = g (f x y)
@@ -47,3 +47,9 @@ removeIfDoesntExist dir = doesDirectoryExist dir >>= flip when (removeDirectoryR
 possibly :: Maybe a -> [a]
 possibly (Just x) = [x]
 possibly Nothing = []
+
+sq :: Show a => a -> String
+sq = go . show where
+    go ('"':s) | last s == '"' = init s
+               | otherwise = s
+    go x = x
