@@ -19,17 +19,17 @@ hs = H.toHtml . show
 stylesheet :: C.Css
 stylesheet = mconcat
     [ ".centered" ? C.textAlign C.center
+    , ".highlight" ? mconcat
+        [ C.color C.grey
+        , C.fontWeight C.bold
+        ]
+    , ".green" ? C.backgroundColor C.green
     , C.div # ".scrollable-pane" ? mconcat
         [ C.width $ C.S.pct 100
         , C.overflowY C.scroll
         , C.position C.absolute
         , C.top $ C.S.px 0
         ]
-    , C.div # ".highlight" ? mconcat
-        [ C.color C.grey
-        , C.fontWeight C.bold
-        ]
-    , C.div # ".green" ? C.backgroundColor C.green
     ]
 
 renderPage :: Config -> H.Html -> H.Html
