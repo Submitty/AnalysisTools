@@ -18,22 +18,11 @@ hs = H.toHtml . show
 
 stylesheet :: C.Css
 stylesheet = mconcat
-    [ C.body ? C.background C.red
-    , C.div # "#left" ? mconcat
-        [ C.position C.absolute
-        , C.top $ C.S.px 0
-        , C.bottom $ C.S.px 0
-        , C.left $ C.S.px 0
-        ]
-    , C.div # "#right" ? mconcat
-        [ C.position C.absolute
-        , C.top $ C.S.px 0
-        , C.bottom $ C.S.px 0
-        , C.right $ C.S.px 0
-        ]
-    , C.div # ".scrollable-pane" ? mconcat
-        [ C.width $ C.S.pct 50
+    [ C.div # ".scrollable-pane" ? mconcat
+        [ C.width $ C.S.pct 100
         , C.overflowY C.scroll
+        , C.position C.absolute
+        , C.top $ C.S.px 0
         ]
     ]
 
