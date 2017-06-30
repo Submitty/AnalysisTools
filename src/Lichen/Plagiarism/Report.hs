@@ -23,7 +23,7 @@ report p prints = do
         config <- ask
         dstPath <- liftIO $ liftA2 (++) (pure $ dataDir config </> reportDir config) $ canonicalizePath p
         liftIO $ removeDir dstPath >> createDirectoryIfMissing True dstPath
-        liftIO $ createDirectoryIfMissing True (dstPath </> "compare")
+        liftIO . createDirectoryIfMissing True $ dstPath </> "compare"
         liftIO . BS.writeFile (dstPath </> "index.html") . renderHtml . renderPage config $ renderTable ccmp
         liftIO $ mapM_ (writeCmp config (dstPath </> "compare")) ccmp
     where ccmp = crossCompare prints
