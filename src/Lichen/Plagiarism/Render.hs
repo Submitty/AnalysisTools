@@ -19,11 +19,9 @@ hs = H.toHtml . show
 stylesheet :: C.Css
 stylesheet = mconcat
     [ ".centered" ? C.textAlign C.center
-    , ".highlight" ? mconcat
-        [ C.color C.grey
-        , C.fontWeight C.bold
-        ]
+    , ".highlight" ? C.color C.white
     , ".green" ? C.backgroundColor C.green
+    , ".hide-scroll" ? C.overflowY C.hidden
     , C.div # ".scrollable-pane" ? mconcat
         [ C.width $ C.S.pct 100
         , C.overflowY C.scroll
