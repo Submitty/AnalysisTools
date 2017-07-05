@@ -18,7 +18,7 @@ data TokPos = TokPos
             , endLine :: !Pos
             , startCol :: !Pos
             , endCol :: !Pos
-            } deriving (Show, Eq)
+            } deriving (Show, Eq, Ord)
 data Tagged a = Tagged { tdata :: a, tpos :: TokPos } deriving (Show, Eq)
 instance Ord a => Ord (Tagged a) where
         compare (Tagged x _) (Tagged y _) = compare x y

@@ -46,11 +46,12 @@ highlightSource p = do
         tsrc <- liftIO (expandTabs <$> T.IO.readFile p)
         t <- lift $ C.lex p src
         let pt = processTokens (winnowConfig langC) t
-        liftIO $ print t
+        liftIO . print $ t
         liftIO $ putStrLn "======================================================== SEP =========================================================="
-        liftIO $ print pt
-        liftIO . print . sort $ (convertPos tsrc . tpos <$> t)
-        return . splitInto tsrc . sort $ (convertPos tsrc . tpos <$> t)
+        liftIO . print . sortBy (\a b -> compare (tpos a) (tpos b)) $ pt
+        liftIO . print . sort $ (convertPos tsrc . tpos <$> pt)
+        liftIO . print . deoverlap . sort $ (convertPos tsrc . tpos <$> pt)
+        return . splitInto tsrc . deoverlap . sort $ (convertPos tsrc . tpos <$> pt)
 
 realMain :: Config -> IO ()
 realMain c = do
