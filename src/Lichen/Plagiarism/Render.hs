@@ -20,8 +20,13 @@ stylesheet :: C.Css
 stylesheet = mconcat
     [ ".centered" ? C.textAlign C.center
     , ".highlight" ? C.color C.white
+    , ".red" ? C.backgroundColor C.red
+    , ".orange" ? C.backgroundColor C.orange
+    , ".yellow" ? C.backgroundColor C.yellow
     , ".green" ? C.backgroundColor C.green
-    , ".hide-scroll" ? C.overflowY C.hidden
+    , ".blue" ? C.backgroundColor C.blue
+    , ".indigo" ? C.backgroundColor C.indigo
+    , ".violet" ? C.backgroundColor C.violet
     , C.div # ".scrollable-pane" ? mconcat
         [ C.width $ C.S.pct 100
         , C.overflowY C.scroll

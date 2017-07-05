@@ -22,11 +22,11 @@ report :: Show a => FilePath -> [(Fingerprints, a)] -> Plagiarism ()
 report p prints = do
         config <- ask
         dstPath <- liftIO $ liftA2 (++) (pure $ dataDir config </> reportDir config) $ canonicalizePath p
+        srcPath <- liftIO $ liftA2 (++) (pure $ dataDir config </> concatDir config) $ canonicalizePath p
         liftIO $ removeDir dstPath >> createDirectoryIfMissing True dstPath
         liftIO . createDirectoryIfMissing True $ dstPath </> "compare"
         liftIO . BS.writeFile (dstPath </> "index.html") . renderHtml . renderPage config $ renderTable ccmp
-        liftIO $ mapM_ (writeCmp config (dstPath </> "compare")) ccmp
+        liftIO $ mapM_ (writeCmp config (dstPath </> "compare") srcPath) ccmp
     where ccmp = crossCompare prints
-          writeCmp :: Show a => Config -> FilePath -> (Double, (Fingerprints, a), (Fingerprints, a)) -> IO ()
-          writeCmp c dp cmp@(_, (_, t), (_, t')) = BS.writeFile (dp </> sq t ++ "_" ++ sq t' ++ ".html")
-                                                   . renderHtml . renderPage c $ renderCompare cmp
+          writeCmp :: Show a => Config -> FilePath -> FilePath -> (Double, (Fingerprints, a), (Fingerprints, a)) -> IO ()
+          writeCmp c dp sp cmp@(_, (_, t), (_, t')) = renderCompare sp cmp >>= BS.writeFile (dp </> sq t ++ "_" ++ sq t' ++ ".html") . renderHtml . renderPage c
