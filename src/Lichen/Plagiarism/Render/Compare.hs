@@ -63,7 +63,7 @@ renderCompare dir (m, g@(_, t), g'@(_, t')) = do
         s <- renderTagged dir g
         s' <- renderTagged dir g'
         return $ H.div ! A.class_ "container" $ mconcat
-            [ H.h1 ! A.class_ "centered" $ H.toHtml (sq t ++ " vs. " ++ sq t' ++ ": " ++ sq (m * 100) ++ "% Match")
+            [ H.h1 ! A.class_ "centered" $ H.toHtml (sq t ++ " vs. " ++ sq t' ++ ": " ++ show (m * 100) ++ "% match")
             , H.div ! A.class_ "row" $ mconcat
                 [ H.div ! A.class_ "col-sm-6"
                     $ H.div ! A.id "left" ! A.class_ "scrollable-pane" $ s

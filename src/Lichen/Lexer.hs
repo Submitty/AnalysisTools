@@ -22,11 +22,11 @@ data TokPos = TokPos
 
 wrap :: Foldable t => Parser (t a) -> b -> Parser (b, TokPos)
 wrap p x = do
-        --s <- p
         pos <- NE.head . statePos <$> getParserState
-        _ <- p
-        --return (x, TokPos (sourceLine pos) (sourceLine pos) (sourceColumn pos) (sourceColumn pos <> unsafePos (fromIntegral $ length s)))
-        return (x, TokPos (sourceLine pos) (sourceLine pos) (sourceColumn pos) (sourceColumn pos <> unsafePos 1))
+        s <- p
+        --_ <- p
+        return (x, TokPos (sourceLine pos) (sourceLine pos) (sourceColumn pos) (sourceColumn pos <> unsafePos (fromIntegral $ length s)))
+        --return (x, TokPos (sourceLine pos) (sourceLine pos) (sourceColumn pos) (sourceColumn pos <> unsafePos 1))
 
 -- Parse a C-style character literal. Ex: 'a', '@'.
 charLit :: Parser Char
