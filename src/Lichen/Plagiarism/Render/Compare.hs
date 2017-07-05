@@ -30,6 +30,12 @@ colorize (Colored Blue t) = H.span ! A.class_ "highlight blue" $ H.toHtml t
 colorize (Colored Indigo t) = H.span ! A.class_ "highlight indigo" $ H.toHtml t
 colorize (Colored Violet t) = H.span ! A.class_ "highlight violet" $ H.toHtml t
 
+deoverlap :: [(Int, Int)] -> [(Int, Int)]
+deoverlap [] = []
+deoverlap [x] = [x]
+deoverlap ((s, f):(s', f'):xs) | f > s' = (s, s'):(s', f'):deoverlap xs
+                               | otherwise = (s, f):(s', f'):deoverlap xs
+
 splitInto :: T.Text -> [(Int, Int)] -> [Colored]
 splitInto = go 0 where
     go _ s [] | T.null s = []
@@ -43,6 +49,9 @@ splitInto = go 0 where
 expandTabs :: T.Text -> T.Text
 expandTabs = T.replace "\t" "        "
 
+-- TODO - many of these functions are called much more than necessary. This
+-- is currently a debugging consideration. Many of these should be moved
+-- into a where clause in renderTagged so as to eliminate the "s" argument.
 lineColToAbs :: T.Text -> Int -> Int -> Int
 lineColToAbs s l c = c + (l - 2) + sum (T.length <$> take (l - 1) ls) where
     ls = T.lines s
@@ -53,7 +62,7 @@ convertPos s tp = (spos, epos) where
     epos = lineColToAbs s (fromIntegral . unPos $ endLine tp) (fromIntegral . unPos $ endCol tp)
 
 renderSource :: T.Text -> [TokPos] -> H.Html
-renderSource s p = mconcat . fmap colorize . splitInto es . sort $ fmap (convertPos es) p where es = expandTabs s
+renderSource s p = mconcat . fmap colorize . splitInto es . deoverlap . sort $ fmap (convertPos es) p where es = expandTabs s
 
 renderTagged :: Show a => FilePath -> (Fingerprints, a) -> IO H.Html
 renderTagged dir (fp, t) = flip renderSource (tpos <$> fp) <$> T.IO.readFile (dir </> sq t) 

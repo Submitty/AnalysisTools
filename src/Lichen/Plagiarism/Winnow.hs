@@ -97,7 +97,7 @@ processTokens config = winnow' (signalThreshold config) (noiseThreshold config)
                      . fingerprint (noiseThreshold config)
 
 processTokens' :: Hashable a => WinnowConfig -> [Tagged a] -> Fingerprints
-processTokens' _ = fmap (\(Tagged x y) -> Tagged (hash x) y)
+processTokens' c = fingerprint (noiseThreshold c)
 
 -- Cannot use record syntax here due to type variable selection
 processCode :: Language -> FilePath -> BS.ByteString -> Plagiarism Fingerprints
