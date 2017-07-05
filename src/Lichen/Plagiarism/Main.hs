@@ -40,7 +40,7 @@ parseOptions dc = Config
                <*> (languageChoice (language dc) <$> (optional . strOption $ long "language" <> short 'l' <> metavar "LANG" <> help "Language of student code"))
                <*> optional (argument str (metavar "SOURCE"))
 
-highlightSource :: FilePath -> Plagiarism [Colored]
+highlightSource :: FilePath -> Plagiarism [Colored Int]
 highlightSource p = do
         src <- liftIO $ BS.readFile p
         tsrc <- liftIO (expandTabs <$> T.IO.readFile p)
@@ -49,9 +49,9 @@ highlightSource p = do
         liftIO . print $ t
         liftIO $ putStrLn "======================================================== SEP =========================================================="
         liftIO . print . sortBy (\a b -> compare (tpos a) (tpos b)) $ pt
-        liftIO . print . sort $ (convertPos tsrc . tpos <$> pt)
-        liftIO . print . deoverlap . sort $ (convertPos tsrc . tpos <$> pt)
-        return . splitInto tsrc . deoverlap . sort $ (convertPos tsrc . tpos <$> pt)
+        liftIO . print . sort $ (convertPos tsrc <$> pt)
+        liftIO . print . deoverlap . sort $ (convertPos tsrc <$> pt)
+        return . splitInto tsrc . deoverlap . sort $ (convertPos tsrc <$> pt)
 
 realMain :: Config -> IO ()
 realMain c = do

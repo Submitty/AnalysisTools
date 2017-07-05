@@ -18,32 +18,32 @@ import Lichen.Lexer
 import Lichen.Plagiarism.Winnow
 
 data Color = Red | Orange | Yellow | Green | Blue | Indigo | Violet deriving (Show, Eq)
-data Colored = Uncolored T.Text | Colored Color T.Text deriving (Show, Eq)
+data Colored a = Uncolored T.Text | Colored Color a T.Text deriving (Show, Eq)
 
-colorize :: Colored -> H.Html
+colorize :: Show a => Colored a -> H.Html
 colorize (Uncolored t) = H.toHtml t
-colorize (Colored Red t) = H.span ! A.class_ "highlight red" $ H.toHtml t
-colorize (Colored Orange t) = H.span ! A.class_ "highlight orange" $ H.toHtml t
-colorize (Colored Yellow t) = H.span ! A.class_ "highlight yellow" $ H.toHtml t
-colorize (Colored Green t) = H.span ! A.class_ "highlight green" $ H.toHtml t
-colorize (Colored Blue t) = H.span ! A.class_ "highlight blue" $ H.toHtml t
-colorize (Colored Indigo t) = H.span ! A.class_ "highlight indigo" $ H.toHtml t
-colorize (Colored Violet t) = H.span ! A.class_ "highlight violet" $ H.toHtml t
+colorize (Colored Red x t) = H.span ! A.class_ "highlight red" ! A.id (H.stringValue $ show x) $ H.toHtml t
+colorize (Colored Orange x t) = H.span ! A.class_ "highlight orange" ! A.id (H.stringValue $ show x) $ H.toHtml t
+colorize (Colored Yellow x t) = H.span ! A.class_ "highlight yellow" ! A.id (H.stringValue $ show x) $ H.toHtml t
+colorize (Colored Green x t) = H.span ! A.class_ "highlight green" ! A.id (H.stringValue $ show x) $ H.toHtml t
+colorize (Colored Blue x t) = H.span ! A.class_ "highlight blue" ! A.id (H.stringValue $ show x) $ H.toHtml t
+colorize (Colored Indigo x t) = H.span ! A.class_ "highlight indigo" ! A.id (H.stringValue $ show x) $ H.toHtml t
+colorize (Colored Violet x t) = H.span ! A.class_ "highlight violet" ! A.id (H.stringValue $ show x) $ H.toHtml t
 
-deoverlap :: [(Int, Int)] -> [(Int, Int)]
+deoverlap :: [((Int, Int), a)] -> [((Int, Int), a)]
 deoverlap [] = []
 deoverlap [x] = [x]
-deoverlap ((s, f):(s', f'):xs) | f > s' && f < f' = (s, s'):deoverlap ((s', f'):xs)
-                               | f > f' = (s, s'):deoverlap ((s', f'):(f, f'):xs)
-                               | otherwise = (s, f):deoverlap ((s', f'):xs)
+deoverlap (((s, f), x):((s', f'), x'):xs) | f > s' && f < f' = ((s, s'), x):deoverlap (((s', f'), x'):xs)
+                               | f > f' = ((s, s'), x):deoverlap (((s', f'), x'):((f', f), x):xs)
+                               | otherwise = ((s, f), x):deoverlap (((s', f'), x'):xs)
 
-splitInto :: T.Text -> [(Int, Int)] -> [Colored]
+splitInto :: T.Text -> [((Int, Int), a)] -> [Colored a]
 splitInto = go 0 where
     go _ s [] | T.null s = []
               | otherwise = [Uncolored s]
-    go off s ((sp, ep):ps) = if T.null preTok
-                                 then Colored Red tok:go ep postTok ps
-                                 else Uncolored preTok:Colored Red tok:go ep postTok ps
+    go off s (((sp, ep), x):ps) = if T.null preTok
+                                 then Colored Red x tok:go ep postTok ps
+                                 else Uncolored preTok:Colored Red x tok:go ep postTok ps
         where (preTok, preTokRest) = T.splitAt (sp - off) s
               (tok, postTok) = T.splitAt (ep - sp) preTokRest
 
@@ -57,16 +57,16 @@ lineColToAbs :: T.Text -> Int -> Int -> Int
 lineColToAbs s l c = c + (l - 2) + sum (T.length <$> take (l - 1) ls) where
     ls = T.lines s
 
-convertPos :: T.Text -> TokPos -> (Int, Int)
-convertPos s tp = (spos, epos) where
+convertPos :: T.Text -> Tagged a -> ((Int, Int), a)
+convertPos s (Tagged x tp) = ((spos, epos), x) where
     spos = lineColToAbs s (fromIntegral . unPos $ startLine tp) (fromIntegral . unPos $ startCol tp)
     epos = lineColToAbs s (fromIntegral . unPos $ endLine tp) (fromIntegral . unPos $ endCol tp)
 
-renderSource :: T.Text -> [TokPos] -> H.Html
-renderSource s p = mconcat . fmap colorize . splitInto es . deoverlap . sort $ fmap (convertPos es) p where es = expandTabs s
+renderSource :: Show a => T.Text -> [Tagged a] -> H.Html
+renderSource s p = mconcat . fmap colorize . splitInto es . deoverlap . sortBy (\a b -> compare (fst a) (fst b)) $ fmap (convertPos es) p where es = expandTabs s
 
 renderTagged :: Show a => FilePath -> (Fingerprints, a) -> IO H.Html
-renderTagged dir (fp, t) = flip renderSource (tpos <$> fp) <$> T.IO.readFile (dir </> sq t) 
+renderTagged dir (fp, t) = flip renderSource fp <$> T.IO.readFile (dir </> sq t) 
 
 renderCompare :: Show a => FilePath -> (Double, (Fingerprints, a), (Fingerprints, a)) -> IO H.Html
 renderCompare dir (m, g@(_, t), g'@(_, t')) = do
