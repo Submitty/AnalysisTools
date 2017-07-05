@@ -4,6 +4,7 @@ import Data.Hashable
 import qualified Data.ByteString as BS
 
 import Control.Monad.Trans
+import Control.Arrow (first)
 
 import Lichen.Lexer
 import Lichen.Config.Languages
@@ -97,7 +98,7 @@ processTokens config = winnow' (signalThreshold config) (noiseThreshold config)
                      . fingerprint (noiseThreshold config)
 
 processTokens' :: Hashable a => WinnowConfig -> [(a, TokPos)] -> Fingerprints
-processTokens' config = fingerprint (noiseThreshold config)
+processTokens' _ = fmap $ Control.Arrow.first hash
 
 -- Cannot use record syntax here due to type variable selection
 processCode :: Language -> FilePath -> BS.ByteString -> Plagiarism Fingerprints

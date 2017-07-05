@@ -53,7 +53,7 @@ convertPos s tp = (spos, epos) where
     epos = lineColToAbs s (fromIntegral . unPos $ endLine tp) (fromIntegral . unPos $ endCol tp)
 
 renderSource :: T.Text -> [TokPos] -> H.Html
-renderSource s p = mconcat . fmap colorize . splitInto s . sort $ fmap (convertPos s) p
+renderSource s p = mconcat . fmap colorize . splitInto es . sort $ fmap (convertPos es) p where es = expandTabs s
 
 renderTagged :: Show a => FilePath -> (Fingerprints, a) -> IO H.Html
 renderTagged dir (fp, t) = flip renderSource (snd <$> fp) <$> T.IO.readFile (dir </> sq t) 
@@ -62,6 +62,7 @@ renderCompare :: Show a => FilePath -> (Double, (Fingerprints, a), (Fingerprints
 renderCompare dir (m, g@(_, t), g'@(_, t')) = do
         s <- renderTagged dir g
         s' <- renderTagged dir g'
+        print g
         return $ H.div ! A.class_ "container" $ mconcat
             [ H.h1 ! A.class_ "centered" $ H.toHtml (sq t ++ " vs. " ++ sq t' ++ ": " ++ sq (m * 100) ++ "% Match")
             , H.div ! A.class_ "row" $ mconcat
