@@ -6,10 +6,11 @@ import Text.Blaze.Html5 ((!))
 import qualified Text.Blaze.Html5 as H
 import qualified Text.Blaze.Html5.Attributes as A
 
-import Clay ((?), (#))
+import Clay ((?))
 import qualified Clay as C
 import qualified Clay.Size as C.S
 import qualified Clay.Render as C.R
+import qualified Clay.Text as C.T
 
 import Lichen.Config.Plagiarism
 
@@ -27,11 +28,12 @@ stylesheet = mconcat
     , ".blue" ? C.backgroundColor C.blue
     , ".indigo" ? C.backgroundColor C.indigo
     , ".violet" ? C.backgroundColor C.violet
-    , C.div # ".scrollable-pane" ? mconcat
+    , ".scrollable-pane" ? mconcat
         [ C.width $ C.S.pct 100
         , C.overflowY C.scroll
         , C.position C.absolute
         , C.top $ C.S.px 0
+        , C.whiteSpace C.T.pre
         ]
     ]
 
