@@ -11,6 +11,7 @@ import qualified Clay as C
 import qualified Clay.Size as C.S
 import qualified Clay.Render as C.R
 import qualified Clay.Text as C.T
+import qualified Clay.Font as C.F
 
 import Lichen.Config.Plagiarism
 
@@ -34,6 +35,7 @@ stylesheet = mconcat
         , C.position C.absolute
         , C.top $ C.S.px 0
         , C.whiteSpace C.T.pre
+        , C.fontFamily [] [C.F.monospace]
         ]
     ]
 
