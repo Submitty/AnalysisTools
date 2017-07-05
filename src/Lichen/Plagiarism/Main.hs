@@ -24,6 +24,7 @@ import Lichen.Plagiarism.Walk
 
 import Lichen.Plagiarism.Render.Compare
 import Lichen.Lexer
+import Lichen.Plagiarism.Winnow
 import qualified Lichen.Lexer.C as C
 import qualified Data.ByteString as BS
 import qualified Data.Text.IO as T.IO
@@ -44,7 +45,10 @@ highlightSource p = do
         src <- liftIO $ BS.readFile p
         tsrc <- liftIO (expandTabs <$> T.IO.readFile p)
         t <- lift $ C.lex p src
+        let pt = processTokens (winnowConfig langC) t
         liftIO $ print t
+        liftIO $ putStrLn "======================================================== SEP =========================================================="
+        liftIO $ print pt
         liftIO . print . sort $ (convertPos tsrc . tpos <$> t)
         return . splitInto tsrc . sort $ (convertPos tsrc . tpos <$> t)
 

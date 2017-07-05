@@ -33,7 +33,8 @@ colorize (Colored Violet t) = H.span ! A.class_ "highlight violet" $ H.toHtml t
 deoverlap :: [(Int, Int)] -> [(Int, Int)]
 deoverlap [] = []
 deoverlap [x] = [x]
-deoverlap ((s, f):(s', f'):xs) | f > s' = (s, s'):(s', f'):deoverlap xs
+deoverlap ((s, f):(s', f'):xs) | f > s' && f < f' = (s, s'):(s', f'):deoverlap xs
+                               | f > f' = (s, s'):(s', f'):(f', f):deoverlap xs
                                | otherwise = (s, f):(s', f'):deoverlap xs
 
 splitInto :: T.Text -> [(Int, Int)] -> [Colored]
