@@ -23,6 +23,7 @@ import Lichen.Plagiarism.Report
 import Lichen.Plagiarism.Walk
 
 import Lichen.Plagiarism.Render.Compare
+import Lichen.Lexer
 import qualified Lichen.Lexer.C as C
 import qualified Data.ByteString as BS
 import qualified Data.Text.IO as T.IO
@@ -44,8 +45,8 @@ highlightSource p = do
         tsrc <- liftIO (expandTabs <$> T.IO.readFile p)
         t <- lift $ C.lex p src
         liftIO $ print t
-        liftIO . print . sort $ (convertPos tsrc . snd <$> t)
-        return . splitInto tsrc . sort $ (convertPos tsrc . snd <$> t)
+        liftIO . print . sort $ (convertPos tsrc . tpos <$> t)
+        return . splitInto tsrc . sort $ (convertPos tsrc . tpos <$> t)
 
 realMain :: Config -> IO ()
 realMain c = do

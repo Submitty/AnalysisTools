@@ -56,7 +56,7 @@ renderSource :: T.Text -> [TokPos] -> H.Html
 renderSource s p = mconcat . fmap colorize . splitInto es . sort $ fmap (convertPos es) p where es = expandTabs s
 
 renderTagged :: Show a => FilePath -> (Fingerprints, a) -> IO H.Html
-renderTagged dir (fp, t) = flip renderSource (snd <$> fp) <$> T.IO.readFile (dir </> sq t) 
+renderTagged dir (fp, t) = flip renderSource (tpos <$> fp) <$> T.IO.readFile (dir </> sq t) 
 
 renderCompare :: Show a => FilePath -> (Double, (Fingerprints, a), (Fingerprints, a)) -> IO H.Html
 renderCompare dir (m, g@(_, t), g'@(_, t')) = do

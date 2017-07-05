@@ -40,7 +40,7 @@ sc = L.space (void spaceChar) (L.skipLineComment "//" <|> L.skipLineComment "#")
 reserved :: String -> Parser String
 reserved = try . string
 
-onetoken :: Parser (Tok, TokPos)
+onetoken :: Parser (Tagged Tok)
 onetoken = wrap (reserved "auto") Auto
        <|> wrap (reserved "break") Break
        <|> wrap (reserved "case") Case

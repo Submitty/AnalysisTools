@@ -40,7 +40,7 @@ reserved = try . string
 pyStrLit :: Parser String
 pyStrLit = char '\'' *> manyTill L.charLiteral (char '\'')
         
-onetoken :: Parser (Tok, TokPos)
+onetoken :: Parser (Tagged Tok)
 onetoken = wrap (reserved "False") Lichen.Lexer.Python.False
        <|> wrap (reserved "None") None
        <|> wrap (reserved "True") Lichen.Lexer.Python.True

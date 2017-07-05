@@ -18,13 +18,14 @@ import Lichen.Error
 import Lichen.Config
 import Lichen.Config.Languages
 import Lichen.Config.Count
+import Lichen.Lexer
 import qualified Lichen.Parser as P
 
 countToken :: Language -> String -> FilePath -> Erring Integer
 countToken (Language _ l _ readTok _) t p = do
         src <- liftIO $ BS.readFile p
         tokens <- l p src
-        return . fromIntegral . length . filter (hash (readTok t) ==) . fmap (hash . fst) $ tokens
+        return . fromIntegral . length . filter (hash (readTok t) ==) . fmap (hash . tdata) $ tokens
 
 countNode :: Language -> String -> FilePath -> Erring Integer
 countNode l t p = do

@@ -4,13 +4,12 @@ import Data.Hashable
 import qualified Data.ByteString as BS
 
 import Control.Monad.Trans
-import Control.Arrow (first)
 
 import Lichen.Lexer
 import Lichen.Config.Languages
 import Lichen.Config.Plagiarism
 
-type Fingerprint = (Int, TokPos)
+type Fingerprint = Tagged Int
 type Fingerprints = [Fingerprint]
 
 -- Produce a list by sliding a window of size k over the list lst.
@@ -19,12 +18,12 @@ windows _ [] = []
 windows k lst@(_:xs) | length lst >= k = take k lst:windows k xs
                      | otherwise = []
 
-hashWin :: Hashable a => [(a, TokPos)] -> Fingerprint
-hashWin l = (hash . fmap fst $ l, spanPos . fmap snd $ l) where
+hashWin :: Hashable a => [Tagged a] -> Fingerprint
+hashWin l = Tagged (hash . fmap tdata $ l) (spanPos . fmap tpos $ l) where
     spanPos lst = TokPos (startLine $ head lst) (endLine $ last lst) (startCol $ head lst) (endCol $ last lst)
 
 -- Given a token sequence, generate the fingerprints of that sequence.
-fingerprint :: Hashable a => Int -> [(a, TokPos)] -> [Fingerprint]
+fingerprint :: Hashable a => Int -> [Tagged a] -> [Fingerprint]
 fingerprint k lst = hashWin <$> windows k lst
 
 -- Given the fingerprints of some data, selectively prune those
@@ -81,7 +80,7 @@ winnow' t k lst = go [] . windows (t - k + 1) $ zip lst [1, 2..] where
     minf = gof Nothing where
         gof acc [] = acc
         gof Nothing (x:xs) = gof (Just x) xs
-        gof (Just x@((f, _), _)) (y@((f', _), _):ys) = gof (Just $ if f < f' then x else y) ys
+        gof (Just x@(Tagged f _, _)) (y@(Tagged f' _, _):ys) = gof (Just $ if f < f' then x else y) ys
     go :: [(Fingerprint, Int)] -> [[(Fingerprint, Int)]] -> [Fingerprint]
     go acc [] = fst <$> acc
     go acc (win:wins) = 
@@ -93,12 +92,12 @@ winnow' t k lst = go [] . windows (t - k + 1) $ zip lst [1, 2..] where
                              Nothing -> go acc wins
                              Just mf -> go (mf:acc) wins
 
-processTokens :: Hashable a => WinnowConfig -> [(a, TokPos)] -> Fingerprints
+processTokens :: Hashable a => WinnowConfig -> [Tagged a] -> Fingerprints
 processTokens config = winnow' (signalThreshold config) (noiseThreshold config)
                      . fingerprint (noiseThreshold config)
 
-processTokens' :: Hashable a => WinnowConfig -> [(a, TokPos)] -> Fingerprints
-processTokens' _ = fmap $ Control.Arrow.first hash
+processTokens' :: Hashable a => WinnowConfig -> [Tagged a] -> Fingerprints
+processTokens' _ = fmap (\(Tagged x y) -> Tagged (hash x) y)
 
 -- Cannot use record syntax here due to type variable selection
 processCode :: Language -> FilePath -> BS.ByteString -> Plagiarism Fingerprints
