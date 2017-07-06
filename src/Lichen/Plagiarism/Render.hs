@@ -26,6 +26,7 @@ stylesheet :: C.Css
 stylesheet = mconcat
     [ ".centered" ? C.textAlign C.center
     , ".highlight" ? C.color C.white <> C.backgroundColor C.grey
+    , ".selected" ? C.color C.white <> C.backgroundColor C.blue
     , ".scrollable-pane" ? mconcat
         [ C.width $ C.S.pct 100
         , C.height $ C.S.vh 80
@@ -46,6 +47,16 @@ javascript = [jmacro|
             var pos = $("#right > .highlight[data-hash=" + hash + "]")[0].offsetTop;
             $("#right").scrollTop(pos);
         });
+    });
+    $("#right > .highlight").each(function() {
+        $(this).on("click", function(_) {
+            var hash = $(this).data("hash");
+            var pos = $("#left > .highlight[data-hash=" + hash + "]")[0].offsetTop;
+            $("#left").scrollTop(pos);
+        });
+    });
+    $(".highlight").each(function() {
+        $(this).hover(function () {$(this).toggleClass("selected");});
     });
 |]
 
