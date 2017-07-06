@@ -28,6 +28,7 @@ stylesheet = mconcat
     , ".highlight" ? C.color C.white <> C.backgroundColor C.grey
     , ".scrollable-pane" ? mconcat
         [ C.width $ C.S.pct 100
+        , C.height $ C.S.vh 80
         , C.overflowY C.scroll
         , C.position C.absolute
         , C.top $ C.S.px 0
@@ -42,8 +43,8 @@ javascript = [jmacro|
     $("#left > .highlight").each(function() {
         $(this).on("click", function(_) {
             var hash = $(this).data("hash");
-            var pos = $(".highlight[data-hash=" + hash + "]").position();
-            $(".left").scrollTop = pos.top;
+            var pos = $("#right > .highlight[data-hash=" + hash + "]").position();
+            $("#right").scrollTop = pos.top;
         });
     });
 |]
