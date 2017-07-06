@@ -38,7 +38,7 @@ stylesheet = mconcat
 
 javascript :: JStat
 javascript = [jmacro|
-    // foo
+    puts("Testing");
     var x = 0;
     $(".left > #highlight").each(function() {
         $(this).on("click", function(_) {
@@ -63,6 +63,6 @@ renderPage config b = H.docTypeHtml $ mconcat
         [ b
         , H.script ! A.src "https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js" $ ""
         , H.script ! A.src "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" $ ""
-        , H.script ! A.type_ "text/javascript" $ hs $ renderJs javascript
+        , H.script . hs $ renderJs javascript
         ]
     ]

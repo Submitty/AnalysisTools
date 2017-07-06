@@ -45,7 +45,7 @@ library
                      , process
                      , directory
                      , filepath
-                     , json
+                     , aeson
                      , megaparsec
                      , optparse-applicative
                      , language-python
