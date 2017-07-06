@@ -42,7 +42,7 @@ javascript = [jmacro|
     $("#left > .highlight").each(function() {
         $(this).on("click", function(_) {
             var hash = $(this).data("hash");
-            var pos = $(".highlight[data=" + hash + "]").position();
+            var pos = $(".highlight[data-hash=" + hash + "]").position();
             $(".left").scrollTop = pos.top;
         });
     });
