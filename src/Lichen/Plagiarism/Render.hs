@@ -59,7 +59,7 @@ javascript = [jmacro|
         $(this).hover(function () {
             $(this).toggleClass("selected");
             var hash = $(this).data("hash");
-            var side = $(parent).hasClass("left") ? "#right" : "#left";
+            var side = $(this).parent("#left").length() ? "#right" : "#left";
             $(side + " > .highlight[data-hash=" + hash + "]").toggleClass("selected");
         });
     });
