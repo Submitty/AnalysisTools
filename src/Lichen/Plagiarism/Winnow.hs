@@ -93,7 +93,7 @@ winnow' t k lst = go [] . windows (t - k + 1) $ zip lst [1, 2..] where
                              Just mf -> go (mf:acc) wins
 
 processTokens :: Hashable a => WinnowConfig -> [Tagged a] -> Fingerprints
-processTokens config = winnow' (signalThreshold config) (noiseThreshold config)
+processTokens config = winnow (signalThreshold config) (noiseThreshold config)
                      . fingerprint (noiseThreshold config)
 
 processTokens' :: Hashable a => WinnowConfig -> [Tagged a] -> Fingerprints
@@ -101,4 +101,4 @@ processTokens' c = fingerprint (noiseThreshold c)
 
 -- Cannot use record syntax here due to type variable selection
 processCode :: Language -> FilePath -> BS.ByteString -> Plagiarism Fingerprints
-processCode (Language _ llex c _ _) p src = lift $ processTokens' c <$> llex p src
+processCode (Language _ llex c _ _) p src = lift $ processTokens c <$> llex p src
