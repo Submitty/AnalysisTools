@@ -56,7 +56,12 @@ javascript = [jmacro|
         });
     });
     $(".highlight").each(function() {
-        $(this).hover(function () {$(this).toggleClass("selected");});
+        $(this).hover(function () {
+            $(this).toggleClass("selected");
+            var hash = $(this).data("hash");
+            var side = $(parent).hasClass("left") ? "#right" : "#left";
+            $(side + " > .highlight[data-hash=" + hash + "]").toggleClass("selected");
+        });
     });
 |]
 
