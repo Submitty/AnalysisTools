@@ -38,12 +38,11 @@ stylesheet = mconcat
 
 javascript :: JStat
 javascript = [jmacro|
-    puts("Testing");
     var x = 0;
-    $(".left > #highlight").each(function() {
+    $("#left > .highlight").each(function() {
         $(this).on("click", function(_) {
             var hash = $(this).data("hash");
-            var poss = $("#highlight[data=" + hash + "]").positionedOffset();
+            var poss = $(".highlight[data=" + hash + "]").positionedOffset();
             $(".left").scrollTop = poss[1];
         });
     });
