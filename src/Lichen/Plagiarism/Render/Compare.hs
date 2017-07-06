@@ -17,18 +17,11 @@ import Lichen.Util
 import Lichen.Lexer
 import Lichen.Plagiarism.Winnow
 
-data Color = Red | Orange | Yellow | Green | Blue | Indigo | Violet deriving (Show, Eq)
-data Colored a = Uncolored T.Text | Colored Color a T.Text deriving (Show, Eq)
+data Colored a = Uncolored T.Text | Colored a T.Text deriving (Show, Eq)
 
 colorize :: Show a => Colored a -> H.Html
 colorize (Uncolored t) = H.toHtml t
-colorize (Colored Red x t) = H.span ! A.class_ "highlight red" ! A.id (H.stringValue $ show x) $ H.toHtml t
-colorize (Colored Orange x t) = H.span ! A.class_ "highlight orange" ! A.id (H.stringValue $ show x) $ H.toHtml t
-colorize (Colored Yellow x t) = H.span ! A.class_ "highlight yellow" ! A.id (H.stringValue $ show x) $ H.toHtml t
-colorize (Colored Green x t) = H.span ! A.class_ "highlight green" ! A.id (H.stringValue $ show x) $ H.toHtml t
-colorize (Colored Blue x t) = H.span ! A.class_ "highlight blue" ! A.id (H.stringValue $ show x) $ H.toHtml t
-colorize (Colored Indigo x t) = H.span ! A.class_ "highlight indigo" ! A.id (H.stringValue $ show x) $ H.toHtml t
-colorize (Colored Violet x t) = H.span ! A.class_ "highlight violet" ! A.id (H.stringValue $ show x) $ H.toHtml t
+colorize (Colored x t) = H.span ! A.class_ "highlight" ! H.dataAttribute "hash" (H.stringValue $ show x) $ H.toHtml t
 
 deoverlap :: [((Int, Int), a)] -> [((Int, Int), a)]
 deoverlap [] = []
@@ -42,8 +35,8 @@ splitInto = go 0 where
     go _ s [] | T.null s = []
               | otherwise = [Uncolored s]
     go off s (((sp, ep), x):ps) = if T.null preTok
-                                 then Colored Red x tok:go ep postTok ps
-                                 else Uncolored preTok:Colored Red x tok:go ep postTok ps
+                                 then Colored x tok:go ep postTok ps
+                                 else Uncolored preTok:Colored x tok:go ep postTok ps
         where (preTok, preTokRest) = T.splitAt (sp - off) s
               (tok, postTok) = T.splitAt (ep - sp) preTokRest
 

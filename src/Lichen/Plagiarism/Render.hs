@@ -1,6 +1,8 @@
-{-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE OverloadedStrings, QuasiQuotes #-}
 
 module Lichen.Plagiarism.Render where
+
+import Data.Monoid ((<>))
 
 import Text.Blaze.Html5 ((!))
 import qualified Text.Blaze.Html5 as H
@@ -13,6 +15,8 @@ import qualified Clay.Render as C.R
 import qualified Clay.Text as C.T
 import qualified Clay.Font as C.F
 
+import Language.Javascript.JMacro
+
 import Lichen.Config.Plagiarism
 
 hs :: Show a => a -> H.Html
@@ -21,14 +25,7 @@ hs = H.toHtml . show
 stylesheet :: C.Css
 stylesheet = mconcat
     [ ".centered" ? C.textAlign C.center
-    , ".highlight" ? C.color C.white
-    , ".red" ? C.backgroundColor C.red
-    , ".orange" ? C.backgroundColor C.orange
-    , ".yellow" ? C.backgroundColor C.yellow
-    , ".green" ? C.backgroundColor C.green
-    , ".blue" ? C.backgroundColor C.blue
-    , ".indigo" ? C.backgroundColor C.indigo
-    , ".violet" ? C.backgroundColor C.violet
+    , ".highlight" ? C.color C.white <> C.backgroundColor C.grey
     , ".scrollable-pane" ? mconcat
         [ C.width $ C.S.pct 100
         , C.overflowY C.scroll
@@ -38,6 +35,19 @@ stylesheet = mconcat
         , C.fontFamily [] [C.F.monospace]
         ]
     ]
+
+javascript :: JStat
+javascript = [jmacro|
+    // foo
+    var x = 0;
+    $(".left > #highlight").each(function() {
+        $(this).on("click", function(_) {
+            var hash = $(this).data("hash");
+            var poss = $("#highlight[data=" + hash + "]").positionedOffset();
+            $(".left").scrollTop = poss[1];
+        });
+    });
+|]
 
 renderPage :: Config -> H.Html -> H.Html
 renderPage config b = H.docTypeHtml $ mconcat
@@ -53,5 +63,6 @@ renderPage config b = H.docTypeHtml $ mconcat
         [ b
         , H.script ! A.src "https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js" $ ""
         , H.script ! A.src "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" $ ""
+        , H.script ! A.type_ "text/javascript" $ hs $ renderJs javascript
         ]
     ]
