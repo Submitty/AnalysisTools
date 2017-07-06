@@ -44,7 +44,7 @@ javascript = [jmacro|
         $(this).on("click", function(_) {
             var hash = $(this).data("hash");
             var pos = $("#right > .highlight[data-hash=" + hash + "]").position();
-            $("#right").scrollTop = pos.top;
+            $("#right").scrollTop(pos.top);
         });
     });
 |]
