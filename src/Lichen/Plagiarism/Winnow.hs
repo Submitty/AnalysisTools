@@ -74,24 +74,6 @@ winnow t k lst = go [] allWindows where
                                  if mf == mo then go (minimum fil:acc) ws
                                              else go acc ws
 
-winnow' :: Int -> Int -> [Fingerprint] -> Fingerprints
-winnow' t k lst = go [] . windows (t - k + 1) $ zip lst [1, 2..] where
-    minf :: [(Fingerprint, Int)] -> Maybe (Fingerprint, Int)
-    minf = gof Nothing where
-        gof acc [] = acc
-        gof Nothing (x:xs) = gof (Just x) xs
-        gof (Just x@(Tagged f _, _)) (y@(Tagged f' _, _):ys) = gof (Just $ if f < f' then x else y) ys
-    go :: [(Fingerprint, Int)] -> [[(Fingerprint, Int)]] -> [Fingerprint]
-    go acc [] = fst <$> acc
-    go acc (win:wins) = 
-        let uz = unzip acc
-            fil = filter (\(_, n) -> notElem n $ snd uz) win in
-                if null fil
-                    then go acc wins
-                    else case minf fil of
-                             Nothing -> go acc wins
-                             Just mf -> go (mf:acc) wins
-
 processTokens :: Hashable a => WinnowConfig -> [Tagged a] -> Fingerprints
 processTokens config = winnow (signalThreshold config) (noiseThreshold config)
                      . fingerprint (noiseThreshold config)

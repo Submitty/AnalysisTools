@@ -40,26 +40,19 @@ splitInto = go 0 where
         where (preTok, preTokRest) = T.splitAt (sp - off) s
               (tok, postTok) = T.splitAt (ep - sp) preTokRest
 
-expandTabs :: T.Text -> T.Text
-expandTabs = T.replace "\t" "        "
-
--- TODO - many of these functions are called much more than necessary. This
--- is currently a debugging consideration. Many of these should be moved
--- into a where clause in renderTagged so as to eliminate the "s" argument.
-lineColToAbs :: T.Text -> Int -> Int -> Int
-lineColToAbs s l c = c + (l - 2) + sum (T.length <$> take (l - 1) ls) where
-    ls = T.lines s
-
-convertPos :: T.Text -> Tagged a -> ((Int, Int), a)
-convertPos s (Tagged x tp) = ((spos, epos), x) where
-    spos = lineColToAbs s (fromIntegral . unPos $ startLine tp) (fromIntegral . unPos $ startCol tp)
-    epos = lineColToAbs s (fromIntegral . unPos $ endLine tp) (fromIntegral . unPos $ endCol tp)
-
 renderSource :: Show a => T.Text -> [Tagged a] -> H.Html
-renderSource s p = mconcat . fmap colorize . splitInto es . deoverlap . sortBy (\a b -> compare (fst a) (fst b)) $ fmap (convertPos es) p where es = expandTabs s
+renderSource s p = mconcat . fmap colorize . splitInto es . deoverlap . sortBy (\a b -> compare (fst a) (fst b)) $ fmap convertPos p where
+    es = T.replace "\t" "        " s
+    ls = T.lines es
+    convertPos :: Tagged a -> ((Int, Int), a)
+    convertPos (Tagged x tp) = ((spos, epos), x) where
+        spos = lineColToAbs (fromIntegral . unPos $ startLine tp) (fromIntegral . unPos $ startCol tp)
+        epos = lineColToAbs (fromIntegral . unPos $ endLine tp) (fromIntegral . unPos $ endCol tp)
+    lineColToAbs :: Int -> Int -> Int
+    lineColToAbs l c = c + (l - 2) + sum (T.length <$> take (l - 1) ls)
 
 renderTagged :: Show a => FilePath -> (Fingerprints, a) -> IO H.Html
-renderTagged dir (fp, t) = flip renderSource fp <$> T.IO.readFile (dir </> sq t) 
+renderTagged dir (fp, t) = flip renderSource fp <$> T.IO.readFile (dir </> sq t)
 
 renderCompare :: Show a => FilePath -> (Double, (Fingerprints, a), (Fingerprints, a)) -> IO H.Html
 renderCompare dir (m, g@(_, t), g'@(_, t')) = do
