@@ -37,105 +37,105 @@ instance Hashable Tok
 sc :: Parser ()
 sc = L.space (void spaceChar) (L.skipLineComment "//" <|> L.skipLineComment "#") (L.skipBlockComment "/*" "*/")
 
-reserved :: String -> Parser ()
-reserved = void . try . string
+reserved :: String -> Parser String
+reserved = try . string
 
-onetoken :: Parser Tok
-onetoken = (reserved "auto" *> pure Auto)
-       <|> (reserved "break" *> pure Break)
-       <|> (reserved "case" *> pure Case)
-       <|> (reserved "char" *> pure Char)
-       <|> (reserved "const" *> pure Const)
-       <|> (reserved "continue" *> pure Continue)
-       <|> (reserved "default" *> pure Default)
-       <|> (reserved "do" *> pure Do)
-       <|> (reserved "double" *> pure Double)
-       <|> (reserved "else" *> pure Else)
-       <|> (reserved "enum" *> pure Enum)
-       <|> (reserved "extern" *> pure Extern)
-       <|> (reserved "float" *> pure Float)
-       <|> (reserved "for" *> pure For)
-       <|> (reserved "goto" *> pure Goto)
-       <|> (reserved "if" *> pure If)
-       <|> (reserved "inline" *> pure Inline)
-       <|> (reserved "int" *> pure Int)
-       <|> (reserved "long" *> pure Long)
-       <|> (reserved "register" *> pure Register)
-       <|> (reserved "restrict" *> pure Restrict)
-       <|> (reserved "return" *> pure Return)
-       <|> (reserved "short" *> pure Short)
-       <|> (reserved "signed" *> pure Signed)
-       <|> (reserved "sizeof" *> pure Sizeof)
-       <|> (reserved "static" *> pure Static)
-       <|> (reserved "struct" *> pure Struct)
-       <|> (reserved "switch" *> pure Switch)
-       <|> (reserved "typedef" *> pure Typedef)
-       <|> (reserved "union" *> pure Union)
-       <|> (reserved "unsigned" *> pure Unsigned)
-       <|> (reserved "void" *> pure Void)
-       <|> (reserved "volatile" *> pure Volatile)
-       <|> (reserved "while" *> pure While)
-       <|> (reserved "_Alignas" *> pure AlignAs)
-       <|> (reserved "_Alignof" *> pure AlignOf)
-       <|> (reserved "_Atomic" *> pure Atomic)
-       <|> (reserved "_Bool" *> pure Bool)
-       <|> (reserved "_Complex" *> pure Complex)
-       <|> (reserved "_Generic" *> pure Generic)
-       <|> (reserved "_Imaginary" *> pure Imaginary)
-       <|> (reserved "_Noreturn" *> pure NoReturn)
-       <|> (reserved "_Static_assert" *> pure StaticAssert)
-       <|> (reserved "_Thread_local" *> pure ThreadLocal)
-       <|> (reserved "__func__" *> pure FuncName)
-       <|> (ident *> pure Identifier)
-       <|> (L.integer *> pure IntegerLiteral)
-       <|> (L.float *> pure FloatLiteral)
-       <|> (strLit *> pure StringLiteral)
-       <|> (charLit *> pure CharLiteral)
-       <|> (reserved "..." *> pure Ellipsis)
-       <|> (reserved ">>=" *> pure RightAssign)
-       <|> (reserved "<<=" *> pure LeftAssign)
-       <|> (reserved "+=" *> pure AddAssign)
-       <|> (reserved "-=" *> pure SubAssign)
-       <|> (reserved "*=" *> pure MulAssign)
-       <|> (reserved "/=" *> pure DivAssign)
-       <|> (reserved "%=" *> pure ModAssign)
-       <|> (reserved "&=" *> pure AndAssign)
-       <|> (reserved "^=" *> pure XorAssign)
-       <|> (reserved "|=" *> pure OrAssign)
-       <|> (reserved ">>" *> pure RightOp)
-       <|> (reserved "<<" *> pure LeftOp)
-       <|> (reserved "++" *> pure IncOp)
-       <|> (reserved "--" *> pure DecOp)
-       <|> (reserved "->" *> pure PtrOp)
-       <|> (reserved "&&" *> pure AndOp)
-       <|> (reserved "||" *> pure OrOp)
-       <|> (reserved "<=" *> pure LeOp)
-       <|> (reserved ">=" *> pure GeOp)
-       <|> (reserved "==" *> pure EqOp)
-       <|> (reserved "!=" *> pure NeOp)
-       <|> (reserved ";" *> pure Semicolon)
-       <|> ((reserved "{" <|> reserved "<%") *> pure LeftCurly)
-       <|> ((reserved "}" <|> reserved "%>") *> pure RightCurly)
-       <|> (reserved "," *> pure Comma)
-       <|> (reserved ":" *> pure Colon)
-       <|> (reserved "=" *> pure Equal)
-       <|> (reserved "(" *> pure LeftParen)
-       <|> (reserved ")" *> pure RightParen)
-       <|> ((reserved "[" <|> reserved "<:") *> pure LeftSquare)
-       <|> ((reserved "]" <|> reserved ":>") *> pure RightSquare)
-       <|> (reserved "." *> pure Dot)
-       <|> (reserved "&" *> pure Ampersand)
-       <|> (reserved "!" *> pure Tilde)
-       <|> (reserved "-" *> pure Minus)
-       <|> (reserved "+" *> pure Plus)
-       <|> (reserved "*" *> pure Asterisk)
-       <|> (reserved "/" *> pure Slash)
-       <|> (reserved "%" *> pure Percent)
-       <|> (reserved "<" *> pure LessThan)
-       <|> (reserved ">" *> pure GreaterThan)
-       <|> (reserved "^" *> pure Caret)
-       <|> (reserved "|" *> pure Pipe)
-       <|> (reserved "?" *> pure Question)
+onetoken :: Parser (Tagged Tok)
+onetoken = wrap (reserved "auto") Auto
+       <|> wrap (reserved "break") Break
+       <|> wrap (reserved "case") Case
+       <|> wrap (reserved "char") Char
+       <|> wrap (reserved "const") Const
+       <|> wrap (reserved "continue") Continue
+       <|> wrap (reserved "default") Default
+       <|> wrap (reserved "do") Do
+       <|> wrap (reserved "double") Double
+       <|> wrap (reserved "else") Else
+       <|> wrap (reserved "enum") Enum
+       <|> wrap (reserved "extern") Extern
+       <|> wrap (reserved "float") Float
+       <|> wrap (reserved "for") For
+       <|> wrap (reserved "goto") Goto
+       <|> wrap (reserved "if") If
+       <|> wrap (reserved "inline") Inline
+       <|> wrap (reserved "int") Int
+       <|> wrap (reserved "long") Long
+       <|> wrap (reserved "register") Register
+       <|> wrap (reserved "restrict") Restrict
+       <|> wrap (reserved "return") Return
+       <|> wrap (reserved "short") Short
+       <|> wrap (reserved "signed") Signed
+       <|> wrap (reserved "sizeof") Sizeof
+       <|> wrap (reserved "static") Static
+       <|> wrap (reserved "struct") Struct
+       <|> wrap (reserved "switch") Switch
+       <|> wrap (reserved "typedef") Typedef
+       <|> wrap (reserved "union") Union
+       <|> wrap (reserved "unsigned") Unsigned
+       <|> wrap (reserved "void") Void
+       <|> wrap (reserved "volatile") Volatile
+       <|> wrap (reserved "while") While
+       <|> wrap (reserved "_Alignas") AlignAs
+       <|> wrap (reserved "_Alignof") AlignOf
+       <|> wrap (reserved "_Atomic") Atomic
+       <|> wrap (reserved "_Bool") Bool
+       <|> wrap (reserved "_Complex") Complex
+       <|> wrap (reserved "_Generic") Generic
+       <|> wrap (reserved "_Imaginary") Imaginary
+       <|> wrap (reserved "_Noreturn") NoReturn
+       <|> wrap (reserved "_Static_assert") StaticAssert
+       <|> wrap (reserved "_Thread_local") ThreadLocal
+       <|> wrap (reserved "__func__") FuncName
+       <|> wrap ident Identifier
+       <|> wrap (show <$> L.integer) IntegerLiteral
+       <|> wrap (show <$> L.float) FloatLiteral
+       <|> wrap (show <$> strLit) StringLiteral
+       <|> wrap (show <$> charLit) CharLiteral
+       <|> wrap (reserved "...") Ellipsis
+       <|> wrap (reserved ">>=") RightAssign
+       <|> wrap (reserved "<<=") LeftAssign
+       <|> wrap (reserved "+=") AddAssign
+       <|> wrap (reserved "-=") SubAssign
+       <|> wrap (reserved "*=") MulAssign
+       <|> wrap (reserved "/=") DivAssign
+       <|> wrap (reserved "%=") ModAssign
+       <|> wrap (reserved "&=") AndAssign
+       <|> wrap (reserved "^=") XorAssign
+       <|> wrap (reserved "|=") OrAssign
+       <|> wrap (reserved ">>") RightOp
+       <|> wrap (reserved "<<") LeftOp
+       <|> wrap (reserved "++") IncOp
+       <|> wrap (reserved "--") DecOp
+       <|> wrap (reserved "->") PtrOp
+       <|> wrap (reserved "&&") AndOp
+       <|> wrap (reserved "||") OrOp
+       <|> wrap (reserved "<=") LeOp
+       <|> wrap (reserved ">=") GeOp
+       <|> wrap (reserved "==") EqOp
+       <|> wrap (reserved "!=") NeOp
+       <|> wrap (reserved ";") Semicolon
+       <|> wrap (reserved "{" <|> reserved "<%") LeftCurly
+       <|> wrap (reserved "}" <|> reserved "%>") RightCurly
+       <|> wrap (reserved ",") Comma
+       <|> wrap (reserved ":") Colon
+       <|> wrap (reserved "=") Equal
+       <|> wrap (reserved "(") LeftParen
+       <|> wrap (reserved ")") RightParen
+       <|> wrap (reserved "[" <|> reserved "<:") LeftSquare
+       <|> wrap (reserved "]" <|> reserved ":>") RightSquare
+       <|> wrap (reserved ".") Dot
+       <|> wrap (reserved "&") Ampersand
+       <|> wrap (reserved "!") Tilde
+       <|> wrap (reserved "-") Minus
+       <|> wrap (reserved "+") Plus
+       <|> wrap (reserved "*") Asterisk
+       <|> wrap (reserved "/") Slash
+       <|> wrap (reserved "%") Percent
+       <|> wrap (reserved "<") LessThan
+       <|> wrap (reserved ">") GreaterThan
+       <|> wrap (reserved "^") Caret
+       <|> wrap (reserved "|") Pipe
+       <|> wrap (reserved "?") Question
         
 lex :: Lexer Tok
 lex p d = case runParser (many (sc *> onetoken <* sc)) p d of

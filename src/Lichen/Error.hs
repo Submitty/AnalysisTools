@@ -18,6 +18,7 @@ type Erring = ExceptT LichenError IO
 
 data LichenError = LexError (ParseError (Token BS.ByteString) Dec)
                  | ParseError T.Text
+                 | InvalidTokenError T.Text
                  | InvocationError T.Text
                  | JSONDecodingError T.Text
                  deriving Show
@@ -25,5 +26,6 @@ data LichenError = LexError (ParseError (Token BS.ByteString) Dec)
 printError :: LichenError -> IO ()
 printError (LexError e) = T.IO.hPutStrLn stderr "Lexer error: " >> putStrLn (parseErrorPretty e)
 printError (ParseError t) = T.IO.hPutStrLn stderr ("Parser error: " <> t)
+printError (InvalidTokenError t) = T.IO.hPutStrLn stderr ("Invalid token error: " <> t)
 printError (InvocationError t) = T.IO.hPutStrLn stderr ("Invocation error: " <> t)
 printError (JSONDecodingError t) = T.IO.hPutStrLn stderr ("JSON decoding error: " <> t)

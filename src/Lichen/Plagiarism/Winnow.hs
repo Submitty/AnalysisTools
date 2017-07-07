@@ -1,16 +1,16 @@
 module Lichen.Plagiarism.Winnow where
 
 import Data.Hashable
-import qualified Data.Set as Set
 import qualified Data.ByteString as BS
 
 import Control.Monad.Trans
 
+import Lichen.Lexer
 import Lichen.Config.Languages
 import Lichen.Config.Plagiarism
 
-type Fingerprint = Int
-type Fingerprints = Set.Set Fingerprint
+type Fingerprint = Tagged Int
+type Fingerprints = [Fingerprint]
 
 -- Produce a list by sliding a window of size k over the list lst.
 windows :: Int -> [a] -> [[a]]
@@ -18,9 +18,13 @@ windows _ [] = []
 windows k lst@(_:xs) | length lst >= k = take k lst:windows k xs
                      | otherwise = []
 
+hashWin :: Hashable a => [Tagged a] -> Fingerprint
+hashWin l = Tagged (hash . fmap tdata $ l) (spanPos . fmap tpos $ l) where
+    spanPos lst = TokPos (startLine $ head lst) (endLine $ last lst) (startCol $ head lst) (endCol $ last lst)
+
 -- Given a token sequence, generate the fingerprints of that sequence.
-fingerprint :: Hashable a => Int -> [a] -> [Fingerprint]
-fingerprint k lst = hash <$> windows k lst
+fingerprint :: Hashable a => Int -> [Tagged a] -> [Fingerprint]
+fingerprint k lst = hashWin <$> windows k lst
 
 -- Given the fingerprints of some data, selectively prune those
 -- fingerprints to improve efficiency. This process is detailed in
@@ -55,10 +59,10 @@ fingerprint k lst = hash <$> windows k lst
 -- second window another 1 is added to the result set, since there is
 -- a minimum value present that was not already processed.
 winnow :: Int -> Int -> [Fingerprint] -> Fingerprints
-winnow t k lst = Set.fromList $ go [] allWindows where
-    allWindows :: [[(Int, Int)]]
+winnow t k lst = go [] allWindows where
+    allWindows :: [[(Fingerprint, Int)]]
     allWindows = windows (t - k + 1) $ zip lst [1, 2 ..]
-    go :: [(Int, Int)] -> [[(Int, Int)]] -> [Int]
+    go :: [(Fingerprint, Int)] -> [[(Fingerprint, Int)]] -> [Fingerprint]
     go acc [] = fst <$> acc
     go acc (w:ws) =
         let uz = unzip acc
@@ -70,9 +74,12 @@ winnow t k lst = Set.fromList $ go [] allWindows where
                                  if mf == mo then go (minimum fil:acc) ws
                                              else go acc ws
 
-processTokens :: Hashable a => WinnowConfig -> [a] -> Fingerprints
+processTokens :: Hashable a => WinnowConfig -> [Tagged a] -> Fingerprints
 processTokens config = winnow (signalThreshold config) (noiseThreshold config)
                      . fingerprint (noiseThreshold config)
+
+processTokens' :: Hashable a => WinnowConfig -> [Tagged a] -> Fingerprints
+processTokens' c = fingerprint (noiseThreshold c)
 
 -- Cannot use record syntax here due to type variable selection
 processCode :: Language -> FilePath -> BS.ByteString -> Plagiarism Fingerprints

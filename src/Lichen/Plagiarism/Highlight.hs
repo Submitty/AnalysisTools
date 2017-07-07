@@ -15,6 +15,6 @@ highlight p = do
         config <- ask
         srcPath <- liftIO $ liftA2 (++) (pure $ dataDir config </> concatDir config) $ canonicalizePath p
         dstPath <- liftIO $ liftA2 (++) (pure $ dataDir config </> highlightDir config) $ canonicalizePath p
-        liftIO $ removeIfDoesntExist dstPath >> createDirectoryIfMissing True dstPath
+        liftIO $ removeDir dstPath >> createDirectoryIfMissing True dstPath
         toHighlightSrcDst <- liftIO $ fmap ((</>) srcPath &&& (</>) dstPath) <$> listDirectory srcPath
         liftIO $ mapM_ (uncurry copyFile) toHighlightSrcDst

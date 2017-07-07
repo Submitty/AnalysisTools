@@ -29,11 +29,13 @@ library
                      , Lichen.Plagiarism.Walk
                      , Lichen.Plagiarism.Concatenate
                      , Lichen.Plagiarism.Highlight
+                     , Lichen.Plagiarism.Report
                      , Lichen.Plagiarism.AssignmentSettings
                      , Lichen.Plagiarism.Render
                      , Lichen.Plagiarism.Render.Index
                      , Lichen.Plagiarism.Render.Compare
                      , Lichen.Count.Main
+                     , Lichen.Count.Counters
   build-depends:       base >= 4.7 && < 5
                      , containers
                      , split
@@ -44,12 +46,14 @@ library
                      , process
                      , directory
                      , filepath
-                     , json
+                     , aeson
                      , megaparsec
                      , optparse-applicative
                      , language-python
                      , blaze-html
                      , blaze-markup
+                     , clay
+                     , jmacro
   ghc-options:         -Wall -Werror -fwarn-incomplete-patterns
   default-language:    Haskell2010
 

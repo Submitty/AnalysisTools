@@ -39,7 +39,7 @@ concatenate p = do
         students <- mapM (clean . second findActive) $ zip studentDirs studentDirs
         dstSrc <- liftIO $ mapM (toDstSrc config) students
         let toCreate = Set.fromList $ containingDir . fst <$> dstSrc
-        liftIO $ mapM_ (\x -> removeIfDoesntExist x >> createDirectoryIfMissing True x) toCreate
+        liftIO $ mapM_ (\x -> removeDir x >> createDirectoryIfMissing True x) toCreate
         liftIO $ mapM_ (uncurry runCat) dstSrc
     where wd c = dataDir c </> concatDir c
           clean (s, m) = (,) <$> pure s <*> m
