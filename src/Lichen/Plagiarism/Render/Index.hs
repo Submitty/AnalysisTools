@@ -9,9 +9,9 @@ import qualified Text.Blaze.Html5 as H
 
 import Lichen.Plagiarism.Render
 
-entry :: Show a => (Double, a, a) -> H.Html
-entry (match, x, y) = H.tr (H.td (hs match) <> H.td (hs x) <> H.td (hs y))
+renderEntry :: Show a => (Double, (b, a), (b, a)) -> H.Html
+renderEntry (match, (_, x), (_, y)) = H.tr (H.td (hs match) <> H.td (hs x) <> H.td (hs y))
 
-table :: Show a => [(Double, a, a)] -> H.Html
-table t = header <> traverse_ entry t where
+renderTable :: Show a => [(Double, (b, a), (b, a))] -> H.Html
+renderTable t = header <> traverse_ renderEntry t where
     header = H.tr (H.td "Match" <> H.td "Student A" <> H.td "Student B")

@@ -1,28 +1,34 @@
-{-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE OverloadedStrings, RecordWildCards #-}
 
 module Lichen.Config.Count where
 
-import Control.Monad.Except
+import Data.Maybe
+import Data.Aeson
 
-import Lichen.Error
 import Lichen.Config
 import Lichen.Config.Languages
-
-type Counter = Language -> String -> FilePath -> Erring Integer
-
-counterDummy :: Counter
-counterDummy _ _ _ = throwError $ InvocationError "Invalid counting method specified"
+import Lichen.Count.Counters
 
 data Config = Config
-            { language :: Language
-            , method :: Counter
+            { dataDir :: FilePath
+            , language :: Language
+            , counter :: Counter
             , toCount :: Maybe String
             , sourceFiles :: [FilePath]
             }
+instance FromJSON Config where
+        parseJSON = withObject "config_count" $ \o -> do
+            dataDir <- fromMaybe (dataDir defaultConfig) <$> o .:? "data_dir"
+            language <- fromMaybe (language defaultConfig) <$> o .:? "language"
+            counter <- fromMaybe (counter defaultConfig) <$> o .:? "counter"
+            toCount <- fromMaybe (toCount defaultConfig) <$> o .:? "to_count"
+            sourceFiles <- fromMaybe (sourceFiles defaultConfig) <$> o .:? "source_files"
+            return Config{..}
 
 defaultConfig :: Config
-defaultConfig = Config { language = langDummy
-                       , method = counterDummy
+defaultConfig = Config { dataDir = ".lichen"
+                       , language = langDummy
+                       , counter = counterDummy
                        , toCount = Nothing
                        , sourceFiles = []
                        }

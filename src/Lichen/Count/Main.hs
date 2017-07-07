@@ -3,62 +3,46 @@
 module Lichen.Count.Main where
 
 import System.Directory
+import System.FilePath
 
-import Data.Hashable
+import Data.Aeson
 import Data.Semigroup ((<>))
 import qualified Data.Text as T
-import qualified Data.ByteString as BS
+import qualified Data.ByteString.Lazy as BS
 
 import Control.Monad.Reader
 import Control.Monad.Except
 
 import Options.Applicative
 
+import Lichen.Util
 import Lichen.Error
 import Lichen.Config
 import Lichen.Config.Languages
 import Lichen.Config.Count
-import qualified Lichen.Parser as P
-
-countToken :: Language -> String -> FilePath -> Erring Integer
-countToken (Language _ l _ readTok _) t p = do
-        src <- liftIO $ BS.readFile p
-        tokens <- l p src
-        return . fromIntegral . length . filter (hash (readTok t) ==) . fmap hash $ tokens
-
-countNode :: Language -> String -> FilePath -> Erring Integer
-countNode l t p = do
-        src <- liftIO $ BS.readFile p
-        tree <- parser l p src
-        return $ P.countTag (T.pack t) tree
-
-countCall :: Language -> String -> FilePath -> Erring Integer
-countCall l t p = do
-        src <- liftIO $ BS.readFile p
-        tree <- parser l p src
-        return $ P.countCall (T.pack t) tree
-
-dispatchCount :: String -> Language -> String -> FilePath -> Erring Integer
-dispatchCount "token" = countToken
-dispatchCount "node" = countNode
-dispatchCount "call" = countCall
-dispatchCount "function" = countCall
-dispatchCount _ = counterDummy
+import Lichen.Count.Counters
 
 parseOptions :: Config -> Parser Config
 parseOptions dc = Config
-               <$> (languageChoice (language dc) <$> (optional . strOption $ long "language" <> short 'l' <> metavar "LANG" <> help "Language of student code"))
-               <*> fmap dispatchCount (argument str (metavar "COUNTER"))
+               <$> strOption (long "data-dir" <> short 'd' <> metavar "DIR" <> showDefault <> value (dataDir dc) <> help "Directory to store internal data")
+               <*> (languageChoice (language dc) <$> (optional . strOption $ long "language" <> short 'l' <> metavar "LANG" <> help "Language of student code"))
+               <*> (counterChoice (counter dc) <$> (optional . strOption $ long "counter" <> short 'c' <> metavar "COUNTER" <> help "Counting method"))
                <*> optional (argument str (metavar "ELEMENT"))
                <*> many (argument str (metavar "SOURCE"))
 
 realMain :: Config -> IO ()
-realMain c = do
-        options <- liftIO $ execParser opts
+realMain ic = do
+        iopts <- liftIO . execParser $ opts ic
+        mcsrc <- readSafe BS.readFile Nothing (dataDir iopts </> "config_count.json")
+        options <- case mcsrc of Just csrc -> do
+                                     c <- case eitherDecode csrc of Left e -> (printError . JSONDecodingError $ T.pack e) >> pure ic
+                                                                    Right t -> pure t
+                                     liftIO . execParser $ opts c
+                                 Nothing -> pure iopts
         flip runConfigured options $ do
             config <- ask
             t <- case toCount config of Just t -> return t; Nothing -> throwError $ InvocationError "No countable element specified"
             ps <- liftIO . mapM canonicalizePath $ sourceFiles config
-            counts <- lift $ mapM (method config (language config) t) ps
+            counts <- lift $ mapM (runCounter (counter config) (language config) t) ps
             liftIO . print $ sum counts
-    where opts = info (helper <*> parseOptions c) (fullDesc <> progDesc "Count occurences of a specific AST node" <> header "lichen-count-node - token counting")
+    where opts c = info (helper <*> parseOptions c) (fullDesc <> progDesc "Count occurences of a specific AST node" <> header "lichen-count-node - token counting")
