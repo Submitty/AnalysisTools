@@ -1,3 +1,5 @@
+{-# LANGUAGE OverloadedStrings #-}
+
 module Lichen.Util where
 
 import System.Directory
@@ -31,6 +33,9 @@ containingDir p = (if head p == '/' then ('/':) else id) . foldr1 (</>) . init .
 
 removeDir :: FilePath -> IO ()
 removeDir dir = doesDirectoryExist dir >>= flip when (removeDirectoryRecursive dir)
+
+readSafe :: Applicative f => (FilePath -> IO a) -> f a -> FilePath -> IO (f a)
+readSafe r e p = doesFileExist p >>= \b -> if b then pure <$> r p else pure e
 
 (.%) :: (a -> b -> c) -> (c -> d -> e) -> (a -> b -> d -> e)
 (.%) f g x y = g (f x y)
