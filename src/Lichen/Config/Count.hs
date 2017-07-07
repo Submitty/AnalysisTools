@@ -1,28 +1,26 @@
-{-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE OverloadedStrings, DeriveGeneric #-}
 
 module Lichen.Config.Count where
 
-import Control.Monad.Except
+import GHC.Generics
 
-import Lichen.Error
+import Data.Aeson
+
 import Lichen.Config
 import Lichen.Config.Languages
-
-type Counter = Language -> String -> FilePath -> Erring Integer
-
-counterDummy :: Counter
-counterDummy _ _ _ = throwError $ InvocationError "Invalid counting method specified"
+import Lichen.Count.Counters
 
 data Config = Config
             { language :: Language
-            , method :: Counter
+            , counter :: Counter
             , toCount :: Maybe String
             , sourceFiles :: [FilePath]
-            }
+            } deriving Generic
+instance FromJSON Config where
 
 defaultConfig :: Config
 defaultConfig = Config { language = langDummy
-                       , method = counterDummy
+                       , counter = counterDummy
                        , toCount = Nothing
                        , sourceFiles = []
                        }
