@@ -16,5 +16,12 @@ renderEntry :: Show a => (Double, (b, a), (b, a)) -> H.Html
 renderEntry (match, (_, x), (_, y)) = H.tr (H.td (H.a ! A.href (H.stringValue $ "compare/" ++ sq x ++ "_" ++ sq y ++ ".html") $ hs match) <> H.td (hs x) <> H.td (hs y))
 
 renderTable :: Show a => [(Double, (b, a), (b, a))] -> H.Html
-renderTable t = H.table ! A.class_ "table" $ header <> traverse_ renderEntry t where
-    header = H.tr (H.td "Match" <> H.td "Student A" <> H.td "Student B")
+renderTable t = H.table ! A.class_ "table" $ mconcat
+    [ H.div ! A.class_ "container" $ mconcat
+        [ H.h1 ! A.class_ "centered" $ "Plagiarism Detection Results"
+        , H.div ! A.class_ "row" $ mconcat
+            [ H.tr (H.td "Match" <> H.td "Student A" <> H.td "Student B")
+            , traverse_ renderEntry t
+            ]
+        ]
+    ]
