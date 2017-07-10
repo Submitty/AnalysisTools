@@ -17,10 +17,11 @@ import qualified Clay.Font as C.F
 
 import Language.Javascript.JMacro
 
+import Lichen.Util
 import Lichen.Config.Plagiarism
 
 hs :: Show a => a -> H.Html
-hs = H.toHtml . show
+hs = H.toHtml . sq
 
 stylesheet :: C.Css
 stylesheet = mconcat
