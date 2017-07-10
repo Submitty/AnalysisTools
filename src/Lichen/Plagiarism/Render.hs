@@ -63,10 +63,8 @@ javascript = [jmacro|
             $(side + " > .highlight[data-hash=" + hash + "]").toggleClass("hovering");
         });
         $(this).on("contextmenu", function(_) {
-            $(this).toggleClass("selected");
             var hash = $(this).data("hash");
-            var side = $(this).parent("#left").length ? "#right" : "#left";
-            $(side + " > .highlight[data-hash=" + hash + "]").toggleClass("selected");
+            $(".highlight[data-hash=" + hash + "]").toggleClass("selected");
             return false;
         });
     });
