@@ -67,6 +67,7 @@ javascript = [jmacro|
             var hash = $(this).data("hash");
             var side = $(this).parent("#left").length ? "#right" : "#left";
             $(side + " > .highlight[data-hash=" + hash + "]").toggleClass("selected");
+            return false;
         });
     });
 |]
