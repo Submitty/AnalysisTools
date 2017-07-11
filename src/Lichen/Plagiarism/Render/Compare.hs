@@ -63,6 +63,9 @@ renderBoth dir (fp, t) (fp', t') = do
         let es = T.replace "\t" "        " s
             es' = T.replace "\t" "        " s'
             (p, p') = blobify (toPosList es fp) (toPosList es' fp')
+        print p
+        putStrLn "======================================"
+        print p'
         return (mconcat . fmap colorize $ splitInto es p, mconcat . fmap colorize $ splitInto es' p')
 
 renderCompare :: (Show a, Eq a) => FilePath -> (Double, (Fingerprints, a), (Fingerprints, a)) -> IO H.Html
