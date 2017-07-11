@@ -8,8 +8,6 @@ import Data.List
 import qualified Data.Text as T
 import qualified Data.Text.IO as T.IO
 
-import Control.Arrow ((***))
-
 import Text.Megaparsec.Pos
 import Text.Blaze.Html5 ((!))
 import qualified Text.Blaze.Html5 as H
@@ -32,11 +30,13 @@ deoverlap (((s, f), x):((s', f'), x'):xs) | f > s' && f < f' = ((s, s'), x):deov
                                           | f > f' = ((s, s'), x):deoverlap (((s', f'), x'):((f', f), x):xs)
                                           | otherwise = ((s, f), x):deoverlap (((s', f'), x'):xs)
 
-blobify :: [((Int, Int), a)] -> [((Int, Int), a)] -> ([((Int, Int), a)], [((Int, Int), a)])
-blobify (((s, f), x):((s', f'), x'):xs) (((t, g), y):((t', g'), y'):ys)
-    | s' - f <= 2 && t' - g <= 2 = blobify (((s, f'), x):xs) (((t, g'), y):ys)
-    | otherwise = ((:) ((s, f), x) *** (:) ((t, g), y)) $ blobify (((s', f'), x'):xs) (((t', g'), y'):ys)
-blobify x y = (x, y)
+blobify :: Eq a => [((Int, Int), a)] -> [((Int, Int), a)] -> ([((Int, Int), a)], [((Int, Int), a)])
+blobify a b = (go a b, go b a) where
+    go (((s, f), x):((s', f'), x'):xs) ys | s' - f <= 2 && present x x' ys = go (((s, f'), x):xs) ys
+    go x _ = x
+    present _ _ [] = False
+    present _ _ [_] = False
+    present x x' ((_, y):(_, y'):ys) | x == y && x' == y' = True | otherwise = present x x' ys
 
 splitInto :: T.Text -> [((Int, Int), a)] -> [Colored a]
 splitInto = go 0 where
