@@ -56,7 +56,7 @@ toPosList s p = deoverlap . sortBy (\a b -> compare (fst a) (fst b)) $ fmap conv
     lineColToAbs :: Int -> Int -> Int
     lineColToAbs l c = c + (l - 2) + sum (T.length <$> take (l - 1) ls)
 
-renderBoth :: Show a => FilePath -> (Fingerprints, a) -> (Fingerprints, a) -> IO (H.Html, H.Html)
+renderBoth :: (Show a, Eq a) => FilePath -> (Fingerprints, a) -> (Fingerprints, a) -> IO (H.Html, H.Html)
 renderBoth dir (fp, t) (fp', t') = do
         s <- T.IO.readFile (dir </> sq t)
         s' <- T.IO.readFile (dir </> sq t')
@@ -65,7 +65,7 @@ renderBoth dir (fp, t) (fp', t') = do
             (p, p') = blobify (toPosList es fp) (toPosList es' fp')
         return (mconcat . fmap colorize . splitInto es $ p, mconcat . fmap colorize . splitInto es' $ p')
 
-renderCompare :: Show a => FilePath -> (Double, (Fingerprints, a), (Fingerprints, a)) -> IO H.Html
+renderCompare :: (Show a, Eq a) => FilePath -> (Double, (Fingerprints, a), (Fingerprints, a)) -> IO H.Html
 renderCompare dir (m, g@(_, t), g'@(_, t')) = do
         (s, s') <- renderBoth dir g g'
         return $ H.div ! A.class_ "container" $ mconcat
