@@ -47,7 +47,7 @@ splitInto = go 0 where
               (tok, postTok) = T.splitAt (ep - sp) preTokRest
 
 toPosList :: Show a => T.Text -> [Tagged a] -> [((Int, Int), a)]
-toPosList s p = deoverlap . sortBy (\a b -> compare (fst a) (fst b)) $ fmap convertPos p where
+toPosList s p = sortBy (\a b -> compare (fst a) (fst b)) $ fmap convertPos p where
     ls = T.lines s
     convertPos :: Tagged a -> ((Int, Int), a)
     convertPos (Tagged x tp) = ((spos, epos), x) where
@@ -63,7 +63,7 @@ renderBoth dir (fp, t) (fp', t') = do
         let es = T.replace "\t" "        " s
             es' = T.replace "\t" "        " s'
             (p, p') = blobify (toPosList es fp) (toPosList es' fp')
-        return (mconcat . fmap colorize . splitInto es $ p, mconcat . fmap colorize . splitInto es' $ p')
+        return (mconcat . fmap colorize . splitInto es $ deoverlap p, mconcat . fmap colorize . splitInto es' $ deoverlap p')
 
 renderCompare :: (Show a, Eq a) => FilePath -> (Double, (Fingerprints, a), (Fingerprints, a)) -> IO H.Html
 renderCompare dir (m, g@(_, t), g'@(_, t')) = do
