@@ -32,7 +32,7 @@ deoverlap (((s, f), x):((s', f'), x'):xs) | f > s' && f < f' = ((s, s'), x):deov
 
 blobify :: Eq a => [((Int, Int), a)] -> [((Int, Int), a)] -> ([((Int, Int), a)], [((Int, Int), a)])
 blobify a b = (go a b, go b a) where
-    go (((s, _), x):((_, f'), x'):xs) ys | present x x' ys = go (((s, f'), x):xs) ys
+    go (((s, _), x):((_, f'), x'):xs) ys | present x x' ys = go (((s, f'), x'):xs) ys
     go x _ = x
     present _ _ [] = False
     present _ _ [_] = False
