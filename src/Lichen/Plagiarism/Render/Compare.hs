@@ -26,13 +26,14 @@ colorize (Colored x t) = H.span ! A.class_ "highlight" ! H.dataAttribute "hash" 
 deoverlap :: [((Int, Int), a)] -> [((Int, Int), a)]
 deoverlap [] = []
 deoverlap [x] = [x]
-deoverlap (((s, f), x):((s', f'), x'):xs) | f > s' && f < f' = deoverlap (((s, f'), x):xs)
-                                          | f > f' = deoverlap (((s, f), x):xs)
+deoverlap (((s, f), x):((s', f'), x'):xs) | f > s' && f < f' = ((s, s'), x):deoverlap (((s', f'), x'):xs)
+                                          | f > f' = ((s, s'), x):deoverlap (((s', f'), x'):((f', f), x):xs)
                                           | otherwise = ((s, f), x):deoverlap (((s', f'), x'):xs)
 
 blobify :: Eq a => [((Int, Int), a)] -> [((Int, Int), a)] -> ([((Int, Int), a)], [((Int, Int), a)])
 blobify a b = (go a b, go b a) where
-    go (((s, _), x):((_, f'), x'):xs) ys | present x x' ys = go (((s, f'), x'):xs) ys
+    go (((s, _), x):rs@(((_, f'), x'):xs)) ys | present x x' ys = go (((s, f'), x'):xs) ys
+                                         | otherwise = go rs ys
     go x _ = x
     present _ _ [] = False
     present _ _ [_] = False
@@ -66,7 +67,7 @@ renderBoth dir (fp, t) (fp', t') = do
         s' <- T.IO.readFile (dir </> sq t')
         let es = T.replace "\t" "        " s
             es' = T.replace "\t" "        " s'
-            (p, p') = (toPosList es fp, toPosList es' fp')
+            (p, p') = blobify (toPosList es fp) (toPosList es' fp')
         return (mconcat . fmap colorize $ splitInto es p, mconcat . fmap colorize $ splitInto es' p')
 
 renderCompare :: (Show a, Eq a) => FilePath -> (Double, (Fingerprints, a), (Fingerprints, a)) -> IO H.Html
