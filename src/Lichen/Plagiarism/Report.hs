@@ -18,7 +18,7 @@ import Lichen.Plagiarism.Render
 import Lichen.Plagiarism.Render.Index
 import Lichen.Plagiarism.Render.Compare
 
-report :: Show a => FilePath -> [(Fingerprints, a)] -> Plagiarism ()
+report :: (Show a, Eq a) => FilePath -> [(Fingerprints, a)] -> Plagiarism ()
 report p prints = do
         config <- ask
         dstPath <- liftIO $ liftA2 (++) (pure $ dataDir config </> reportDir config) $ canonicalizePath p
@@ -28,5 +28,5 @@ report p prints = do
         liftIO . BS.writeFile (dstPath </> "index.html") . renderHtml . renderPage config $ renderTable ccmp
         liftIO $ mapM_ (writeCmp config (dstPath </> "compare") srcPath) ccmp
     where ccmp = crossCompare prints
-          writeCmp :: Show a => Config -> FilePath -> FilePath -> (Double, (Fingerprints, a), (Fingerprints, a)) -> IO ()
+          writeCmp :: (Show a, Eq a) => Config -> FilePath -> FilePath -> (Double, (Fingerprints, a), (Fingerprints, a)) -> IO ()
           writeCmp c dp sp cmp@(_, (_, t), (_, t')) = renderCompare sp cmp >>= BS.writeFile (dp </> sq t ++ "_" ++ sq t' ++ ".html") . renderHtml . renderPage c
