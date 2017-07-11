@@ -58,7 +58,7 @@ langC :: Language
 langC = Language [".c", ".h", ".cpp", ".hpp", ".C", ".H", ".cc"] C.lex (WinnowConfig 9 5) (smartRead :: String -> Erring C.Tok) dummy
 
 langPython :: Language
-langPython = Language [".py"] Python.lex (WinnowConfig 9 5) (smartRead :: String -> Erring Python.Tok) Python.parse
+langPython = Language [".py"] Python.lex (WinnowConfig 16 9) (smartRead :: String -> Erring Python.Tok) Python.parse
 
 languageChoice :: Language -> Maybe String -> Language
 languageChoice d Nothing = d
