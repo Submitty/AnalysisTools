@@ -17,16 +17,18 @@ import qualified Clay.Font as C.F
 
 import Language.Javascript.JMacro
 
+import Lichen.Util
 import Lichen.Config.Plagiarism
 
 hs :: Show a => a -> H.Html
-hs = H.toHtml . show
+hs = H.toHtml . sq
 
 stylesheet :: C.Css
 stylesheet = mconcat
     [ ".centered" ? C.textAlign C.center
     , ".highlight" ? C.color C.white <> C.backgroundColor C.grey
-    , ".selected" ? C.color C.white <> C.backgroundColor C.blue
+    , ".hovering" ? C.color C.white <> C.backgroundColor C.blue
+    , ".selected" ? C.color C.white <> C.backgroundColor C.red
     , ".scrollable-pane" ? mconcat
         [ C.width $ C.S.pct 100
         , C.height $ C.S.vh 80
@@ -40,7 +42,6 @@ stylesheet = mconcat
 
 javascript :: JStat
 javascript = [jmacro|
-    var x = 0;
     $("#left > .highlight").each(function() {
         $(this).on("click", function(_) {
             var hash = $(this).data("hash");
@@ -57,10 +58,15 @@ javascript = [jmacro|
     });
     $(".highlight").each(function() {
         $(this).hover(function () {
-            $(this).toggleClass("selected");
+            $(this).toggleClass("hovering");
             var hash = $(this).data("hash");
             var side = $(this).parent("#left").length ? "#right" : "#left";
-            $(side + " > .highlight[data-hash=" + hash + "]").toggleClass("selected");
+            $(side + " > .highlight[data-hash=" + hash + "]").toggleClass("hovering");
+        });
+        $(this).on("contextmenu", function(_) {
+            var hash = $(this).data("hash");
+            $(".highlight[data-hash=" + hash + "]").toggleClass("selected");
+            return false;
         });
     });
 |]
