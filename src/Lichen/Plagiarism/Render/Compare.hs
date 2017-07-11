@@ -36,6 +36,10 @@ blobify a b = (go a b, go b a) where
     go x _ = x
     present _ _ [] = False
     present _ _ [_] = False
+    present x x' ((_, y):rs@((_, y'):(_, y''):_)) | x == y && x' == y' = True
+                                                  | x == y && x' == y'' = True
+                                                  | x == y' && x' == y'' = True
+                                                  | otherwise = present x x' rs
     present x x' ((_, y):rs@((_, y'):_)) | x == y && x' == y' = True | otherwise = present x x' rs
 
 splitInto :: T.Text -> [((Int, Int), a)] -> [Colored a]
@@ -63,9 +67,6 @@ renderBoth dir (fp, t) (fp', t') = do
         let es = T.replace "\t" "        " s
             es' = T.replace "\t" "        " s'
             (p, p') = blobify (toPosList es fp) (toPosList es' fp')
-        print p
-        putStrLn "======================================"
-        print p'
         return (mconcat . fmap colorize $ splitInto es p, mconcat . fmap colorize $ splitInto es' p')
 
 renderCompare :: (Show a, Eq a) => FilePath -> (Double, (Fingerprints, a), (Fingerprints, a)) -> IO H.Html
