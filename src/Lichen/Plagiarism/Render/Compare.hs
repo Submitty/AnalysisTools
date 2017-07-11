@@ -8,6 +8,8 @@ import Data.List
 import qualified Data.Text as T
 import qualified Data.Text.IO as T.IO
 
+import Control.Arrow ((***))
+
 import Text.Megaparsec.Pos
 import Text.Blaze.Html5 ((!))
 import qualified Text.Blaze.Html5 as H
@@ -27,8 +29,14 @@ deoverlap :: [((Int, Int), a)] -> [((Int, Int), a)]
 deoverlap [] = []
 deoverlap [x] = [x]
 deoverlap (((s, f), x):((s', f'), x'):xs) | f > s' && f < f' = ((s, s'), x):deoverlap (((s', f'), x'):xs)
-                               | f > f' = ((s, s'), x):deoverlap (((s', f'), x'):((f', f), x):xs)
-                               | otherwise = ((s, f), x):deoverlap (((s', f'), x'):xs)
+                                          | f > f' = ((s, s'), x):deoverlap (((s', f'), x'):((f', f), x):xs)
+                                          | otherwise = ((s, f), x):deoverlap (((s', f'), x'):xs)
+
+blobify :: [((Int, Int), a)] -> [((Int, Int), a)] -> ([((Int, Int), a)], [((Int, Int), a)])
+blobify (((s, f), x):((s', f'), x'):xs) (((t, g), y):((t', g'), y'):ys)
+    | f >= s' && g >= t' = blobify (((s, f'), x):xs) (((t, g'), y):ys)
+    | otherwise = ((:) ((s, f), x) *** (:) ((t, g), y)) $ blobify (((s', f'), x'):xs) (((t', g'), y'):ys)
+blobify x y = (x, y)
 
 splitInto :: T.Text -> [((Int, Int), a)] -> [Colored a]
 splitInto = go 0 where
@@ -40,10 +48,9 @@ splitInto = go 0 where
         where (preTok, preTokRest) = T.splitAt (sp - off) s
               (tok, postTok) = T.splitAt (ep - sp) preTokRest
 
-renderSource :: Show a => T.Text -> [Tagged a] -> H.Html
-renderSource s p = mconcat . fmap colorize . splitInto es . deoverlap . sortBy (\a b -> compare (fst a) (fst b)) $ fmap convertPos p where
-    es = T.replace "\t" "        " s
-    ls = T.lines es
+toPosList :: Show a => T.Text -> [Tagged a] -> [((Int, Int), a)]
+toPosList s p = deoverlap . sortBy (\a b -> compare (fst a) (fst b)) $ fmap convertPos p where
+    ls = T.lines s
     convertPos :: Tagged a -> ((Int, Int), a)
     convertPos (Tagged x tp) = ((spos, epos), x) where
         spos = lineColToAbs (fromIntegral . unPos $ startLine tp) (fromIntegral . unPos $ startCol tp)
@@ -51,13 +58,18 @@ renderSource s p = mconcat . fmap colorize . splitInto es . deoverlap . sortBy (
     lineColToAbs :: Int -> Int -> Int
     lineColToAbs l c = c + (l - 2) + sum (T.length <$> take (l - 1) ls)
 
-renderTagged :: Show a => FilePath -> (Fingerprints, a) -> IO H.Html
-renderTagged dir (fp, t) = flip renderSource fp <$> T.IO.readFile (dir </> sq t)
+renderBoth :: Show a => FilePath -> (Fingerprints, a) -> (Fingerprints, a) -> IO (H.Html, H.Html)
+renderBoth dir (fp, t) (fp', t') = do
+        s <- T.IO.readFile (dir </> sq t)
+        s' <- T.IO.readFile (dir </> sq t')
+        let es = T.replace "\t" "        " s
+            es' = T.replace "\t" "        " s'
+            (p, p') = blobify (toPosList es fp) (toPosList es' fp')
+        return (mconcat . fmap colorize . splitInto es $ p, mconcat . fmap colorize . splitInto es' $ p')
 
 renderCompare :: Show a => FilePath -> (Double, (Fingerprints, a), (Fingerprints, a)) -> IO H.Html
 renderCompare dir (m, g@(_, t), g'@(_, t')) = do
-        s <- renderTagged dir g
-        s' <- renderTagged dir g'
+        (s, s') <- renderBoth dir g g'
         return $ H.div ! A.class_ "container" $ mconcat
             [ H.h1 ! A.class_ "centered" $ H.toHtml (sq t ++ " vs. " ++ sq t' ++ ": " ++ show (m * 100) ++ "% match")
             , H.div ! A.class_ "row" $ mconcat
