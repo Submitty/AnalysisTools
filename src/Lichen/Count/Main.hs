@@ -26,7 +26,7 @@ parseOptions :: Config -> Parser Config
 parseOptions dc = Config
                <$> strOption (long "data-dir" <> short 'd' <> metavar "DIR" <> showDefault <> value (dataDir dc) <> help "Directory to store internal data")
                <*> (languageChoice (language dc) <$> (optional . strOption $ long "language" <> short 'l' <> metavar "LANG" <> help "Language of student code"))
-               <*> (counterChoice (counter dc) <$> (optional . strOption $ long "counter" <> short 'c' <> metavar "COUNTER" <> help "Counting method"))
+               <*> (counterChoice (counter dc) <$> optional (argument str (metavar "COUNTER")))
                <*> optional (argument str (metavar "ELEMENT"))
                <*> many (argument str (metavar "SOURCE"))
 
