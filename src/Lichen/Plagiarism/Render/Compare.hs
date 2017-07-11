@@ -31,7 +31,7 @@ deoverlap (((s, f), x):((s', f'), x'):xs) | f > s' && f < f' = ((s, s'), x):deov
                                           | otherwise = ((s, f), x):deoverlap (((s', f'), x'):xs)
 
 blobify :: Eq a => [((Int, Int), a)] -> [((Int, Int), a)] -> ([((Int, Int), a)], [((Int, Int), a)])
-blobify a b = (go a b, go b a) where
+blobify a b = recompare (go a b, go b a) where
     go (((s, f), x):rs@(((_, f'), x'):xs)) ys | present x x' ys = go (((s, f'), x'):xs) ys
                                               | otherwise = ((s, f), x):go rs ys
     go x _ = x
@@ -42,6 +42,9 @@ blobify a b = (go a b, go b a) where
                                                   | x == y' && x' == y'' = True
                                                   | otherwise = present x x' rs
     present x x' ((_, y):rs@((_, y'):_)) | x == y && x' == y' = True | otherwise = present x x' rs
+    recompare (ps, ps') = (filter (\(_, h) -> helem h ps') ps, filter (\(_, h) -> helem h ps) ps')
+    helem _ [] = False
+    helem h ((_, h'):xs) | h == h' = True | otherwise = helem h xs
 
 splitInto :: T.Text -> [((Int, Int), a)] -> [Colored a]
 splitInto = go 0 where
