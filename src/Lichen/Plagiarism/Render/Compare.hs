@@ -26,8 +26,8 @@ colorize (Colored x t) = H.span ! A.class_ "highlight" ! H.dataAttribute "hash" 
 deoverlap :: [((Int, Int), a)] -> [((Int, Int), a)]
 deoverlap [] = []
 deoverlap [x] = [x]
-deoverlap (((s, f), x):((s', f'), x'):xs) | f > s' && f < f' = ((s, s'), x):deoverlap (((s', f'), x'):xs)
-                                          | f > f' = ((s, s'), x):deoverlap (((s', f'), x'):((f', f), x):xs)
+deoverlap (((s, f), x):((s', f'), x'):xs) | f > s' && f < f' = deoverlap (((s, f'), x):xs)
+                                          | f > f' = deoverlap (((s, f), x):xs)
                                           | otherwise = ((s, f), x):deoverlap (((s', f'), x'):xs)
 
 blobify :: Eq a => [((Int, Int), a)] -> [((Int, Int), a)] -> ([((Int, Int), a)], [((Int, Int), a)])
