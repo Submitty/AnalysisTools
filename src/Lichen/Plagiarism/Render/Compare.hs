@@ -36,7 +36,7 @@ blobify a b = (go a b, go b a) where
     go x _ = x
     present _ _ [] = False
     present _ _ [_] = False
-    present x x' ((_, y):(_, y'):ys) | x == y && x' == y' = True | otherwise = present x x' ys
+    present x x' ((_, y):rs@((_, y'):_)) | x == y && x' == y' = True | otherwise = present x x' rs
 
 splitInto :: T.Text -> [((Int, Int), a)] -> [Colored a]
 splitInto = go 0 where
