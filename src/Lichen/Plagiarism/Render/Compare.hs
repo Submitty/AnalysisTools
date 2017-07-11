@@ -34,7 +34,7 @@ deoverlap (((s, f), x):((s', f'), x'):xs) | f > s' && f < f' = ((s, s'), x):deov
 
 blobify :: [((Int, Int), a)] -> [((Int, Int), a)] -> ([((Int, Int), a)], [((Int, Int), a)])
 blobify (((s, f), x):((s', f'), x'):xs) (((t, g), y):((t', g'), y'):ys)
-    | f >= s' && g >= t' = blobify (((s, f'), x):xs) (((t, g'), y):ys)
+    | s' - f <= 2 && t' - g <= 2 = blobify (((s, f'), x):xs) (((t, g'), y):ys)
     | otherwise = ((:) ((s, f), x) *** (:) ((t, g), y)) $ blobify (((s', f'), x'):xs) (((t', g'), y'):ys)
 blobify x y = (x, y)
 
@@ -42,9 +42,7 @@ splitInto :: T.Text -> [((Int, Int), a)] -> [Colored a]
 splitInto = go 0 where
     go _ s [] | T.null s = []
               | otherwise = [Uncolored s]
-    go off s (((sp, ep), x):ps) = if T.null preTok
-                                 then Colored x tok:go ep postTok ps
-                                 else Uncolored preTok:Colored x tok:go ep postTok ps
+    go off s (((sp, ep), x):ps) = if T.null preTok then Colored x tok:go ep postTok ps else Uncolored preTok:Colored x tok:go ep postTok ps
         where (preTok, preTokRest) = T.splitAt (sp - off) s
               (tok, postTok) = T.splitAt (ep - sp) preTokRest
 
