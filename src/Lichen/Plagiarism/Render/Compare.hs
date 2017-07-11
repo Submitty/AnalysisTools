@@ -37,10 +37,6 @@ blobify a b = recompare (go a b, go b a) where
     go x _ = x
     present _ _ [] = False
     present _ _ [_] = False
-    present x x' ((_, y):rs@((_, y'):(_, y''):_)) | x == y && x' == y' = True
-                                                  | x == y && x' == y'' = True
-                                                  | x == y' && x' == y'' = True
-                                                  | otherwise = present x x' rs
     present x x' ((_, y):rs@((_, y'):_)) | x == y && x' == y' = True | otherwise = present x x' rs
     recompare (ps, ps') = (filter (\(_, h) -> helem h ps') ps, filter (\(_, h) -> helem h ps) ps')
     helem _ [] = False
