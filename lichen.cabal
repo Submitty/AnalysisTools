@@ -54,7 +54,7 @@ library
                      , blaze-markup
                      , clay
                      , jmacro
-  ghc-options:         -Wall -Werror -fwarn-incomplete-patterns
+  ghc-options:         -Wall -fwarn-incomplete-patterns
   default-language:    Haskell2010
 
 executable plagiarism
