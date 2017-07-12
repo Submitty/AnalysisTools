@@ -28,7 +28,13 @@ stylesheet = mconcat
     [ ".centered" ? C.textAlign C.center
     , ".highlight" ? C.color C.white <> C.backgroundColor C.grey
     , ".hovering" ? C.color C.white <> C.backgroundColor C.blue
-    , ".selected" ? C.color C.white <> C.backgroundColor C.red
+    , ".selected-red" ? C.color C.white <> C.backgroundColor C.red
+    , ".selected-orange" ? C.color C.white <> C.backgroundColor C.orange
+    , ".selected-yellow" ? C.color C.white <> C.backgroundColor C.yellow
+    , ".selected-green" ? C.color C.white <> C.backgroundColor C.green
+    , ".selected-blue" ? C.color C.white <> C.backgroundColor C.blue
+    , ".selected-indigo" ? C.color C.white <> C.backgroundColor C.indigo
+    , ".selected-violet" ? C.color C.white <> C.backgroundColor C.violet
     , ".scrollable-pane" ? mconcat
         [ C.width $ C.S.pct 100
         , C.height $ C.S.vh 80
@@ -42,6 +48,18 @@ stylesheet = mconcat
 
 javascript :: JStat
 javascript = [jmacro|
+    var currentHighlight = "selected-red";
+    fun nextHighlight cur {
+        switch (cur) {
+            case "selected-red": return "selected-orange";
+            case "selected-orange": return "selected-yellow";
+            case "selected-yellow": return "selected-green";
+            case "selected-green": return "selected-blue";
+            case "selected-blue": return "selected-indigo";
+            case "selected-indigo": return "selected-violet";
+            case "selected-violet": return "selected-red";
+        }
+    }
     $("#left > .highlight").each(function() {
         $(this).on("click", function(_) {
             var hash = $(this).data("hash");
@@ -65,7 +83,12 @@ javascript = [jmacro|
         });
         $(this).on("contextmenu", function(_) {
             var hash = $(this).data("hash");
-            $(".highlight[data-hash=" + hash + "]").toggleClass("selected");
+            if ($(this).is("*[class^='selected']")) {
+                $(".highlight[data-hash=" + hash + "]").removeClass(\_ c -> c.match(/(^|\s)color-\S+/g) || []).join(' ');
+            } else {
+                $(".highlight[data-hash=" + hash + "]").addClass(currentHighlight);
+                currentHighlight = nextHighlight(currentHighlight);
+            }
             return false;
         });
     });
