@@ -84,7 +84,7 @@ javascript = [jmacro|
         $(this).on("contextmenu", function(_) {
             var hash = $(this).data("hash");
             if ($(this).is("*[class*='selected']")) {
-                $(".highlight[data-hash=" + hash + "]").removeClass(\_ c -> (c.match(/(^|\s)selected-\S+/g) || []).join(' '));
+                $(".highlight[data-hash=" + hash + "]").removeClass(\_ c -> (c.match(/(^|\s)selected-\S+/) || []).join(' '));
             } else {
                 $(".highlight[data-hash=" + hash + "]").addClass(currentHighlight);
                 currentHighlight = nextHighlight(currentHighlight);
