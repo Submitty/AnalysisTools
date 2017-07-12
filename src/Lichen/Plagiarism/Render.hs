@@ -30,9 +30,9 @@ stylesheet = mconcat
     , ".hovering" ? C.color C.white <> C.backgroundColor C.blue
     , ".selected-red" ? C.color C.white <> C.backgroundColor C.red
     , ".selected-orange" ? C.color C.white <> C.backgroundColor C.orange
-    , ".selected-yellow" ? C.color C.white <> C.backgroundColor C.yellow
+    , ".selected-yellow" ? C.color C.white <> C.backgroundColor C.greenyellow
     , ".selected-green" ? C.color C.white <> C.backgroundColor C.green
-    , ".selected-blue" ? C.color C.white <> C.backgroundColor C.blue
+    , ".selected-blue" ? C.color C.white <> C.backgroundColor C.turquoise
     , ".selected-indigo" ? C.color C.white <> C.backgroundColor C.indigo
     , ".selected-violet" ? C.color C.white <> C.backgroundColor C.violet
     , ".scrollable-pane" ? mconcat
