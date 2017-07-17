@@ -17,6 +17,7 @@ data Config = Config
             , reportTitle :: T.Text
             , language :: Language
             , sourceDir :: Maybe FilePath
+            , pastDirs :: [FilePath]
             }
 instance FromJSON Config where
         parseJSON = withObject "config_plagiarism" $ \o -> do
@@ -24,9 +25,10 @@ instance FromJSON Config where
             concatDir <- fromMaybe (concatDir defaultConfig) <$> o .:? "concat_dir"
             highlightDir <- fromMaybe (highlightDir defaultConfig) <$> o .:? "highlight_dir"
             reportDir <- fromMaybe (reportDir defaultConfig) <$> o .:? "report_dir"
-            reportTitle <- fromMaybe (reportTitle defaultConfig) <$> o .:? "report_tkitle"
+            reportTitle <- fromMaybe (reportTitle defaultConfig) <$> o .:? "report_title"
             language <- fromMaybe (language defaultConfig) <$> o .:? "language"
             sourceDir <- fromMaybe (sourceDir defaultConfig) <$> o .:? "source_dir"
+            pastDirs <- fromMaybe (pastDirs defaultConfig) <$> o .:? "past_dirs"
             return Config{..}
 
 defaultConfig :: Config
@@ -37,6 +39,7 @@ defaultConfig = Config { dataDir = ".lichen"
                        , reportTitle = "Plagiarism Detection"
                        , language = langDummy
                        , sourceDir = Nothing
+                       , pastDirs = []
                        }
 
 type Plagiarism = Configured Config
