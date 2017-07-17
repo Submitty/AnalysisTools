@@ -17,12 +17,15 @@ compareFingerprints ((al, x), (bl, y)) = (fromIntegral (Set.size is) / fromInteg
     un = Set.union a b
 
 -- Given a list of pairs of fingerprints and an associated tag (typically
--- the source file from which those fingeprints were generated), compare
--- each possible pair of fingerprints, returning a list of percent matches
--- associated with the tags of the two fingeprint sets compared.
-crossCompare :: [(Fingerprints, a)] -> [(Double, (Fingerprints, a), (Fingerprints, a))]
-crossCompare prints = compareFingerprints <$> pairs prints
+-- the source file from which those fingeprints were generated), along with
+-- another list of tagged past fingerprints, compare each possible pair of
+-- fingerprints, returning a list of percent matches associated with the tags
+-- of the two fingeprint sets compared.
+crossCompare :: [(Fingerprints, a)] -> [(Fingerprints, a)] -> [(Double, (Fingerprints, a), (Fingerprints, a))]
+crossCompare prints past = compareFingerprints <$> (pairs prints ++ oldpairs)
     where pairs :: [(Fingerprints, a)] -> [((Fingerprints, a), (Fingerprints, a))]
           pairs lst = tails lst >>= subpairs
           subpairs [] = []
           subpairs (x:xs) = (\y -> (x, y)) <$> xs
+          oldpairs = [(x, y) | x <- prints, y <- past]
+

@@ -33,7 +33,8 @@ parseOptions dc = Config
                <*> strOption (long "report-dir" <> short 'r' <> metavar "DIR" <> showDefault <> value (reportDir dc) <> help "Subdirectory of data directory storing the HTML report")
                <*> (T.pack <$> strOption (long "report-title" <> metavar "TITLE" <> showDefault <> value (T.unpack $ reportTitle dc) <> help "Title of pages in the HTML report"))
                <*> (languageChoice (language dc) <$> (optional . strOption $ long "language" <> short 'l' <> metavar "LANG" <> help "Language of student code"))
-               <*> optional (argument str (metavar "SOURCE"))
+               <*> optional (argument str (metavar "SOURCE_DIR"))
+               <*> many (argument str (metavar "PAST_DIRS"))
 
 realMain :: Config -> IO ()
 realMain ic = do
@@ -48,8 +49,12 @@ realMain ic = do
             config <- ask
             p <- case sourceDir config of Just d -> return d; Nothing -> throwError $ InvocationError "No directory specified"
             dir <- liftIO $ canonicalizePath p
+            pdirs <- liftIO . mapM canonicalizePath $ pastDirs config
             concatenate dir
+            mapM_ concatenate pdirs
             highlight dir
+            mapM_ highlight pdirs
             prints <- fingerprintDir (language config) (dataDir config </> concatDir config ++ dir)
-            report dir prints
+            past <- concat <$> mapM (\x -> fingerprintDir (language config) (dataDir config </> concatDir config ++ x)) pdirs
+            report dir prints past
     where opts c = info (helper <*> parseOptions c) (fullDesc <> progDesc "Run plagiarism detection" <> header "lichen-plagiarism - plagiarism detection")
