@@ -29,6 +29,6 @@ report p prints past = do
         liftIO . createDirectoryIfMissing True $ dstPath </> "compare"
         liftIO . BS.writeFile (dstPath </> "index.html") . renderHtml . renderPage config $ renderTable compared
         liftIO $ mapM_ (writeCmp config (dstPath </> "compare") srcPath) compared
-    where ccmp n = take n . sortBy (\(x, _, _) (y, _, _) -> compare x y) $ crossCompare prints past
+    where ccmp n = take n . sortBy (\(x, _, _) (y, _, _) -> compare y x) $ crossCompare prints past
           writeCmp :: (Show a, Eq a) => Config -> FilePath -> FilePath -> (Double, (Fingerprints, a), (Fingerprints, a)) -> IO ()
           writeCmp c dp sp cmp@(_, (_, t), (_, t')) = renderCompare sp cmp >>= BS.writeFile (dp </> sq t ++ "_" ++ sq t' ++ ".html") . renderHtml . renderPage c
