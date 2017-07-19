@@ -1,5 +1,8 @@
+{-# LANGUAGE OverloadedStrings #-}
+
 module Lichen.Lexer where
 
+import Data.Aeson
 import Data.Foldable()
 import Data.Semigroup ((<>))
 import qualified Data.List.NonEmpty as NE
@@ -22,14 +25,19 @@ data TokPos = TokPos
 data Tagged a = Tagged { tdata :: a, tpos :: TokPos } deriving (Show, Eq)
 instance Ord a => Ord (Tagged a) where
         compare (Tagged x _) (Tagged y _) = compare x y
+instance Show a => ToJSON (Tagged a) where
+        toJSON (Tagged a p) = object [ "token" .= show a
+                                     , "start_line" .= unPos (startLine p)
+                                     , "end_line" .= unPos (endLine p)
+                                     , "start_col" .= unPos (startCol p)
+                                     , "end_col" .= unPos (endCol p)
+                                     ]
 
 wrap :: Foldable t => Parser (t a) -> b -> Parser (Tagged b)
 wrap p x = do
         pos <- NE.head . statePos <$> getParserState
         s <- p
-        --_ <- p
         return . Tagged x $ TokPos (sourceLine pos) (sourceLine pos) (sourceColumn pos) (sourceColumn pos <> unsafePos (fromIntegral $ length s))
-        --return (x, TokPos (sourceLine pos) (sourceLine pos) (sourceColumn pos) (sourceColumn pos <> unsafePos 1))
 
 -- Parse a C-style character literal. Ex: 'a', '@'.
 charLit :: Parser Char
