@@ -58,4 +58,4 @@ realMain ic = do
             prints <- fingerprintDir (language config) (dataDir config </> concatDir config ++ dir)
             past <- concat <$> mapM (\x -> fingerprintDir (language config) (dataDir config </> concatDir config ++ x)) pdirs
             report dir prints past
-    where opts c = info (helper <*> parseOptions c) (fullDesc <> progDesc "Run plagiarism detection" <> header "lichen-plagiarism - plagiarism detection")
+    where opts c = info (helper <*> parseOptions c) (fullDesc <> progDesc "Run plagiarism detection" <> header "plagiarism - plagiarism detection")
