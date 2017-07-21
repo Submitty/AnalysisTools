@@ -24,26 +24,33 @@ counterDummy = Counter $ \_ _ _ -> throwError $ InvocationError "Invalid countin
 
 counterToken :: Counter
 counterToken = Counter $ \(Language _ l _ readTok _) t p -> do
-        src <- liftIO $ BS.readFile p
-        tokens <- l p src
-        rt <- readTok t
-        return . fromIntegral . length . filter (hash rt ==) . fmap (hash . tdata) $ tokens
+    src <- liftIO $ BS.readFile p
+    tokens <- l p src
+    rt <- readTok t
+    return . fromIntegral . length . filter (hash rt ==) . fmap (hash . tdata) $ tokens
 
 counterNode :: Counter
 counterNode = Counter $ \l t p -> do
-        src <- liftIO $ BS.readFile p
-        tree <- parser l p src
-        return $ P.countTag (T.pack t) tree
+    src <- liftIO $ BS.readFile p
+    tree <- parser l p src
+    return $ P.countTag (T.pack t) tree
 
 counterCall :: Counter
 counterCall = Counter $ \l t p -> do
-        src <- liftIO $ BS.readFile p
-        tree <- parser l p src
-        return $ P.countCall (T.pack t) tree
+    src <- liftIO $ BS.readFile p
+    tree <- parser l p src
+    return $ P.countCall (T.pack t) tree
+
+counterDepth :: Counter
+counterDepth = Counter $ \l t p -> do
+    src <- liftIO $ BS.readFile p
+    tree <- parser l p src
+    return $ P.countDepth (T.pack t) tree
 
 counterChoice :: Counter -> Maybe String -> Counter
 counterChoice d Nothing = d
 counterChoice _ (Just "token") = counterToken
 counterChoice _ (Just "node") = counterNode
 counterChoice _ (Just "call") = counterCall
+counterChoice _ (Just "depth") = counterDepth
 counterChoice _ _ = counterDummy

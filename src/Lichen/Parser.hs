@@ -38,3 +38,7 @@ identChild _ _ = False
 countCall :: T.Text -> Node -> Integer
 countCall t n@(Node _ ns) = (if hasTag "call" n then case ns of (f:_) -> if identChild t f then 1 else 0; _ -> 0 else 0) + sum (countCall t <$> ns)
 countCall _ _ = 0
+
+countDepth :: T.Text -> Node -> Integer
+countDepth t n@(Node _ ns) = (if hasTag t n then 1 else 0) + maximum (0:(countDepth t <$> ns))
+countDepth _ _ = 0
