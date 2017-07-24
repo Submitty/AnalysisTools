@@ -125,7 +125,8 @@ onetoken = wrap (reserved "auto") Auto
        <|> wrap (reserved "]" <|> reserved ":>") RightSquare
        <|> wrap (reserved ".") Dot
        <|> wrap (reserved "&") Ampersand
-       <|> wrap (reserved "!") Tilde
+       <|> wrap (reserved "!") Exclamation
+       <|> wrap (reserved "~") Tilde
        <|> wrap (reserved "-") Minus
        <|> wrap (reserved "+") Plus
        <|> wrap (reserved "*") Asterisk
