@@ -17,6 +17,7 @@ data Config = Config
             , reportTitle :: T.Text
             , language :: Language
             , topMatches :: Int
+            , cdnBootstrap :: Bool
             , sourceDir :: Maybe FilePath
             , pastDirs :: [FilePath]
             }
@@ -29,6 +30,7 @@ instance FromJSON Config where
             reportTitle <- fromMaybe (reportTitle defaultConfig) <$> o .:? "report_title"
             language <- fromMaybe (language defaultConfig) <$> o .:? "language"
             topMatches <- fromMaybe (topMatches defaultConfig) <$> o .:? "top_matches"
+            cdnBootstrap <- fromMaybe (cdnBootstrap defaultConfig) <$> o .:? "cdn_bootstrap"
             sourceDir <- fromMaybe (sourceDir defaultConfig) <$> o .:? "source_dir"
             pastDirs <- fromMaybe (pastDirs defaultConfig) <$> o .:? "past_dirs"
             return Config{..}
@@ -41,6 +43,7 @@ defaultConfig = Config { dataDir = ".lichen"
                        , reportTitle = "Plagiarism Detection"
                        , language = langDummy
                        , topMatches = 100
+                       , cdnBootstrap = False
                        , sourceDir = Nothing
                        , pastDirs = []
                        }
