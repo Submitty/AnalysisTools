@@ -37,6 +37,7 @@ parseOptions dc = Config
                <*> option auto (long "top-matches" <> short 't' <> metavar "N" <> showDefault <> value (topMatches dc) <> help "Number of top matches to report")
                <*> (generatePathChoice (pathGenerator dc) <$> (optional . strOption $ long "path-generator" <> metavar "GENERATOR" <> help "Path generation method for reports"))
                <*> strOption (long "path-base" <> metavar "BASE" <> value (pathBase dc) <> help "Base to prepend to report paths")
+               <*> option auto (long "cdn-bootstrap" <> short 'b' <> metavar "BOOL" <> showDefault <> value (cdnBootstrap dc) <> help "Should Bootstrap be pulled from CDN?")
                <*> optional (argument str (metavar "SOURCE_DIR"))
                <*> many (argument str (metavar "PAST_DIRS"))
 

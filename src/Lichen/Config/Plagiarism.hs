@@ -20,6 +20,7 @@ data Config = Config
             , topMatches :: Int
             , pathGenerator :: PathGenerator
             , pathBase :: FilePath
+            , cdnBootstrap :: Bool
             , sourceDir :: Maybe FilePath
             , pastDirs :: [FilePath]
             }
@@ -34,6 +35,7 @@ instance FromJSON Config where
             topMatches <- fromMaybe (topMatches defaultConfig) <$> o .:? "top_matches"
             pathGenerator <- fromMaybe (pathGenerator defaultConfig) <$> o .:? "path_generator"
             pathBase <- fromMaybe (pathBase defaultConfig) <$> o .:? "path_base"
+            cdnBootstrap <- fromMaybe (cdnBootstrap defaultConfig) <$> o .:? "cdn_bootstrap"
             sourceDir <- fromMaybe (sourceDir defaultConfig) <$> o .:? "source_dir"
             pastDirs <- fromMaybe (pastDirs defaultConfig) <$> o .:? "past_dirs"
             return Config{..}
@@ -48,6 +50,7 @@ defaultConfig = Config { dataDir = ".lichen"
                        , topMatches = 100
                        , pathGenerator = generatePathSubmitty
                        , pathBase = ""
+                       , cdnBootstrap = False
                        , sourceDir = Nothing
                        , pastDirs = []
                        }

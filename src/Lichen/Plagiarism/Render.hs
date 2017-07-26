@@ -26,7 +26,7 @@ hs = H.toHtml . sq
 stylesheet :: C.Css
 stylesheet = mconcat
     [ ".centered" ? C.textAlign C.center
-    , ".highlight" ? C.color C.white <> C.backgroundColor C.grey
+    , ".matches" ? C.color C.white <> C.backgroundColor C.grey
     , ".hovering" ? C.color C.white <> C.backgroundColor C.blue
     , ".selected-red" ? C.color C.white <> C.backgroundColor C.red
     , ".selected-orange" ? C.color C.white <> C.backgroundColor C.orange
@@ -60,33 +60,33 @@ javascript = [jmacro|
             case "selected-violet": return "selected-red";
         }
     }
-    $("#left > .highlight").each(function() {
+    $("#left > .matches").each(function() {
         $(this).on("click", function(_) {
             var hash = $(this).data("hash");
-            var pos = $("#right > .highlight[data-hash=" + hash + "]")[0].offsetTop;
+            var pos = $("#right > .matches[data-hash=" + hash + "]")[0].offsetTop;
             $("#right").scrollTop(pos);
         });
     });
-    $("#right > .highlight").each(function() {
+    $("#right > .matches").each(function() {
         $(this).on("click", function(_) {
             var hash = $(this).data("hash");
-            var pos = $("#left > .highlight[data-hash=" + hash + "]")[0].offsetTop;
+            var pos = $("#left > .matches[data-hash=" + hash + "]")[0].offsetTop;
             $("#left").scrollTop(pos);
         });
     });
-    $(".highlight").each(function() {
+    $(".matches").each(function() {
         $(this).hover(function () {
             $(this).toggleClass("hovering");
             var hash = $(this).data("hash");
             var side = $(this).parent("#left").length ? "#right" : "#left";
-            $(side + " > .highlight[data-hash=" + hash + "]").toggleClass("hovering");
+            $(side + " > .matches[data-hash=" + hash + "]").toggleClass("hovering");
         });
         $(this).on("contextmenu", function(_) {
             var hash = $(this).data("hash");
             if ($(this).is("*[class*='selected']")) {
-                $(".highlight[data-hash=" + hash + "]").removeClass(\_ c -> (c.match(/(^|\s)selected-\S+/) || []).join(' '));
+                $(".matches[data-hash=" + hash + "]").removeClass(\_ c -> (c.match(/(^|\s)selected-\S+/) || []).join(' '));
             } else {
-                $(".highlight[data-hash=" + hash + "]").addClass(currentHighlight);
+                $(".matches[data-hash=" + hash + "]").addClass(currentHighlight);
                 currentHighlight = nextHighlight(currentHighlight);
             }
             return false;
@@ -101,13 +101,13 @@ renderPage config b = H.docTypeHtml $ mconcat
         , H.meta ! A.httpEquiv "X-UA-Compatible" ! A.content "IE=edge"
         , H.meta ! A.name "viewport" ! A.content "width=device-width, initial-scale=1"
         , H.title . H.toHtml $ reportTitle config
-        , H.link ! A.rel "stylesheet" ! A.href "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+        , if cdnBootstrap config then H.link ! A.rel "stylesheet" ! A.href "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" else mempty
         , H.style . H.toHtml $ C.renderWith C.R.compact [] stylesheet
         ]
     , H.body $ mconcat
         [ b
         , H.script ! A.src "https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js" $ ""
-        , H.script ! A.src "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" $ ""
+        , if cdnBootstrap config then H.script ! A.src "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" $ "" else mempty
         , H.script . hs $ renderJs javascript
         ]
     ]
