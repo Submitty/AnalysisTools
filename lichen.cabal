@@ -35,6 +35,7 @@ library
                      , Lichen.Plagiarism.Render
                      , Lichen.Plagiarism.Render.Index
                      , Lichen.Plagiarism.Render.Compare
+                     , Lichen.Plagiarism.Render.PathGenerators
                      , Lichen.Count.Main
                      , Lichen.Count.Counters
                      , Lichen.Diagnostics.Main
@@ -56,6 +57,7 @@ library
                      , blaze-markup
                      , clay
                      , jmacro
+                     , text-format
   ghc-options:         -Wall -fwarn-incomplete-patterns
   default-language:    Haskell2010
 

@@ -27,7 +27,7 @@ report p prints past = do
         let compared = ccmp (topMatches config)
         liftIO $ removeDir dstPath >> createDirectoryIfMissing True dstPath
         liftIO . createDirectoryIfMissing True $ dstPath </> "compare"
-        liftIO . BS.writeFile (dstPath </> "index.html") . renderHtml . renderPage config $ renderTable compared
+        liftIO . BS.writeFile (dstPath </> "index.html") . renderHtml . renderPage config $ renderTable config compared
         liftIO $ mapM_ (writeCmp config (dstPath </> "compare") srcPath) compared
     where ccmp n = take n . sortBy (\(x, _, _) (y, _, _) -> compare y x) $ crossCompare prints past
           writeCmp :: (Show a, Eq a) => Config -> FilePath -> FilePath -> (Double, (Fingerprints, a), (Fingerprints, a)) -> IO ()

@@ -24,6 +24,7 @@ import Lichen.Plagiarism.Concatenate
 import Lichen.Plagiarism.Highlight
 import Lichen.Plagiarism.Report
 import Lichen.Plagiarism.Walk
+import Lichen.Plagiarism.Render.PathGenerators
 
 parseOptions :: Config -> Parser Config
 parseOptions dc = Config
@@ -33,7 +34,9 @@ parseOptions dc = Config
                <*> strOption (long "report-dir" <> short 'r' <> metavar "DIR" <> showDefault <> value (reportDir dc) <> help "Subdirectory of data directory storing the HTML report")
                <*> (T.pack <$> strOption (long "report-title" <> metavar "TITLE" <> showDefault <> value (T.unpack $ reportTitle dc) <> help "Title of pages in the HTML report"))
                <*> (languageChoice (language dc) <$> (optional . strOption $ long "language" <> short 'l' <> metavar "LANG" <> help "Language of student code"))
-               <*> option auto (long "top-matches" <> short 't' <> metavar "INT" <> showDefault <> value (topMatches dc) <> help "Number of top matches to report")
+               <*> option auto (long "top-matches" <> short 't' <> metavar "N" <> showDefault <> value (topMatches dc) <> help "Number of top matches to report")
+               <*> (generatePathChoice (pathGenerator dc) <$> (optional . strOption $ long "path-generator" <> metavar "GENERATOR" <> help "Path generation method for reports"))
+               <*> strOption (long "path-base" <> metavar "BASE" <> value (pathBase dc) <> help "Base to prepend to report paths")
                <*> option auto (long "cdn-bootstrap" <> short 'b' <> metavar "BOOL" <> showDefault <> value (cdnBootstrap dc) <> help "Should Bootstrap be pulled from CDN?")
                <*> optional (argument str (metavar "SOURCE_DIR"))
                <*> many (argument str (metavar "PAST_DIRS"))
