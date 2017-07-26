@@ -2,6 +2,8 @@
 
 module Lichen.Plagiarism.AssignmentSettings where
 
+import System.Directory
+
 import Data.Aeson
 import qualified Data.Text as T
 import qualified Data.ByteString.Lazy as BS
@@ -17,6 +19,9 @@ instance FromJSON AssignmentSettings where
 
 getAssignmentSettings :: FilePath -> Plagiarism AssignmentSettings
 getAssignmentSettings p = do
-        c <- liftIO $ BS.readFile p
-        case eitherDecode c of Left e -> throwError . JSONDecodingError $ T.pack e
-                               Right t -> return t
+        b <- liftIO $ doesFileExist p
+        if b
+            then do c <- liftIO $ BS.readFile p
+                    case eitherDecode c of Left e -> throwError . JSONDecodingError $ T.pack e
+                                           Right t -> return t
+            else throwError . JSONDecodingError . T.pack $ "Assignment settings file \"" ++ p ++ "\" not found."
