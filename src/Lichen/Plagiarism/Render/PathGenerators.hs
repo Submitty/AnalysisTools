@@ -16,7 +16,7 @@ generatePathStatic :: PathGenerator
 generatePathStatic = PathGenerator $ \x y -> H.stringValue $ "compare/" ++ x ++ "_" ++ y ++ ".html"
 
 generatePathSubmitty :: PathGenerator
-generatePathSubmitty = PathGenerator $ \x y -> H.stringValue $ "compare/" ++ x ++ "_" ++ y ++ ".html"
+generatePathSubmitty = PathGenerator $ \x y -> H.stringValue $ "&page=plagiarism&studenta=" ++ x ++ "&studentb=" ++ y
 
 generatePathChoice :: PathGenerator -> Maybe String -> PathGenerator
 generatePathChoice d Nothing = d
