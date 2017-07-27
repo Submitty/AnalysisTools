@@ -24,8 +24,7 @@ renderEntry config (match, (_, x), (_, y)) = H.tr (H.td (H.a ! A.href (H.stringV
 renderTable :: Show a => Config -> [(Double, (b, a), (b, a))] -> H.Html
 renderTable config t = H.table ! A.class_ "table" $ mconcat
     [ H.div ! A.class_ "container" $ mconcat
-        [ H.h1 ! A.class_ "centered" $ "Plagiarism Detection Results"
-        , H.div ! A.class_ "row" $ mconcat
+        [ H.div ! A.class_ "row" $ mconcat
             [ H.tr (H.td "Match" <> H.td "Student A" <> H.td "Student B")
             , traverse_ (renderEntry config) t
             ]
