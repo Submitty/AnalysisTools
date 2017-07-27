@@ -13,6 +13,8 @@ import Text.Blaze.Html5 ((!))
 import qualified Text.Blaze.Html5 as H
 import qualified Text.Blaze.Html5.Attributes as A
 
+import Numeric
+
 import Lichen.Util
 import Lichen.Lexer
 import Lichen.Plagiarism.Winnow
@@ -21,7 +23,7 @@ data Colored a = Uncolored T.Text | Colored a T.Text deriving (Show, Eq)
 
 colorize :: Show a => Colored a -> H.Html
 colorize (Uncolored t) = H.toHtml t
-colorize (Colored x t) = H.span ! A.class_ "highlight" ! H.dataAttribute "hash" (H.stringValue $ show x) $ H.toHtml t
+colorize (Colored x t) = H.span ! A.class_ "matches" ! H.dataAttribute "hash" (H.stringValue $ show x) $ H.toHtml t
 
 deoverlap :: [((Int, Int), a)] -> [((Int, Int), a)]
 deoverlap [] = []
@@ -72,12 +74,8 @@ renderBoth dir (fp, t) (fp', t') = do
 renderCompare :: (Show a, Eq a) => FilePath -> (Double, (Fingerprints, a), (Fingerprints, a)) -> IO H.Html
 renderCompare dir (m, g@(_, t), g'@(_, t')) = do
         (s, s') <- renderBoth dir g g'
-        return $ H.div ! A.class_ "container" $ mconcat
-            [ H.h1 ! A.class_ "centered" $ H.toHtml (sq t ++ " vs. " ++ sq t' ++ ": " ++ show (m * 100) ++ "% match")
-            , H.div ! A.class_ "row" $ mconcat
-                [ H.div ! A.class_ "col-sm-6"
-                    $ H.div ! A.id "left" ! A.class_ "scrollable-pane" $ s
-                , H.div ! A.class_ "col-sm-6"
-                    $ H.div ! A.id "right" ! A.class_ "scrollable-pane" $ s'
-                ]
+        return $ mconcat
+            [ H.h1 ! A.class_ "centered" $ H.toHtml (sq t ++ " vs. " ++ sq t' ++ ": " ++ showFFloat (Just 2) (m * 100) "% match")
+            , H.div ! A.id "left" ! A.class_ "scrollable-pane" $ s
+            , H.div ! A.id "right" ! A.class_ "scrollable-pane" $ s'
             ]
