@@ -36,7 +36,7 @@ stylesheet = mconcat
     , ".selected-indigo" ? C.color C.white <> C.backgroundColor C.indigo
     , ".selected-violet" ? C.color C.white <> C.backgroundColor C.violet
     , ".scrollable-pane" ? mconcat
-        [ C.width $ C.S.pct 100
+        [ C.width $ C.S.pct 45
         , C.height $ C.S.vh 80
         , C.overflowY C.scroll
         , C.position C.absolute
@@ -44,6 +44,8 @@ stylesheet = mconcat
         , C.whiteSpace C.T.pre
         , C.fontFamily [] [C.F.monospace]
         ]
+    , ".left" ? C.left (C.S.px 0)
+    , ".right" ? C.left (C.S.pct 50)
     ]
 
 javascript :: JStat
@@ -101,13 +103,11 @@ renderPage config b = H.docTypeHtml $ mconcat
         , H.meta ! A.httpEquiv "X-UA-Compatible" ! A.content "IE=edge"
         , H.meta ! A.name "viewport" ! A.content "width=device-width, initial-scale=1"
         , H.title . H.toHtml $ reportTitle config
-        , if cdnBootstrap config then H.link ! A.rel "stylesheet" ! A.href "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" else mempty
         , H.style . H.toHtml $ C.renderWith C.R.compact [] stylesheet
         ]
     , H.body $ mconcat
         [ b
         , H.script ! A.src "https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js" $ ""
-        , if cdnBootstrap config then H.script ! A.src "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" $ "" else mempty
         , H.script . hs $ renderJs javascript
         ]
     ]
