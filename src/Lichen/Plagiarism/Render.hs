@@ -40,12 +40,11 @@ stylesheet = mconcat
         , C.height $ C.S.vh 80
         , C.overflowY C.scroll
         , C.position C.absolute
-        , C.top $ C.S.px 0
         , C.whiteSpace C.T.pre
         , C.fontFamily [] [C.F.monospace]
         ]
-    , ".left" ? C.left (C.S.px 0)
-    , ".right" ? C.left (C.S.pct 50)
+    , ".#left" ? C.left (C.S.px 0)
+    , "#right" ? C.left (C.S.pct 50)
     ]
 
 javascript :: JStat
