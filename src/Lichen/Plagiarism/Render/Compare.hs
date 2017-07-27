@@ -21,7 +21,7 @@ data Colored a = Uncolored T.Text | Colored a T.Text deriving (Show, Eq)
 
 colorize :: Show a => Colored a -> H.Html
 colorize (Uncolored t) = H.toHtml t
-colorize (Colored x t) = H.span ! A.class_ "highlight" ! H.dataAttribute "hash" (H.stringValue $ show x) $ H.toHtml t
+colorize (Colored x t) = H.span ! A.class_ "matches" ! H.dataAttribute "hash" (H.stringValue $ show x) $ H.toHtml t
 
 deoverlap :: [((Int, Int), a)] -> [((Int, Int), a)]
 deoverlap [] = []
