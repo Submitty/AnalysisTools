@@ -75,7 +75,7 @@ renderCompare :: (Show a, Eq a) => FilePath -> (Double, (Fingerprints, a), (Fing
 renderCompare dir (m, g@(_, t), g'@(_, t')) = do
         (s, s') <- renderBoth dir g g'
         return $ mconcat
-            [ H.h1 ! A.class_ "centered" $ H.toHtml (sq t ++ " vs. " ++ sq t' ++ ": " ++ showFFloat (Just 2) (m * 100) "" ++ "% match")
+            [ H.h1 ! A.class_ "centered" $ H.toHtml (sq t ++ " vs. " ++ sq t' ++ ": " ++ showFFloat (Just 2) (m * 100) "% match")
             , H.div ! A.id "left" ! A.class_ "scrollable-pane" $ s
             , H.div ! A.id "right" ! A.class_ "scrollable-pane" $ s'
             ]
