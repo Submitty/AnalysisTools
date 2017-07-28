@@ -14,11 +14,9 @@ import Numeric
 import Lichen.Util
 import Lichen.Config.Plagiarism
 import Lichen.Plagiarism.Render
-import Lichen.Plagiarism.Render.PathGenerators
 
 renderEntry :: Show a => Config -> (Double, (b, a), (b, a)) -> H.Html
-renderEntry config (match, (_, x), (_, y)) = H.tr (H.td (H.a ! A.href (H.stringValue (pathBase config)
-                                                                       <> runPathGenerator (pathGenerator config) (sq x) (sq y)) $ H.toHtml $ showFFloat (Just 2) (match * 100) "%")
+renderEntry config (match, (_, x), (_, y)) = H.tr (H.td (H.a ! A.href (runPathGenerator (pathGenerator config) config (sq x) (sq y)) $ H.toHtml $ showFFloat (Just 2) (match * 100) "%")
                                                    <> H.td (hs x) <> H.td (hs y))
 
 renderTable :: Show a => Config -> [(Double, (b, a), (b, a))] -> H.Html

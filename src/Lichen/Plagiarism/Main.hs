@@ -24,7 +24,6 @@ import Lichen.Plagiarism.Concatenate
 import Lichen.Plagiarism.Highlight
 import Lichen.Plagiarism.Report
 import Lichen.Plagiarism.Walk
-import Lichen.Plagiarism.Render.PathGenerators
 
 parseOptions :: Config -> Parser Config
 parseOptions dc = Config
@@ -36,7 +35,9 @@ parseOptions dc = Config
                <*> (languageChoice (language dc) <$> (optional . strOption $ long "language" <> short 'l' <> metavar "LANG" <> help "Language of student code"))
                <*> option auto (long "top-matches" <> short 't' <> metavar "N" <> showDefault <> value (topMatches dc) <> help "Number of top matches to report")
                <*> (generatePathChoice (pathGenerator dc) <$> (optional . strOption $ long "path-generator" <> metavar "GENERATOR" <> help "Path generation method for reports"))
-               <*> strOption (long "path-base" <> metavar "BASE" <> value (pathBase dc) <> help "Base to prepend to report paths")
+               <*> strOption (long "semester" <> metavar "SEMESTER" <> value (submittySemester dc) <> help "Semester for Submitty path generation")
+               <*> strOption (long "course" <> metavar "COURSE" <> value (submittyCourse dc) <> help "Course for Submitty path generation")
+               <*> strOption (long "assignment" <> metavar "ASSIGNMENT" <> value (submittyAssignment dc) <> help "Assignment for Submitty path generation")
                <*> optional (argument str (metavar "SOURCE_DIR"))
                <*> many (argument str (metavar "PAST_DIRS"))
 
