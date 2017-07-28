@@ -6,9 +6,29 @@ import Data.Maybe
 import Data.Aeson
 import qualified Data.Text as T
 
+import qualified Text.Blaze.Html5 as H
+
 import Lichen.Config
 import Lichen.Config.Languages
-import Lichen.Plagiarism.Render.PathGenerators
+
+newtype PathGenerator = PathGenerator { runPathGenerator :: Config -> String -> String -> H.AttributeValue }
+instance FromJSON PathGenerator where
+        parseJSON (String s) = pure $ generatePathChoice generatePathSubmitty (Just $ T.unpack s)
+        parseJSON _ = pure generatePathSubmitty
+
+generatePathStatic :: PathGenerator
+generatePathStatic = PathGenerator $ \_ x y -> H.stringValue $ "compare/" ++ x ++ "_" ++ y ++ ".html"
+
+generatePathSubmitty :: PathGenerator
+generatePathSubmitty = PathGenerator $ \c x y -> H.stringValue $ mconcat [ "index.php?semester=", submittySemester c
+                                                                         , "&course=", submittyCourse c
+                                                                         , "&assignment=", submittyAssignment c
+                                                                         , "&component=admin&page=plagiarism&action=compare&studenta=", x, "&studentb=", y ]
+
+generatePathChoice :: PathGenerator -> Maybe String -> PathGenerator
+generatePathChoice d Nothing = d
+generatePathChoice _ (Just "static") = generatePathStatic
+generatePathChoice _ _ = generatePathSubmitty
 
 data Config = Config
             { dataDir :: FilePath
@@ -19,7 +39,9 @@ data Config = Config
             , language :: Language
             , topMatches :: Int
             , pathGenerator :: PathGenerator
-            , pathBase :: FilePath
+            , submittySemester :: FilePath
+            , submittyCourse :: FilePath
+            , submittyAssignment :: FilePath
             , sourceDir :: Maybe FilePath
             , pastDirs :: [FilePath]
             }
@@ -33,7 +55,9 @@ instance FromJSON Config where
             language <- fromMaybe (language defaultConfig) <$> o .:? "language"
             topMatches <- fromMaybe (topMatches defaultConfig) <$> o .:? "top_matches"
             pathGenerator <- fromMaybe (pathGenerator defaultConfig) <$> o .:? "path_generator"
-            pathBase <- fromMaybe (pathBase defaultConfig) <$> o .:? "path_base"
+            submittySemester <- fromMaybe (submittySemester defaultConfig) <$> o .:? "submitty_semester"
+            submittyCourse <- fromMaybe (submittyCourse defaultConfig) <$> o .:? "submitty_course"
+            submittyAssignment <- fromMaybe (submittyAssignment defaultConfig) <$> o .:? "submitty_assignment"
             sourceDir <- fromMaybe (sourceDir defaultConfig) <$> o .:? "source_dir"
             pastDirs <- fromMaybe (pastDirs defaultConfig) <$> o .:? "past_dirs"
             return Config{..}
@@ -47,7 +71,9 @@ defaultConfig = Config { dataDir = "plagiarism"
                        , language = langDummy
                        , topMatches = 100
                        , pathGenerator = generatePathSubmitty
-                       , pathBase = ""
+                       , submittySemester = "invalid"
+                       , submittyCourse = "invalid"
+                       , submittyAssignment = "invalid"
                        , sourceDir = Nothing
                        , pastDirs = []
                        }
