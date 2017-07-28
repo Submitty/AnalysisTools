@@ -39,7 +39,7 @@ instance FromJSON Config where
             return Config{..}
 
 defaultConfig :: Config
-defaultConfig = Config { dataDir = ".lichen"
+defaultConfig = Config { dataDir = "plagiarism"
                        , concatDir = "concatenated"
                        , highlightDir = "highlighted"
                        , reportDir = "report"
