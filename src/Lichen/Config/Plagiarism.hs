@@ -42,6 +42,7 @@ data Config = Config
             , submittySemester :: FilePath
             , submittyCourse :: FilePath
             , submittyAssignment :: FilePath
+            , allVersions :: Bool
             , sourceDir :: Maybe FilePath
             , pastDirs :: [FilePath]
             }
@@ -58,6 +59,7 @@ instance FromJSON Config where
             submittySemester <- fromMaybe (submittySemester defaultConfig) <$> o .:? "submitty_semester"
             submittyCourse <- fromMaybe (submittyCourse defaultConfig) <$> o .:? "submitty_course"
             submittyAssignment <- fromMaybe (submittyAssignment defaultConfig) <$> o .:? "submitty_assignment"
+            allVersions <- fromMaybe (allVersions defaultConfig) <$> o .:? "all_versions"
             sourceDir <- fromMaybe (sourceDir defaultConfig) <$> o .:? "source_dir"
             pastDirs <- fromMaybe (pastDirs defaultConfig) <$> o .:? "past_dirs"
             return Config{..}
@@ -74,6 +76,7 @@ defaultConfig = Config { dataDir = "plagiarism"
                        , submittySemester = "invalid"
                        , submittyCourse = "invalid"
                        , submittyAssignment = "invalid"
+                       , allVersions = False
                        , sourceDir = Nothing
                        , pastDirs = []
                        }

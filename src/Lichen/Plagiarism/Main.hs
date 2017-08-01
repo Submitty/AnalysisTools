@@ -38,6 +38,7 @@ parseOptions dc = Config
                <*> strOption (long "semester" <> metavar "SEMESTER" <> value (submittySemester dc) <> help "Semester for Submitty path generation")
                <*> strOption (long "course" <> metavar "COURSE" <> value (submittyCourse dc) <> help "Course for Submitty path generation")
                <*> strOption (long "assignment" <> metavar "ASSIGNMENT" <> value (submittyAssignment dc) <> help "Assignment for Submitty path generation")
+               <*> option auto (long "all-versions" <> metavar "BOOL" <> showDefault <> value (allVersions dc) <> help "Should all submission versions be checked?")
                <*> optional (argument str (metavar "SOURCE_DIR"))
                <*> many (argument str (metavar "PAST_DIRS"))
 
@@ -55,6 +56,7 @@ realMain ic = do
             p <- case sourceDir config of Just d -> return d; Nothing -> throwError $ InvocationError "No directory specified"
             dir <- liftIO $ canonicalizePath p
             pdirs <- liftIO . mapM canonicalizePath $ pastDirs config
+            let concatenate = if allVersions config then concatenateAll else concatenateActive
             concatenate dir
             mapM_ concatenate pdirs
             highlight dir
