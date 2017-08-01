@@ -38,7 +38,7 @@ parseOptions dc = Config
                <*> strOption (long "semester" <> metavar "SEMESTER" <> value (submittySemester dc) <> help "Semester for Submitty path generation")
                <*> strOption (long "course" <> metavar "COURSE" <> value (submittyCourse dc) <> help "Course for Submitty path generation")
                <*> strOption (long "assignment" <> metavar "ASSIGNMENT" <> value (submittyAssignment dc) <> help "Assignment for Submitty path generation")
-               <*> option auto (long "all-versions" <> metavar "BOOL" <> showDefault <> value (allVersions dc) <> help "Should all submission versions be checked?")
+               <*> switch (long "all-versions" <> help "Should all submission versions be checked?")
                <*> optional (argument str (metavar "SOURCE_DIR"))
                <*> many (argument str (metavar "PAST_DIRS"))
 
