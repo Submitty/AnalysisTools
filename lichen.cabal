@@ -30,8 +30,9 @@ library
                      , Lichen.Plagiarism.Walk
                      , Lichen.Plagiarism.Concatenate
                      , Lichen.Plagiarism.Highlight
-                     , Lichen.Plagiarism.Report
+                     , Lichen.Plagiarism.Shared
                      , Lichen.Plagiarism.AssignmentSettings
+                     , Lichen.Plagiarism.Report
                      , Lichen.Plagiarism.Render
                      , Lichen.Plagiarism.Render.Index
                      , Lichen.Plagiarism.Render.Compare

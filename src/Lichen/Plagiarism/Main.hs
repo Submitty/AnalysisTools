@@ -39,6 +39,7 @@ parseOptions dc = Config
                <*> strOption (long "course" <> metavar "COURSE" <> value (submittyCourse dc) <> help "Course for Submitty path generation")
                <*> strOption (long "assignment" <> metavar "ASSIGNMENT" <> value (submittyAssignment dc) <> help "Assignment for Submitty path generation")
                <*> switch (long "all-versions" <> help "Should all submission versions be checked?")
+               <*> option auto (long "shared-threshold" <> short 's' <> metavar "N" <> showDefault <> value (sharedThreshold dc) <> help "Threshold for commmon code to be considered shared code.")
                <*> optional (argument str (metavar "SOURCE_DIR"))
                <*> many (argument str (metavar "PAST_DIRS"))
 
