@@ -15,11 +15,11 @@ before_install:
 - rvm use 2.1 --install --binary --fuzzy
 install:
 - travis_wait 30 stack --no-terminal --install-ghc --copy-bins build
-- stack install hlint
+- stack --no-terminal install hlint
 - cp hlint ~/.local/bin
 - gem install danger danger-hlint
 script:
-- stack --no-terminal test --only-dependencies
+- stack test --only-dependencies
 - "./hlint '--ignore=Parse error' src"
 - "./hlint '--ignore=Parse error' app"
 - danger
