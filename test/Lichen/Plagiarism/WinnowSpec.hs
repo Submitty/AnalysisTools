@@ -43,5 +43,4 @@ spec = do
         describe "windows k l" $ do
             it "produces windows of length k for positive k less than length of l" $ property prop_windows_size
             it "produces length l - k + 1 windows" $ property prop_windows_count
-        describe "hashWin l" $ do
-            it "yields a fingerprint with the same bounds as the window l" $ property prop_hashWin_bounds
+        describe "hashWin l" $ it "yields a fingerprint with the same bounds as the window l" $ property prop_hashWin_bounds
