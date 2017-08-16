@@ -37,6 +37,10 @@ removeDir dir = doesDirectoryExist dir >>= flip when (removeDirectoryRecursive d
 readSafe :: Applicative f => (FilePath -> IO a) -> f a -> FilePath -> IO (f a)
 readSafe r e p = doesFileExist p >>= \b -> if b then pure <$> r p else pure e
 
+headSafe :: [a] -> Maybe a
+headSafe [] = Nothing
+headSafe (x:_) = Just x
+
 (.%) :: (a -> b -> c) -> (c -> d -> e) -> (a -> b -> d -> e)
 (.%) f g x y = g (f x y)
 
