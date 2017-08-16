@@ -30,8 +30,9 @@ library
                      , Lichen.Plagiarism.Walk
                      , Lichen.Plagiarism.Concatenate
                      , Lichen.Plagiarism.Highlight
-                     , Lichen.Plagiarism.Report
+                     , Lichen.Plagiarism.Shared
                      , Lichen.Plagiarism.AssignmentSettings
+                     , Lichen.Plagiarism.Report
                      , Lichen.Plagiarism.Render
                      , Lichen.Plagiarism.Render.Index
                      , Lichen.Plagiarism.Render.Compare
@@ -56,7 +57,9 @@ library
                      , blaze-markup
                      , clay
                      , jmacro
-  ghc-options:         -Wall -fwarn-incomplete-patterns
+                     , QuickCheck
+                     , hspec
+  ghc-options:         -Wall -fwarn-incomplete-patterns -fno-warn-orphans
   default-language:    Haskell2010
 
 executable plagiarism
@@ -81,6 +84,19 @@ executable diagnostics
   ghc-options:         -threaded -rtsopts -with-rtsopts=-N -O2 -Wall
   build-depends:       base
                      , lichen
+  default-language:    Haskell2010
+
+test-suite lichen-test
+  type:                exitcode-stdio-1.0
+  hs-source-dirs:      test
+  main-is:             Spec.hs
+  other-modules:       Lichen.Plagiarism.WinnowSpec
+  build-depends:       base
+                     , lichen
+                     , QuickCheck
+                     , hspec
+                     , megaparsec
+  ghc-options:         -threaded -rtsopts -with-rtsopts=-N -fno-warn-orphans
   default-language:    Haskell2010
 
 source-repository head

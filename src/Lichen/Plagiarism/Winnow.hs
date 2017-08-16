@@ -1,6 +1,7 @@
 module Lichen.Plagiarism.Winnow where
 
 import Data.Hashable
+import qualified Data.List.NonEmpty as NE
 import qualified Data.ByteString as BS
 
 import Control.Monad.Trans
@@ -13,18 +14,23 @@ type Fingerprint = Tagged Int
 type Fingerprints = [Fingerprint]
 
 -- Produce a list by sliding a window of size k over the list lst.
-windows :: Int -> [a] -> [[a]]
-windows _ [] = []
-windows k lst@(_:xs) | length lst >= k = take k lst:windows k xs
-                     | otherwise = []
+windows :: Int -> [a] -> Maybe [NE.NonEmpty a]
+windows _ [] = Nothing
+windows k lst@(_:xs) | k <= 0 = Nothing
+                     | length lst >= k = case windows k xs of
+                                             Just ws -> (:ws) <$> NE.nonEmpty (take k lst)
+                                             Nothing -> (:[]) <$> NE.nonEmpty (take k lst)
+                     | otherwise = Nothing
 
-hashWin :: Hashable a => [Tagged a] -> Fingerprint
+hashWin :: Hashable a => NE.NonEmpty (Tagged a) -> Fingerprint
 hashWin l = Tagged (hash . fmap tdata $ l) (spanPos . fmap tpos $ l) where
-    spanPos lst = TokPos (startLine $ head lst) (endLine $ last lst) (startCol $ head lst) (endCol $ last lst)
+    spanPos lst = TokPos (startLine $ NE.head lst) (endLine $ NE.last lst) (startCol $ NE.head lst) (endCol $ NE.last lst)
 
 -- Given a token sequence, generate the fingerprints of that sequence.
 fingerprint :: Hashable a => Int -> [Tagged a] -> [Fingerprint]
-fingerprint k lst = hashWin <$> windows k lst
+fingerprint k lst = case windows k lst of
+                        Just ws -> hashWin <$> ws
+                        Nothing -> []
 
 -- Given the fingerprints of some data, selectively prune those
 -- fingerprints to improve efficiency. This process is detailed in
@@ -61,7 +67,7 @@ fingerprint k lst = hashWin <$> windows k lst
 winnow :: Int -> Int -> [Fingerprint] -> Fingerprints
 winnow t k lst = go [] allWindows where
     allWindows :: [[(Fingerprint, Int)]]
-    allWindows = windows (t - k + 1) $ zip lst [1, 2 ..]
+    allWindows = case windows (t - k + 1) $ zip lst [1, 2 ..] of Just ws -> NE.toList <$> ws; Nothing -> []
     go :: [(Fingerprint, Int)] -> [[(Fingerprint, Int)]] -> [Fingerprint]
     go acc [] = fst <$> acc
     go acc (w:ws) =
@@ -77,9 +83,6 @@ winnow t k lst = go [] allWindows where
 processTokens :: Hashable a => WinnowConfig -> [Tagged a] -> Fingerprints
 processTokens config = winnow (signalThreshold config) (noiseThreshold config)
                      . fingerprint (noiseThreshold config)
-
-processTokens' :: Hashable a => WinnowConfig -> [Tagged a] -> Fingerprints
-processTokens' c = fingerprint (noiseThreshold c)
 
 -- Cannot use record syntax here due to type variable selection
 processCode :: Language -> FilePath -> BS.ByteString -> Plagiarism Fingerprints
