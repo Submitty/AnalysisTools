@@ -27,7 +27,7 @@ data Tok = False | None | True | And | As | Assert | Break | Class | Continue
          | RightParen | LeftSquare | RightSquare | LeftCurly | RightCurly | Dot
          | Comma | Colon | Semicolon | At | Equal | AddAssign | SubAssign
          | MulAssign | DivAssign | IntDivAssign | ModAssign | PowAssign
-         | AndAssign | OrAssign | XorAssign | LeftAssign | RightAssign
+         | AndAssign | OrAssign | XorAssign | LeftAssign | RightAssign | Unknown
          deriving (Show, Read, Eq, Generic)
 instance Hashable Tok
 
@@ -122,6 +122,7 @@ onetoken = wrap (reserved "False") Lichen.Lexer.Python.False
        <|> wrap (reserved "^=") XorAssign
        <|> wrap (reserved "<<=") LeftAssign
        <|> wrap (reserved ">>=") RightAssign
+       <|> wrap ((:[]) <$> L.charLiteral) Unknown
 
 lex :: Lexer Tok
 lex p d = case runParser (many (sc *> onetoken <* sc)) p d of

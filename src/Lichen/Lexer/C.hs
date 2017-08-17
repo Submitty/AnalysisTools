@@ -30,7 +30,7 @@ data Tok = Auto | Break | Case | Char | Const | Continue | Default | Do
          | Comma | Colon | Equal | LeftParen | RightParen | LeftSquare
          | RightSquare | Dot | Ampersand | Exclamation | Tilde | Minus | Plus
          | Asterisk | Slash | Percent | LessThan | GreaterThan | Caret | Pipe
-         | Question
+         | Question | Unknown
          deriving (Show, Read, Eq, Generic)
 instance Hashable Tok
 
@@ -137,6 +137,7 @@ onetoken = wrap (reserved "auto") Auto
        <|> wrap (reserved "^") Caret
        <|> wrap (reserved "|") Pipe
        <|> wrap (reserved "?") Question
+       <|> wrap ((:[]) <$> L.charLiteral) Unknown
         
 lex :: Lexer Tok
 lex p d = case runParser (many (sc *> onetoken <* sc)) p d of
