@@ -12,6 +12,7 @@ import Control.Monad.Except
 import Lichen.Error
 import Lichen.Config.Languages
 import Lichen.Lexer
+import Lichen.Util
 import qualified Lichen.Parser as P
 
 newtype Counter = Counter { runCounter :: Language -> String -> FilePath -> Erring Integer }
@@ -24,28 +25,27 @@ counterDummy = Counter $ \_ _ _ -> throwError $ InvocationError "Invalid countin
 
 counterToken :: Counter
 counterToken = Counter $ \(Language _ l _ readTok _) t p -> do
-    src <- liftIO $ BS.readFile p
+    ssrc <- liftIO $ readSafe (liftIO . BS.readFile) (throwError $ InvocationError "File not found") p
+    src <- ssrc
     tokens <- l p src
     rt <- readTok t
     return . fromIntegral . length . filter (hash rt ==) . fmap (hash . tdata) $ tokens
 
-counterNode :: Counter
-counterNode = Counter $ \l t p -> do
-    src <- liftIO $ BS.readFile p
+parseCounter :: (T.Text -> P.Node -> Integer) -> Counter
+parseCounter f = Counter $ \l t p -> do
+    ssrc <- liftIO $ readSafe (liftIO . BS.readFile) (throwError $ InvocationError "File not found") p
+    src <- ssrc
     tree <- parser l p src
-    return $ P.countTag (T.pack t) tree
+    return $ f (T.pack t) tree
+
+counterNode :: Counter
+counterNode = parseCounter P.countTag
 
 counterCall :: Counter
-counterCall = Counter $ \l t p -> do
-    src <- liftIO $ BS.readFile p
-    tree <- parser l p src
-    return $ P.countCall (T.pack t) tree
+counterCall = parseCounter P.countCall
 
 counterDepth :: Counter
-counterDepth = Counter $ \l t p -> do
-    src <- liftIO $ BS.readFile p
-    tree <- parser l p src
-    return $ P.countDepth (T.pack t) tree
+counterDepth = parseCounter P.countDepth
 
 counterChoice :: Counter -> Maybe String -> Counter
 counterChoice d Nothing = d
