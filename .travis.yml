@@ -19,7 +19,7 @@ install:
 - cp hlint ~/.local/bin
 - gem install danger danger-hlint
 script:
-- stack --no-terminal test --only-dependencies
+- stack test --only-dependencies
 - "./hlint '--ignore=Parse error' src"
 - "./hlint '--ignore=Parse error' app"
 - danger
