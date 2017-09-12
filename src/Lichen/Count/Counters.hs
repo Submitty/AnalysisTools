@@ -52,5 +52,7 @@ counterChoice d Nothing = d
 counterChoice _ (Just "token") = counterToken
 counterChoice _ (Just "node") = counterNode
 counterChoice _ (Just "call") = counterCall
+counterChoice _ (Just "func") = counterCall
+counterChoice _ (Just "function") = counterCall
 counterChoice _ (Just "depth") = counterDepth
 counterChoice _ _ = counterDummy
