@@ -7,6 +7,7 @@ import System.FilePath
 
 import Data.Aeson
 import Data.Semigroup ((<>))
+import qualified Data.Set as Set
 import qualified Data.Text as T
 import qualified Data.ByteString.Lazy as BS
 
@@ -24,6 +25,7 @@ import Lichen.Plagiarism.Concatenate
 import Lichen.Plagiarism.Highlight
 import Lichen.Plagiarism.Report
 import Lichen.Plagiarism.Walk
+import Lichen.Plagiarism.Shared
 
 parseOptions :: Config -> Parser Config
 parseOptions dc = Config
@@ -64,5 +66,8 @@ realMain ic = do
             mapM_ highlight pdirs
             prints <- fingerprintDir (language config) (dataDir config </> concatDir config ++ dir)
             past <- concat <$> mapM (\x -> fingerprintDir (language config) (dataDir config </> concatDir config ++ x)) pdirs
-            report dir prints past
+            let shared = findShared config (fst <$> prints) (fst <$> past)
+                sprints = (\(x, t) -> (Set.toList $ Set.difference (Set.fromList x) shared, t)) <$> prints
+                spast = (\(x, t) -> (Set.toList $ Set.difference (Set.fromList x) shared, t)) <$> past
+            report dir sprints spast
     where opts c = info (helper <*> parseOptions c) (fullDesc <> progDesc "Run plagiarism detection" <> header "plagiarism - plagiarism detection")
