@@ -1,5 +1,5 @@
 name:                lichen
-version:             0.2.6
+version:             0.2.7
 synopsis:            Plagiarism Detection and Other Static Analysis
 description:         Please see README.md
 homepage:            https://github.com/Submitty/AnalysisTools
@@ -49,6 +49,7 @@ library
                      , process
                      , directory
                      , filepath
+                     , ansi-terminal
                      , aeson
                      , megaparsec
                      , optparse-applicative

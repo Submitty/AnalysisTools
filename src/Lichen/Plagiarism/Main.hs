@@ -60,14 +60,20 @@ realMain ic = do
             dir <- liftIO $ canonicalizePath p
             pdirs <- liftIO . mapM canonicalizePath $ pastDirs config
             let concatenate = if allVersions config then concatenateAll else concatenateActive
-            concatenate dir
-            mapM_ concatenate pdirs
-            highlight dir
-            mapM_ highlight pdirs
-            prints <- fingerprintDir (language config) (dataDir config </> concatDir config ++ dir)
-            past <- concat <$> mapM (\x -> fingerprintDir (language config) (dataDir config </> concatDir config ++ x)) pdirs
-            let shared = findShared config (fst <$> prints) (fst <$> past)
-                sprints = (\(x, t) -> (Set.toList $ Set.difference (Set.fromList x) shared, t)) <$> prints
-                spast = (\(x, t) -> (Set.toList $ Set.difference (Set.fromList x) shared, t)) <$> past
-            report dir sprints spast
+            progress "Concatenating submissions" $ do
+                concatenate dir
+                mapM_ concatenate pdirs
+            progress "Highlighting concatenated files" $ do
+                highlight dir
+                mapM_ highlight pdirs
+            (prints, past) <- progress "Fingerprinting submissions" $ do
+                prints <- fingerprintDir (language config) (dataDir config </> concatDir config ++ dir)
+                past <- concat <$> mapM (\x -> fingerprintDir (language config) (dataDir config </> concatDir config ++ x)) pdirs
+                return (prints, past)
+            (sprints, spast) <- progress "Detecting shared code" $ do
+                let shared = findShared config (fst <$> prints) (fst <$> past)
+                    sprints = (\(x, t) -> (Set.toList $ Set.difference (Set.fromList x) shared, t)) <$> prints
+                    spast = (\(x, t) -> (Set.toList $ Set.difference (Set.fromList x) shared, t)) <$> past
+                return (sprints, spast)
+            progress "Generating plagiarism reports" $ report dir sprints spast
     where opts c = info (helper <*> parseOptions c) (fullDesc <> progDesc "Run plagiarism detection" <> header "plagiarism - plagiarism detection")
