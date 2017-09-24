@@ -14,8 +14,8 @@ before_install:
 - travis_retry curl -L https://www.stackage.org/stack/linux-x86_64 | tar xz --wildcards --strip-components=1 -C ~/.local/bin '*/stack'
 - rvm use 2.1 --install --binary --fuzzy
 install:
-- travis_wait 60 stack --no-terminal --install-ghc --copy-bins build
-- stack --no-terminal install hlint
+- travis_wait 60 stack --install-ghc --copy-bins build
+- stack install hlint
 - cp hlint ~/.local/bin
 - gem install danger danger-hlint
 script:
