@@ -73,5 +73,5 @@ progress msg body = do
         ret <- body
         liftIO (hSetSGR stderr [SetColor Foreground Vivid Green])
         liftIO (hPutStrLn stderr " Done!")
-        liftIO (hSetSGR stderr Vivid [Reset])
+        liftIO (hSetSGR stderr [Reset])
         return ret
