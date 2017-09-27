@@ -14,6 +14,7 @@ before_install:
 - travis_retry curl -L https://www.stackage.org/stack/linux-x86_64 | tar xz --wildcards --strip-components=1 -C ~/.local/bin '*/stack'
 - rvm use 2.1 --install --binary --fuzzy
 install:
+- stack --install-ghc --copy-bins install language-python
 - travis_wait 60 stack --install-ghc --copy-bins build
 - stack install hlint
 - cp hlint ~/.local/bin
