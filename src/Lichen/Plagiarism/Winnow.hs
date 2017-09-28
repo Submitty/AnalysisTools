@@ -6,9 +6,9 @@ import qualified Data.ByteString as BS
 
 import Control.Monad.Trans
 
+import Lichen.Languages
 import Lichen.Lexer
-import Lichen.Config.Languages
-import Lichen.Config.Plagiarism
+import Lichen.Plagiarism.Config
 
 type Fingerprint = Tagged Int
 type Fingerprints = [Fingerprint]
@@ -86,4 +86,4 @@ processTokens config = winnow (signalThreshold config) (noiseThreshold config)
 
 -- Cannot use record syntax here due to type variable selection
 processCode :: Language -> FilePath -> BS.ByteString -> Plagiarism Fingerprints
-processCode (Language _ llex c _ _) p src = lift $ processTokens c <$> llex p src
+processCode (Language _ c _ l _) p src = lift $ processTokens c <$> l p src

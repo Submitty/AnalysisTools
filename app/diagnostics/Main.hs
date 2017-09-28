@@ -1,4 +1,4 @@
-import Lichen.Config.Diagnostics
+import Lichen.Diagnostics.Config
 import Lichen.Diagnostics.Main
 
 main :: IO ()

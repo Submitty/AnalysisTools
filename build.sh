@@ -1,7 +1,7 @@
 #!/bin/sh
 
 VERSION=$1
-BINARIES="count plagiarism"
+BINARIES="count plagiarism diagnostics"
 
 if [ -z $VERSION ]
     then VERSION="latest"

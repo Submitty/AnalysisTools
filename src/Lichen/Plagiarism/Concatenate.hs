@@ -14,8 +14,8 @@ import Control.Arrow (second)
 import Text.Read
 
 import Lichen.Util
-import Lichen.Config.Languages
-import Lichen.Config.Plagiarism
+import Lichen.Languages
+import Lichen.Plagiarism.Config
 import Lichen.Plagiarism.AssignmentSettings
 
 -- Given a student submission directory, parse the students
@@ -52,7 +52,7 @@ concatenateActive p = do
         dstSrc <- liftIO $ mapM (toDstSrc config) students
         liftIO . mapM_ (\x -> removeDir x >> createDirectoryIfMissing True x) . Set.fromList $ containingDir . fst <$> dstSrc
         liftIO $ mapM_ (uncurry runCat) dstSrc
-    where wd c = dataDir c </> concatDir c
+    where wd c = outputDir c </> concatDir c
           clean (s, m) = (,) <$> pure s <*> m
           toDstSrc c (s, active) = (,) <$> ((wd c ++) <$> canonicalizePath s)
                                        <*> (filter (\x -> takeExtension x `elem` exts (language c)) . fmap (\x -> active </> x) <$> listDirectory active)
@@ -65,7 +65,7 @@ concatenateAll p = do
         dstSrc <- liftIO $ mconcat <$> mapM (toDstSrc config) students
         liftIO . mapM_ (\x -> removeDir x >> createDirectoryIfMissing True x) . Set.fromList $ containingDir . fst <$> dstSrc
         liftIO $ mapM_ (uncurry runCat) dstSrc
-    where wd c = dataDir c </> concatDir c
+    where wd c = outputDir c </> concatDir c
           clean (s, m) = (,) <$> pure s <*> m
           toDstSrc :: Config -> (FilePath, [FilePath]) -> IO [(FilePath, [FilePath])]
           toDstSrc c (s, active) = mapM (\a -> (,) <$> ((++ a) . (++ "_") . (wd c ++) <$> canonicalizePath s)

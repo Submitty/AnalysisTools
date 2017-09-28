@@ -3,7 +3,7 @@ module Lichen.Plagiarism.Shared where
 import qualified Data.Set as Set
 import qualified Data.Map.Strict as Map
 
-import Lichen.Config.Plagiarism
+import Lichen.Plagiarism.Config
 import Lichen.Plagiarism.Winnow
 
 findShared :: Config -> [Fingerprints] -> [Fingerprints] -> Set.Set Fingerprint

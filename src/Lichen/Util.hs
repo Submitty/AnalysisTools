@@ -4,10 +4,14 @@ module Lichen.Util where
 
 import System.Directory
 import System.FilePath
+import System.Console.ANSI
+import System.IO (hPutStr, hPutStrLn, stderr)
 
 import Data.List.Split
+import Data.Monoid ((<>))
 
 import Control.Monad
+import Control.Monad.IO.Class
 
 -- Ex: purify [Maybe 1, Nothing, Maybe 3] = [1, 3]
 purify :: [Maybe a] -> [a]
@@ -29,6 +33,7 @@ purifySnd ((x, Just y):xs) = (x, y):purifySnd xs
 
 -- Ex: containingDir "/usr/bin/gcc" = "/usr/bin"
 containingDir :: FilePath -> FilePath
+containingDir [] = []
 containingDir p = (if head p == '/' then ('/':) else id) . foldr1 (</>) . init . splitOn "/" $ p
 
 removeDir :: FilePath -> IO ()
@@ -62,3 +67,22 @@ sq = go . show where
     go ('"':s) | last s == '"' = init s
                | otherwise = s
     go x = x
+
+printColor :: MonadIO m => Color -> m () -> m ()
+printColor c body = liftIO (hSetSGR stderr [SetColor Foreground Vivid c]) >> body >> liftIO (hSetSGR stderr [Reset])
+
+notify :: MonadIO m => m () -> m ()
+notify = printColor Green
+
+warn :: MonadIO m => m () -> m ()
+warn = printColor Yellow
+
+err :: MonadIO m => m () -> m ()
+err = printColor Red
+
+progress :: MonadIO m => String -> m a -> m a
+progress msg body = do
+        liftIO . hPutStr stderr $ msg <> "... "
+        ret <- body
+        liftIO . notify $ hPutStrLn stderr "Done!"
+        return ret
