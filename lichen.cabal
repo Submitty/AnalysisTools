@@ -49,6 +49,7 @@ library
                      , process
                      , directory
                      , filepath
+                     , ansi-terminal
                      , aeson
                      , megaparsec
                      , optparse-applicative

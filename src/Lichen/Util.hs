@@ -4,10 +4,14 @@ module Lichen.Util where
 
 import System.Directory
 import System.FilePath
+import System.Console.ANSI
+import System.IO (hPutStr, hPutStrLn, stderr)
 
 import Data.List.Split
+import Data.Monoid ((<>))
 
 import Control.Monad
+import Control.Monad.IO.Class
 
 -- Ex: purify [Maybe 1, Nothing, Maybe 3] = [1, 3]
 purify :: [Maybe a] -> [a]
@@ -62,3 +66,12 @@ sq = go . show where
     go ('"':s) | last s == '"' = init s
                | otherwise = s
     go x = x
+
+progress :: MonadIO m => String -> m a -> m a
+progress msg body = do
+        liftIO (hPutStr stderr (msg <> "..."))
+        ret <- body
+        liftIO (hSetSGR stderr [SetColor Foreground Vivid Green])
+        liftIO (hPutStrLn stderr " Done!")
+        liftIO (hSetSGR stderr [Reset])
+        return ret

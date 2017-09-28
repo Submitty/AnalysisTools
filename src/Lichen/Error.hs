@@ -2,7 +2,7 @@
 
 module Lichen.Error where
 
-import System.IO (stderr)
+import System.IO (stderr, hPutStrLn)
 
 import Data.Monoid ((<>))
 import qualified Data.Text as T
@@ -24,7 +24,7 @@ data LichenError = LexError (ParseError (Token BS.ByteString) Dec)
                  deriving Show
 
 printError :: LichenError -> IO ()
-printError (LexError e) = T.IO.hPutStrLn stderr "Lexer error: " >> putStrLn (parseErrorPretty e)
+printError (LexError e) = T.IO.hPutStrLn stderr "Lexer error: " >> hPutStrLn stderr (parseErrorPretty e)
 printError (ParseError t) = T.IO.hPutStrLn stderr ("Parser error: " <> t)
 printError (InvalidTokenError t) = T.IO.hPutStrLn stderr ("Invalid token error: " <> t)
 printError (InvocationError t) = T.IO.hPutStrLn stderr ("Invocation error: " <> t)
