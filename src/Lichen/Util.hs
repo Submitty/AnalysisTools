@@ -33,6 +33,7 @@ purifySnd ((x, Just y):xs) = (x, y):purifySnd xs
 
 -- Ex: containingDir "/usr/bin/gcc" = "/usr/bin"
 containingDir :: FilePath -> FilePath
+containingDir [] = []
 containingDir p = (if head p == '/' then ('/':) else id) . foldr1 (</>) . init . splitOn "/" $ p
 
 removeDir :: FilePath -> IO ()
@@ -81,7 +82,7 @@ err = printColor Red
 
 progress :: MonadIO m => String -> m a -> m a
 progress msg body = do
-        liftIO . hPutStr stderr $ msg <> "..."
+        liftIO . hPutStr stderr $ msg <> "... "
         ret <- body
-        liftIO . notify $ hPutStrLn stderr " Done!"
+        liftIO . notify $ hPutStrLn stderr "Done!"
         return ret

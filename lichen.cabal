@@ -1,5 +1,5 @@
 name:                lichen
-version:             0.2.7
+version:             0.3.0
 synopsis:            Plagiarism Detection and Other Static Analysis
 description:         Please see README.md
 homepage:            https://github.com/Submitty/AnalysisTools
@@ -20,6 +20,7 @@ library
                      , Lichen.Lexer
                      , Lichen.Lexer.C
                      , Lichen.Lexer.Python
+                     , Lichen.Lexer.Java
 
                      , Lichen.Parser
                      , Lichen.Parser.Python
