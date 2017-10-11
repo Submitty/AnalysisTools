@@ -8,7 +8,7 @@ import Control.Monad.Reader
 import Control.Arrow ((&&&))
 
 import Lichen.Util
-import Lichen.Config.Plagiarism
+import Lichen.Plagiarism.Config
 
 highlight :: FilePath -> Plagiarism ()
 highlight p = do

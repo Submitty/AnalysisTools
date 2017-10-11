@@ -12,7 +12,7 @@ import Control.Monad.Reader
 import Text.Blaze.Html.Renderer.Utf8
 
 import Lichen.Util
-import Lichen.Config.Plagiarism
+import Lichen.Plagiarism.Config
 import Lichen.Plagiarism.Winnow
 import Lichen.Plagiarism.Compare
 import Lichen.Plagiarism.Render

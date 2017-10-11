@@ -10,7 +10,7 @@ import qualified Data.ByteString as BS
 import Control.Monad.Except
 
 import Lichen.Error
-import Lichen.Config.Languages
+import Lichen.Languages
 import Lichen.Lexer
 import Lichen.Util
 import qualified Lichen.Parser as P
@@ -24,7 +24,7 @@ counterDummy :: Counter
 counterDummy = Counter $ \_ _ _ -> throwError $ InvocationError "Invalid counting method specified"
 
 counterToken :: Counter
-counterToken = Counter $ \(Language _ l _ readTok _) t p -> do
+counterToken = Counter $ \(Language _ _ readTok l _) t p -> do
     ssrc <- liftIO $ readSafe (liftIO . BS.readFile) (throwError $ InvocationError "File not found") p
     src <- ssrc
     tokens <- l p src

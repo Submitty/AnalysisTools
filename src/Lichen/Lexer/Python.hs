@@ -37,9 +37,6 @@ sc = L.space (void spaceChar) (L.skipLineComment "#") (L.skipBlockComment "\"\"\
 reserved :: String -> Parser String
 reserved = try . string
 
-pyStrLit :: Parser String
-pyStrLit = char '\'' *> manyTill L.charLiteral (char '\'')
-        
 onetoken :: Parser (Tagged Tok)
 onetoken = wrap (reserved "False") Lichen.Lexer.Python.False
        <|> wrap (reserved "None") None
@@ -77,27 +74,39 @@ onetoken = wrap (reserved "False") Lichen.Lexer.Python.False
        <|> wrap ident Identifier
        <|> wrap (show <$> L.integer) IntegerLiteral
        <|> wrap (show <$> L.float) FloatLiteral
-       <|> wrap (show <$> (strLit <|> pyStrLit)) StringLiteral
-       <|> wrap (show <$> (char 'b' *> (strLit <|> pyStrLit))) BytesLiteral
+       <|> wrap (show <$> (strLit <|> charLit)) StringLiteral
+       <|> wrap (show <$> (char 'b' *> (strLit <|> charLit))) BytesLiteral
+       <|> wrap (reserved "**=") PowAssign
+       <|> wrap (reserved "//=") IntDivAssign
+       <|> wrap (reserved "<<=") LeftAssign
+       <|> wrap (reserved ">>=") RightAssign
+       <|> wrap (reserved "+=") AddAssign
+       <|> wrap (reserved "-=") SubAssign
+       <|> wrap (reserved "*=") MulAssign
+       <|> wrap (reserved "/=") DivAssign
+       <|> wrap (reserved "%=") ModAssign
+       <|> wrap (reserved "&=") AndAssign
+       <|> wrap (reserved "|=") OrAssign
+       <|> wrap (reserved "^=") XorAssign
+       <|> wrap (reserved "**") DoubleAsterisk
+       <|> wrap (reserved "//") DoubleSlash
+       <|> wrap (reserved "==") EqOp
+       <|> wrap (reserved "!=") NeOp
+       <|> wrap (reserved "<=") LeOp
+       <|> wrap (reserved ">=") GeOp
+       <|> wrap (reserved "<<") LeftOp
+       <|> wrap (reserved ">>") RightOp
        <|> wrap (reserved "+") Plus
        <|> wrap (reserved "-") Minus
        <|> wrap (reserved "*") Asterisk
        <|> wrap (reserved "/") Slash
-       <|> wrap (reserved "//") DoubleSlash
        <|> wrap (reserved "%") Percent
-       <|> wrap (reserved "**") DoubleAsterisk
-       <|> wrap (reserved "==") EqOp
-       <|> wrap (reserved "!=") NeOp
        <|> wrap (reserved "<") LessThan
        <|> wrap (reserved ">") GreaterThan
-       <|> wrap (reserved "<=") LeOp
-       <|> wrap (reserved ">=") GeOp
        <|> wrap (reserved "&") Ampersand
        <|> wrap (reserved "|") Pipe
        <|> wrap (reserved "~") Tilde
        <|> wrap (reserved "^") Caret
-       <|> wrap (reserved "<<") LeftOp
-       <|> wrap (reserved ">>") RightOp
        <|> wrap (reserved "(") LeftParen
        <|> wrap (reserved ")") RightParen
        <|> wrap (reserved "[") LeftSquare
@@ -110,19 +119,7 @@ onetoken = wrap (reserved "False") Lichen.Lexer.Python.False
        <|> wrap (reserved ";") Semicolon
        <|> wrap (reserved "@") At
        <|> wrap (reserved "=") Equal
-       <|> wrap (reserved "+=") AddAssign
-       <|> wrap (reserved "-=") SubAssign
-       <|> wrap (reserved "*=") MulAssign
-       <|> wrap (reserved "/=") DivAssign
-       <|> wrap (reserved "//=") IntDivAssign
-       <|> wrap (reserved "%=") ModAssign
-       <|> wrap (reserved "**=") PowAssign
-       <|> wrap (reserved "&=") AndAssign
-       <|> wrap (reserved "|=") OrAssign
-       <|> wrap (reserved "^=") XorAssign
-       <|> wrap (reserved "<<=") LeftAssign
-       <|> wrap (reserved ">>=") RightAssign
-       <|> wrap ((:[]) <$> L.charLiteral) Unknown
+       <|> wrap ((:[]) <$> anyChar) Unknown
 
 lex :: Lexer Tok
 lex p d = case runParser (many (sc *> onetoken <* sc)) p d of

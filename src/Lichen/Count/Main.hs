@@ -18,8 +18,8 @@ import Options.Applicative
 import Lichen.Util
 import Lichen.Error
 import Lichen.Config
-import Lichen.Config.Languages
-import Lichen.Config.Count
+import Lichen.Languages
+import Lichen.Count.Config
 import Lichen.Count.Counters
 
 parseOptions :: Config -> Parser Config

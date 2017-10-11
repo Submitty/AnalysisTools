@@ -11,7 +11,7 @@ import qualified Data.ByteString.Lazy as BS
 import Control.Monad.Except
 
 import Lichen.Error
-import Lichen.Config.Plagiarism
+import Lichen.Plagiarism.Config
 
 data VersionTime = VersionTime { version :: Int, time :: String }
 instance FromJSON VersionTime where parseJSON = withObject "version_time" $ \o -> VersionTime <$> o .: "version" <*> o .: "time"

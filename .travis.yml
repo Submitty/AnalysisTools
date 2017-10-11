@@ -31,6 +31,7 @@ deploy:
   file:
   - count
   - plagiarism
+  - diagnostics
   skip_cleanup: true
   on:
     tags: true

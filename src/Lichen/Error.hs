@@ -14,6 +14,8 @@ import Text.Megaparsec.Error (ParseError, parseErrorPretty)
 
 import Control.Monad.Except (ExceptT)
 
+import Lichen.Util
+
 type Erring = ExceptT LichenError IO
 
 data LichenError = LexError (ParseError (Token BS.ByteString) Dec)
@@ -24,8 +26,8 @@ data LichenError = LexError (ParseError (Token BS.ByteString) Dec)
                  deriving Show
 
 printError :: LichenError -> IO ()
-printError (LexError e) = T.IO.hPutStrLn stderr "Lexer error: " >> hPutStrLn stderr (parseErrorPretty e)
-printError (ParseError t) = T.IO.hPutStrLn stderr ("Parser error: " <> t)
-printError (InvalidTokenError t) = T.IO.hPutStrLn stderr ("Invalid token error: " <> t)
-printError (InvocationError t) = T.IO.hPutStrLn stderr ("Invocation error: " <> t)
-printError (JSONDecodingError t) = T.IO.hPutStrLn stderr ("JSON decoding error: " <> t)
+printError (LexError e) = err $ T.IO.hPutStrLn stderr "Lexer error: " >> hPutStrLn stderr (parseErrorPretty e)
+printError (ParseError t) = err $ T.IO.hPutStrLn stderr ("Parser error: " <> t)
+printError (InvalidTokenError t) = err $ T.IO.hPutStrLn stderr ("Invalid token error: " <> t)
+printError (InvocationError t) = err $ T.IO.hPutStrLn stderr ("Invocation error: " <> t)
+printError (JSONDecodingError t) = err $ T.IO.hPutStrLn stderr ("JSON decoding error: " <> t)

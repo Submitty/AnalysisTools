@@ -40,8 +40,8 @@ wrap p x = do
         return . Tagged x $ TokPos (sourceLine pos) (sourceLine pos) (sourceColumn pos) (sourceColumn pos <> unsafePos (fromIntegral $ length s))
 
 -- Parse a C-style character literal. Ex: 'a', '@'.
-charLit :: Parser Char
-charLit = char '\'' *> L.charLiteral <* char '\''
+charLit :: Parser String
+charLit = char '\'' *> manyTill L.charLiteral (char '\'')
 
 -- Parse a C-style string literal. Ex: "a", "hello, world".
 strLit :: Parser String

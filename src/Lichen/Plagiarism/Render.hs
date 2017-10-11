@@ -18,7 +18,7 @@ import qualified Clay.Font as C.F
 import Language.Javascript.JMacro
 
 import Lichen.Util
-import Lichen.Config.Plagiarism
+import Lichen.Plagiarism.Config
 
 hs :: Show a => a -> H.Html
 hs = H.toHtml . sq

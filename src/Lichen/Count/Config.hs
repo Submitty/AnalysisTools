@@ -1,12 +1,12 @@
 {-# LANGUAGE OverloadedStrings, RecordWildCards #-}
 
-module Lichen.Config.Count where
+module Lichen.Count.Config where
 
 import Data.Maybe
 import Data.Aeson
 
 import Lichen.Config
-import Lichen.Config.Languages
+import Lichen.Languages
 import Lichen.Count.Counters
 
 data Config = Config

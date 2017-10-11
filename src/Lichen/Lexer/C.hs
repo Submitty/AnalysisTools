@@ -5,7 +5,7 @@ module Lichen.Lexer.C where
 import GHC.Generics (Generic)
 
 import Control.Monad
---import Control.Monad.Except
+import Control.Monad.Except
 
 import Data.Hashable
 
@@ -13,7 +13,7 @@ import Text.Megaparsec
 import Text.Megaparsec.ByteString
 import qualified Text.Megaparsec.Lexer as L
 
---import Lichen.Error
+import Lichen.Error
 import Lichen.Lexer
 
 data Tok = Auto | Break | Case | Char | Const | Continue | Default | Do
@@ -137,10 +137,9 @@ onetoken = wrap (reserved "auto") Auto
        <|> wrap (reserved "^") Caret
        <|> wrap (reserved "|") Pipe
        <|> wrap (reserved "?") Question
-       <|> wrap ((:[]) <$> L.charLiteral) Unknown
+       <|> wrap ((:[]) <$> anyChar) Unknown
         
 lex :: Lexer Tok
 lex p d = case runParser (many (sc *> onetoken <* sc)) p d of
-              --Left e -> throwError $ LexError e
-              Left _ -> return []
+              Left e -> throwError $ LexError e
               Right t -> return t
