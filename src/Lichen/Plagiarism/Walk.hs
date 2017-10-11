@@ -7,8 +7,8 @@ import qualified Data.ByteString as BS
 
 import Control.Monad.Reader
 
-import Lichen.Config.Languages
-import Lichen.Config.Plagiarism
+import Lichen.Languages
+import Lichen.Plagiarism.Config
 import Lichen.Plagiarism.Winnow
 
 -- Given language configuration and the path to a directory containing

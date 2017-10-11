@@ -14,8 +14,8 @@ import Control.Arrow (second)
 import Text.Read
 
 import Lichen.Util
-import Lichen.Config.Languages
-import Lichen.Config.Plagiarism
+import Lichen.Languages
+import Lichen.Plagiarism.Config
 import Lichen.Plagiarism.AssignmentSettings
 
 -- Given a student submission directory, parse the students

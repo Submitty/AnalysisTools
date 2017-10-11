@@ -19,8 +19,8 @@ import Options.Applicative
 import Lichen.Util
 import Lichen.Error
 import Lichen.Config
-import Lichen.Config.Languages
-import Lichen.Config.Plagiarism
+import Lichen.Languages
+import Lichen.Plagiarism.Config
 import Lichen.Plagiarism.Concatenate
 import Lichen.Plagiarism.Highlight
 import Lichen.Plagiarism.Report

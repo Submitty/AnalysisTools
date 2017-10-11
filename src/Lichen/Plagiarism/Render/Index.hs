@@ -12,7 +12,7 @@ import qualified Text.Blaze.Html5.Attributes as A
 import Numeric
 
 import Lichen.Util
-import Lichen.Config.Plagiarism
+import Lichen.Plagiarism.Config
 import Lichen.Plagiarism.Render
 
 renderEntry :: Show a => Config -> (Double, (b, a), (b, a)) -> H.Html

@@ -1,12 +1,12 @@
 {-# LANGUAGE OverloadedStrings, RecordWildCards #-}
 
-module Lichen.Config.Diagnostics where
+module Lichen.Diagnostics.Config where
 
 import Data.Maybe
 import Data.Aeson
 
 import Lichen.Config
-import Lichen.Config.Languages
+import Lichen.Languages
 
 data Config = Config
             { dataDir :: FilePath

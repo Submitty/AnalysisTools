@@ -1,6 +1,6 @@
 {-# LANGUAGE OverloadedStrings, RecordWildCards #-}
 
-module Lichen.Config.Plagiarism where
+module Lichen.Plagiarism.Config where
 
 import Data.Maybe
 import Data.Aeson
@@ -9,7 +9,7 @@ import qualified Data.Text as T
 import qualified Text.Blaze.Html5 as H
 
 import Lichen.Config
-import Lichen.Config.Languages
+import Lichen.Languages
 
 newtype PathGenerator = PathGenerator { runPathGenerator :: Config -> String -> String -> H.AttributeValue }
 instance FromJSON PathGenerator where

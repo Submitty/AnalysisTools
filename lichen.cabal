@@ -1,5 +1,5 @@
 name:                lichen
-version:             0.2.7
+version:             0.3.0
 synopsis:            Plagiarism Detection and Other Static Analysis
 description:         Please see README.md
 homepage:            https://github.com/Submitty/AnalysisTools
@@ -14,17 +14,19 @@ library
   hs-source-dirs:      src
   exposed-modules:     Lichen.Util
                      , Lichen.Error
+                     , Lichen.Languages
                      , Lichen.Config
-                     , Lichen.Config.Languages
-                     , Lichen.Config.Plagiarism
-                     , Lichen.Config.Count
-                     , Lichen.Config.Diagnostics
+
                      , Lichen.Lexer
                      , Lichen.Lexer.C
                      , Lichen.Lexer.Python
+                     , Lichen.Lexer.Java
+
                      , Lichen.Parser
                      , Lichen.Parser.Python
+
                      , Lichen.Plagiarism.Main
+                     , Lichen.Plagiarism.Config
                      , Lichen.Plagiarism.Winnow
                      , Lichen.Plagiarism.Compare
                      , Lichen.Plagiarism.Walk
@@ -36,9 +38,13 @@ library
                      , Lichen.Plagiarism.Render
                      , Lichen.Plagiarism.Render.Index
                      , Lichen.Plagiarism.Render.Compare
+
                      , Lichen.Count.Main
+                     , Lichen.Count.Config
                      , Lichen.Count.Counters
+
                      , Lichen.Diagnostics.Main
+                     , Lichen.Diagnostics.Config
   build-depends:       base >= 4.7 && < 5
                      , containers
                      , split
@@ -60,7 +66,7 @@ library
                      , jmacro
                      , QuickCheck
                      , hspec
-  ghc-options:         -O2 -Wall -fwarn-incomplete-patterns -fno-warn-orphans
+  ghc-options:         -O2 -Wall
   default-language:    Haskell2010
 
 executable plagiarism

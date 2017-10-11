@@ -23,14 +23,14 @@ import Options.Applicative
 import Lichen.Util
 import Lichen.Error
 import Lichen.Config
-import Lichen.Config.Languages
-import Lichen.Config.Diagnostics
+import Lichen.Languages
+import Lichen.Diagnostics.Config
 import Lichen.Plagiarism.Concatenate
 import Lichen.Plagiarism.Compare
 import Lichen.Plagiarism.Walk
 import Lichen.Plagiarism.Winnow
 import Lichen.Plagiarism.AssignmentSettings
-import qualified Lichen.Config.Plagiarism as Plagiarism
+import qualified Lichen.Plagiarism.Config as Plagiarism
 
 compareTag :: String -> [(Fingerprints, String)] -> [(Double, (Fingerprints, String), (Fingerprints, String))]
 compareTag t prints = case ours of Just x -> curry compareFingerprints x <$> prints
@@ -40,7 +40,7 @@ compareTag t prints = case ours of Just x -> curry compareFingerprints x <$> pri
           ours = tagged prints
 
 diagnosticsToken :: Language -> FilePath -> Erring Pair
-diagnosticsToken (Language _ l _ _ _) p = do
+diagnosticsToken (Language _ _ _ l _) p = do
         src <- liftIO $ BS.readFile p
         tokens <- l p src
         return $ T.pack p .= toJSON tokens
