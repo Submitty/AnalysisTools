@@ -10,7 +10,7 @@ import Lichen.Languages
 import Lichen.Count.Counters
 
 data Config = Config
-            { dataDir :: FilePath
+            { configFile :: FilePath
             , language :: Language
             , counter :: Counter
             , toCount :: Maybe String
@@ -18,7 +18,7 @@ data Config = Config
             }
 instance FromJSON Config where
         parseJSON = withObject "config_count" $ \o -> do
-            dataDir <- fromMaybe (dataDir defaultConfig) <$> o .:? "data_dir"
+            configFile <- fromMaybe (configFile defaultConfig) <$> o .:? "config_file"
             language <- fromMaybe (language defaultConfig) <$> o .:? "language"
             counter <- fromMaybe (counter defaultConfig) <$> o .:? "counter"
             toCount <- fromMaybe (toCount defaultConfig) <$> o .:? "to_count"
@@ -26,7 +26,7 @@ instance FromJSON Config where
             return Config{..}
 
 defaultConfig :: Config
-defaultConfig = Config { dataDir = ".lichen"
+defaultConfig = Config { configFile = ".lichenrc"
                        , language = langDummy
                        , counter = counterDummy
                        , toCount = Nothing

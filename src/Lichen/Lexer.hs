@@ -10,7 +10,6 @@ import qualified Data.ByteString as BS
 
 import Text.Megaparsec
 import Text.Megaparsec.ByteString
-import qualified Text.Megaparsec.Lexer as L
 
 import Lichen.Error
 
@@ -41,11 +40,11 @@ wrap p x = do
 
 -- Parse a C-style character literal. Ex: 'a', '@'.
 charLit :: Parser String
-charLit = char '\'' *> manyTill L.charLiteral (char '\'')
+charLit = char '\'' *> manyTill (noneOf ['\'']) (char '\'' <|> (eof >> pure ' '))
 
 -- Parse a C-style string literal. Ex: "a", "hello, world".
 strLit :: Parser String
-strLit = char '\"' *> manyTill L.charLiteral (char '\"')
+strLit = char '\"' *> manyTill (noneOf ['"']) (char '\"' <|> (eof >> pure ' '))
 
 -- Parse a C-style identifier (letter or underscore followed by any number
 -- of letters, digits, and underscores).

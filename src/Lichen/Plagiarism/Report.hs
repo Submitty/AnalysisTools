@@ -22,8 +22,8 @@ import Lichen.Plagiarism.Render.Compare
 report :: (Show a, Eq a) => FilePath -> [(Fingerprints, a)] -> [(Fingerprints, a)] -> Plagiarism ()
 report p prints past = do
         config <- ask
-        dstPath <- liftIO $ liftA2 (++) (pure $ dataDir config </> reportDir config) $ canonicalizePath p
-        srcPath <- liftIO $ liftA2 (++) (pure $ dataDir config </> concatDir config) $ canonicalizePath p
+        dstPath <- liftIO $ liftA2 (++) (pure $ outputDir config </> reportDir config) $ canonicalizePath p
+        srcPath <- liftIO $ liftA2 (++) (pure $ outputDir config </> concatDir config) $ canonicalizePath p
         let compared = ccmp (topMatches config) prints past
         liftIO $ removeDir dstPath >> createDirectoryIfMissing True dstPath
         liftIO . createDirectoryIfMissing True $ dstPath </> "compare"

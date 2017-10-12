@@ -57,6 +57,7 @@ library
                      , filepath
                      , ansi-terminal
                      , aeson
+                     , aeson-pretty
                      , megaparsec
                      , optparse-applicative
                      , language-python

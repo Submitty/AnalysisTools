@@ -31,7 +31,8 @@ generatePathChoice _ (Just "static") = generatePathStatic
 generatePathChoice _ _ = generatePathSubmitty
 
 data Config = Config
-            { dataDir :: FilePath
+            { configFile :: FilePath
+            , outputDir :: FilePath
             , concatDir :: FilePath
             , highlightDir :: FilePath
             , reportDir :: FilePath
@@ -49,7 +50,8 @@ data Config = Config
             }
 instance FromJSON Config where
         parseJSON = withObject "config_plagiarism" $ \o -> do
-            dataDir <- fromMaybe (dataDir defaultConfig) <$> o .:? "data_dir"
+            configFile <- fromMaybe (configFile defaultConfig) <$> o .:? "config_file"
+            outputDir <- fromMaybe (outputDir defaultConfig) <$> o .:? "output_dir"
             concatDir <- fromMaybe (concatDir defaultConfig) <$> o .:? "concat_dir"
             highlightDir <- fromMaybe (highlightDir defaultConfig) <$> o .:? "highlight_dir"
             reportDir <- fromMaybe (reportDir defaultConfig) <$> o .:? "report_dir"
@@ -67,7 +69,8 @@ instance FromJSON Config where
             return Config{..}
 
 defaultConfig :: Config
-defaultConfig = Config { dataDir = "plagiarism"
+defaultConfig = Config { configFile = ".lichenrc"
+                       , outputDir = "plagiarism"
                        , concatDir = "concatenated"
                        , highlightDir = "highlighted"
                        , reportDir = "report"
