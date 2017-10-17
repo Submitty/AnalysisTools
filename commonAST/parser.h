@@ -1,30 +1,26 @@
+#ifndef __PARSER_H__
+#define __PARSER_H__
+
 #include <iostream>
 #include <list>
 #include <fstream>
 #include <stdlib.h>
 #include <vector>
-#include "traversal.cpp"
+#include "traversal.h"
 
-using namespace std;
 
 class Stmt;
 class CompoundStmt;
 class Except;
 
-string getIndentation(int level){
-	string ret = "";
-	for(int i=1; i<=level; i++){
-		ret += "\t";
-	}
-	return ret;
-}
+string getIndentation(int level);
+
 
 class Token{
 	public:
 		string value;
 		int level;
 };
-
 
 class ASTNode{
 	public:
@@ -40,9 +36,36 @@ class ASTNode{
 
 		}
 
-
 		virtual void accept(CounterVisitor& v) = 0;
+
+		int complexity;
 };
+
+
+
+class Expr : public ASTNode{
+	virtual string getType() = 0;
+	virtual list<ASTNode*> getChildren() = 0;
+	virtual void accept(CounterVisitor& v) = 0;
+};
+
+
+class Call: public Expr{
+	public:
+		string getType();
+
+		list<ASTNode*> getChildren();
+
+		void printNode(int level);
+
+		void accept(CounterVisitor &v);
+
+		string func;
+		Args* argsList;
+		string obj;
+		int level;
+};
+
 
 
 class Module : public ASTNode{
@@ -68,18 +91,15 @@ class Module : public ASTNode{
 			list<ASTNode*>::iterator itr;
 			for(itr=children.begin(); itr != children.end(); itr++){
 				(*itr)->accept(v);	
+				if(this->complexity <= (*itr)->complexity){
+					this->complexity = (*itr)->complexity; 
+				}
 			}
 
 			v.visit(this);
 		}
 
 		list<ASTNode*> body;
-};
-
-class Expr : public ASTNode{
-	virtual string getType() = 0;
-	virtual list<ASTNode*> getChildren() = 0;
-	virtual void accept(CounterVisitor& v) = 0;
 };
 
 class Stmt : public ASTNode{
@@ -119,6 +139,39 @@ class Identifier : public Expr{
 		string name;
 };
 
+class Args : public ASTNode{
+	public:
+		string getType(){
+			return "args";
+		}
+
+		list<ASTNode*> getChildren(){
+			list<ASTNode*> children;
+			list<Expr*>::iterator itr;
+			for(itr= argList.begin(); itr != argList.end(); itr++){
+				if(*itr){
+					children.push_back(*itr);
+				}
+			}
+		}
+
+		void accept(CounterVisitor& v){
+			list<ASTNode*> children = getChildren();
+
+			list<ASTNode*>::iterator itr;
+			for(itr=children.begin(); itr != children.end(); itr++){
+				(*itr)->accept(v);	
+				if(this->complexity <= (*itr)->complexity){
+					this->complexity = (*itr)->complexity;
+				}
+			}
+
+			v.visit(this);
+		}
+
+		list<Expr*> argList;
+};
+
 class FunctionDef : public Stmt{
 	public:
 		string getType(){
@@ -131,6 +184,16 @@ class FunctionDef : public Stmt{
 			if(compoundStmt){
 				children.push_back((ASTNode*)compoundStmt);
 			}
+
+			list<ASTNode*>::iterator itr;
+			for(itr=initList.begin(); itr != initList.end(); itr++){
+				if(*itr){
+					children.push_back(*itr);	
+				}	
+
+			}
+
+
 			return children;	
 		}
 
@@ -156,6 +219,10 @@ class FunctionDef : public Stmt{
 			list<ASTNode*>::iterator itr;
 			for(itr=children.begin(); itr != children.end(); itr++){
 				(*itr)->accept(v);	
+				if((*itr)->complexity >= this->complexity){
+					
+					this->complexity = (*itr)->complexity;
+				}
 			}
 
 			v.visit(this);
@@ -165,6 +232,7 @@ class FunctionDef : public Stmt{
 
 		Identifier* name;
 		CompoundStmt* compoundStmt;
+		list<ASTNode*> initList;	
 };
 
 class VariableDecl: public Stmt{
@@ -192,6 +260,9 @@ class VariableDecl: public Stmt{
 			list<ASTNode*>::iterator itr;
 			for(itr=children.begin(); itr != children.end(); itr++){
 				(*itr)->accept(v);	
+				if(this->complexity <= (*itr)->complexity){
+					this->complexity += (*itr)->complexity;
+				}
 			}
 
 			v.visit(this);
@@ -224,9 +295,13 @@ class For : public Stmt{
 		void accept(CounterVisitor& v){
 			list<ASTNode*> children = getChildren();
 
+			this->complexity = 1;
 			list<ASTNode*>::iterator itr;
 			for(itr=children.begin(); itr != children.end(); itr++){
 				(*itr)->accept(v);	
+				if(this->complexity <= ((*itr)->complexity)){
+					this->complexity = (*itr)->complexity + 1;
+				}
 			}
 
 			v.visit(this);
@@ -259,19 +334,64 @@ class While: public Stmt{
 		void accept(CounterVisitor &v){
 			list<ASTNode*> children = getChildren();
 
+			this->complexity = 1;
+		
 			list<ASTNode*>::iterator itr;
 			for(itr=children.begin(); itr != children.end(); itr++){
 				(*itr)->accept(v);	
+				if(this->complexity <= (*itr)->complexity){
+					this->complexity = (*itr)->complexity + 1;
+				}
 			}
 
 			v.visit(this);
 		}
 
 
+		list<Expr*> test;
+		CompoundStmt* compoundStmt;
+};
+
+class DoWhile: public Stmt{
+	public:
+		string getType(){
+			return "Do While";
+		}
+
+		list<ASTNode*> getChildren(){
+			list<ASTNode*> children;
+			list<Expr*>::iterator itr;
+			for(itr=test.begin(); itr != test.end(); itr++){
+				if(*itr){
+					children.push_back(*itr);
+				}
+			}
+
+			children.push_back((ASTNode*)compoundStmt);
+			return children;
+		}
+
+		void accept(CounterVisitor &v){
+			list<ASTNode*> children = getChildren();
+
+			this->complexity = 1;
+		
+			list<ASTNode*>::iterator itr;
+			for(itr=children.begin(); itr != children.end(); itr++){
+				(*itr)->accept(v);	
+				if(this->complexity <= (*itr)->complexity){
+					this->complexity = (*itr)->complexity + 1;
+				}
+			}
+
+			v.visit(this);
+		}
+
 
 		list<Expr*> test;
 		CompoundStmt* compoundStmt;
 };
+
 
 class If: public Stmt{
 	public:
@@ -310,6 +430,9 @@ class If: public Stmt{
 			list<ASTNode*>::iterator itr;
 			for(itr=children.begin(); itr != children.end(); itr++){
 				(*itr)->accept(v);	
+				if(this->complexity <= (*itr)->complexity){
+			 		this->complexity = (*itr)->complexity;
+				}
 			}
 
 			v.visit(this);
@@ -380,6 +503,9 @@ class Switch: public Stmt{
 			list<ASTNode*>::iterator itr;
 			for(itr=children.begin(); itr != children.end(); itr++){
 				(*itr)->accept(v);	
+				if(this->complexity <= (*itr)->complexity){
+			 		this->complexity = (*itr)->complexity;
+				}
 			}
 
 			v.visit(this);
@@ -417,6 +543,10 @@ class Case: public Stmt{
 			list<ASTNode*>::iterator itr;
 			for(itr=children.begin(); itr != children.end(); itr++){
 				(*itr)->accept(v);	
+			
+			 	if(this->complexity <= (*itr)->complexity){
+			 		this->complexity = (*itr)->complexity;
+				}
 			}
 
 			v.visit(this);
@@ -457,6 +587,10 @@ class ClassDef : public Stmt{
 			list<ASTNode*>::iterator itr;
 			for(itr=children.begin(); itr != children.end(); itr++){
 				(*itr)->accept(v);	
+				if(this->complexity <= (*itr)->complexity){
+			 		this->complexity = (*itr)->complexity;
+				}
+
 			}
 
 			v.visit(this);
@@ -527,6 +661,10 @@ class CompoundStmt : public Stmt{
 			list<ASTNode*>::iterator itr;
 			for(itr=children.begin(); itr != children.end(); itr++){
 				(*itr)->accept(v);	
+				if(this->complexity <= (*itr)->complexity){
+			 		this->complexity = (*itr)->complexity;
+				}
+
 			}
 
 			v.visit(this);
@@ -557,6 +695,10 @@ class Return: public Stmt{
 			list<ASTNode*>::iterator itr;
 			for(itr=children.begin(); itr != children.end(); itr++){
 				(*itr)->accept(v);	
+				if(this->complexity <= (*itr)->complexity){
+			 		this->complexity = (*itr)->complexity;
+				}
+
 			}
 
 			v.visit(this);
@@ -593,6 +735,10 @@ class Assign: public Stmt{
 			list<ASTNode*>::iterator itr;
 			for(itr=children.begin(); itr != children.end(); itr++){
 				(*itr)->accept(v);	
+				if(this->complexity <= (*itr)->complexity){
+			 		this->complexity = (*itr)->complexity;
+				}
+
 			}
 
 			v.visit(this);
@@ -626,6 +772,10 @@ class AugAssign: public Stmt{
 			list<ASTNode*>::iterator itr;
 			for(itr=children.begin(); itr != children.end(); itr++){
 				(*itr)->accept(v);	
+				if(this->complexity <= (*itr)->complexity){
+			 		this->complexity = (*itr)->complexity;
+				}
+
 			}
 
 			v.visit(this);
@@ -690,6 +840,10 @@ class Try: public Stmt{
 			list<ASTNode*>::iterator itr;
 			for(itr=children.begin(); itr != children.end(); itr++){
 				(*itr)->accept(v);	
+				if(this->complexity <= (*itr)->complexity){
+			 		this->complexity = (*itr)->complexity;
+				}
+
 			}
 
 			v.visit(this);
@@ -727,40 +881,6 @@ class Except: public Stmt{
 		CompoundStmt* body;
 };
 
-class Call: public Expr{
-	public:
-		string getType(){
-			return "Call";	
-		}
-
-		list<ASTNode*> getChildren(){
-			list<ASTNode*> children;
-			return children;
-		}
-
-		void printNode(int level){
-			cout << getIndentation(level);
-			cout << "-----------------" << endl;
-			if(obj.size() > 0){
-				cout << getIndentation(level);
-				cout << "- Object: " << obj << endl;
-			}
-			cout << getIndentation(level);
-			cout << "- Calling func: " << func << endl;
-			cout << getIndentation(level);
-			cout << "-----------------" << endl;
-		}
-
-
-		void accept(CounterVisitor &v){
-			v.visit(this);
-		}
-
-		string func;
-		string obj;
-		int level;
-};
-
 class BinOp: public Expr{
 	public:
 		string getType(){
@@ -784,6 +904,10 @@ class BinOp: public Expr{
 			list<ASTNode*>::iterator itr;
 			for(itr=children.begin(); itr != children.end(); itr++){
 				(*itr)->accept(v);	
+				if(this->complexity <= (*itr)->complexity){
+			 		this->complexity = (*itr)->complexity;
+				}
+
 			}
 
 			v.visit(this);
@@ -854,6 +978,9 @@ class Comparison: public Expr{
 			list<ASTNode*>::iterator itr;
 			for(itr=children.begin(); itr != children.end(); itr++){
 				(*itr)->accept(v);	
+				if(this->complexity <= (*itr)->complexity){
+			 		this->complexity = (*itr)->complexity;
+				}
 			}
 
 			v.visit(this);
@@ -866,4 +993,4 @@ class Comparison: public Expr{
 		int level;
 };
 
-
+#endif

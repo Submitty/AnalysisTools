@@ -11,5 +11,4 @@ int main(int argc, char** argv){
 
 	CounterVisitor cv(nodesToCount);
 	cout << cv.getFor() << endl;
-	
 }

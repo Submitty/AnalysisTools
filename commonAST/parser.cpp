@@ -1,3 +1,5 @@
+//#include "parser.h"
+#include "assert.h"
 #include "parser.h"
 
 using namespace std;
@@ -7,13 +9,42 @@ bool isExpr(string);
 bool isStmt(string);
 bool printDebug = false;
 
+string Call::getType(){
+	return "Call";	
+}
+
+list<ASTNode*> Call::getChildren(){
+	list<ASTNode*> children;
+	return children;
+}
+
+void Call::printNode(int level){
+	cout << getIndentation(level);
+	cout << "-----------------" << endl;
+	if(obj.size() > 0){
+		cout << getIndentation(level);
+		cout << "- Object: " << obj << endl;
+	}
+	cout << getIndentation(level);
+	cout << "- Calling func: " << func << endl;
+	cout << getIndentation(level);
+	cout << "-----------------" << endl;
+}
+
+void Call::accept(CounterVisitor &v){
+	v.visit(this);
+	//FIX
+	//this->complexity += getComplexity(obj, func);
+}
+
+
 
 class Parser{
 	public:
 
 		Parser(const string& filename) : file(filename.c_str()) {};
 
-		Parser(const string& filename, vector<string> nodesToCount): file(filename.c_str()) {
+		Parser(const string& filename, map<string, vector<string > > nodesToCount): file(filename.c_str()) {
 			visitor = CounterVisitor(nodesToCount);
 		}
 
@@ -38,10 +69,10 @@ class Parser{
 			Token* t = getToken();
 			string compVal("name:");
 			if(printDebug){
-				cout << "Parsing Stmt: " << t->value << endl;
+				cerr << "Parsing Stmt: " << t->value << endl;
 			}
 			if(t->value == "functionDef"){
-				return (Stmt*) parseFunctionDef();
+				return (Stmt*) parseFunctionDef(t->level);
 			}else if(t->value == "classDef"){
 				return (Stmt*) parseClassDef(t->level);
 			}else if(t->value == "compoundStmt"){
@@ -60,6 +91,8 @@ class Parser{
 				return (Stmt*) parseFor();
 			}else if(t->value == "whileLoop"){
 				return (Stmt*) parseWhile(t->level);
+			}else if(t->value == "do"){
+				return (Stmt*) parseDoWhile(t->level);
 			}else if(t->value == "ifStatement"){
 				return (Stmt*) parseIf(t->level);
 			}else if(t->value == "importing"){
@@ -91,7 +124,7 @@ class Parser{
 			string compVal("calling func");
 			string objCompVal("object:");
 			if(printDebug){
-				cout << "Parsing Expr: " << t->value << endl;
+				cerr << "Parsing Expr: " << t->value << endl;
 			}
 			if(t->value == "binaryOp"){
 				return (Expr*) parseBinOp(t->level);
@@ -113,12 +146,30 @@ class Parser{
 			return NULL;
 		}
 
-		FunctionDef* parseFunctionDef(){
+		FunctionDef* parseFunctionDef(int level){
 			FunctionDef* fd = new FunctionDef();			
 			fd->name = parseIdentifier();
 			if(getLookaheadToken()->value == "compoundStmt"){
 				fd->compoundStmt = parseCompoundStmt();
-			}//else its a prototype
+			}//else its a prototype or there is an init list
+			else{
+				if(getLookaheadToken()->level > level && getLookaheadToken()->value != "compoundStmt"){
+					if(printDebug){
+						cerr << "parsing init list" << endl;
+					}
+
+					fd->initList = parseBody(level);					
+
+					if(printDebug){
+						cerr << "done parsing init list" << endl;
+					}
+
+					fd->compoundStmt = parseCompoundStmt();
+				}
+
+			}
+			
+			
 			return fd;
 		}
 
@@ -180,6 +231,7 @@ class Parser{
 
 
 			c->func = val.substr(pos+2);
+			c->argsList = parseArgs();
 			return c;
 		}
 
@@ -192,6 +244,7 @@ class Parser{
 				exit(1);
 			}
 			c->func = val.substr(pos+2);
+			c->argsList = parseArgs();
 			return c;
 		}
 
@@ -199,11 +252,13 @@ class Parser{
 			list<ASTNode*> body;
 
 			Token* lt = getLookaheadToken();
-			while(lt->level > level){
+			while(lt->level > level && lt->value != "compoundStmt"){
 				if(isExpr(lt->value)){
 					body.push_back(parseExpr());
 				}else if(isStmt(lt->value)){
 					body.push_back(parseStmt());
+				}else if(getLookaheadToken()->value == "END"){
+					break;
 				}else{
 					cerr << "ERROR: Attempted to add value which is not an EXPR or STMT" << endl;
 				}
@@ -215,7 +270,7 @@ class Parser{
 
 		CompoundStmt* parseCompoundStmt(){
 			if(printDebug){
-				cout << "parsing compoundStmt" << endl;
+				cerr << "parsing compoundStmt" << endl;
 			}
 			Token* t = getToken();
 			if(t->value != "compoundStmt" && t->value != "elseStatement"){
@@ -229,6 +284,8 @@ class Parser{
 					cs->body.push_back(parseExpr());	
 				}else if(isStmt(getLookaheadToken()->value)){
 					cs->body.push_back(parseStmt());	
+				}else if(getLookaheadToken()->value == "END"){
+					break;
 				}else{
 					cerr << "ERROR: Attempted to add value which is not an EXPR or STMT" << endl;	
 				}
@@ -236,6 +293,42 @@ class Parser{
 			return cs;
 		}
 
+		Args* parseArgs(){
+			if(printDebug){
+				cerr << "parsing argList" << endl;
+			}
+
+			Args* args = new Args();
+			Token* argsToken = getToken();		
+
+			if(printDebug){
+				cerr << "consumed <args> token: " << argsToken->value << endl;
+				cerr << "lookahead " << getLookaheadToken()->value<< endl;
+			}
+
+			while(getLookaheadToken()->value != "/args"){
+
+				if(printDebug){
+
+					cerr << "parsing arg: " << getLookaheadToken()->value <<endl;
+				}
+
+				if(isExpr(getLookaheadToken()->value)){
+					args->argList.push_back(parseExpr());
+				}else if(getLookaheadToken()->value == "END"){
+					return args;
+				}else{
+					cerr << "ERROR: Attempted to add value which is not an EXPR" << endl;	
+				}
+			}
+
+			if(printDebug){
+				cerr << "reached </args> returning" << endl;
+			}
+			//parse </args>
+			getToken();	
+			return args;
+		}
 
 		Return* parseReturn(int level){
 			Return* ret= new Return();
@@ -267,7 +360,7 @@ class Parser{
 
 		Assign* parseAssign(int level){
 			Assign* assign = new Assign();
-			while(getLookaheadToken()->level > level /*&& getLookaheadToken()->value != "END"*/) {
+			while(getLookaheadToken()->level > level && getLookaheadToken()->value != "END") {
 				assign->targets.push_back(parseExpr());
 			}
 			return assign;
@@ -275,6 +368,7 @@ class Parser{
 
 		AugAssign* parseAugAssign(int level){
 			AugAssign* augAssign = new AugAssign();
+			//FIX THIS
 			augAssign->target = NULL;
 			augAssign->value = NULL;
 
@@ -289,6 +383,8 @@ class Parser{
 					f->stopCond.push_back(parseExpr());	
 				}else if(isStmt(getLookaheadToken()->value)){
 					f->stopCond.push_back(parseStmt());	
+				}else if(getLookaheadToken()->value == "END"){
+					return f;
 				}else{
 					cerr << "ERROR: Attempted to add value which is not an EXPR or STMT" << endl;	
 				}
@@ -297,6 +393,16 @@ class Parser{
 
 			f->compoundStmt = parseCompoundStmt();
 			return f;
+		}
+
+		DoWhile* parseDoWhile(int level){
+			DoWhile* dw = new DoWhile();
+			dw->compoundStmt = parseCompoundStmt();
+
+			while(getLookaheadToken()->level > level){
+				dw->test.push_back(parseExpr());
+			}						
+			return dw;		
 		}
 
 		While* parseWhile(int level){
@@ -314,20 +420,22 @@ class Parser{
 
 			while(getLookaheadToken()->value != "/cond"){
 				if(printDebug){
-					cout << "parsing If's test: " << getLookaheadToken()->value << endl;
+					cerr << "parsing If's test: " << getLookaheadToken()->value << endl;
 				}
 
 				i->test = parseExpr();
 			}
 
 			if(printDebug){
-				cout << "reached /cond" << endl;
+				cerr << "reached /cond" << endl;
 			}
-			getToken();
+
+
+			assert(getToken()->value == "/cond");
 
 
 			if(printDebug){
-				cout << "parsing If's compoundStmt: " << getLookaheadToken()->value << endl;
+				cerr << "parsing If's compoundStmt: " << getLookaheadToken()->value << endl;
 			}
 
 			if(getLookaheadToken()->value == "compoundStmt"){
@@ -379,7 +487,7 @@ class Parser{
 			VariableDecl* vd = new VariableDecl();
 
 			while(getLookaheadToken()->value != "/variableDecl" && getLookaheadToken()->value != "END"){
-			   	vd->right.push_back(parseExpr());
+				vd->right.push_back(parseExpr());
 			}
 
 			//throwaway </variableDecl> token
@@ -421,7 +529,7 @@ class Parser{
 			cp->level = level;
 			if(getLookaheadToken()->level > level){
 				if(printDebug){
-					cout << "parsing compare's left: " << getLookaheadToken()->value;
+					cerr << "parsing compare's left: " << getLookaheadToken()->value;
 				}
 				cp->left = parseExpr();
 			}
@@ -483,14 +591,20 @@ class Parser{
 
 		}
 
+		int getForbiddenFuncCall() const{
+			return visitor.getForbiddenFuncCall();
+		}
 
 		int getFor() const{
 			return visitor.getFor();
 		}
 
+		int getComplexity() const{
+			return visitor.getComplexity();
+		}
 
-		int getModule() {
-			return visitor.getModule();
+		string getClassesAndBases() const{
+			return visitor.getClassesAndBases();
 		}
 
 		void traverse(ASTNode* node){
@@ -529,7 +643,7 @@ class Parser{
 
 bool isExpr(string val){
 	if(printDebug){
-		cout << "checking if " << val << " is an expr" << endl;
+		cerr << "checking if " << val << " is an expr" << endl;
 	}
 
 	string objCompVal("object:");
@@ -540,12 +654,12 @@ bool isExpr(string val){
 
 bool isStmt(string val){
 	if(printDebug){
-		cout << "checking if " << val << " is a stmt" << endl;
+		cerr << "checking if " << val << " is a stmt" << endl;
 	}
 
 
 	string compVal("name");
-	return val == "functionDef" || val == "classDef" || val == "compoundStmt" || val == "return" || val == "assignment" || val == "augAssign" || val == "forLoop" || val == "whileLoop" || val == "ifStatement" || val == "importing" || val == "exec" || val == "variableDecl" || val == "try" || val == "except" || val == "raisingException" || val == "switch" || val == "case" || val.compare(0, compVal.length(), compVal) == 0;
+	return val == "functionDef" || val == "classDef" || val == "compoundStmt" || val == "return" || val == "assignment" || val == "augAssign" || val == "forLoop" || val == "whileLoop" || val == "do" || val == "ifStatement" || val == "importing" || val == "exec" || val == "variableDecl" || val == "try" || val == "except" || val == "raisingException" || val == "switch" || val == "case" || val.compare(0, compVal.length(), compVal) == 0;
 }
 
 
@@ -570,19 +684,56 @@ int main(int argc, char** argv){
 	}
 
 	string inputFile = argv[1];
-	vector<string> nodesToCount;
+
+	map<string, vector<string> > nodesToCount;
+
+	//skips the name of the excecutable and skips the filename
 	argv += 2;
-	for(int i=2; i<argc; i++){
-		nodesToCount.push_back(*argv);	
+	for(int i=2; i<argc; i+=2){
+
+		string itemToCount = *argv;
+		argv++;
+		string argsString = *argv;
+
+		vector<string> args;	
+		//ADD SOME ERROR HANDLING. MAKE SURE THE USER HAS SOME ARGUMENTS SUCH AS VOID
+
+
+		while(argsString.find(",") != string::npos){
+			int index = argsString.find(",");
+			args.push_back(argsString.substr(0,index));
+			argsString = argsString.substr(index+1);
+		}
+
+		if(nodesToCount.find(itemToCount) == nodesToCount.end()){
+			nodesToCount[itemToCount] = args;
+		}else{
+			//do this later
+		}
+
 		argv++;
 	}
 
 	Parser parser(inputFile, nodesToCount);
 	Module* m = parser.parseModule();
-	printAST(m);
+	//printAST(m);
 
 	parser.traverse(m);
 
-	cout << parser.getFor() << endl;
+
+	map<string, vector<string> >::iterator itr;
+	for(itr= nodesToCount.begin(); itr != nodesToCount.end(); itr++){
+
+		if(itr->first == "-For"){
+			cout << "number of for loops: " << parser.getFor() << endl;
+		}else if(itr->first == "-ForbidCall"){
+			cout << "number of forbidden calls " << parser.getForbiddenFuncCall() << endl;
+		}else if(itr->first == "-Complexity"){
+			cout << "complexity n^" << parser.getComplexity() << endl;
+		}else if(itr->first == "-ClassBases"){
+			cout << parser.getClassesAndBases() << endl;
+		}
+
+	}
 }
 
