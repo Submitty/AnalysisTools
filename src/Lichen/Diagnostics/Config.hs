@@ -8,11 +8,10 @@ import Data.Aeson
 import Lichen.Config
 import Lichen.Languages
 
-data Config = Config
-            { configFile :: FilePath
-            , language :: Language
-            , sourceFiles :: [FilePath]
-            }
+data Config = Config { configFile :: FilePath
+                     , language :: Language
+                     , sourceFiles :: [FilePath]
+                     }
 instance FromJSON Config where
         parseJSON = withObject "config_diagnostics" $ \o -> do
             configFile <- fromMaybe (configFile defaultConfig) <$> o .:? "config_file"

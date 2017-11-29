@@ -18,34 +18,31 @@ import qualified Clay.Font as C.F
 import Language.Javascript.JMacro
 
 import Lichen.Util
-import Lichen.Plagiarism.Config
 
 hs :: Show a => a -> H.Html
 hs = H.toHtml . sq
 
 stylesheet :: C.Css
-stylesheet = mconcat
-    [ ".centered" ? C.textAlign C.center
-    , ".matches" ? C.color C.white <> C.backgroundColor C.grey
-    , ".hovering" ? C.color C.white <> C.backgroundColor C.blue
-    , ".selected-red" ? C.color C.white <> C.backgroundColor C.red
-    , ".selected-orange" ? C.color C.white <> C.backgroundColor C.orange
-    , ".selected-yellow" ? C.color C.white <> C.backgroundColor C.greenyellow
-    , ".selected-green" ? C.color C.white <> C.backgroundColor C.green
-    , ".selected-blue" ? C.color C.white <> C.backgroundColor C.turquoise
-    , ".selected-indigo" ? C.color C.white <> C.backgroundColor C.indigo
-    , ".selected-violet" ? C.color C.white <> C.backgroundColor C.violet
-    , ".scrollable-pane" ? mconcat
-        [ C.width $ C.S.pct 45
-        , C.height $ C.S.vh 80
-        , C.overflowY C.scroll
-        , C.position C.absolute
-        , C.whiteSpace C.T.pre
-        , C.fontFamily [] [C.F.monospace]
-        ]
-    , ".#left" ? C.left (C.S.px 0)
-    , "#right" ? C.left (C.S.pct 50)
-    ]
+stylesheet = mconcat [ ".centered" ? C.textAlign C.center
+                     , ".matches" ? C.color C.white <> C.backgroundColor C.grey
+                     , ".hovering" ? C.color C.white <> C.backgroundColor C.blue
+                     , ".selected-red" ? C.color C.white <> C.backgroundColor C.red
+                     , ".selected-orange" ? C.color C.white <> C.backgroundColor C.orange
+                     , ".selected-yellow" ? C.color C.white <> C.backgroundColor C.greenyellow
+                     , ".selected-green" ? C.color C.white <> C.backgroundColor C.green
+                     , ".selected-blue" ? C.color C.white <> C.backgroundColor C.turquoise
+                     , ".selected-indigo" ? C.color C.white <> C.backgroundColor C.indigo
+                     , ".selected-violet" ? C.color C.white <> C.backgroundColor C.violet
+                     , ".scrollable-pane" ? mconcat [ C.width $ C.S.pct 45
+                                                    , C.height $ C.S.vh 80
+                                                    , C.overflowY C.scroll
+                                                    , C.position C.absolute
+                                                    , C.whiteSpace C.T.pre
+                                                    , C.fontFamily [] [C.F.monospace]
+                                                    ]
+                     , "#left" ? C.left (C.S.px 0)
+                     , "#right" ? C.left (C.S.pct 50)
+                     ]
 
 javascript :: JStat
 javascript = [jmacro|
@@ -95,13 +92,13 @@ javascript = [jmacro|
     });
 |]
 
-renderPage :: Config -> H.Html -> H.Html
-renderPage config b = H.docTypeHtml $ mconcat
+renderPage :: H.Html -> H.Html
+renderPage b = H.docTypeHtml $ mconcat
     [ H.head $ mconcat
         [ H.meta ! A.charset "utf-8"
         , H.meta ! A.httpEquiv "X-UA-Compatible" ! A.content "IE=edge"
         , H.meta ! A.name "viewport" ! A.content "width=device-width, initial-scale=1"
-        , H.title . H.toHtml $ reportTitle config
+        , H.title "Plagiarism Detection"
         , H.style . H.toHtml $ C.renderWith C.R.compact [] stylesheet
         ]
     , H.body $ mconcat
