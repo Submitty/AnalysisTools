@@ -30,18 +30,22 @@ data Tok = Auto | Break | Case | Char | Const | Continue | Default | Do
          | Comma | Colon | Equal | LeftParen | RightParen | LeftSquare
          | RightSquare | Dot | Ampersand | Exclamation | Tilde | Minus | Plus
          | Asterisk | Slash | Percent | LessThan | GreaterThan | Caret | Pipe
-         | Question | Unknown
+         | Question
+         | Unknown | Comment
          deriving (Show, Read, Eq, Generic)
 instance Hashable Tok
 
 sc :: Parser ()
-sc = L.space (void spaceChar) (L.skipLineComment "//" <|> L.skipLineComment "#") (L.skipBlockComment "/*" "*/")
+sc = void (many spaceChar)
 
 reserved :: String -> Parser String
 reserved = try . string
 
 onetoken :: Parser (Tagged Tok)
-onetoken = wrap (reserved "auto") Auto
+onetoken = wrap (reserved "//" *> manyTill anyChar (char '\r' <|> (head <$> eol))) Comment
+       <|> wrap (reserved "#" *> manyTill anyChar (char '\r' <|> (head <$> eol))) Comment
+       <|> wrap (reserved "/*" *> manyTill anyChar (head <$> reserved "*/")) Comment
+       <|> wrap (reserved "auto") Auto
        <|> wrap (reserved "break") Break
        <|> wrap (reserved "case") Case
        <|> wrap (reserved "char") Char

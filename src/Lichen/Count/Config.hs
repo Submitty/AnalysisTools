@@ -9,13 +9,12 @@ import Lichen.Config
 import Lichen.Languages
 import Lichen.Count.Counters
 
-data Config = Config
-            { configFile :: FilePath
-            , language :: Language
-            , counter :: Counter
-            , toCount :: Maybe String
-            , sourceFiles :: [FilePath]
-            }
+data Config = Config { configFile :: FilePath
+                     , language :: Language
+                     , counter :: Counter
+                     , toCount :: Maybe String
+                     , sourceFiles :: [FilePath]
+                     }
 instance FromJSON Config where
         parseJSON = withObject "config_count" $ \o -> do
             configFile <- fromMaybe (configFile defaultConfig) <$> o .:? "config_file"

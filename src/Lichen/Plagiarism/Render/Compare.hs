@@ -17,7 +17,7 @@ import Numeric
 
 import Lichen.Util
 import Lichen.Lexer
-import Lichen.Plagiarism.Winnow
+import Lichen.Plagiarism.Submitty
 
 data Colored a = Uncolored T.Text | Colored a T.Text deriving (Show, Eq)
 
@@ -62,7 +62,7 @@ toPosList s p = deoverlap . sortBy (\a b -> compare (fst a) (fst b)) $ fmap conv
     lineColToAbs :: Int -> Int -> Int
     lineColToAbs l c = c + (l - 2) + sum (T.length <$> take (l - 1) ls)
 
-renderBoth :: (Show a, Eq a) => FilePath -> (Fingerprints, a) -> (Fingerprints, a) -> IO (H.Html, H.Html)
+renderBoth :: (Show a, Eq a) => FilePath -> ([Fingerprint], a) -> ([Fingerprint], a) -> IO (H.Html, H.Html)
 renderBoth dir (fp, t) (fp', t') = do
         s <- T.IO.readFile (dir </> sq t)
         s' <- T.IO.readFile (dir </> sq t')
@@ -71,7 +71,7 @@ renderBoth dir (fp, t) (fp', t') = do
             (p, p') = (toPosList es fp, toPosList es' fp')
         return (mconcat . fmap colorize $ splitInto es p, mconcat . fmap colorize $ splitInto es' p')
 
-renderCompare :: (Show a, Eq a) => FilePath -> (Double, (Fingerprints, a), (Fingerprints, a)) -> IO H.Html
+renderCompare :: (Show a, Eq a) => FilePath -> (Double, ([Fingerprint], a), ([Fingerprint], a)) -> IO H.Html
 renderCompare dir (m, g@(_, t), g'@(_, t')) = do
         (s, s') <- renderBoth dir g g'
         return $ mconcat
