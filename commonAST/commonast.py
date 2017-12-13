@@ -28,7 +28,7 @@ if len(sys.argv) > 5:
 		data[sys.argv[count]] = (sys.argv[count+1], sys.argv[count+2])
 
 if lang == "-py":
-	subprocess.call(["python", "astMatcher.py", filename])
+	subprocess.call(["python", "/usr/local/submitty/SubmittyAnalysisTools/astMatcher.py", filename])
 elif lang == "-cpp":
 	f = open("out.txt", "w")
 	alias = "astMatcherCpp " + filename
