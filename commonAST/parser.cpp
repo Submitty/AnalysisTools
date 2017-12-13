@@ -723,7 +723,6 @@ int main(int argc, char** argv){
 
 	map<string, vector<string> >::iterator itr;
 	for(itr= nodesToCount.begin(); itr != nodesToCount.end(); itr++){
-
 		if(itr->first == "-For"){
 			cout << "number of for loops: " << parser.getFor() << endl;
 		}else if(itr->first == "-ForbidCall"){
@@ -732,8 +731,8 @@ int main(int argc, char** argv){
 			cout << "complexity n^" << parser.getComplexity() << endl;
 		}else if(itr->first == "-ClassBases"){
 			cout << parser.getClassesAndBases() << endl;
-		}
 
+		}
 	}
 }
 
