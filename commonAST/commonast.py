@@ -10,8 +10,8 @@ import sys
 #	documentation?
 
 if len(sys.argv) < 5:
-	print "ERROR!: 5 arguments required"
-	print "only provided", len(sys.argv)
+	print("ERROR!: 5 arguments required")
+	print("only provided", len(sys.argv))
 	sys.exit()	
 
 lang = sys.argv[1]
@@ -39,7 +39,7 @@ elif lang == "-cpp":
 	elif p.returncode == 127:
         	print ("program not found: %s" % (str(err)))
 else:
-	print "invalid language"
+	print ("invalid language")
 	#sys.exit();
 
 for key in data:
