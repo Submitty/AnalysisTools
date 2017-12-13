@@ -31,7 +31,7 @@ if lang == "-py":
 	subprocess.call(["python", "/usr/local/submitty/SubmittyAnalysisTools/astMatcher.py", filename])
 elif lang == "-cpp":
 	f = open("out.txt", "w")
-	alias = "astMatcherCpp " + filename
+	alias = "/usr/local/submitty/clang-llvm/build/bin/ASTMatcher " + filename
 	p = subprocess.Popen(["/bin/bash", "-i", "-c", alias], stdout=f)
 	(out,err) = p.communicate()
 	if p.returncode != 0 and p.returncode <= 125:
