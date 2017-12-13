@@ -43,4 +43,4 @@ else:
 	#sys.exit();
 
 for key in data:
-	subprocess.call(["./count.out", "out.txt", data[key][0], data[key][1]])
+	subprocess.call(["/usr/local/submitty/SubmittyAnalysisTools/commonASTCount.out", "out.txt", data[key][0], data[key][1]])
