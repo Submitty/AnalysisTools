@@ -5,7 +5,7 @@ file =  sys.argv[1]
 buffer = open(file).read()
 f = open('out.txt', 'w')
 tree = ast.parse(buffer)
-exec(compile(tree, "<ast>", "exec"))
+#exec(compile(tree, "<ast>", "exec"))
 
 class Visitor(ast.NodeVisitor):
 	def visit(self, node):
@@ -70,7 +70,7 @@ class Visitor(ast.NodeVisitor):
 			hasBody = True
 			hasElse = True
 			self.generic_visit(node.test, nextLevel, node)
-			output += "<\cond,1>\n"
+			output += "</cond,1>\n"
 			output += "<compoundStmt," + strNextLevel + ">"
 		elif isinstance(node, ast.Raise):
 			output += "<raisingException," + strlevel + ">"
@@ -114,7 +114,7 @@ class Visitor(ast.NodeVisitor):
 				output += node.func.id
 				output += "," + strlevel +  ">"
 
-			output += "<args, " + strNextLevel + ">\n"
+			output += "\n<args, " + strNextLevel + ">\n"
 			f.write(output);
 			output = ""
 			for arg in node.args:
