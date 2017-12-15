@@ -24,8 +24,9 @@ data[filename] = (countType, countArg)
 
 if len(sys.argv) > 5:
 	count = 5
-	while(count+2 < sys.argv):
+	while(count+2 < len(sys.argv)):
 		data[sys.argv[count]] = (sys.argv[count+1], sys.argv[count+2])
+		count+=2
 
 if lang == "-py":
 	subprocess.call(["python", "/usr/local/submitty/SubmittyAnalysisTools/astMatcher.py", filename])
@@ -34,13 +35,6 @@ elif lang == "-cpp":
 	alias = "/usr/local/submitty/clang-llvm/build/bin/ASTMatcher" #+ filename
 	subprocess.call([alias, filename], stdout=f)
 	#p = subprocess.Popen(["/bin/bash", "-i", "-c", alias], stdout=f)
-	'''
-	(out,err) = p.communicate()
-	if p.returncode != 0 and p.returncode <= 125:
-		print ("command failed, exit-code=%d error = %s" % (p.returncode, str(err)))
-	elif p.returncode == 127:
-        	print ("program not found: %s" % (str(err)))
-	'''
 else:
 	print ("invalid language")
 	#sys.exit();
