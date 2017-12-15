@@ -31,13 +31,16 @@ if lang == "-py":
 	subprocess.call(["python", "/usr/local/submitty/SubmittyAnalysisTools/astMatcher.py", filename])
 elif lang == "-cpp":
 	f = open("out.txt", "w")
-	alias = "/usr/local/submitty/clang-llvm/build/bin/ASTMatcher " + filename
-	p = subprocess.Popen(["/bin/bash", "-i", "-c", alias], stdout=f)
+	alias = "/usr/local/submitty/clang-llvm/build/bin/ASTMatcher" #+ filename
+	subprocess.call([alias, filename], stdout=f)
+	#p = subprocess.Popen(["/bin/bash", "-i", "-c", alias], stdout=f)
+	'''
 	(out,err) = p.communicate()
 	if p.returncode != 0 and p.returncode <= 125:
 		print ("command failed, exit-code=%d error = %s" % (p.returncode, str(err)))
 	elif p.returncode == 127:
         	print ("program not found: %s" % (str(err)))
+	'''
 else:
 	print ("invalid language")
 	#sys.exit();
