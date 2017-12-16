@@ -86,7 +86,7 @@ class Visitor(ast.NodeVisitor):
 		elif isinstance(node, ast.Import) or isinstance(node, ast.ImportFrom):
 			output +=  "<importing," + strlevel + ">"
 			for alias in node.names:
-				output += "\n<" + alias.name + "," +  strNextLevel + ">"
+				output += "\n<name: " + alias.name + "," +  strNextLevel + ">"
 		elif isinstance(node, ast.Exec):
 			output += "<exec," + strlevel + ">"
 		elif isinstance(node, ast.BoolOp):
