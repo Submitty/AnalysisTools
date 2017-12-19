@@ -38,7 +38,7 @@ elif lang == "-cpp":
 	for key in data:
 		f = open("out.txt", "w")
 		alias = "/usr/local/submitty/clang-llvm/build/bin/ASTMatcher" #+ filename
-		subprocess.call([alias, filename], stdout=f)
+		subprocess.call([alias, key], stdout=f)
 		#p = subprocess.Popen(["/bin/bash", "-i", "-c", alias], stdout=f)
 		subprocess.call(["/usr/local/submitty/SubmittyAnalysisTools/commonASTCount.out", "out.txt", data[key][0], data[key][1]])
 else:
