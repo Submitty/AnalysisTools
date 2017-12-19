@@ -15,32 +15,35 @@ if len(sys.argv) < 5:
 	sys.exit()	
 
 lang = sys.argv[1]
-filename = sys.argv[2]
-countType = sys.argv[3]
-countArg = sys.argv[4]  	
+#filename = sys.argv[2]
+countType = sys.argv[2]
+countArg = sys.argv[3]
 
-data = {}
-data[filename] = (countType, countArg)
+filenames = [sys.argv[4]]
+
+#data[filename] = (countType, countArg)
 
 if len(sys.argv) > 5:
 	count = 5
-	while(count+2 < len(sys.argv)):
+	while(count < len(sys.argv)):
 		#print("adding: ", sys.argv[count], " to data with args: ", sys.argv[count+1], "and", sys.argv[count+2])
-		data[sys.argv[count]] = (sys.argv[count+1], sys.argv[count+2])
-		count+=3
+		filenames.append(sys.argv[5])
+		#data[sys.argv[count]] = (sys.argv[count+1], sys.argv[count+2])
+		#count+=3
+		count+=1
 
 if lang == "-py":
-	for key in data:
-		subprocess.call(["python", "/usr/local/submitty/SubmittyAnalysisTools/astMatcher.py", key])
-		subprocess.call(["/usr/local/submitty/SubmittyAnalysisTools/commonASTCount.out", "out.txt", data[key][0], data[key][1]])
+	for fname in filenames:
+		subprocess.call(["python", "/usr/local/submitty/SubmittyAnalysisTools/astMatcher.py", fname])
+		subprocess.call(["/usr/local/submitty/SubmittyAnalysisTools/commonASTCount.out", "out.txt", countType, countArg)
 	
 elif lang == "-cpp":
-	for key in data:
+	for fname in filenames:
 		f = open("out.txt", "w")
 		alias = "/usr/local/submitty/clang-llvm/build/bin/ASTMatcher" #+ filename
-		subprocess.call([alias, key], stdout=f)
+		subprocess.call([alias, fname], stdout=f)
 		#p = subprocess.Popen(["/bin/bash", "-i", "-c", alias], stdout=f)
-		subprocess.call(["/usr/local/submitty/SubmittyAnalysisTools/commonASTCount.out", "out.txt", data[key][0], data[key][1]])
+		subprocess.call(["/usr/local/submitty/SubmittyAnalysisTools/commonASTCount.out", "out.txt", countType, countArg)
 else:
 	print ("invalid language")
 	#sys.exit();
