@@ -1,7 +1,7 @@
 import math
 
 def func(a, b, c):
-	print a, b, c
+	print (a, b, c)
 
 def addOne(a):
 	return a+1
