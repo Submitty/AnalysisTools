@@ -17,5 +17,7 @@ def testLang(lang):
 
  #node -l python for /var/local/submitty/courses/f17/tutorial/submissions/for_test_cpp/instructor/13/part1/*.py
 
-testLang("python")
-testLang("c")
+testLang("python", "for")
+testLang("c", "for")
+testLang("python", "while")
+testLang("c", "while")
