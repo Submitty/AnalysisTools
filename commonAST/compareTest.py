@@ -12,7 +12,7 @@ def testLang(lang, whatToCount):
 		directory += "*.cpp"
 
 	for fname in glob.glob(directory):
-		print(fname)
+		#print(fname)
 		subprocess.call(["/usr/local/submitty/SubmittyAnalysisTools/count", "node", "-l", lang, whatToCount, fname])
  
 
