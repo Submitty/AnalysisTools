@@ -4,7 +4,7 @@ import glob
 
 #run sumbitty count
 
-def testLang(lang):
+def testLang(lang, whatToCount):
 	directory = "/usr/local/submitty/GIT_CHECKOUT_AnalysisTools/commonAST/py-test-files/"
 	if(lang == "python"):
 		directory += "*.py"	
