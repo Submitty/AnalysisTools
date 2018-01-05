@@ -137,13 +137,17 @@ class Visitor(ast.NodeVisitor):
 		elif isinstance(node, ast.Call):
 			if isinstance(node.func, ast.Attribute):
 				#calling from an object
-
 				if(isinstance(node.func.value, ast.Call)):
 					self.chainedCalls(node,output,strlevel, strPrevLevel)
 				else:
-					output += "<object: "
-					output += node.func.value.id
-					output += "; calling func: "
+					if(hasattr(node.func.value, "id")):
+						output += "<object: "
+						output += node.func.value.id
+						output += "; calling func: "
+
+					else:
+						output += "<calling func: "
+
 					output += node.func.attr
 					output += "," + strPrevLevel +  ">"
 					output += "\n<args, " + strNextLevel + ">\n"
