@@ -15,13 +15,13 @@ def testLang(lang, whatToCount, arg):
 
 	for fname in glob.glob(directory):
 		#print(fname)
-		#submittyCount = subprocess.call(["/usr/local/submitty/SubmittyAnalysisTools/count", "node", "-l", lang, whatToCount, fname])
+		submittyCount = subprocess.check_output(["/usr/local/submitty/SubmittyAnalysisTools/count", "node", "-l", lang, whatToCount, fname])
 
-		call = "/usr/local/submitty/SubmittyAnalysisTools/count node -l " + lang + " " + whatToCount + " " + fname
-		submittyCount = subprocess.Popen(["/bin/bash", "-i", "-c", call])
-		#commonAST = subprocess.call(["/usr/local/submitty/SubmittyAnalysisTools/commonast.py", "-"+commonastlang, "-"+whatToCount.capitalize(), fname, arg])
-		call = "/usr/local/submitty/SubmittyAnalysisTools/commonast.py " + "-"+commonastlang + " -"+whatToCount.capitalize() + " " + fname + " " + arg
-		commonAST = subprocess.Popen(["/bin/bash", "-i", "-c", call])
+		#call = "/usr/local/submitty/SubmittyAnalysisTools/count node -l " + lang + " " + whatToCount + " " + fname
+		#submittyCount = subprocess.Popen(["/bin/bash", "-i", "-c", call])
+		commonAST = subprocess.check_output(["/usr/local/submitty/SubmittyAnalysisTools/commonast.py", "-"+commonastlang, "-"+whatToCount.capitalize(), fname, arg])
+		#call = "/usr/local/submitty/SubmittyAnalysisTools/commonast.py " + "-"+commonastlang + " -"+whatToCount.capitalize() + " " + fname + " " + arg
+		#commonAST = subprocess.Popen(["/bin/bash", "-i", "-c", call])
 
 		print("EQUAL?", submittyCount == commonAST)
 
