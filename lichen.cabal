@@ -47,6 +47,7 @@ library
 
                      , Lichen.Diagnostics.Main
                      , Lichen.Diagnostics.Config
+                     , Lichen.Diagnostics.Render
   build-depends:       base >= 4.7 && < 5
                      , containers
                      , split

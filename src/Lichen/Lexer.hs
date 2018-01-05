@@ -45,6 +45,12 @@ wrapid p = do
         s <- p
         return . Tagged s $ TokPos (sourceLine pos) (sourceLine pos) (sourceColumn pos) (sourceColumn pos <> unsafePos (fromIntegral $ length s))
 
+reserved :: String -> Parser String
+reserved s = try (string s >> notFollowedBy (alphaNumChar <|> char '_') >> pure s)
+
+operator :: String -> Parser String
+operator = try . string
+
 -- Parse a C-style character literal. Ex: 'a', '@'.
 charLit :: Parser String
 charLit = char '\'' *> manyTill (noneOf ['\'']) (char '\'' <|> (eof >> pure ' '))
@@ -52,6 +58,9 @@ charLit = char '\'' *> manyTill (noneOf ['\'']) (char '\'' <|> (eof >> pure ' ')
 -- Parse a C-style string literal. Ex: "a", "hello, world".
 strLit :: Parser String
 strLit = char '\"' *> manyTill (noneOf ['"']) (char '\"' <|> (eof >> pure ' '))
+
+quote :: String -> String
+quote s = ('"':s) ++ ['"']
 
 -- Parse a C-style identifier (letter or underscore followed by any number
 -- of letters, digits, and underscores).
