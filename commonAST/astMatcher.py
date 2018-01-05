@@ -8,6 +8,40 @@ tree = ast.parse(buffer)
 #exec(compile(tree, "<ast>", "exec"))
 
 class Visitor(ast.NodeVisitor):
+
+	def chainedCalls(self, node, output, strlevel, strPrevLevel):
+		if(isinstance(node, ast.Call)):
+			if(not hasattr(node.func.value, "id")):
+				self.chainedCalls(node.func.value, output, strlevel, strPrevLevel)				
+				output += "\n<calling func: "
+				output += node.func.attr
+				output += "," + strlevel +  ">"
+				f.write(output);
+				output = ""
+
+			else:
+				output += "\n<object: "
+				output += node.func.value.id
+				output += "; calling func: "
+				output += node.func.attr
+				output += "," + strPrevLevel +  ">"
+				f.write(output);
+				output = ""
+				self.chainedCalls(node.func, output, strlevel, strPrevLevel)				
+
+			output += "\n<args, " + strlevel + ">\n"
+			f.write(output);
+			output = ""
+			for arg in node.args:
+				self.generic_visit(arg)
+				f.write(output);
+				output = ""
+			output += "</args,1>"
+			f.write(output);
+			output = ""
+		else:
+			return output
+
 	def visit(self, node):
 		self.generic_visit(node)
 
@@ -103,25 +137,36 @@ class Visitor(ast.NodeVisitor):
 		elif isinstance(node, ast.Call):
 			if isinstance(node.func, ast.Attribute):
 				#calling from an object
-				output += "<object: "
-				output += node.func.value.id
-				output += "; calling func: "
-				output += node.func.attr
-				output += "," + strPrevLevel +  ">"
-				
+
+				if(isinstance(node.func.value, ast.Call)):
+					self.chainedCalls(node,output,strlevel, strPrevLevel)
+				else:
+					output += "<object: "
+					output += node.func.value.id
+					output += "; calling func: "
+					output += node.func.attr
+					output += "," + strPrevLevel +  ">"
+					output += "\n<args, " + strNextLevel + ">\n"
+					f.write(output);
+					output = ""
+					for arg in node.args:
+						self.generic_visit(arg)
+						f.write(output);
+						output = ""
+					output += "</args,1>"
+
 			elif isinstance(node.func, ast.Name):
 				output += "<calling func: "
 				output += node.func.id
 				output += "," + strlevel +  ">"
-
-			output += "\n<args, " + strNextLevel + ">\n"
-			f.write(output);
-			output = ""
-			for arg in node.args:
-				self.generic_visit(arg)
+				output += "\n<args, " + strNextLevel + ">\n"
 				f.write(output);
 				output = ""
-			output += "</args,1>"
+				for arg in node.args:
+					self.generic_visit(arg)
+					f.write(output);
+					output = ""
+				output += "</args,1>"
 		elif isinstance(node, ast.Expr):
 			hasChildren = True
 		elif isinstance(node, ast.Print):
