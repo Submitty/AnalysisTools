@@ -48,7 +48,7 @@ instance ToJSON Node where
                                   , "data" .= show d
                                   ]
 
-data Tag = Tag T.Text deriving (Show, Eq)
+newtype Tag = Tag T.Text deriving (Show, Eq)
 
 instance ToJSON Tag where
     toJSON (Tag x) = toJSON x

@@ -83,7 +83,7 @@ renderPage b =
             , H.style . H.toHtml $ C.renderWith C.R.compact [] stylesheet
             ]
         , H.body $ mconcat
-            [ H.h1 $ "Token Diagnostics"
+            [ H.h1 "Token Diagnostics"
             , H.div ! A.class_ "pane" $ b
             , H.script ! A.src "https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js" $ ""
             , H.script . hs $ renderJs javascript
