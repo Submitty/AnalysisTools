@@ -19,7 +19,7 @@ def testLang(lang, whatToCount, arg):
 
 		#call = "/usr/local/submitty/SubmittyAnalysisTools/count node -l " + lang + " " + whatToCount + " " + fname
 		#submittyCount = subprocess.Popen(["/bin/bash", "-i", "-c", call])
-		commonAST = subprocess.check_output(["/usr/local/submitty/SubmittyAnalysisTools/commonast.py", "-"+commonastlang, "-"+whatToCount.capitalize(), fname, arg])
+		commonAST = subprocess.check_output(["/usr/local/submitty/SubmittyAnalysisTools/commonast.py", "-"+commonastlang, "-"+whatToCount.capitalize(), arg, fname])
 		#call = "/usr/local/submitty/SubmittyAnalysisTools/commonast.py " + "-"+commonastlang + " -"+whatToCount.capitalize() + " " + fname + " " + arg
 		#commonAST = subprocess.Popen(["/bin/bash", "-i", "-c", call])
 
