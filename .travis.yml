@@ -22,7 +22,7 @@ script:
 - stack test --only-dependencies
 - "./bin/hlint '--ignore=Parse error' src"
 - "./bin/hlint '--ignore=Parse error' app"
-- danger
+- PATH=./bin:$PATH danger
 deploy:
   provider: releases
   api_key:

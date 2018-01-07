@@ -38,13 +38,10 @@ instance Hashable Tok
 sc :: Parser ()
 sc = void (many spaceChar)
 
-reserved :: String -> Parser String
-reserved = try . string
-
 onetoken :: Parser (Tagged Tok)
-onetoken = wrap (reserved "//" *> manyTill anyChar (char '\r' <|> (head <$> eol))) Comment
-       <|> wrap (reserved "#" *> manyTill anyChar (char '\r' <|> (head <$> eol))) Comment
-       <|> wrap (reserved "/*" *> manyTill anyChar (head <$> reserved "*/")) Comment
+onetoken = wrap (("//"++) <$> (operator "//" *> manyTill anyChar (char '\r' <|> (head <$> eol)))) Comment
+       <|> wrap (("#"++) <$> (operator "#" *> manyTill anyChar (char '\r' <|> (head <$> eol)))) Comment
+       <|> wrap (("/**/"++) <$> (operator "/*" *> manyTill anyChar (head <$> operator "*/"))) Comment
        <|> wrap (reserved "auto") Auto
        <|> wrap (reserved "break") Break
        <|> wrap (reserved "case") Case
@@ -93,54 +90,54 @@ onetoken = wrap (reserved "//" *> manyTill anyChar (char '\r' <|> (head <$> eol)
        <|> wrap ident Identifier
        <|> wrap (show <$> L.integer) IntegerLiteral
        <|> wrap (show <$> L.float) FloatLiteral
-       <|> wrap (show <$> strLit) StringLiteral
-       <|> wrap (show <$> charLit) CharLiteral
-       <|> wrap (reserved "...") Ellipsis
-       <|> wrap (reserved ">>=") RightAssign
-       <|> wrap (reserved "<<=") LeftAssign
-       <|> wrap (reserved "+=") AddAssign
-       <|> wrap (reserved "-=") SubAssign
-       <|> wrap (reserved "*=") MulAssign
-       <|> wrap (reserved "/=") DivAssign
-       <|> wrap (reserved "%=") ModAssign
-       <|> wrap (reserved "&=") AndAssign
-       <|> wrap (reserved "^=") XorAssign
-       <|> wrap (reserved "|=") OrAssign
-       <|> wrap (reserved ">>") RightOp
-       <|> wrap (reserved "<<") LeftOp
-       <|> wrap (reserved "++") IncOp
-       <|> wrap (reserved "--") DecOp
-       <|> wrap (reserved "->") PtrOp
-       <|> wrap (reserved "&&") AndOp
-       <|> wrap (reserved "||") OrOp
-       <|> wrap (reserved "<=") LeOp
-       <|> wrap (reserved ">=") GeOp
-       <|> wrap (reserved "==") EqOp
-       <|> wrap (reserved "!=") NeOp
-       <|> wrap (reserved ";") Semicolon
-       <|> wrap (reserved "{" <|> reserved "<%") LeftCurly
-       <|> wrap (reserved "}" <|> reserved "%>") RightCurly
-       <|> wrap (reserved ",") Comma
-       <|> wrap (reserved ":") Colon
-       <|> wrap (reserved "=") Equal
-       <|> wrap (reserved "(") LeftParen
-       <|> wrap (reserved ")") RightParen
-       <|> wrap (reserved "[" <|> reserved "<:") LeftSquare
-       <|> wrap (reserved "]" <|> reserved ":>") RightSquare
-       <|> wrap (reserved ".") Dot
-       <|> wrap (reserved "&") Ampersand
-       <|> wrap (reserved "!") Exclamation
-       <|> wrap (reserved "~") Tilde
-       <|> wrap (reserved "-") Minus
-       <|> wrap (reserved "+") Plus
-       <|> wrap (reserved "*") Asterisk
-       <|> wrap (reserved "/") Slash
-       <|> wrap (reserved "%") Percent
-       <|> wrap (reserved "<") LessThan
-       <|> wrap (reserved ">") GreaterThan
-       <|> wrap (reserved "^") Caret
-       <|> wrap (reserved "|") Pipe
-       <|> wrap (reserved "?") Question
+       <|> wrap (quote <$> strLit) StringLiteral
+       <|> wrap (quote <$> charLit) CharLiteral
+       <|> wrap (operator "...") Ellipsis
+       <|> wrap (operator ">>=") RightAssign
+       <|> wrap (operator "<<=") LeftAssign
+       <|> wrap (operator "+=") AddAssign
+       <|> wrap (operator "-=") SubAssign
+       <|> wrap (operator "*=") MulAssign
+       <|> wrap (operator "/=") DivAssign
+       <|> wrap (operator "%=") ModAssign
+       <|> wrap (operator "&=") AndAssign
+       <|> wrap (operator "^=") XorAssign
+       <|> wrap (operator "|=") OrAssign
+       <|> wrap (operator ">>") RightOp
+       <|> wrap (operator "<<") LeftOp
+       <|> wrap (operator "++") IncOp
+       <|> wrap (operator "--") DecOp
+       <|> wrap (operator "->") PtrOp
+       <|> wrap (operator "&&") AndOp
+       <|> wrap (operator "||") OrOp
+       <|> wrap (operator "<=") LeOp
+       <|> wrap (operator ">=") GeOp
+       <|> wrap (operator "==") EqOp
+       <|> wrap (operator "!=") NeOp
+       <|> wrap (operator ";") Semicolon
+       <|> wrap (operator "{" <|> reserved "<%") LeftCurly
+       <|> wrap (operator "}" <|> reserved "%>") RightCurly
+       <|> wrap (operator ",") Comma
+       <|> wrap (operator ":") Colon
+       <|> wrap (operator "=") Equal
+       <|> wrap (operator "(") LeftParen
+       <|> wrap (operator ")") RightParen
+       <|> wrap (operator "[" <|> reserved "<:") LeftSquare
+       <|> wrap (operator "]" <|> reserved ":>") RightSquare
+       <|> wrap (operator ".") Dot
+       <|> wrap (operator "&") Ampersand
+       <|> wrap (operator "!") Exclamation
+       <|> wrap (operator "~") Tilde
+       <|> wrap (operator "-") Minus
+       <|> wrap (operator "+") Plus
+       <|> wrap (operator "*") Asterisk
+       <|> wrap (operator "/") Slash
+       <|> wrap (operator "%") Percent
+       <|> wrap (operator "<") LessThan
+       <|> wrap (operator ">") GreaterThan
+       <|> wrap (operator "^") Caret
+       <|> wrap (operator "|") Pipe
+       <|> wrap (operator "?") Question
        <|> wrap ((:[]) <$> anyChar) Unknown
         
 lex :: Lexer Tok

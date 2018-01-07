@@ -2,6 +2,7 @@
 
 module Lichen.Parser where
 
+import Data.Aeson
 import qualified Data.Text as T
 import qualified Data.ByteString as BS
 import qualified Data.ByteString.Char8 as BS.C8
@@ -20,7 +21,37 @@ data Node = Node [Tag] [Node]
           | DataBytes BS.C8.ByteString
           deriving (Show, Eq)
 
-data Tag = Tag T.Text | TagData T.Text T.Text deriving (Show, Eq)
+instance ToJSON Node where
+    toJSON (Node ts ns) = object [ "type" .= ("node" :: T.Text)
+                                 , "tags" .= (toJSON <$> ts)
+                                 , "children" .= (toJSON <$> ns)
+                                 ]
+    toJSON (MetaCount d) = object [ "type" .= ("meta_count" :: T.Text)
+                                  , "data" .= d
+                                  ]
+    toJSON (MetaIdent d) = object [ "type" .= ("metadata_identifier" :: T.Text)
+                                  , "data" .= d
+                                  ]
+    toJSON (DataInt d) = object [ "type" .= ("data_int" :: T.Text)
+                                , "data" .= d
+                                ]
+    toJSON (DataFloat d) = object [ "type" .= ("data_float" :: T.Text)
+                                  , "data" .= d
+                                  ]
+    toJSON (DataBool d) = object [ "type" .= ("data_bool" :: T.Text)
+                                 , "data" .= d
+                                 ]
+    toJSON (DataStr d) = object [ "type" .= ("data_str" :: T.Text)
+                                , "data" .= d
+                                ]
+    toJSON (DataBytes d) = object [ "type" .= ("data_bytes" :: T.Text)
+                                  , "data" .= show d
+                                  ]
+
+newtype Tag = Tag T.Text deriving (Show, Eq)
+
+instance ToJSON Tag where
+    toJSON (Tag x) = toJSON x
 
 hasTag :: T.Text -> Node -> Bool
 hasTag t (Node ts _) = Tag t `elem` ts

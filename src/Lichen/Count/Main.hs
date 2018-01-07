@@ -41,8 +41,11 @@ realMain ic = do
         flip runConfigured options $ do
             config <- ask
             t <- case toCount config of Just t -> return t; Nothing -> throwError $ InvocationError "No countable element specified"
-            ps <- liftIO . mapM canonicalizePath $ sourceFiles config
-            counts <- lift $ mapM (runCounter (counter config) (language config) t) ps
-            liftIO . print $ sum counts
+            if null $ sourceFiles config
+            then throwError $ InvocationError "No source files provided"
+            else do
+                ps <- liftIO . mapM canonicalizePath $ sourceFiles config
+                counts <- lift $ mapM (runCounter (counter config) (language config) t) ps
+                liftIO . print $ sum counts
     where opts c = info (helper <*> parseOptions c)
                         (fullDesc <> progDesc "Count occurences of a specific language feature" <> header "count - feature counting")
