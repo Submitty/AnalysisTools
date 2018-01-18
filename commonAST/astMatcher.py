@@ -200,10 +200,7 @@ class Visitor(ast.NodeVisitor):
 				for bodynode in node.orelse:	
 					self.generic_visit(bodynode, nextLevel+1, node)
 			else:
-				if(not isinstance(parent, ast.If)):
-					self.generic_visit(orelse, level, node)
-				else:
-					self.generic_visit(orelse, prevLevel, node)
+				self.generic_visit(orelse, level, node)
 			
 
 		if hasExcept:
