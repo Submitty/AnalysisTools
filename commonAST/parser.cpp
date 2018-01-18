@@ -724,11 +724,11 @@ int main(int argc, char** argv){
 	map<string, vector<string> >::iterator itr;
 	for(itr= nodesToCount.begin(); itr != nodesToCount.end(); itr++){
 		if(itr->first == "-For"){
-			cout << "number of for loops: " << parser.getFor() << endl;
+			cout << parser.getFor() << endl;
 		}else if(itr->first == "-ForbidCall"){
-			cout << "number of forbidden calls " << parser.getForbiddenFuncCall() << endl;
+			cout << parser.getForbiddenFuncCall() << endl;
 		}else if(itr->first == "-Complexity"){
-			cout << "complexity n^" << parser.getComplexity() << endl;
+			cout << parser.getComplexity() << endl;
 		}else if(itr->first == "-ClassBases"){
 			cout << parser.getClassesAndBases() << endl;
 
