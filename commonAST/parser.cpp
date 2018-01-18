@@ -41,7 +41,7 @@ void Call::accept(CounterVisitor &v){
 
 class Parser{
 	public:
-
+	
 		Parser(const string& filename) : file(filename.c_str()) {};
 
 		Parser(const string& filename, map<string, vector<string > > nodesToCount): file(filename.c_str()) {
@@ -261,6 +261,7 @@ class Parser{
 					break;
 				}else{
 					cerr << "ERROR: Attempted to add value which is not an EXPR or STMT" << endl;
+					exit(1);
 				}
 
 				lt = getLookaheadToken();
@@ -288,6 +289,7 @@ class Parser{
 					break;
 				}else{
 					cerr << "ERROR: Attempted to add value which is not an EXPR or STMT" << endl;	
+					exit(1);
 				}
 			}	
 			return cs;
@@ -319,6 +321,7 @@ class Parser{
 					return args;
 				}else{
 					cerr << "ERROR: Attempted to add value which is not an EXPR" << endl;	
+					exit(1);
 				}
 			}
 
@@ -387,6 +390,7 @@ class Parser{
 					return f;
 				}else{
 					cerr << "ERROR: Attempted to add value which is not an EXPR or STMT" << endl;	
+					exit(1);
 				}
 
 			}
