@@ -119,6 +119,7 @@ class Visitor(ast.NodeVisitor):
 			output +=  "<importing," + strlevel + ">"
 			for alias in node.names:
 				output += "\n<name: " + alias.name + "," +  strNextLevel + ">"
+			output += "\n</importing,1>"
 		elif isinstance(node, ast.Exec):
 			output += "<exec," + strlevel + ">"
 		elif isinstance(node, ast.BoolOp):
