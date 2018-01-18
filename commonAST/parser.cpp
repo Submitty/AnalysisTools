@@ -502,10 +502,13 @@ class Parser{
 
 		Import* parseImport(int level){
 			Import* i = new Import();
-			while(getLookaheadToken()->level > level /*&& getLookaheadToken()->value != "END"*/){
+
+                       	while(getLookaheadToken()->level > level && getLookaheadToken()->value != "/importing"){
 				i->names.push_back(parseIdentifier());
 			}
 
+			//throwaway </importing> token
+                        getToken();
 			return i;
 		}
 
