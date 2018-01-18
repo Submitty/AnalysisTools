@@ -49,9 +49,8 @@ class Visitor(ast.NodeVisitor):
 	def generic_visit(self, node, level=1, parent=None):
 		output = ""
 		#variables used for searching children
-		hasChildren = False	
 		hasBody = False
-		hasElse = False
+		hasChildren = False	
 		hasExcept = False
 		#calculate the nextLevels
 		nextLevel = level+1
@@ -91,18 +90,17 @@ class Visitor(ast.NodeVisitor):
 			output += "\n<compoundStmt," + strNextLevel + ">"
 			hasBody = True
 		elif isinstance(node, ast.While):
+			hasBody = True
 			output += "<whileLoop," + strlevel + ">\n"
 			f.write(output)
 			output = ""
-			hasBody = True
 			self.generic_visit(node.test, nextLevel, node)
 			output += "<compoundStmt," + strNextLevel + ">"
 		elif isinstance(node, ast.If):
+			hasBody = True
 			output += "<ifStatement," + strlevel + ">\n"
 			f.write(output)
 			output = ""
-			hasBody = True
-			hasElse = True
 			self.generic_visit(node.test, nextLevel, node)
 			output += "</cond,1>\n"
 			output += "<compoundStmt," + strNextLevel + ">"
@@ -110,8 +108,8 @@ class Visitor(ast.NodeVisitor):
 			output += "<raisingException," + strlevel + ">"
 		elif isinstance(node, ast.TryExcept):
 			output += "<try," + strlevel + ">"
-			hasBody = True
 			hasExcept = True
+			hasBody = True
 			output += "\n<compoundStmt," + strNextLevel + ">"
 		elif isinstance(node, ast.ExceptHandler):
 			hasBody = True
@@ -176,7 +174,7 @@ class Visitor(ast.NodeVisitor):
 		elif isinstance(node, ast.Print):
 			hasChildren = True
 
-		if (isinstance(node, ast.FunctionDef) or hasBody or hasElse or hasExcept) and len(output) != 0:
+		if (isinstance(node, ast.FunctionDef) or hasBody or hasattr(node, "orelse") or hasExcept) and len(output) != 0:
 			nextLevel += 1
 
 		if len(output) != 0:
@@ -187,21 +185,25 @@ class Visitor(ast.NodeVisitor):
 		if hasChildren:
 			for child in ast.iter_child_nodes(node):
 				self.generic_visit(child, nextLevel, node)
-		elif hasBody:
+		if hasBody:
+		#elif hasattr(node, "body"):
 			for child in node.body:
 				self.generic_visit(child, nextLevel, node)
 
-		if hasElse:
-			for orelse in node.orelse:
-				if(not isinstance(orelse, ast.If)):
-					output = "<elseStatement," + strNextLevel + ">\n"
-					f.write(output)
-					self.generic_visit(orelse, nextLevel+1, node)
+
+		if(hasattr(node, "orelse") and len(node.orelse) > 0):
+			orelse = node.orelse[0]
+			if(not isinstance(orelse, ast.If)):
+ 				output = "<elseStatement," + strNextLevel + ">\n"
+				f.write(output)
+				for bodynode in node.orelse:	
+					self.generic_visit(bodynode, nextLevel+1, node)
+			else:
+				if(not isinstance(parent, ast.If)):
+					self.generic_visit(orelse, level, node)
 				else:
-					if(not isinstance(parent, ast.If)):
-						self.generic_visit(orelse, level, node)
-					else:
-						self.generic_visit(orelse, prevLevel, node)
+					self.generic_visit(orelse, prevLevel, node)
+			
 
 		if hasExcept:
 			if len(node.handlers) > 0:
