@@ -36,7 +36,7 @@ class Visitor(ast.NodeVisitor):
 				self.generic_visit(arg)
 				f.write(output);
 				output = ""
-			output += "</args,1>"
+			output += "</args,1>\n"
 			f.write(output);
 			output = ""
 		else:
@@ -156,7 +156,7 @@ class Visitor(ast.NodeVisitor):
 						self.generic_visit(arg)
 						f.write(output);
 						output = ""
-					output += "</args,1>"
+					output += "</args,1>\n"
 
 			elif isinstance(node.func, ast.Name):
 				output += "<calling func: "
@@ -169,7 +169,7 @@ class Visitor(ast.NodeVisitor):
 					self.generic_visit(arg)
 					f.write(output);
 					output = ""
-				output += "</args,1>"
+				output += "</args,1>\n"
 		elif isinstance(node, ast.Expr):
 			hasChildren = True
 		elif isinstance(node, ast.Print):
