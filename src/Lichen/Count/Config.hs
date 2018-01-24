@@ -1,24 +1,23 @@
 {-# LANGUAGE OverloadedStrings, RecordWildCards #-}
 
-module Lichen.Config.Count where
+module Lichen.Count.Config where
 
 import Data.Maybe
 import Data.Aeson
 
 import Lichen.Config
-import Lichen.Config.Languages
+import Lichen.Languages
 import Lichen.Count.Counters
 
-data Config = Config
-            { dataDir :: FilePath
-            , language :: Language
-            , counter :: Counter
-            , toCount :: Maybe String
-            , sourceFiles :: [FilePath]
-            }
+data Config = Config { configFile :: FilePath
+                     , language :: Language
+                     , counter :: Counter
+                     , toCount :: Maybe String
+                     , sourceFiles :: [FilePath]
+                     }
 instance FromJSON Config where
         parseJSON = withObject "config_count" $ \o -> do
-            dataDir <- fromMaybe (dataDir defaultConfig) <$> o .:? "data_dir"
+            configFile <- fromMaybe (configFile defaultConfig) <$> o .:? "config_file"
             language <- fromMaybe (language defaultConfig) <$> o .:? "language"
             counter <- fromMaybe (counter defaultConfig) <$> o .:? "counter"
             toCount <- fromMaybe (toCount defaultConfig) <$> o .:? "to_count"
@@ -26,7 +25,7 @@ instance FromJSON Config where
             return Config{..}
 
 defaultConfig :: Config
-defaultConfig = Config { dataDir = ".lichen"
+defaultConfig = Config { configFile = ".lichenrc"
                        , language = langDummy
                        , counter = counterDummy
                        , toCount = Nothing

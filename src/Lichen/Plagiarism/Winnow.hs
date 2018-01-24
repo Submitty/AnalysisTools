@@ -1,17 +1,11 @@
-module Lichen.Plagiarism.Winnow where
+module Lichen.Plagiarism.Winnow ( fingerprints
+                                ) where
 
 import Data.Hashable
 import qualified Data.List.NonEmpty as NE
-import qualified Data.ByteString as BS
-
-import Control.Monad.Trans
 
 import Lichen.Lexer
-import Lichen.Config.Languages
-import Lichen.Config.Plagiarism
-
-type Fingerprint = Tagged Int
-type Fingerprints = [Fingerprint]
+import Lichen.Plagiarism.Submitty
 
 -- Produce a list by sliding a window of size k over the list lst.
 windows :: Int -> [a] -> Maybe [NE.NonEmpty a]
@@ -64,7 +58,7 @@ fingerprint k lst = case windows k lst of
 -- Here, 1 is added once when processing the first window, but in the
 -- second window another 1 is added to the result set, since there is
 -- a minimum value present that was not already processed.
-winnow :: Int -> Int -> [Fingerprint] -> Fingerprints
+winnow :: Int -> Int -> [Fingerprint] -> [Fingerprint]
 winnow t k lst = go [] allWindows where
     allWindows :: [[(Fingerprint, Int)]]
     allWindows = case windows (t - k + 1) $ zip lst [1, 2 ..] of Just ws -> NE.toList <$> ws; Nothing -> []
@@ -80,10 +74,5 @@ winnow t k lst = go [] allWindows where
                                  if mf == mo then go (minimum fil:acc) ws
                                              else go acc ws
 
-processTokens :: Hashable a => WinnowConfig -> [Tagged a] -> Fingerprints
-processTokens config = winnow (signalThreshold config) (noiseThreshold config)
-                     . fingerprint (noiseThreshold config)
-
--- Cannot use record syntax here due to type variable selection
-processCode :: Language -> FilePath -> BS.ByteString -> Plagiarism Fingerprints
-processCode (Language _ llex c _ _) p src = lift $ processTokens c <$> llex p src
+fingerprints :: Hashable a => Int -> Int -> [Tagged a] -> [Fingerprint]
+fingerprints signal noise = winnow signal noise . fingerprint noise

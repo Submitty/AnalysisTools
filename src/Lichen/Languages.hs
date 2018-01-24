@@ -1,6 +1,6 @@
 {-# LANGUAGE OverloadedStrings, GADTs, DeriveGeneric, StandaloneDeriving #-}
 
-module Lichen.Config.Languages where
+module Lichen.Languages where
 
 import GHC.Generics
 
@@ -17,6 +17,8 @@ import Lichen.Lexer
 import Lichen.Parser
 import qualified Lichen.Lexer.C as C
 import qualified Lichen.Lexer.Python as Python
+import qualified Lichen.Lexer.Java as Java
+import qualified Lichen.Lexer.Text as Text
 import qualified Lichen.Parser.Python as Python
 
 -- Configuration for the winnowing algorithm. Token sequences shorter than
@@ -35,30 +37,55 @@ instance FromJSON WinnowConfig
 -- is an HLint bug, and can safely be ignored.
 data Language where
         Language :: (Hashable a, Show a) => { exts :: [FilePath]
-                                            , lexer :: Lexer a
                                             , winnowConfig :: WinnowConfig
                                             , readToken :: String -> Erring a
+                                            , lexer :: Lexer a
                                             , parser :: Parser Node
                                             } -> Language
 instance FromJSON Language where
         parseJSON (String s) = pure $ languageChoice langDummy (Just $ T.unpack s)
         parseJSON _ = pure langDummy
 
-dummy :: a -> b -> Erring c
-dummy _ _ = throwError $ InvocationError "Specified analysis method is undefined for language"
+dummy :: T.Text -> a -> b -> Erring c
+dummy t _ _ = throwError $ InvocationError t
 
 smartRead :: Read a => String -> Erring a
 smartRead s = case readMaybe s of Just t -> pure t
                                   Nothing -> throwError . InvalidTokenError $ T.pack s
 
 langDummy :: Language
-langDummy = Language [] dummy (WinnowConfig 0 0) (const $ pure ()) dummy
+langDummy = Language []
+                     (WinnowConfig 0 0)
+                     (const $ pure ())
+                     (dummy "No valid language specified")
+                     (dummy "No valid language specified")
 
 langC :: Language
-langC = Language [".c", ".h", ".cpp", ".hpp", ".C", ".H", ".cc"] C.lex (WinnowConfig 16 9) (smartRead :: String -> Erring C.Tok) dummy
+langC = Language [".c", ".h", ".cpp", ".cc", ".cxx", ".hpp", ".C", ".H", ".CPP", ".CC", ".CXX", ".CPP"]
+                 (WinnowConfig 16 9)
+                 (smartRead :: String -> Erring C.Tok)
+                 C.lex
+                 (dummy "The C tooling does not currently support the requested feature")
 
 langPython :: Language
-langPython = Language [".py"] Python.lex (WinnowConfig 16 9) (smartRead :: String -> Erring Python.Tok) Python.parse
+langPython = Language [".py"]
+                      (WinnowConfig 16 9)
+                      (smartRead :: String -> Erring Python.Tok)
+                      Python.lex Python.parse
+
+langJava :: Language
+langJava = Language [".java"]
+                    (WinnowConfig 16 9)
+                    (smartRead :: String -> Erring Java.Tok)
+                    Java.lex
+                    (dummy "The Java tooling does not currently support the requested feature")
+
+langText :: Language
+langText = Language [".txt", ""]
+                    (WinnowConfig 16 9)
+                    (pure . T.pack)
+                    Text.lex
+                    (dummy "Plain text cannot be parsed, so this feature is unavailable")
 
 languageChoice :: Language -> Maybe String -> Language
 languageChoice d Nothing = d
@@ -67,4 +94,11 @@ languageChoice _ (Just "c") = langC
 languageChoice _ (Just "Python") = langPython
 languageChoice _ (Just "python") = langPython
 languageChoice _ (Just "py") = langPython
+languageChoice _ (Just "java") = langJava
+languageChoice _ (Just "Java") = langJava
+languageChoice _ (Just "text") = langText
+languageChoice _ (Just "Text") = langText
+languageChoice _ (Just "txt") = langText
+languageChoice _ (Just "plaintext") = langText
+languageChoice _ (Just "plain") = langText
 languageChoice _ _ = langDummy

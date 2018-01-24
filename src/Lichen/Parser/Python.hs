@@ -256,5 +256,5 @@ convertCompIter (IterIf cif _) = convertCompIf cif
 
 parse :: Parser Node
 parse f d = case parseModule (BS.C8.unpack d) f of
-                Left _ -> undefined
+                Left e -> throwError . ParseError . T.pack $ show e
                 Right (m, _) -> convertModule . void $ m
