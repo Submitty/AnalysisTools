@@ -41,7 +41,7 @@ void Call::accept(CounterVisitor &v){
 
 class Parser{
 	public:
-
+	
 		Parser(const string& filename) : file(filename.c_str()) {};
 
 		Parser(const string& filename, map<string, vector<string > > nodesToCount): file(filename.c_str()) {
