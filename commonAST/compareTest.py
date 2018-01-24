@@ -4,10 +4,9 @@ import glob
 
 #run sumbitty count
 
-countEqual = 0
-countUnEqual = 0
-
 def testLang(lang, whatToCount, arg):
+	global countEqual
+	global countUnEqual
 	directory = "/usr/local/submitty/GIT_CHECKOUT_AnalysisTools/commonAST/py-test-files/"
 	if(lang == "python"):
 		directory += "*.py"	
@@ -36,11 +35,16 @@ def testLang(lang, whatToCount, arg):
 
  #node -l python for /var/local/submitty/courses/f17/tutorial/submissions/for_test_cpp/instructor/13/part1/*.py
 
+countEqual = 0
+countUnEqual = 0
+
 print("number of for loops")
 testLang("python", "for", "Void")
 testLang("c", "for", "Void")
+'''
 print("number of while loops")
 testLang("python", "while", "Void")
 testLang("c", "while", "Void")
+'''
 
 print("\n", countEqual, "/", countUnEqual)
