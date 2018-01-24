@@ -11,7 +11,7 @@ class Visitor(ast.NodeVisitor):
 
 	def chainedCalls(self, node, output, strlevel, strPrevLevel):
 		if(isinstance(node, ast.Call)):
-			if(not hasattr(node.func.value, "id")):
+			if(hasattr(node.func, "value") and not hasattr(node.func.value, "id")):
 				self.chainedCalls(node.func.value, output, strlevel, strPrevLevel)				
 				output += "\n<calling func: "
 				output += node.func.attr
@@ -19,7 +19,7 @@ class Visitor(ast.NodeVisitor):
 				f.write(output);
 				output = ""
 
-			else:
+			elif(hasattr(node.func, "value")):
 				output += "\n<object: "
 				output += node.func.value.id
 				output += "; calling func: "
@@ -28,6 +28,13 @@ class Visitor(ast.NodeVisitor):
 				f.write(output);
 				output = ""
 				self.chainedCalls(node.func, output, strlevel, strPrevLevel)				
+			else:
+				output += "\n<calling func: "
+				output += node.func.id
+				output += "," + strlevel + ">"
+				f.write(output)
+				output = ""
+				self.chainedCalls(node.func, output, strlevel, strPrevLevel)
 
 			output += "\n<args, " + strlevel + ">\n"
 			f.write(output);
