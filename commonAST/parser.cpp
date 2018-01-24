@@ -261,6 +261,7 @@ class Parser{
 					break;
 				}else{
 					cerr << "ERROR: Attempted to add value which is not an EXPR or STMT" << endl;
+					exit(1);
 				}
 
 				lt = getLookaheadToken();
@@ -288,6 +289,7 @@ class Parser{
 					break;
 				}else{
 					cerr << "ERROR: Attempted to add value which is not an EXPR or STMT" << endl;	
+					exit(1);
 				}
 			}	
 			return cs;
@@ -319,6 +321,7 @@ class Parser{
 					return args;
 				}else{
 					cerr << "ERROR: Attempted to add value which is not an EXPR" << endl;	
+					exit(1);
 				}
 			}
 
@@ -387,6 +390,7 @@ class Parser{
 					return f;
 				}else{
 					cerr << "ERROR: Attempted to add value which is not an EXPR or STMT" << endl;	
+					exit(1);
 				}
 
 			}
@@ -602,6 +606,10 @@ class Parser{
 			return visitor.getFor();
 		}
 
+		int getWhile() const{
+			return visitor.getWhile();
+		}
+
 		int getComplexity() const{
 			return visitor.getComplexity();
 		}
@@ -728,6 +736,8 @@ int main(int argc, char** argv){
 	for(itr= nodesToCount.begin(); itr != nodesToCount.end(); itr++){
 		if(itr->first == "-For"){
 			cout << parser.getFor() << endl;
+		}else if(itr->first == "-While"){
+			cout << parser.getWhile() << endl;
 		}else if(itr->first == "-ForbidCall"){
 			cout << parser.getForbiddenFuncCall() << endl;
 		}else if(itr->first == "-Complexity"){
