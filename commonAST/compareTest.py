@@ -4,6 +4,9 @@ import glob
 
 #run sumbitty count
 
+countEqual = 0
+countUnEqual = 0
+
 def testLang(lang, whatToCount, arg):
 	directory = "/usr/local/submitty/GIT_CHECKOUT_AnalysisTools/commonAST/py-test-files/"
 	if(lang == "python"):
@@ -23,7 +26,13 @@ def testLang(lang, whatToCount, arg):
 		#call = "/usr/local/submitty/SubmittyAnalysisTools/commonast.py " + "-"+commonastlang + " -"+whatToCount.capitalize() + " " + fname + " " + arg
 		#commonAST = subprocess.Popen(["/bin/bash", "-i", "-c", call])
 
-		print("EQUAL?", submittyCount == commonAST)
+		#print(submittyCount, commonAST)
+		equal = submittyCount == commonAST
+		print("EQUAL?", equal)
+		if equal:
+			countEqual += 1
+		else:
+			countUnEqual += 1
 
  #node -l python for /var/local/submitty/courses/f17/tutorial/submissions/for_test_cpp/instructor/13/part1/*.py
 
@@ -33,3 +42,5 @@ testLang("c", "for", "Void")
 print("number of while loops")
 testLang("python", "while", "Void")
 testLang("c", "while", "Void")
+
+print("\n", countEqual, "/", countUnEqual)
