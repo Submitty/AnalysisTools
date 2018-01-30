@@ -786,6 +786,6 @@ int main(int argc, char** argv){
 		}
 	}
 
-	printASTasJSON(m);
+	//printASTasJSON(m);
 }
 
