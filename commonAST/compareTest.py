@@ -16,7 +16,7 @@ def testLang(lang, whatToCount, arg):
 		commonastlang = "cpp"
 
 	for fname in glob.glob(directory):
-		#print(fname)
+		print(fname)
 		submittyCount = subprocess.check_output(["/usr/local/submitty/SubmittyAnalysisTools/count", "node", "-l", lang, whatToCount, fname])
 
 		#call = "/usr/local/submitty/SubmittyAnalysisTools/count node -l " + lang + " " + whatToCount + " " + fname
@@ -38,6 +38,7 @@ def testLang(lang, whatToCount, arg):
 countEqual = 0
 countUnEqual = 0
 
+'''
 print("number of for loops")
 testLang("python", "for", "Void")
 testLang("c", "for", "Void")
@@ -45,6 +46,5 @@ testLang("c", "for", "Void")
 print("number of while loops")
 testLang("python", "while", "Void")
 testLang("c", "while", "Void")
-'''
 
-print("\n", countEqual, "/", countUnEqual)
+print("\n", countEqual, "/", countUnEqual+countEqual)
