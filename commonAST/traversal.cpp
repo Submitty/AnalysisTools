@@ -73,8 +73,6 @@ CounterVisitor::CounterVisitor(map<string, vector<string> > nodesToCount){
 
 		}else if(node == "-Switch"){
 
-		}else if(node == "-ForbidCall"){
-			//maybe get rid of this. Forbidding is just count must be le 0
 		}else if(node == "-Complexity"){
 
 		}else{
@@ -106,7 +104,6 @@ CounterVisitor::CounterVisitor(map<string, vector<string> > nodesToCount){
 	countExcept = 0;
 	countBases = 0;
 	countCall = 0;
-	countForbiddenFuncCall = 0;
 	countBinOp = 0;
 	countUnaryOp = 0;
 	countComparison = 0;
@@ -201,10 +198,6 @@ int CounterVisitor::getBases() const{
 
 int CounterVisitor::getCall() const{
 	return countCall;
-}
-
-int CounterVisitor::getForbiddenFuncCall() const{
-	return countForbiddenFuncCall;
 }
 
 int CounterVisitor::getBinOp() const{
@@ -435,12 +428,12 @@ void CounterVisitor::visit(Call* c){
 		string arg1 = vect[0];
 		string arg2 = vect[1];
 		if((c->obj == arg1) && (c->func == arg2)){
-				countForbiddenFuncCall +=1;
+				countCall += 1;
 		}
 	}else if(vect.size() == 1){
 		string arg1 = vect[0];
 		if(c->func == arg1){
-			countForbiddenFuncCall +=1;
+			countCall += 1;
 		}
 	}else{
 		countCall += 1;
