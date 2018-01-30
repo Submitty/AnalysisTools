@@ -36,6 +36,17 @@ class ASTNode{
 
 		}
 
+		virtual void printNodeAsJSON(int level){
+			cout << getIndentation(level);
+			cout << "\"type\": \"node\"," << endl;
+			cout << getIndentation(level);
+			cout << "\"tags\":[" << endl;
+			cout << getIndentation(level+1);
+			cout << "\"" << getType() << "\"\n";
+			cout << getIndentation(level);
+			cout << "]" << endl;
+		}
+
 		virtual void accept(CounterVisitor& v) = 0;
 
 		int complexity;

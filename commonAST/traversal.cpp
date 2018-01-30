@@ -8,7 +8,8 @@ bool debugComplexity = false;
 string getIndentation(int level){
 	string ret = "";
 	for(int i=1; i<=level; i++){
-		ret += "\t";
+		ret += "   "; //custom tab size to match Sam's spacing
+		//ret += "\t";
 	}
 	return ret;
 }
@@ -39,7 +40,7 @@ CounterVisitor::CounterVisitor(map<string, vector<string> > nodesToCount){
 		}else if(node == "-If"){
 
 		}else if(node == "-ClassDef"){
-
+			//options for checking bases
 		}else if(node == "-Import"){
 
 		}else if(node == "-CompoundStmt"){
@@ -56,6 +57,8 @@ CounterVisitor::CounterVisitor(map<string, vector<string> > nodesToCount){
 
 		}else if(node == "-Try"){
 
+		}else if(node == "-RaiseExcept"){
+
 		}else if(node == "-Except"){
 
 		}else if(node == "-Call"){
@@ -65,9 +68,13 @@ CounterVisitor::CounterVisitor(map<string, vector<string> > nodesToCount){
 		}else if(node == "-UnaryOp"){
 
 		}else if(node == "-Comparison"){
+		
+		}else if(node == "-VariableDecl"){
+
+		}else if(node == "-Switch"){
 
 		}else if(node == "-ForbidCall"){
-
+			//maybe get rid of this. Forbidding is just count must be le 0
 		}else if(node == "-Complexity"){
 
 		}else{

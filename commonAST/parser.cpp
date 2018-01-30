@@ -610,6 +610,10 @@ class Parser{
 			return visitor.getWhile();
 		}
 
+		int getCall() const{
+			return visitor.getCall();
+		}
+
 		int getComplexity() const{
 			return visitor.getComplexity();
 		}
@@ -673,10 +677,43 @@ bool isStmt(string val){
 	return val == "functionDef" || val == "classDef" || val == "compoundStmt" || val == "return" || val == "assignment" || val == "augAssign" || val == "forLoop" || val == "whileLoop" || val == "do" || val == "ifStatement" || val == "importing" || val == "exec" || val == "variableDecl" || val == "try" || val == "except" || val == "raisingException" || val == "switch" || val == "case" || val.compare(0, compVal.length(), compVal) == 0;
 }
 
+void printASTasJSON(ASTNode* node, int level=0, bool addComma=false){
+
+	list<ASTNode*> children = node->getChildren();
+
+	cout << getIndentation(level);
+	cout << "{" << endl;
+	cout << getIndentation(level+1);
+	cout << "\"children\": ["; 
+
+	list<ASTNode*>::iterator itr;
+	list<ASTNode*>::iterator temp;
+	for(itr=children.begin(), temp=itr; itr!= children.end(); itr++){
+		cout << endl;
+		bool comma = (++temp) != children.end();
+		printASTasJSON(*itr, level+2, comma);
+	}
+
+	if(children.size() > 0){
+		cout << getIndentation(level+1);
+	}
+	cout << "]," << endl;
+
+	node->printNodeAsJSON(level+1);
+	cout << getIndentation(level);
+
+	cout << "}";
+	if(addComma){
+		cout << ",";
+	}else{
+		cout << endl;
+	}
+}
 
 void printAST(ASTNode* node, int level=0){
 
 	list<ASTNode*> children = node->getChildren();
+	
 	node->printNode(level);
 
 	list<ASTNode*>::iterator itr;
@@ -738,14 +775,17 @@ int main(int argc, char** argv){
 			cout << parser.getFor() << endl;
 		}else if(itr->first == "-While"){
 			cout << parser.getWhile() << endl;
+		}else if(itr->first == "-Call"){
+			cout << parser.getCall() << endl;
 		}else if(itr->first == "-ForbidCall"){
 			cout << parser.getForbiddenFuncCall() << endl;
 		}else if(itr->first == "-Complexity"){
 			cout << parser.getComplexity() << endl;
 		}else if(itr->first == "-ClassBases"){
 			cout << parser.getClassesAndBases() << endl;
-
 		}
 	}
+
+	printASTasJSON(m);
 }
 
