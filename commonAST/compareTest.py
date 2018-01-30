@@ -17,7 +17,7 @@ def testLang(lang, whatToCount, arg):
 
 	for fname in glob.glob(directory):
 		#print(fname)
-		if(whatToCount == "func"):
+		if(whatToCount == "call"):
 			submittyCount = subprocess.check_output(["/usr/local/submitty/SubmittyAnalysisTools/count", "call", whatToCount, "-l", lang, fname])
 		else:
 
@@ -38,18 +38,18 @@ def testLang(lang, whatToCount, arg):
 countEqual = 0
 countUnEqual = 0
 
+'''
 print("number of for loops")
 testLang("python", "for", "Void")
 testLang("c", "for", "Void")
 
-'''
 print("number of while loops")
 testLang("python", "while", "Void")
 testLang("c", "while", "Void")
+'''
 
 print("number of student defined func: check1")
-testLang("python", "while", "Void")
-testLang("c", "while", "Void")
-'''
+testLang("python", "call", "check1")
+testLang("c", "call", "check1")
 
 print("\n", countEqual, "/", countUnEqual+countEqual)
