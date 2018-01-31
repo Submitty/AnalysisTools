@@ -739,8 +739,8 @@ int main(int argc, char** argv){
 
 		string itemToCount = *argv;
 		argv++;
-		if(itemToCount == "-json"){
-			jsonOutput = true;
+		if(!(*argv)){
+			jsonOutput = (itemToCount == "json");
 			break;
 		}
 		string argsString = *argv;
