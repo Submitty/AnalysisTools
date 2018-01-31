@@ -16,16 +16,16 @@ def testLang(lang, whatToCount, arg):
 		commonastlang = "cpp"
 
 	for fname in glob.glob(directory):
-		#print(fname)
+		print(fname)
 		if(whatToCount == "call"):
-			submittyCount = subprocess.check_output(["/usr/local/submitty/SubmittyAnalysisTools/count", "call", whatToCount, "-l", lang, fname])
+			submittyCount = subprocess.check_output(["/usr/local/submitty/SubmittyAnalysisTools/count", "call", arg, "-l", lang, fname])
 		else:
 
 			submittyCount = subprocess.check_output(["/usr/local/submitty/SubmittyAnalysisTools/count", "node", "-l", lang, whatToCount, fname])
 
 		commonAST = subprocess.check_output(["/usr/local/submitty/SubmittyAnalysisTools/commonast.py", "-"+commonastlang, "-"+whatToCount.capitalize(), arg, fname])
 
-		#print(submittyCount, commonAST)
+		print(submittyCount, commonAST)
 		equal = submittyCount == commonAST
 		print("EQUAL?", equal)
 		if equal:
@@ -46,10 +46,17 @@ testLang("c", "for", "Void")
 print("number of while loops")
 testLang("python", "while", "Void")
 testLang("c", "while", "Void")
-'''
+
 
 print("number of student defined func: check1")
 testLang("python", "call", "check1")
 testLang("c", "call", "check1")
+'''
+
+print("number of student defined func: print_pokemon")
+testLang("python", "call", "print_pokemon")
+testLang("c", "call", "print_pokemon")
+
+
 
 print("\n", countEqual, "/", countUnEqual+countEqual)
