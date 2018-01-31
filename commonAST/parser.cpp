@@ -739,6 +739,10 @@ int main(int argc, char** argv){
 
 		string itemToCount = *argv;
 		argv++;
+		if(itemToCount == "-json"){
+			jsonOutput = true;
+			break;
+		}
 		string argsString = *argv;
 
 		vector<string> args;	
@@ -751,12 +755,7 @@ int main(int argc, char** argv){
 
 		while(argsString.find(",") != string::npos){
 			int index = argsString.find(",");
-			string item = argsString.substr(0,index);
-			if(item == "-json"){
-				jsonOutput = true;		
-			}else{
-				args.push_back(item);
-			}
+			args.push_back(argsString.substr(0,index));
 			argsString = argsString.substr(index+1);
 		}
 
