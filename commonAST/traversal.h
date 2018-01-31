@@ -65,7 +65,6 @@ class CounterVisitor{
 		int getExcept() const;
 		int getBases() const;
 		int getCall() const;
-		int getForbiddenFuncCall() const;
 		int getBinOp() const;
 		int getUnaryOp() const;
 		int getComparison() const;
@@ -121,7 +120,6 @@ private:
 		int countExcept;
 		int countBases;
 		int countCall;
-		int countForbiddenFuncCall;
 		int countBinOp;
 		int countUnaryOp;
 		int countComparison;

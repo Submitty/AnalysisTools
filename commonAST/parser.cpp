@@ -598,10 +598,6 @@ class Parser{
 
 		}
 
-		int getForbiddenFuncCall() const{
-			return visitor.getForbiddenFuncCall();
-		}
-
 		int getFor() const{
 			return visitor.getFor();
 		}
@@ -746,6 +742,10 @@ int main(int argc, char** argv){
 		vector<string> args;	
 		//ADD SOME ERROR HANDLING. MAKE SURE THE USER HAS SOME ARGUMENTS SUCH AS VOID
 
+		if(argsString.find(",") == string::npos){
+			args.push_back(argsString);
+		}
+
 
 		while(argsString.find(",") != string::npos){
 			int index = argsString.find(",");
@@ -777,8 +777,6 @@ int main(int argc, char** argv){
 			cout << parser.getWhile() << endl;
 		}else if(itr->first == "-Call"){
 			cout << parser.getCall() << endl;
-		}else if(itr->first == "-ForbidCall"){
-			cout << parser.getForbiddenFuncCall() << endl;
 		}else if(itr->first == "-Complexity"){
 			cout << parser.getComplexity() << endl;
 		}else if(itr->first == "-ClassBases"){

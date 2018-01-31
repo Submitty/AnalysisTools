@@ -423,7 +423,8 @@ void CounterVisitor::visit(Bases* b){
 }
 
 void CounterVisitor::visit(Call* c){
-	vector<string> vect = nodesToCount["Call"];
+	vector<string> vect = nodesToCount["-Call"];
+
 	if(vect.size() == 2){
 		string arg1 = vect[0];
 		string arg2 = vect[1];
