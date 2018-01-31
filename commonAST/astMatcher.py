@@ -41,7 +41,7 @@ class Visitor(ast.NodeVisitor):
 			output = ""
 			for arg in node.args:
 				self.generic_visit(arg)
-				f.write(output);
+				f.write(output)
 				output = ""
 			output += "</args,1>\n"
 			f.write(output);
@@ -180,6 +180,17 @@ class Visitor(ast.NodeVisitor):
 		elif isinstance(node, ast.Expr):
 			hasChildren = True
 		elif isinstance(node, ast.Print):
+			output += "<calling func: print"
+			output += "," + strlevel + ">\n"
+			output += "<args, " + strNextLevel + ">\n"
+			f.write(output)	
+			output = ""
+			for arg in node.values:
+				self.generic_visit(arg)
+				f.write(output);
+				output = ""
+			output += "</args,1>\n"
+
 			hasChildren = True
 
 		if (isinstance(node, ast.FunctionDef) or hasBody or hasattr(node, "orelse") or hasExcept) and len(output) != 0:
