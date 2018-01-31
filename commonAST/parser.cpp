@@ -727,6 +727,8 @@ int main(int argc, char** argv){
 		exit(1);
 	}
 
+	bool jsonOutput = false;
+	
 	string inputFile = argv[1];
 
 	map<string, vector<string> > nodesToCount;
@@ -749,7 +751,12 @@ int main(int argc, char** argv){
 
 		while(argsString.find(",") != string::npos){
 			int index = argsString.find(",");
-			args.push_back(argsString.substr(0,index));
+			string item = argsString.substr(0,index);
+			if(item == "-json"){
+				jsonOutput = true;		
+			}else{
+				args.push_back(item);
+			}
 			argsString = argsString.substr(index+1);
 		}
 
@@ -784,6 +791,8 @@ int main(int argc, char** argv){
 		}
 	}
 
-	//printASTasJSON(m);
+	if(jsonOutput){
+		printASTasJSON(m);
+	}
 }
 
