@@ -34,7 +34,7 @@ if len(sys.argv) > 5:
 
 if lang == "-py":
 	#for fname in filenames:
-		subprocess.call(["python", "/usr/local/submitty/SubmittyAnalysisTools/astMatcher.py", filename])
+		subprocess.call(["python3", "/usr/local/submitty/SubmittyAnalysisTools/astMatcher.py", filename])
 	
 elif lang == "-cpp":
 	#for fname in filenames:

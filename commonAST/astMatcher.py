@@ -1,4 +1,4 @@
-import ast
+import ast 
 import sys
 file =  sys.argv[1]
 
@@ -113,22 +113,24 @@ class Visitor(ast.NodeVisitor):
 			output += "<compoundStmt," + strNextLevel + ">"
 		elif isinstance(node, ast.Raise):
 			output += "<raisingException," + strlevel + ">"
-		elif isinstance(node, ast.TryExcept):
+		elif isinstance(node, ast.Try):
 			output += "<try," + strlevel + ">"
 			hasExcept = True
 			hasBody = True
 			output += "\n<compoundStmt," + strNextLevel + ">"
 		elif isinstance(node, ast.ExceptHandler):
 			hasBody = True
-		elif isinstance(node, ast.TryFinally):
-			output += "<tryFinally," + strlevel + ">"
+		#removed in python3
+		#elif isinstance(node, ast.TryFinally):
+		#	output += "<tryFinally," + strlevel + ">"
 		elif isinstance(node, ast.Import) or isinstance(node, ast.ImportFrom):
 			output +=  "<importing," + strlevel + ">"
 			for alias in node.names:
 				output += "\n<name: " + alias.name + "," +  strNextLevel + ">"
 			output += "\n</importing,1>"
-		elif isinstance(node, ast.Exec):
-			output += "<exec," + strlevel + ">"
+		#removed in python3
+		#elif isinstance(node, ast.Exec):
+		#	output += "<exec," + strlevel + ">"
 		elif isinstance(node, ast.BoolOp):
 			output += "<binaryOp," + strlevel + ">"
 			hasChildren = True
@@ -179,6 +181,8 @@ class Visitor(ast.NodeVisitor):
 				output += "</args,1>\n"
 		elif isinstance(node, ast.Expr):
 			hasChildren = True
+		'''
+		#removed in python3
 		elif isinstance(node, ast.Print):
 			output += "<calling func: print"
 			output += "," + strlevel + ">\n"
@@ -192,6 +196,7 @@ class Visitor(ast.NodeVisitor):
 			output += "</args,1>\n"
 
 			hasChildren = True
+		'''
 
 		if (isinstance(node, ast.FunctionDef) or hasBody or hasattr(node, "orelse") or hasExcept) and len(output) != 0:
 			nextLevel += 1
@@ -213,13 +218,12 @@ class Visitor(ast.NodeVisitor):
 		if(hasattr(node, "orelse") and len(node.orelse) > 0):
 			orelse = node.orelse[0]
 			if(not isinstance(orelse, ast.If)):
- 				output = "<elseStatement," + strNextLevel + ">\n"
+				output = "<elseStatement," + strNextLevel + ">\n"
 				f.write(output)
-				for bodynode in node.orelse:	
+				for bodynode in node.orelse:
 					self.generic_visit(bodynode, nextLevel+1, node)
 			else:
 				self.generic_visit(orelse, level, node)
-			
 
 		if hasExcept:
 			if len(node.handlers) > 0:
@@ -229,5 +233,5 @@ class Visitor(ast.NodeVisitor):
 
 			for handler in node.handlers:
 				self.generic_visit(handler, nextLevel, node)
-	
+
 Visitor().visit(tree)
