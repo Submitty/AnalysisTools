@@ -19,6 +19,7 @@ countType = sys.argv[2]
 countArg = sys.argv[3]
 
 filenames = [sys.argv[4]]
+option = ""
 
 if(len(sys.argv) > 5):
 	option = sys.argv[5] 	
@@ -34,14 +35,12 @@ if len(sys.argv) > 5:
 if lang == "-py":
 	for fname in filenames:
 		subprocess.call(["python", "/usr/local/submitty/SubmittyAnalysisTools/astMatcher.py", fname])
-		#subprocess.call(["/usr/local/submitty/SubmittyAnalysisTools/commonASTCount.out", "out.txt", countType, countArg])
 	
 elif lang == "-cpp":
 	for fname in filenames:
 		f = open("out.txt", "w")
 		alias = "/usr/local/submitty/clang-llvm/build/bin/ASTMatcher"
 		subprocess.call([alias, fname], stdout=f)
-		#subprocess.call(["/usr/local/submitty/SubmittyAnalysisTools/commonASTCount.out", "out.txt", countType, countArg])
 else:
 	print ("invalid language")
 	sys.exit()
