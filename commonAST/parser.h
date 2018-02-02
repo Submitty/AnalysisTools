@@ -63,9 +63,15 @@ class Expr : public ASTNode{
 
 class Call: public Expr{
 	public:
-		string getType();
+		string getType(){
+			return "Call";
+		}
 
-		list<ASTNode*> getChildren();
+		list<ASTNode*> getChildren(){
+			list<ASTNode*> children;
+			children.push_back((ASTNode*)argsList);
+			return children;
+		}
 
 		void printNode(int level);
 
@@ -157,6 +163,10 @@ class Args : public ASTNode{
 		}
 
 		list<ASTNode*> getChildren(){
+			if(argList.size() == 0){
+				return list<ASTNode*>(); 
+			}
+			
 			list<ASTNode*> children;
 			list<Expr*>::iterator itr;
 			for(itr= argList.begin(); itr != argList.end(); itr++){

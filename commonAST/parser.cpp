@@ -9,15 +9,6 @@ bool isExpr(string);
 bool isStmt(string);
 bool printDebug = false;
 
-string Call::getType(){
-	return "Call";	
-}
-
-list<ASTNode*> Call::getChildren(){
-	list<ASTNode*> children;
-	return children;
-}
-
 void Call::printNode(int level){
 	cout << getIndentation(level);
 	cout << "-----------------" << endl;
@@ -301,6 +292,7 @@ class Parser{
 			}
 
 			Args* args = new Args();
+			args->argList = list<Expr*>(); 
 			Token* argsToken = getToken();		
 
 			if(printDebug){
@@ -311,7 +303,6 @@ class Parser{
 			while(getLookaheadToken()->value != "/args"){
 
 				if(printDebug){
-
 					cerr << "parsing arg: " << getLookaheadToken()->value <<endl;
 				}
 
