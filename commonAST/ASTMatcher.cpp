@@ -971,6 +971,7 @@ int main(int argc, char** argv){
 		buffer << f.rdbuf();
 		cout << "<module,1>" << endl;
 		cout << "<importing,2>" << endl;
+		cout << "</importing,2>" << endl;
 		clang::tooling::runToolOnCode(new ASTMatcherAction, buffer.str());
 	}
 
