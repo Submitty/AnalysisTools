@@ -724,8 +724,15 @@ int main(int argc, char** argv){
 
 	map<string, vector<string> > nodesToCount;
 
+
 	//skips the name of the excecutable and skips the filename
 	argv += 2;
+
+	if(*argv == "json"){
+		//hack to skip the for loop
+		argv += argc;
+	}
+
 	for(int i=2; i<argc; i+=2){
 
 		string itemToCount = *argv;
@@ -759,6 +766,13 @@ int main(int argc, char** argv){
 		argv++;
 	}
 
+	if(jsonOutput){
+		Parser parser(inputFile);
+		Module* m = parser.parseModule();
+		printASTasJSON(m);
+		exit(0);
+	}
+
 	Parser parser(inputFile, nodesToCount);
 	Module* m = parser.parseModule();
 	//printAST(m);
@@ -779,10 +793,6 @@ int main(int argc, char** argv){
 		}else if(itr->first == "-ClassBases"){
 			cout << parser.getClassesAndBases() << endl;
 		}
-	}
-
-	if(jsonOutput){
-		printASTasJSON(m);
 	}
 }
 
