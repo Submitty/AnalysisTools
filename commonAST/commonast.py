@@ -10,27 +10,36 @@ def checkNumArgs(numArgs):
 		print("only provided", len(sys.argv))
 		sys.exit()	
 
-#To do:
-#	more than one file?
-
 #function to format json option and print it
 def printOption(option):
 	option = option[1:]
 	option = option.lower()
 	subprocess.call([commonASTtraversalPath, "out.txt", option])
 
+#function to print the commonAST for either language in out.txt
 def getCommonASTinOut(lang, filename):
 	if lang == "-py":
-		subprocess.call(["python3", astMatcher_pythonPath, filename])
+		try:
+			subprocess.check_output(["python3", astMatcher_pythonPath, filename])
+		except subprocess.CalledProcessError as e:
+			print (e.output)
+			sys.exit()
 	elif lang == "-cpp":
 		f = open("out.txt", "w")
-		subprocess.call([astMatcher_cppPath, filename], stdout=f)
+		try:
+			subprocess.call([astMatcher_cppPath, filename], stdout=f)
+		except subprocess.CalledProcessError as e:
+			print (e.output)
+			sys.exit()
+
 	else:
 		print ("invalid language")
 		sys.exit()
 
-#To do:
-#	more than one file?
+#function to add all filenames in *.py to filenames
+def expandStar(filename, filnames):
+	for fname in glob.glob(filename):
+		filenames.append(fname)
 
 astMatcher_pythonPath = "/usr/local/submitty/SubmittyAnalysisTools/astMatcher.py"
 astMatcher_cppPath = "/usr/local/submitty/clang-llvm/build/bin/ASTMatcher"
@@ -45,11 +54,11 @@ checkNumArgs(2)
 langOrOption = sys.argv[1]
 
 filenames = []
-filename = None
 lang = None
 countArg = None
 countType = None
 minNumArgs = None
+filename = None
 
 #find out if we're counting nodes or just printing json
 countMode = False
@@ -69,20 +78,38 @@ else:
 	filename = sys.argv[2]
 	lang = sys.argv[3]
 
-filenames.append(filename)
+#add the first filename to filenames
+if "*." in filename:
+	#if we need to expand, do so
+	expandStar(filename, filenames)
+else:
+	#otherwise, just append
+	filenames.append(filename)
 
+
+#loop to add all filenames to filenames
 if len(sys.argv) > minNumArgs:
 	count = minNumArgs
+	#while there are still filenames to add
 	while(count < len(sys.argv)):
-		filenames.append(sys.argv[count])
+		#if we need to expand, do so. Otherwise just add it
+		if "*." in sys.argv[count]:
+			expandStar(sys.argv[count], filenames)
+		else:
+			filenames.append(sys.argv[count])
 		count+=1
 
 total = 0
+#Main loop
 for fname in filenames:
+	#first get the commonAST XML IR printed to out.txt
 	getCommonASTinOut(lang, fname)
+	#then either print or count nodes 
 	if countMode:
 		total += int(subprocess.check_output([commonASTtraversalPath, "out.txt", countType, countArg]))
 	else:
 		printOption(langOrOption)
+
+#now print the total
 if(countMode):
 	print(total)
