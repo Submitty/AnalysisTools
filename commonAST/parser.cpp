@@ -766,6 +766,7 @@ int main(int argc, char** argv){
 		argv++;
 	}
 
+
 	if(jsonOutput){
 		Parser parser(inputFile);
 		Module* m = parser.parseModule();

@@ -174,6 +174,8 @@ class Args : public ASTNode{
 					children.push_back(*itr);
 				}
 			}
+
+			return children;
 		}
 
 		void accept(CounterVisitor& v){
