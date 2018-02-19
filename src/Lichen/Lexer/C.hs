@@ -39,8 +39,8 @@ sc :: Parser ()
 sc = void (many spaceChar)
 
 onetoken :: Parser (Tagged Tok)
-onetoken = wrap (("//"++) <$> (operator "//" *> manyTill anyChar (char '\r' <|> (head <$> eol)))) Comment
-       <|> wrap (("#"++) <$> (operator "#" *> manyTill anyChar (char '\r' <|> (head <$> eol)))) Comment
+onetoken = wrap (("//"++) <$> (operator "//" *> manyTill anyChar term)) Comment
+       <|> wrap (("#"++) <$> (operator "#" *> manyTill anyChar term)) Comment
        <|> wrap (("/**/"++) <$> (operator "/*" *> manyTill anyChar (head <$> operator "*/"))) Comment
        <|> wrap (reserved "auto") Auto
        <|> wrap (reserved "break") Break

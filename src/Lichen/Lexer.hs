@@ -4,6 +4,7 @@ module Lichen.Lexer where
 
 import Data.Aeson
 import Data.Foldable()
+import Data.Functor (($>))
 import Data.Semigroup ((<>))
 import qualified Data.List.NonEmpty as NE
 import qualified Data.ByteString as BS
@@ -50,6 +51,9 @@ reserved s = try (string s >> notFollowedBy (alphaNumChar <|> char '_') >> pure 
 
 operator :: String -> Parser String
 operator = try . string
+
+term :: Parser Char
+term = char '\r' <|> (head <$> eol) <|> (eof $> '\n') 
 
 -- Parse a C-style character literal. Ex: 'a', '@'.
 charLit :: Parser String
