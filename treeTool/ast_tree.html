@@ -1,0 +1,306 @@
+	<!DOCTYPE html>
+	<meta charset="UTF-8">
+	<style>
+
+	.node circle {
+		fill: #2b79a5;
+		
+	}
+
+	.node text {
+		font: 12px sans-serif;
+	}
+
+	.link {
+		fill: none;
+		stroke: #e0e0e0;
+		stroke-width: 2px;
+	}
+
+	</style>
+
+	<body>
+
+		<div id="dropdown"></div>
+		<div id="tree"></div>
+
+		<!-- load the d3.js library -->	
+		<script src="https://d3js.org/d3.v4.min.js"></script>
+		
+		<script>
+
+
+			var files=["ex1apy","ex1acpp","ex2apy","ex2aSecond","out","lambda","lambda2","out2","hw2aCommon","hw2aSam","testCommon","testSam","testSamCopy"];
+			/*$.ajax({
+			  url: "json-files",
+			  success: function(data){
+			     $(data).find("td > a").each(function(){
+			        // will loop through 
+			        alert("Found a file: " + $(this).attr("href"));
+			     });
+			  }
+			});*/
+			//Dropdown
+			var menu=d3.select("#dropdown");
+			menu.append("select")
+				.selectAll("option")
+				.data(files)
+				.enter()
+				.append("option")
+				.attr("value",function(option){return option+".json";})
+				.text(function(option){return option;});
+
+
+			//Tree
+			var w = window.innerWidth+500,
+        		h = window.innerHeight;
+			var margin = {top:20, right:90, bottom:140, left:90},
+			  width = w-margin.left-margin.right,
+			  height = h-margin.top-margin.bottom;
+
+			var treemap=d3.tree().size([height,width]);
+
+			
+
+			var svg = d3.select("#tree").append("svg")
+					      .attr("width", width + margin.left + margin.right)
+					      .attr("height", height + margin.top + margin.bottom),
+				g = svg.append("g")
+						.attr("transform",
+						"translate(" + margin.left + "," + margin.top + ")");
+			var root,
+				i=0,
+				duration=750;
+
+			function loadTree(selected){
+				
+				d3.json(selected,function(error,data){
+					if(error){
+				    	console.log("Error");
+				    	throw error;
+				  	} 
+				  	
+					svg.selectAll(".node").remove();
+					svg.selectAll(".link").remove();
+					root=data;
+					//console.log(selected)
+					i=0;
+					root.x0 = height / 2;
+					root.y0 = 0;
+					root=d3.hierarchy(root,function(d){
+					  	return d.children;
+						});
+					updateCollapse(root);
+					
+				});
+				
+				
+			}
+
+			
+			function collapse(d) {
+	        	if (d.children) {
+	        		d._children = d.children;
+	        		d._children.forEach(collapse);
+			        d.children = null;
+		        }
+	        }
+
+			function updateCollapse(source){
+				// assigns the x and y position for the nodes
+		        var treeData = treemap(root);
+
+		        // compute the new tree layout
+		        var nodes = treeData.descendants();
+		        for(var i=0;i<nodes.length;i++){
+
+		        	if(nodes[i].data.type!="node"){     
+		        		//console.log(nodes[i].parent); 
+		        		if(nodes[i].parent.children.length==1){
+		        			nodes[i].parent.children=null;
+		        		}
+		        		if(nodes[i].parent.data.tags.indexOf("function")!=-1){
+		        			nodes[i].parent.data.tags.push(nodes[i].data.data);
+		        		}
+		        		
+		        		nodes.splice(i,1);
+		        		i--;
+		        		
+		        	}
+		        }
+		        var links = nodes.slice(1);
+
+		        // normalise for fixed depth
+		        nodes.forEach(function(d) { d.y = d.depth * 140; });
+
+		        // ****************** Nodes section ***************************
+
+		        // update the nodes ...
+		        var node = svg.selectAll('g.node')
+			        .data(nodes, function(d) { return d.id || (d.id = ++i); });
+
+		        // Enter any new modes at the parent's previous position.
+		        var nodeEnter = node.enter().append('g')
+			        .attr('class', 'node')
+			        .attr('transform', function(d) {
+			        	
+			        	return 'translate(' + (source.data.y0 + margin.top) + ',' + (source.data.x0 + margin.left) + ')';
+			        })
+			        .on('click', click);
+
+		        // add circle for the nodes
+		        nodeEnter.append('circle')
+			        .attr('class', 'node')
+			        .attr('r', 1e-6)
+			        .style('fill', function(d) {
+			        	return d.data.tags.indexOf("blue")!=-1  ? '#e0e0e0' : '#2b79a5';
+			        });
+
+		        // add labels for the nodes
+		        nodeEnter.append('text')
+			        .attr('dy', '.35em')
+			        .attr('x', function(d) {
+			        	return d.children || d._children ? 0 : 13;
+			        })
+			        .attr('y', function(d) {
+			        	return d.children || d._children ? -margin.top : 0;
+			        })
+			        .attr('text-anchor', function(d) {
+			        	return d.children || d._children ? 'middle' : 'start';
+			        })
+			        .text(function(d) {
+			        	var str="";
+			        	if(d.data.tags!=undefined){
+			        		str=d.data.tags[0];
+
+			        		for(var i=1;i<d.data.tags.length;++i){
+			        			if(d.data.tags[i]!="blue"){
+				        			str+=", "+d.data.tags[i];
+				        		}
+			        		}
+			        	}
+			        	
+			        	return str;
+			        });
+
+		        // add number of children to node circle
+		        /*
+		        nodeEnter.append('text')
+			        .attr('x', -3)
+			        .attr('y', 3)
+			        .attr('cursor', 'pointer')
+			        .style('font-size', '10px')
+			        .text(function(d) {
+			        	if (d.children) return d.children.length;
+			        	else if (d._children) return d._children.length;
+			        });
+			    */
+
+		        // UPDATE
+		        var nodeUpdate = nodeEnter.merge(node);
+
+		        // transition to the proper position for the node
+		        nodeUpdate.transition().duration(duration)
+			        .attr('transform', function(d) {
+			        	return 'translate(' + (d.y + margin.top) + ',' + (d.x + margin.left) + ')';
+			        });
+
+		        // update the node attributes and style
+		        nodeUpdate.select('circle.node')
+			        .attr('r', 9)
+			        .style('fill', function(d) {
+			        	return d.data.tags.indexOf("blue")!=-1 ? '#e0e0e0' : '#2b79a5';
+			        })
+			        .attr('cursor', 'pointer');
+
+		        // remove any exiting nodes
+		        var nodeExit = node.exit()
+			        .transition().duration(duration)
+			        .attr('transform', function(d) {
+			        	return 'translate(' + (source.y + margin.top) + ',' + (source.x + margin.left) + ')';
+			        })
+			        .remove();
+
+		        // on exit reduce the node circles size to 0
+		        nodeExit.select('circle')
+			        .attr('r', 1e-6);
+
+		        // on exit reduce the opacity of text labels
+		        nodeExit.select('text')
+			        .style('fill-opacity', 1e-6);
+
+		        // ****************** links section ***************************
+
+		        // update the links
+		        var link = svg.selectAll('path.link')
+			        .data(links, function(d) { return d.id });
+
+		        // enter any new links at the parent's previous position
+		        var linkEnter = link.enter().insert('path', 'g')
+			        .attr('class', 'link')
+			        .style('stroke',function(d){
+			        	return d.data.tags.indexOf("blue")!=-1 ? '#e0e0e0' : '#2b79a5';
+			        })
+			        .attr('d', function(d) {
+			        	var o = {x: source.data.x0 + margin.left, y: source.data.y0 + margin.top};
+			        	return diagonal(o, o);
+			        });
+
+		        // UPDATE
+		        var linkUpdate = linkEnter.merge(link);
+
+		        // transition back to the parent element position
+		        linkUpdate.transition().duration(duration)
+			        .attr('d', function(d) { return diagonal(d, d.parent); });
+
+		        // remove any exiting links
+		        var linkExit = link.exit()
+			        .transition().duration(duration)
+			        .attr('d', function(d) {
+			        	var o = {x: source.x, y: source.y};
+			        	return diagonal(o, o);
+			        })
+			        .remove();
+
+		        // store the old positions for transition
+		        nodes.forEach(function(d) {
+		        	//console.log(d.y);
+		        	d.data.x0 = d.x + margin.left;
+		        	d.data.y0 = d.y + margin.top;
+		        });
+
+		        // creates a curved (diagonal) path from parent to the child nodes
+		        function diagonal(s, d) {
+		        	path = 'M ' + (s.y + margin.top) + ' ' + (s.x + margin.left) +
+					        'C ' + ((s.y + d.y + (margin.top * 2)) / 2) + ' ' + (s.x + margin.left) +
+					        ', ' + ((s.y + d.y + (margin.top * 2)) / 2) + ' ' + (d.x + margin.left) +
+					        ', ' + (d.y + margin.top) + ' ' + (d.x + margin.left);
+
+		        	return path;
+		        }
+
+		        // toggle children on click
+		        function click(d) {
+		        	if (d.children) {
+		        		d._children = d.children;
+		        		d.children = null;
+			        } else {
+		        		d.children = d._children;
+		        		d._children = null;
+			        }
+			        updateCollapse(d);
+		        }
+				
+			}
+			
+			menu.on('change',function(){
+				var selected=d3.select(this)
+					.select("select")
+					.property("value");
+				//console.log(selected);
+				loadTree(selected);
+			});
+			
+			loadTree("ex1apy.json")
+		</script>
+	</body>

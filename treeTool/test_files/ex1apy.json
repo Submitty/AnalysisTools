@@ -1,0 +1,68 @@
+{
+   "children": [
+      {
+         "children": [],
+         "type": "node",
+         "tags":[
+            "Assign"
+         ]
+      },
+      {
+         "children": [],
+         "type": "node",
+         "tags":[
+            "Assign"
+         ]
+      },
+      {
+         "children": [
+            {
+               "children": [
+                  {
+                     "children": [],
+                     "type": "node",
+                     "tags":[
+                        "AugAssign"
+                     ]
+                  },
+                  {
+                     "children": [
+                        {
+                           "children": [
+                              {
+                                 "children": [],
+                                 "type": "node",
+                                 "tags":[
+                                    "AugAssign"
+                                 ]
+                              }
+                           ],
+                           "type": "node",
+                           "tags":[
+                              "CompoundStmt"
+                           ]
+                        }
+                     ],
+                     "type": "node",
+                     "tags":[
+                        "For"
+                     ]
+                  }
+               ],
+               "type": "node",
+               "tags":[
+                  "CompoundStmt"
+               ]
+            }
+         ],
+         "type": "node",
+         "tags":[
+            "For"
+         ]
+      }
+   ],
+   "type": "node",
+   "tags":[
+      "Module"
+   ]
+}
