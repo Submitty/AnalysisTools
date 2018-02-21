@@ -113,7 +113,7 @@ if(process.argv.length!=3){
 }
 
 const D3Node = require('d3-node');
-const d3n = new D3Node({styles:'.node circle {fill: #2b79a5;}.node text {font: 12px sans-serif;}.link {fill: none;stroke: #e0e0e0;stroke-width: 2px;}'});
+const d3n = new D3Node();
 var d3=d3n.d3;
 //console.log(process.argv.length);
 
