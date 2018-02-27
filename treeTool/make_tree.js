@@ -4,9 +4,10 @@ function prune(nodes){
 
 		if(nodes[i].data.type!="node"){     
 			//console.log(nodes[i].parent); 
-			if(nodes[i].parent.children.length==1){
-				nodes[i].parent.children=null;
-			}
+				//console.log(nodes[i].parent.children.indexOf(nodes[i]));
+				nodes[i].parent.children.splice(0,1);
+				
+			
 			if(nodes[i].parent.data.tags.indexOf("function")!=-1){
 				nodes[i].parent.data.tags.push(nodes[i].data.data);
 			}
@@ -32,8 +33,8 @@ function makeTree(nodes){
 
 
 	var margin = {top:20, right:90, bottom:40, left:90},
-			width=nodes.height*200-margin.left-margin.right,
-			height=leaves*50-margin.top-margin.bottom;
+			width=nodes.height*180-margin.left-margin.right,
+			height=Math.ceil(Math.sqrt(leaves))*100-margin.top-margin.bottom;
 
 	var treeMap = d3.tree()
 			.size([height,width]);
@@ -87,9 +88,9 @@ function makeTree(nodes){
 	// adds the text to the node
 	node.append("text")
 	.attr("dy", ".35em")
-	.attr("x", function(d) { return d.children ? -13 : 13; })
-	.style("text-anchor", function(d) { 
-		return d.children ? "end" : "start"; })
+	.attr("x", /*function(d) { return d.children ? -13 : 13; }*/-13)
+	.style("text-anchor", /*function(d) { 
+		return d.children ? "end" : "start"; }*/"end")
 	.text(function(d) { 
 		var str="";
 		if(d.data.tags!=undefined){
