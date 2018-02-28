@@ -51,45 +51,30 @@
             {
                "children": [
                   {
-                     "children": [],
-                     "type": "node",
-                     "tags":[
-                        "AugAssign"
-                     ]
-                  },
-                  {
                      "children": [
                         {
-                           "children": [
-                              {
-                                 "children": [],
-                                 "type": "node",
-                                 "tags":[
-                                    "AugAssign"
-                                 ]
-                              }
-                           ],
+                           "children": [],
                            "type": "node",
                            "tags":[
-                              "CompoundStmt"
+                              "args"
                            ]
                         }
                      ],
                      "type": "node",
                      "tags":[
-                        "For"
+                        "Call"
                      ]
                   }
                ],
                "type": "node",
                "tags":[
-                  "CompoundStmt"
+                  "args","#333333"
                ]
             }
          ],
          "type": "node",
          "tags":[
-            "For"
+            "Call"
          ]
       }
    ],
@@ -122,23 +107,17 @@
 
 			function loadTree(selected){
 
-			//	d3.json(selected,function(error,data){
-			//		if(error){
-			//			console.log("Error");
-			//			throw error;
-			//		} 
 
 
-					root=selected;
-					i=0;
-					root.x0 = height / 2;
-					root.y0 = 0;
-					root=d3.hierarchy(root,function(d){
-						return d.children;
-					});
-					updateCollapse(root);
+				root=selected;
+				i=0;
+				root.x0 = height / 2;
+				root.y0 = 0;
+				root=d3.hierarchy(root,function(d){
+					return d.children;
+				});
+				updateCollapse(root);
 
-			//	});
 
 
 			}
@@ -177,7 +156,7 @@
 				var links = nodes.slice(1);
 
 				// normalise for fixed depth
-				nodes.forEach(function(d) { d.y = d.depth * 140; });
+				nodes.forEach(function(d) { d.y = (d.depth * 140)+margin.left; });
 
 				// ****************** Nodes section ***************************
 
@@ -199,28 +178,29 @@
 				.attr('class', 'node')
 				.attr('r', 1e-6)
 				.style('fill', function(d) {
-					return d.data.tags.indexOf("blue")!=-1  ? '#e0e0e0' : '#2b79a5';
+					for(var i=0;i<d.data.tags.length;i++){
+						if(d.data.tags[i].startsWith("#"))
+							return d.data.tags[i];
+					}
+					return "#2b79a5";
+					
 				});
 
 				// add labels for the nodes
 				nodeEnter.append('text')
 				.attr('dy', '.35em')
-				.attr('x', function(d) {
-					return d.children || d._children ? 0 : 13;
-				})
-				.attr('y', function(d) {
-					return d.children || d._children ? -margin.top : 0;
-				})
-				.attr('text-anchor', function(d) {
-					return d.children || d._children ? 'middle' : 'start';
-				})
+				.attr('x', -13)
+				
+				.attr('text-anchor', /*function(d) {
+					return d.children || d._children ? 'middle' :}*/ 'end'
+				)
 				.text(function(d) {
 					var str="";
 					if(d.data.tags!=undefined){
 						str=d.data.tags[0];
 
 						for(var i=1;i<d.data.tags.length;++i){
-							if(d.data.tags[i]!="blue"){
+							if(!d.data.tags[i].startsWith("#")){
 								str+=", "+d.data.tags[i];
 							}
 						}
@@ -244,7 +224,11 @@
 				nodeUpdate.select('circle.node')
 				.attr('r', 9)
 				.style('fill', function(d) {
-					return d.data.tags.indexOf("blue")!=-1 ? '#e0e0e0' : '#2b79a5';
+					for(var i=0;i<d.data.tags.length;i++){
+						if(d.data.tags[i].startsWith("#"))
+							return d.data.tags[i];
+					}
+					return "#2b79a5";
 				})
 				.attr('cursor', 'pointer');
 
@@ -274,12 +258,18 @@
 				var linkEnter = link.enter().insert('path', 'g')
 						.attr('class', 'link')
 						.style('stroke',function(d){
-							return d.data.tags.indexOf("blue")!=-1 ? '#e0e0e0' : '#2b79a5';
+							for(var i=0;i<d.data.tags.length;i++){
+								if(d.data.tags[i].startsWith("#"))
+									return d.data.tags[i];
+							}
+							return "#2b79a5";
 						})
 						.attr('d', function(d) {
 							var o = {x: source.data.x0 + margin.left, y: source.data.y0 + margin.top};
 							return diagonal(o, o);
-						});
+						})
+						.style('stroke-opacity',"0.2");;
+
 
 				// UPDATE
 				var linkUpdate = linkEnter.merge(link);
