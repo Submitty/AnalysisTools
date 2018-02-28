@@ -101,7 +101,7 @@
 				.attr('x', -13)
 				
 				.attr('text-anchor', /*function(d) {
-					return d.children || d._children ? 'middle' :}*/ 'end';
+					return d.children || d._children ? 'middle' :}*/ 'end'
 				)
 				.text(function(d) {
 					var str="";
