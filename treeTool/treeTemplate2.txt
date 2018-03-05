@@ -1,39 +1,26 @@
 			//Tree
-			var w = window.innerWidth+500,
-			h = window.innerHeight;
-			var margin = {top:20, right:90, bottom:140, left:90},
-			width = w-margin.left-margin.right,
-			height = h-margin.top-margin.bottom;
-
-			var treemap=d3.tree().size([height,width]);
-
-
-
-			var svg = d3.select("#tree").append("svg")
-			.attr("width", width + margin.left + margin.right)
-			.attr("height", height + margin.top + margin.bottom),
-			g = svg.append("g")
-			.attr("transform",
-					"translate(" + margin.left + "," + margin.top + ")");
+			
+			
 			var root,
 			i=0,
 			duration=750;
 
-			function loadTree(selected){
+			root=file;
+			i=0;
+				
+			root=d3.hierarchy(root,function(d){
+				return d.children;
+			});
+			
 
 
 
-				root=selected;
-				i=0;
-				root.x0 = height / 2;
-				root.y0 = 0;
-				root=d3.hierarchy(root,function(d){
-					return d.children;
-				});
-				updateCollapse(root);
+			
 
-
-
+			var leaves=0;
+			for(var i=0;i<root.descendants().length;i++){
+				if(root.descendants()[i].height==0)
+					leaves++;
 			}
 
 
@@ -45,6 +32,23 @@
 				}
 			}
 
+			var w = root.height*200;
+			var margin = {top:20, right:90, bottom:140, left:50},
+			width = w-margin.left-margin.right,
+			height = Math.ceil(Math.sqrt(leaves))*100-margin.top-margin.bottom;
+
+
+			var svg = d3.select("#tree").append("svg")
+			.attr("width", width + margin.left + margin.right)
+			.attr("height", height + margin.top + margin.bottom),
+			g = svg.append("g")
+			.attr("transform",
+					"translate(" + margin.left + "," + margin.top + ")");
+
+			var treemap=d3.tree().size([height,width]);
+			root.x0 = height / 2;
+			root.y0 = 0;
+			updateCollapse(root);
 			function updateCollapse(source){
 				// assigns the x and y position for the nodes
 				var treeData = treemap(root);
@@ -70,7 +74,7 @@
 				var links = nodes.slice(1);
 
 				// normalise for fixed depth
-				nodes.forEach(function(d) { d.y = (d.depth * 140)+margin.left; });
+				nodes.forEach(function(d) { d.y = (d.depth * 180)+margin.left; });
 
 				// ****************** Nodes section ***************************
 
