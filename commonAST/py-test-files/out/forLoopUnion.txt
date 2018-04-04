@@ -1,0 +1,394 @@
+{
+    "/usr/local/submitty/GIT_CHECKOUT_AnalysisTools/commonAST/py-test-files/forLoop.py": {
+        "tokens": [
+            {
+                "end_col": 4,
+                "token": "For",
+                "start_line": 1,
+                "start_col": 1,
+                "end_line": 1
+            },
+            {
+                "end_col": 6,
+                "token": "Identifier",
+                "start_line": 1,
+                "start_col": 5,
+                "end_line": 1
+            },
+            {
+                "end_col": 9,
+                "token": "In",
+                "start_line": 1,
+                "start_col": 7,
+                "end_line": 1
+            },
+            {
+                "end_col": 15,
+                "token": "Identifier",
+                "start_line": 1,
+                "start_col": 10,
+                "end_line": 1
+            },
+            {
+                "end_col": 16,
+                "token": "LeftParen",
+                "start_line": 1,
+                "start_col": 15,
+                "end_line": 1
+            },
+            {
+                "end_col": 17,
+                "token": "IntegerLiteral",
+                "start_line": 1,
+                "start_col": 16,
+                "end_line": 1
+            },
+            {
+                "end_col": 18,
+                "token": "Comma",
+                "start_line": 1,
+                "start_col": 17,
+                "end_line": 1
+            },
+            {
+                "end_col": 20,
+                "token": "IntegerLiteral",
+                "start_line": 1,
+                "start_col": 18,
+                "end_line": 1
+            },
+            {
+                "end_col": 21,
+                "token": "RightParen",
+                "start_line": 1,
+                "start_col": 20,
+                "end_line": 1
+            },
+            {
+                "end_col": 22,
+                "token": "Colon",
+                "start_line": 1,
+                "start_col": 21,
+                "end_line": 1
+            },
+            {
+                "end_col": 10,
+                "token": "Identifier",
+                "start_line": 2,
+                "start_col": 9,
+                "end_line": 2
+            },
+            {
+                "end_col": 12,
+                "token": "Equal",
+                "start_line": 2,
+                "start_col": 11,
+                "end_line": 2
+            },
+            {
+                "end_col": 15,
+                "token": "IntegerLiteral",
+                "start_line": 2,
+                "start_col": 13,
+                "end_line": 2
+            },
+            {
+                "end_col": 10,
+                "token": "Identifier",
+                "start_line": 3,
+                "start_col": 9,
+                "end_line": 3
+            },
+            {
+                "end_col": 12,
+                "token": "AddAssign",
+                "start_line": 3,
+                "start_col": 10,
+                "end_line": 3
+            },
+            {
+                "end_col": 14,
+                "token": "IntegerLiteral",
+                "start_line": 3,
+                "start_col": 13,
+                "end_line": 3
+            },
+            {
+                "end_col": 14,
+                "token": "Identifier",
+                "start_line": 4,
+                "start_col": 9,
+                "end_line": 4
+            },
+            {
+                "end_col": 15,
+                "token": "LeftParen",
+                "start_line": 4,
+                "start_col": 14,
+                "end_line": 4
+            },
+            {
+                "end_col": 16,
+                "token": "Identifier",
+                "start_line": 4,
+                "start_col": 15,
+                "end_line": 4
+            },
+            {
+                "end_col": 17,
+                "token": "RightParen",
+                "start_line": 4,
+                "start_col": 16,
+                "end_line": 4
+            }
+        ],
+        "nodes": {
+            "children": [
+                {
+                    "children": [
+                        {
+                            "children": [
+                                {
+                                    "children": [
+                                        {
+                                            "data": "range",
+                                            "type": "metadata_identifier"
+                                        }
+                                    ],
+                                    "type": "node",
+                                    "tags": [
+                                        "variable"
+                                    ]
+                                },
+                                {
+                                    "children": [
+                                        {
+                                            "children": [
+                                                {
+                                                    "data": 0,
+                                                    "type": "data_int"
+                                                },
+                                                {
+                                                    "data": "0",
+                                                    "type": "data_str"
+                                                }
+                                            ],
+                                            "type": "node",
+                                            "tags": [
+                                                "literal",
+                                                "integer"
+                                            ]
+                                        }
+                                    ],
+                                    "type": "node",
+                                    "tags": [
+                                        "argument"
+                                    ]
+                                },
+                                {
+                                    "children": [
+                                        {
+                                            "children": [
+                                                {
+                                                    "data": 10,
+                                                    "type": "data_int"
+                                                },
+                                                {
+                                                    "data": "10",
+                                                    "type": "data_str"
+                                                }
+                                            ],
+                                            "type": "node",
+                                            "tags": [
+                                                "literal",
+                                                "integer"
+                                            ]
+                                        }
+                                    ],
+                                    "type": "node",
+                                    "tags": [
+                                        "argument"
+                                    ]
+                                }
+                            ],
+                            "type": "node",
+                            "tags": [
+                                "call"
+                            ]
+                        },
+                        {
+                            "children": [
+                                {
+                                    "children": [
+                                        {
+                                            "data": "i",
+                                            "type": "metadata_identifier"
+                                        }
+                                    ],
+                                    "type": "node",
+                                    "tags": [
+                                        "variable"
+                                    ]
+                                }
+                            ],
+                            "type": "node",
+                            "tags": [
+                                "targets"
+                            ]
+                        },
+                        {
+                            "children": [
+                                {
+                                    "children": [
+                                        {
+                                            "children": [
+                                                {
+                                                    "data": 10,
+                                                    "type": "data_int"
+                                                },
+                                                {
+                                                    "data": "10",
+                                                    "type": "data_str"
+                                                }
+                                            ],
+                                            "type": "node",
+                                            "tags": [
+                                                "literal",
+                                                "integer"
+                                            ]
+                                        },
+                                        {
+                                            "children": [
+                                                {
+                                                    "data": "p",
+                                                    "type": "metadata_identifier"
+                                                }
+                                            ],
+                                            "type": "node",
+                                            "tags": [
+                                                "variable"
+                                            ]
+                                        }
+                                    ],
+                                    "type": "node",
+                                    "tags": [
+                                        "assign",
+                                        "="
+                                    ]
+                                },
+                                {
+                                    "children": [
+                                        {
+                                            "children": [],
+                                            "type": "node",
+                                            "tags": [
+                                                "plusassign",
+                                                "+="
+                                            ]
+                                        },
+                                        {
+                                            "children": [
+                                                {
+                                                    "data": 1,
+                                                    "type": "data_int"
+                                                },
+                                                {
+                                                    "data": "1",
+                                                    "type": "data_str"
+                                                }
+                                            ],
+                                            "type": "node",
+                                            "tags": [
+                                                "literal",
+                                                "integer"
+                                            ]
+                                        },
+                                        {
+                                            "children": [
+                                                {
+                                                    "data": "p",
+                                                    "type": "metadata_identifier"
+                                                }
+                                            ],
+                                            "type": "node",
+                                            "tags": [
+                                                "variable"
+                                            ]
+                                        }
+                                    ],
+                                    "type": "node",
+                                    "tags": [
+                                        "augmented",
+                                        "assign",
+                                        "="
+                                    ]
+                                },
+                                {
+                                    "children": [
+                                        {
+                                            "children": [
+                                                {
+                                                    "data": "print",
+                                                    "type": "metadata_identifier"
+                                                }
+                                            ],
+                                            "type": "node",
+                                            "tags": [
+                                                "variable"
+                                            ]
+                                        },
+                                        {
+                                            "children": [
+                                                {
+                                                    "children": [
+                                                        {
+                                                            "data": "p",
+                                                            "type": "metadata_identifier"
+                                                        }
+                                                    ],
+                                                    "type": "node",
+                                                    "tags": [
+                                                        "variable"
+                                                    ]
+                                                }
+                                            ],
+                                            "type": "node",
+                                            "tags": [
+                                                "argument"
+                                            ]
+                                        }
+                                    ],
+                                    "type": "node",
+                                    "tags": [
+                                        "call"
+                                    ]
+                                }
+                            ],
+                            "type": "node",
+                            "tags": [
+                                "body"
+                            ]
+                        },
+                        {
+                            "children": [],
+                            "type": "node",
+                            "tags": [
+                                "else"
+                            ]
+                        }
+                    ],
+                    "type": "node",
+                    "tags": [
+                        "for",
+                        "loop",
+                        "foreach"
+                    ]
+                }
+            ],
+            "type": "node",
+            "tags": [
+                "module"
+            ]
+        }
+    }
+}

@@ -1,0 +1,332 @@
+{
+   "children": [
+      {
+         "children": [
+            {
+               "children": [],
+               "type": "node",
+               "tags":[
+                  "Identifier"
+               ]
+            }
+         ],
+         "type": "node",
+         "tags":[
+            "Import"
+         ]
+      },
+      {
+         "children": [],
+         "type": "node",
+         "tags":[
+            "Assign"
+         ]
+      },
+      {
+         "children": [
+            {
+               "children": [
+                  {
+                     "children": [],
+                     "type": "node",
+                     "tags":[
+                        "args"
+                     ]
+                  }
+               ],
+               "type": "node",
+               "tags":[
+                  "Call"
+               ]
+            }
+         ],
+         "type": "node",
+         "tags":[
+            "Assign"
+         ]
+      },
+      {
+         "children": [],
+         "type": "node",
+         "tags":[
+            "Assign"
+         ]
+      },
+      {
+         "children": [
+            {
+               "children": [
+                  {
+                     "children": [],
+                     "type": "node",
+                     "tags":[
+                        "Assign"
+                     ]
+                  },
+                  {
+                     "children": [
+                        {
+                           "children": [],
+                           "type": "node",
+                           "tags":[
+                              "args"
+                           ]
+                        }
+                     ],
+                     "type": "node",
+                     "tags":[
+                        "Call"
+                     ]
+                  },
+                  {
+                     "children": [
+                        {
+                           "children": [],
+                           "type": "node",
+                           "tags":[
+                              "args"
+                           ]
+                        }
+                     ],
+                     "type": "node",
+                     "tags":[
+                        "Call"
+                     ]
+                  },
+                  {
+                     "children": [
+                        {
+                           "children": [
+                              {
+                                 "children": [
+                                    {
+                                       "children": [
+                                          {
+                                             "children": [],
+                                             "type": "node",
+                                             "tags":[
+                                                "args"
+                                             ]
+                                          }
+                                       ],
+                                       "type": "node",
+                                       "tags":[
+                                          "Call"
+                                       ]
+                                    },
+                                    {
+                                       "children": [
+                                          {
+                                             "children": [],
+                                             "type": "node",
+                                             "tags":[
+                                                "args"
+                                             ]
+                                          }
+                                       ],
+                                       "type": "node",
+                                       "tags":[
+                                          "Call"
+                                       ]
+                                    },
+                                    {
+                                       "children": [
+                                          {
+                                             "children": [],
+                                             "type": "node",
+                                             "tags":[
+                                                "args"
+                                             ]
+                                          }
+                                       ],
+                                       "type": "node",
+                                       "tags":[
+                                          "Call"
+                                       ]
+                                    }
+                                 ],
+                                 "type": "node",
+                                 "tags":[
+                                    "args"
+                                 ]
+                              }
+                           ],
+                           "type": "node",
+                           "tags":[
+                              "Call"
+                           ]
+                        }
+                     ],
+                     "type": "node",
+                     "tags":[
+                        "Assign"
+                     ]
+                  },
+                  {
+                     "children": [
+                        {
+                           "children": [],
+                           "type": "node",
+                           "tags":[
+                              "args"
+                           ]
+                        }
+                     ],
+                     "type": "node",
+                     "tags":[
+                        "Call"
+                     ]
+                  }
+               ],
+               "type": "node",
+               "tags":[
+                  "CompoundStmt"
+               ]
+            }
+         ],
+         "type": "node",
+         "tags":[
+            "For"
+         ]
+      },
+      {
+         "children": [
+            {
+               "children": [],
+               "type": "node",
+               "tags":[
+                  "args"
+               ]
+            }
+         ],
+         "type": "node",
+         "tags":[
+            "Call"
+         ]
+      },
+      {
+         "children": [
+            {
+               "children": [],
+               "type": "node",
+               "tags":[
+                  "args"
+               ]
+            }
+         ],
+         "type": "node",
+         "tags":[
+            "Call"
+         ]
+      },
+      {
+         "children": [
+            {
+               "children": [],
+               "type": "node",
+               "tags":[
+                  "args"
+               ]
+            }
+         ],
+         "type": "node",
+         "tags":[
+            "Call"
+         ]
+      },
+      {
+         "children": [],
+         "type": "node",
+         "tags":[
+            "Assign"
+         ]
+      },
+      {
+         "children": [
+            {
+               "children": [
+                  {
+                     "children": [],
+                     "type": "node",
+                     "tags":[
+                        "Assign"
+                     ]
+                  },
+                  {
+                     "children": [],
+                     "type": "node",
+                     "tags":[
+                        "AugAssign"
+                     ]
+                  }
+               ],
+               "type": "node",
+               "tags":[
+                  "CompoundStmt"
+               ]
+            }
+         ],
+         "type": "node",
+         "tags":[
+            "For"
+         ]
+      },
+      {
+         "children": [],
+         "type": "node",
+         "tags":[
+            "Assign"
+         ]
+      },
+      {
+         "children": [
+            {
+               "children": [
+                  {
+                     "children": [
+                        {
+                           "children": [],
+                           "type": "node",
+                           "tags":[
+                              "args"
+                           ]
+                        }
+                     ],
+                     "type": "node",
+                     "tags":[
+                        "Call"
+                     ]
+                  }
+               ],
+               "type": "node",
+               "tags":[
+                  "args"
+               ]
+            }
+         ],
+         "type": "node",
+         "tags":[
+            "Call"
+         ]
+      },
+      {
+         "children": [
+            {
+               "children": [],
+               "type": "node",
+               "tags":[
+                  "args"
+               ]
+            }
+         ],
+         "type": "node",
+         "tags":[
+            "Call"
+         ]
+      }
+   ],
+   "type": "node",
+   "tags":[
+      "Module"
+   ]
+}
