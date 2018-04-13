@@ -165,25 +165,26 @@
                      ]
                   },
                   {
-                     "children": [],
-                     "type": "node",
-                     "tags":[
-                        "Assign"
-                     ]
-                  },
-                  {
                      "children": [
                         {
-                           "children": [],
+                           "children": [
+                              {
+                                 "children": [],
+                                 "type": "node",
+                                 "tags":[
+                                    "args"
+                                 ]
+                              }
+                           ],
                            "type": "node",
                            "tags":[
-                              "args"
+                              "Call"
                            ]
                         }
                      ],
                      "type": "node",
                      "tags":[
-                        "Call"
+                        "Assign"
                      ]
                   },
                   {
@@ -264,25 +265,26 @@
                   {
                      "children": [
                         {
-                           "children": [],
-                           "type": "node",
-                           "tags":[
-                              "BinOp"
-                           ]
-                        },
-                        {
                            "children": [
                               {
-                                 "children": [],
+                                 "children": [
+                                    {
+                                       "children": [],
+                                       "type": "node",
+                                       "tags":[
+                                          "args"
+                                       ]
+                                    }
+                                 ],
                                  "type": "node",
                                  "tags":[
-                                    "args"
+                                    "Call"
                                  ]
                               }
                            ],
                            "type": "node",
                            "tags":[
-                              "Call"
+                              "BinOp"
                            ]
                         },
                         {

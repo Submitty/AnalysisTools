@@ -147,30 +147,7 @@
                                  "tags":[
                                     "Call"
                                  ]
-                              }
-                           ],
-                           "type": "node",
-                           "tags":[
-                              "Assign"
-                           ]
-                        },
-                        {
-                           "children": [
-                              {
-                                 "children": [],
-                                 "type": "node",
-                                 "tags":[
-                                    "args"
-                                 ]
-                              }
-                           ],
-                           "type": "node",
-                           "tags":[
-                              "Call"
-                           ]
-                        },
-                        {
-                           "children": [
+                              },
                               {
                                  "children": [
                                     {
@@ -195,20 +172,20 @@
                         {
                            "children": [
                               {
-                                 "children": [],
+                                 "children": [
+                                    {
+                                       "children": [],
+                                       "type": "node",
+                                       "tags":[
+                                          "args"
+                                       ]
+                                    }
+                                 ],
                                  "type": "node",
                                  "tags":[
-                                    "args"
+                                    "Call"
                                  ]
-                              }
-                           ],
-                           "type": "node",
-                           "tags":[
-                              "Call"
-                           ]
-                        },
-                        {
-                           "children": [
+                              },
                               {
                                  "children": [
                                     {
@@ -233,20 +210,20 @@
                         {
                            "children": [
                               {
-                                 "children": [],
+                                 "children": [
+                                    {
+                                       "children": [],
+                                       "type": "node",
+                                       "tags":[
+                                          "args"
+                                       ]
+                                    }
+                                 ],
                                  "type": "node",
                                  "tags":[
-                                    "args"
+                                    "Call"
                                  ]
-                              }
-                           ],
-                           "type": "node",
-                           "tags":[
-                              "Call"
-                           ]
-                        },
-                        {
-                           "children": [
+                              },
                               {
                                  "children": [
                                     {
@@ -271,20 +248,20 @@
                         {
                            "children": [
                               {
-                                 "children": [],
+                                 "children": [
+                                    {
+                                       "children": [],
+                                       "type": "node",
+                                       "tags":[
+                                          "args"
+                                       ]
+                                    }
+                                 ],
                                  "type": "node",
                                  "tags":[
-                                    "args"
+                                    "Call"
                                  ]
-                              }
-                           ],
-                           "type": "node",
-                           "tags":[
-                              "Call"
-                           ]
-                        },
-                        {
-                           "children": [
+                              },
                               {
                                  "children": [
                                     {
@@ -309,20 +286,20 @@
                         {
                            "children": [
                               {
-                                 "children": [],
+                                 "children": [
+                                    {
+                                       "children": [],
+                                       "type": "node",
+                                       "tags":[
+                                          "args"
+                                       ]
+                                    }
+                                 ],
                                  "type": "node",
                                  "tags":[
-                                    "args"
+                                    "Call"
                                  ]
-                              }
-                           ],
-                           "type": "node",
-                           "tags":[
-                              "Call"
-                           ]
-                        },
-                        {
-                           "children": [
+                              },
                               {
                                  "children": [
                                     {
@@ -347,20 +324,20 @@
                         {
                            "children": [
                               {
-                                 "children": [],
+                                 "children": [
+                                    {
+                                       "children": [],
+                                       "type": "node",
+                                       "tags":[
+                                          "args"
+                                       ]
+                                    }
+                                 ],
                                  "type": "node",
                                  "tags":[
-                                    "args"
+                                    "Call"
                                  ]
-                              }
-                           ],
-                           "type": "node",
-                           "tags":[
-                              "Call"
-                           ]
-                        },
-                        {
-                           "children": [
+                              },
                               {
                                  "children": [
                                     {
@@ -385,20 +362,20 @@
                         {
                            "children": [
                               {
-                                 "children": [],
+                                 "children": [
+                                    {
+                                       "children": [],
+                                       "type": "node",
+                                       "tags":[
+                                          "args"
+                                       ]
+                                    }
+                                 ],
                                  "type": "node",
                                  "tags":[
-                                    "args"
+                                    "Call"
                                  ]
-                              }
-                           ],
-                           "type": "node",
-                           "tags":[
-                              "Call"
-                           ]
-                        },
-                        {
-                           "children": [
+                              },
                               {
                                  "children": [
                                     {
@@ -423,16 +400,39 @@
                         {
                            "children": [
                               {
-                                 "children": [],
+                                 "children": [
+                                    {
+                                       "children": [],
+                                       "type": "node",
+                                       "tags":[
+                                          "args"
+                                       ]
+                                    }
+                                 ],
                                  "type": "node",
                                  "tags":[
-                                    "args"
+                                    "Call"
+                                 ]
+                              },
+                              {
+                                 "children": [
+                                    {
+                                       "children": [],
+                                       "type": "node",
+                                       "tags":[
+                                          "args"
+                                       ]
+                                    }
+                                 ],
+                                 "type": "node",
+                                 "tags":[
+                                    "Call"
                                  ]
                               }
                            ],
                            "type": "node",
                            "tags":[
-                              "Call"
+                              "Assign"
                            ]
                         }
                      ],
@@ -549,70 +549,26 @@
                            ]
                         },
                         {
-                           "children": [],
-                           "type": "node",
-                           "tags":[
-                              "Assign"
-                           ]
-                        },
-                        {
                            "children": [
                               {
-                                 "children": [],
+                                 "children": [
+                                    {
+                                       "children": [],
+                                       "type": "node",
+                                       "tags":[
+                                          "args"
+                                       ]
+                                    }
+                                 ],
                                  "type": "node",
                                  "tags":[
-                                    "args"
+                                    "Call"
                                  ]
                               }
                            ],
                            "type": "node",
                            "tags":[
-                              "Call"
-                           ]
-                        }
-                     ],
-                     "type": "node",
-                     "tags":[
-                        "CompoundStmt"
-                     ]
-                  }
-               ],
-               "type": "node",
-               "tags":[
-                  "FunctionDef"
-               ]
-            },
-            {
-               "children": [
-                  {
-                     "children": [],
-                     "type": "node",
-                     "tags":[
-                        "Identifier"
-                     ]
-                  },
-                  {
-                     "children": [
-                        {
-                           "children": [],
-                           "type": "node",
-                           "tags":[
                               "Assign"
-                           ]
-                        },
-                        {
-                           "children": [
-                              {
-                                 "children": [],
-                                 "type": "node",
-                                 "tags":[
-                                    "args"
-                                 ]
-                              }
-                           ],
-                           "type": "node",
-                           "tags":[
-                              "Call"
                            ]
                         }
                      ],
@@ -641,83 +597,24 @@
                         {
                            "children": [
                               {
-                                 "children": [],
+                                 "children": [
+                                    {
+                                       "children": [],
+                                       "type": "node",
+                                       "tags":[
+                                          "args"
+                                       ]
+                                    }
+                                 ],
                                  "type": "node",
                                  "tags":[
-                                    "args"
+                                    "Call"
                                  ]
                               }
                            ],
-                           "type": "node",
-                           "tags":[
-                              "Call"
-                           ]
-                        },
-                        {
-                           "children": [],
                            "type": "node",
                            "tags":[
                               "Assign"
-                           ]
-                        },
-                        {
-                           "children": [
-                              {
-                                 "children": [],
-                                 "type": "node",
-                                 "tags":[
-                                    "args"
-                                 ]
-                              }
-                           ],
-                           "type": "node",
-                           "tags":[
-                              "Call"
-                           ]
-                        },
-                        {
-                           "children": [
-                              {
-                                 "children": [],
-                                 "type": "node",
-                                 "tags":[
-                                    "args"
-                                 ]
-                              }
-                           ],
-                           "type": "node",
-                           "tags":[
-                              "Call"
-                           ]
-                        },
-                        {
-                           "children": [
-                              {
-                                 "children": [],
-                                 "type": "node",
-                                 "tags":[
-                                    "args"
-                                 ]
-                              }
-                           ],
-                           "type": "node",
-                           "tags":[
-                              "Call"
-                           ]
-                        },
-                        {
-                           "children": [
-                              {
-                                 "children": [],
-                                 "type": "node",
-                                 "tags":[
-                                    "args"
-                                 ]
-                              }
-                           ],
-                           "type": "node",
-                           "tags":[
-                              "Call"
                            ]
                         }
                      ],
@@ -749,7 +646,30 @@
                                  "children": [],
                                  "type": "node",
                                  "tags":[
-                                    "Comparison"
+                                    "args"
+                                 ]
+                              }
+                           ],
+                           "type": "node",
+                           "tags":[
+                              "Call"
+                           ]
+                        },
+                        {
+                           "children": [
+                              {
+                                 "children": [
+                                    {
+                                       "children": [],
+                                       "type": "node",
+                                       "tags":[
+                                          "args"
+                                       ]
+                                    }
+                                 ],
+                                 "type": "node",
+                                 "tags":[
+                                    "Call"
                                  ]
                               },
                               {
@@ -765,6 +685,90 @@
                                  "type": "node",
                                  "tags":[
                                     "Call"
+                                 ]
+                              },
+                              {
+                                 "children": [
+                                    {
+                                       "children": [],
+                                       "type": "node",
+                                       "tags":[
+                                          "args"
+                                       ]
+                                    }
+                                 ],
+                                 "type": "node",
+                                 "tags":[
+                                    "Call"
+                                 ]
+                              },
+                              {
+                                 "children": [
+                                    {
+                                       "children": [],
+                                       "type": "node",
+                                       "tags":[
+                                          "args"
+                                       ]
+                                    }
+                                 ],
+                                 "type": "node",
+                                 "tags":[
+                                    "Call"
+                                 ]
+                              }
+                           ],
+                           "type": "node",
+                           "tags":[
+                              "Assign"
+                           ]
+                        }
+                     ],
+                     "type": "node",
+                     "tags":[
+                        "CompoundStmt"
+                     ]
+                  }
+               ],
+               "type": "node",
+               "tags":[
+                  "FunctionDef"
+               ]
+            },
+            {
+               "children": [
+                  {
+                     "children": [],
+                     "type": "node",
+                     "tags":[
+                        "Identifier"
+                     ]
+                  },
+                  {
+                     "children": [
+                        {
+                           "children": [
+                              {
+                                 "children": [
+                                    {
+                                       "children": [
+                                          {
+                                             "children": [],
+                                             "type": "node",
+                                             "tags":[
+                                                "args"
+                                             ]
+                                          }
+                                       ],
+                                       "type": "node",
+                                       "tags":[
+                                          "Call"
+                                       ]
+                                    }
+                                 ],
+                                 "type": "node",
+                                 "tags":[
+                                    "Comparison"
                                  ]
                               },
                               {
@@ -855,30 +859,7 @@
                            "tags":[
                               "Call"
                            ]
-                        }
-                     ],
-                     "type": "node",
-                     "tags":[
-                        "Assign"
-                     ]
-                  },
-                  {
-                     "children": [
-                        {
-                           "children": [],
-                           "type": "node",
-                           "tags":[
-                              "args"
-                           ]
-                        }
-                     ],
-                     "type": "node",
-                     "tags":[
-                        "Call"
-                     ]
-                  },
-                  {
-                     "children": [
+                        },
                         {
                            "children": [
                               {
@@ -903,31 +884,54 @@
                   {
                      "children": [
                         {
-                           "children": [],
+                           "children": [
+                              {
+                                 "children": [],
+                                 "type": "node",
+                                 "tags":[
+                                    "args"
+                                 ]
+                              }
+                           ],
                            "type": "node",
                            "tags":[
-                              "args"
+                              "Call"
                            ]
-                        }
-                     ],
-                     "type": "node",
-                     "tags":[
-                        "Call"
-                     ]
-                  },
-                  {
-                     "children": [
+                        },
                         {
-                           "children": [],
+                           "children": [
+                              {
+                                 "children": [],
+                                 "type": "node",
+                                 "tags":[
+                                    "args"
+                                 ]
+                              }
+                           ],
                            "type": "node",
                            "tags":[
-                              "args"
+                              "Call"
+                           ]
+                        },
+                        {
+                           "children": [
+                              {
+                                 "children": [],
+                                 "type": "node",
+                                 "tags":[
+                                    "args"
+                                 ]
+                              }
+                           ],
+                           "type": "node",
+                           "tags":[
+                              "Call"
                            ]
                         }
                      ],
                      "type": "node",
                      "tags":[
-                        "Call"
+                        "Assign"
                      ]
                   }
                ],
