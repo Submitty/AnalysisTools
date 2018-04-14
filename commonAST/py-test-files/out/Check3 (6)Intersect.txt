@@ -106,6 +106,21 @@
                                              "tags":[
                                                 "args"
                                              ]
+                                          },
+                                          {
+                                             "children": [
+                                                {
+                                                   "children": [],
+                                                   "type": "node",
+                                                   "tags":[
+                                                      "args"
+                                                   ]
+                                                }
+                                             ],
+                                             "type": "node",
+                                             "tags":[
+                                                "Call"
+                                             ]
                                           }
                                        ],
                                        "type": "node",
