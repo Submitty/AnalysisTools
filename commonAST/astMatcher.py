@@ -15,7 +15,7 @@ class Visitor(ast.NodeVisitor):
 				self.chainedCalls(node.func.value, output, strlevel, strPrevLevel)				
 				output += "\n<calling func: "
 				output += node.func.attr
-				output += "," + strlevel +  ">"
+				output += "," + strPrevLevel +  ">"
 				f.write(output);
 				output = ""
 
@@ -31,7 +31,7 @@ class Visitor(ast.NodeVisitor):
 			else:
 				output += "\n<calling func: "
 				output += node.func.id
-				output += "," + strlevel + ">"
+				output += "," + strPrevLevel + ">"
 				f.write(output)
 				output = ""
 				self.chainedCalls(node.func, output, strlevel, strPrevLevel)
@@ -152,12 +152,15 @@ class Visitor(ast.NodeVisitor):
 						output += "<object: "
 						output += node.func.value.id
 						output += "; calling func: "
+						output += node.func.attr
+						output += "," + strlevel +  ">"
 
 					else:
 						output += "<calling func: "
+						output += node.func.attr
+						output += "," + strPrevLevel +  ">"
 
-					output += node.func.attr
-					output += "," + strlevel +  ">"
+
 					output += "\n<args, " + strNextLevel + ">\n"
 					f.write(output);
 					output = ""

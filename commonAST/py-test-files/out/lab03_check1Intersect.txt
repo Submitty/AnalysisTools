@@ -265,26 +265,25 @@
                   {
                      "children": [
                         {
+                           "children": [],
+                           "type": "node",
+                           "tags":[
+                              "BinOp"
+                           ]
+                        },
+                        {
                            "children": [
                               {
-                                 "children": [
-                                    {
-                                       "children": [],
-                                       "type": "node",
-                                       "tags":[
-                                          "args"
-                                       ]
-                                    }
-                                 ],
+                                 "children": [],
                                  "type": "node",
                                  "tags":[
-                                    "Call"
+                                    "args"
                                  ]
                               }
                            ],
                            "type": "node",
                            "tags":[
-                              "BinOp"
+                              "Call"
                            ]
                         },
                         {
