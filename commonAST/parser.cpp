@@ -236,6 +236,7 @@ class Parser{
 			}
 			c->func = val.substr(pos+2);
 			c->argsList = parseArgs();
+			c->otherChildren = parseBody(level);
 			return c;
 		}
 

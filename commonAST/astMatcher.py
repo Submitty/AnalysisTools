@@ -10,12 +10,13 @@ tree = ast.parse(buffer)
 class Visitor(ast.NodeVisitor):
 
 	def chainedCalls(self, node, output, strlevel, strPrevLevel):
+		if strPrevLevel  == 0 or strlevel == 0: strPrevLevel = 1; strLevel = 2
 		if(isinstance(node, ast.Call)):
 			if(hasattr(node.func, "value") and not hasattr(node.func.value, "id")):
 				self.chainedCalls(node.func.value, output, strlevel, strPrevLevel)				
 				output += "\n<calling func: "
 				output += node.func.attr
-				output += "," + strPrevLevel +  ">"
+				output += "," + strlevel +  ">"
 				f.write(output);
 				output = ""
 
@@ -31,7 +32,7 @@ class Visitor(ast.NodeVisitor):
 			else:
 				output += "\n<calling func: "
 				output += node.func.id
-				output += "," + strPrevLevel + ">"
+				output += "," + strlevel + ">"
 				f.write(output)
 				output = ""
 				self.chainedCalls(node.func, output, strlevel, strPrevLevel)
@@ -40,7 +41,7 @@ class Visitor(ast.NodeVisitor):
 			f.write(output);
 			output = ""
 			for arg in node.args:
-				self.generic_visit(arg)
+				self.generic_visit(arg, 2)
 				f.write(output)
 				output = ""
 			output += "</args,1>\n"
@@ -168,7 +169,7 @@ class Visitor(ast.NodeVisitor):
 					f.write(output);
 					output = ""
 					for arg in node.args:
-						self.generic_visit(arg)
+						self.generic_visit(arg, 2)
 						f.write(output);
 						output = ""
 					output += "</args,1>\n"
@@ -183,7 +184,7 @@ class Visitor(ast.NodeVisitor):
 				f.write(output);
 				output = ""
 				for arg in node.args:
-					self.generic_visit(arg)
+					self.generic_visit(arg, 2)
 					f.write(output);
 					output = ""
 				output += "</args,1>\n"

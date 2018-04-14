@@ -70,6 +70,13 @@ class Call: public Expr{
 		list<ASTNode*> getChildren(){
 			list<ASTNode*> children;
 			children.push_back((ASTNode*)argsList);
+			list<ASTNode*>::iterator itr;
+			for(itr=otherChildren.begin(); itr != otherChildren.end(); itr++){
+				if((*itr) != NULL){
+					children.push_back((ASTNode*)*itr);
+				}
+			}
+
 			return children;
 		}
 
@@ -79,6 +86,8 @@ class Call: public Expr{
 
 		string func;
 		Args* argsList;
+		list<ASTNode*> otherChildren;
+		
 		string obj;
 		int level;
 };
