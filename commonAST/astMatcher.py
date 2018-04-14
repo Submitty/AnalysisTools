@@ -24,7 +24,7 @@ class Visitor(ast.NodeVisitor):
 				output += node.func.value.id
 				output += "; calling func: "
 				output += node.func.attr
-				output += "," + strlevel +  ">"
+				output += "," + strPrevLevel +  ">"
 				f.write(output);
 				output = ""
 				self.chainedCalls(node.func, output, strlevel, strPrevLevel)				
