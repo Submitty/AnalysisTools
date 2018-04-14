@@ -86,12 +86,15 @@ class Visitor(ast.NodeVisitor):
 			hasChildren = True
 		elif isinstance(node, ast.Return):
 			output += "<return," + strlevel + ">"
-			hasChildren = True
+			f2 = open("outErr.txt", "w")
+			f2.write(ast.dump(node))
+			#hasChildren = True
 		elif isinstance(node, ast.Assign):
 			output += "<assignment," + strlevel + ">"
 			hasChildren = True
 		elif isinstance(node, ast.AugAssign):
 			output += "<augAssign,"+ strlevel + ">"
+			hasChildren = True
 		elif isinstance(node, ast.For):
 			output += "<forLoop," + strlevel + ">"
 			output += "\n<compoundStmt," + strNextLevel + ">"
@@ -153,7 +156,7 @@ class Visitor(ast.NodeVisitor):
 						output += node.func.value.id
 						output += "; calling func: "
 						output += node.func.attr
-						output += "," + strlevel +  ">"
+						output += "," + strPrevLevel +  ">"
 
 					else:
 						output += "<calling func: "
@@ -209,6 +212,9 @@ class Visitor(ast.NodeVisitor):
 			f.write(output)
 			output = ""
 					
+		if(isinstance(node, ast.Return)):
+			self.generic_visit(node.value, nextLevel+1, node)
+
 		if hasChildren:
 			for child in ast.iter_child_nodes(node):
 				self.generic_visit(child, nextLevel, node)

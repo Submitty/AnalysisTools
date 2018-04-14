@@ -626,6 +626,13 @@
                                  "tags":[
                                     "AugAssign"
                                  ]
+                              },
+                              {
+                                 "children": [],
+                                 "type": "node",
+                                 "tags":[
+                                    "BinOp"
+                                 ]
                               }
                            ],
                            "type": "node",
