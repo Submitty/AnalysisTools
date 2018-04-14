@@ -126,7 +126,7 @@ class Parser{
 			}else if(t->value.compare(0, compVal.length(), compVal) == 0){
 				return (Expr*) parseCallingFunc(t->value, t->level);
 			}else if(t->value.compare(0, objCompVal.length(), objCompVal) == 0){
-				return (Expr*) parseObjectCallingFunc(t->value);	
+				return (Expr*) parseObjectCallingFunc(t->value, t->level);	
 			}else if(t->value == "END"){
 				return NULL;
 			}else{
@@ -202,7 +202,7 @@ class Parser{
 			return i;
 		}
 
-		Call* parseObjectCallingFunc(string val){
+		Call* parseObjectCallingFunc(string val, int level){
 			Call* c = new Call();
 
 			size_t pos = val.find(":");
@@ -223,6 +223,7 @@ class Parser{
 
 			c->func = val.substr(pos+2);
 			c->argsList = parseArgs();
+			c->otherChildren = parseBody(level);
 			return c;
 		}
 
