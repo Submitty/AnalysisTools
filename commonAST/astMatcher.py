@@ -86,12 +86,12 @@ class Visitor(ast.NodeVisitor):
 			hasChildren = True
 		elif isinstance(node, ast.Return):
 			output += "<return," + strlevel + ">"
-			f2 = open("outErr.txt", "w")
-			f2.write(ast.dump(node))
 			#hasChildren = True
 		elif isinstance(node, ast.Assign):
 			output += "<assignment," + strlevel + ">"
-			hasChildren = True
+			f2 = open("outErr.txt", "w")
+			f2.write(ast.dump(node))
+			#hasChildren = True
 		elif isinstance(node, ast.AugAssign):
 			output += "<augAssign,"+ strlevel + ">"
 			hasChildren = True
@@ -213,6 +213,10 @@ class Visitor(ast.NodeVisitor):
 			output = ""
 					
 		if(isinstance(node, ast.Return)):
+			self.generic_visit(node.value, nextLevel+1, node)
+
+
+		if(isinstance(node, ast.Assign)):
 			self.generic_visit(node.value, nextLevel+1, node)
 
 		if hasChildren:
