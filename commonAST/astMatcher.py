@@ -176,7 +176,9 @@ class Visitor(ast.NodeVisitor):
 			elif isinstance(node.func, ast.Name):
 				output += "<calling func: "
 				output += node.func.id
-				output += "," + strlevel +  ">"
+				if node.func.id == "print": 
+					output += "," + strPrevLevel +  ">"
+				else: output += "," + strlevel +  ">"
 				output += "\n<args, " + strNextLevel + ">\n"
 				f.write(output);
 				output = ""
