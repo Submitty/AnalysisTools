@@ -100,7 +100,7 @@
 						if(d.data.tags[i].startsWith("#"))
 							return d.data.tags[i];
 					}
-					return "#2b79a5";
+					return "#104E8B";
 					
 				});
 
@@ -146,7 +146,7 @@
 						if(d.data.tags[i].startsWith("#"))
 							return d.data.tags[i];
 					}
-					return "#2b79a5";
+					return "#104E8B";
 				})
 				.attr('cursor', 'pointer');
 
@@ -180,7 +180,7 @@
 								if(d.data.tags[i].startsWith("#"))
 									return d.data.tags[i];
 							}
-							return "#2b79a5";
+							return "#104E8B"; 
 						})
 						.attr('d', function(d) {
 							var o = {x: source.data.x0 + margin.left, y: source.data.y0 + margin.top};
