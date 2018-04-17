@@ -344,6 +344,7 @@ class ASTMatcherVisitor : public RecursiveASTVisitor<ASTMatcherVisitor> {
 			}
 
 
+			/*
 			if(node == "Var"){
 				output += "<variableDecl, " + prevLevel +  ">";
 				numClosingVarsNeeded++;
@@ -412,14 +413,10 @@ class ASTMatcherVisitor : public RecursiveASTVisitor<ASTMatcherVisitor> {
 					output += "\n<name: " + CM->getNameInfo().getAsString()
 						+ "," + nextLevel + ">";
 				}
-			}else{
-
-				if(debugPrint){
-					output += "<";
-					output += node;
-					output += ">";
-				}
-			}
+			}else{*/
+				output += "\n<" + node + ",";
+				output += level + ">";
+			//}
 
 			if(output.size() != 0){
 				cout << output << endl;
@@ -518,6 +515,7 @@ class ASTMatcherVisitor : public RecursiveASTVisitor<ASTMatcherVisitor> {
 
 				}
 
+				/*
 				//if the parent is a variable declaration then this node should be encolsed in <decl> </decl>
 				if(isParentStmt(x, "Var")){
 					previousRhsDecl = true;
@@ -570,6 +568,7 @@ class ASTMatcherVisitor : public RecursiveASTVisitor<ASTMatcherVisitor> {
 
 				}
 
+				
 				string node = x->getStmtClassName();
 				if(node == "ReturnStmt"){
 					output += "<return";
@@ -694,12 +693,12 @@ class ASTMatcherVisitor : public RecursiveASTVisitor<ASTMatcherVisitor> {
 
 					}
 
-				}else{
-					output += "<";
-					output += node;
-					output += ">";
+				}else{*/
+					string node = x->getStmtClassName();
+					output += "\n<" + node + ",";
+					output += level + ">";
 
-				}
+				//}
 
 
 				if(output.size() != 0 && !endsIn(output, "</cond,1>\n") && 
