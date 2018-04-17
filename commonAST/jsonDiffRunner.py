@@ -28,22 +28,22 @@ print(filename1_extPrefixStripped, filename2_extPrefixStripped)
 
 
 try:
-	subprocess.check_call(["python3", "../removeTokens.py", filename1_full])
-	subprocess.check_call(["python3", "../removeTokens.py", filename2_full])
+	subprocess.check_call(["python3", "/usr/local/submitty/SubmittyAnalysisTools/removeTokens.py", filename1_full])
+	subprocess.check_call(["python3", "/usr/local/submitty/SubmittyAnalysisTools/removeTokens.py", filename2_full])
 except subprocess.CalledProcessError:
 	print("error in remove tokens")
 	exit()
 
 try:
-	subprocess.check_call(["python3", "../jsonDiff.py", filename1_full, filename2_full, reportFile, lang])
+	subprocess.check_call(["python3", "/usr/local/submitty/SubmittyAnalysisTools/jsonDiff.py", filename1_full, filename2_full, reportFile, lang])
 except subprocess.CalledProcessError:
 	print("error in json diff")
 	exit()
 
 try:
-	html1 = subprocess.check_output(["python3", "make_tree_interactive.py", filename1_extStripped + "Modified.json"]).decode("utf-8")
+	html1 = subprocess.check_output(["python3", "/usr/local/submitty/SubmittyAnalysisTools/make_tree_interactive.py", filename1_extStripped + "Modified.json"]).decode("utf-8")
 
-	html2 = subprocess.check_output(["python3", "make_tree_interactive.py", filename2_extStripped + "Modified.json"]).decode("utf-8")
+	html2 = subprocess.check_output(["python3", "/usr/local/submitty/SubmittyAnalysisTools/make_tree_interactive.py", filename2_extStripped + "Modified.json"]).decode("utf-8")
 
 except subprocess.CalledProcessError:
 	print("error in the tree visualization tool")

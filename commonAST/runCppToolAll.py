@@ -18,12 +18,12 @@ for fname in glob.glob(directory):
 	start = filename_extStripped.rfind("/") + 1
 	filename_extPrefixStripped = filename_extStripped[start:]
 
-	out = subprocess.check_output(["/usr/local/submitty/SubmittyAnalysisTools/unionToolRunner.py", "-json", fname])
+	#out = subprocess.check_output(["/usr/local/submitty/SubmittyAnalysisTools/unionToolRunner.py", "-json", fname])
 
-	#out = subprocess.check_output(["/usr/local/submitty/SubmittyAnalysisTools/commonast.py", "-json", fname, "-py" ])
+	out = subprocess.check_output(["/usr/local/submitty/SubmittyAnalysisTools/commonast.py", "-json", fname, "-cpp" ])
 
-	#fw = open(directoryPrefix + "out/" + filename_extPrefixStripped + "Intersect.txt", "w")
-	fw = open(directoryPrefix + "out/" + filename_extPrefixStripped + "Union.txt", "w")
+	fw = open(directoryPrefix + "out/" + filename_extPrefixStripped + "Intersect.txt", "w")
+	#fw = open(directoryPrefix + "out/" + filename_extPrefixStripped + "Union.txt", "w")
 
 	fw.write(out.decode('utf-8'))
 

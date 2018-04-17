@@ -1,5 +1,4 @@
 import json
-import anytree
 import sys
 import utils
 import match
