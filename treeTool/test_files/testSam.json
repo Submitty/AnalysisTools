@@ -1,0 +1,725 @@
+{
+            "children": [
+                {
+                    "children": [
+                        {
+                            "data": "foo",
+                            "type": "metadata_identifier"
+                        },
+                        {
+                            "children": [
+                                {
+                                    "children": [
+                                        {
+                                            "data": "x",
+                                            "type": "metadata_identifier"
+                                        }
+                                    ],
+                                    "type": "node",
+                                    "tags": [
+                                        "parameter"
+                                    ]
+                                },
+                                {
+                                    "children": [
+                                        {
+                                            "data": "baz",
+                                            "type": "metadata_identifier"
+                                        },
+                                        {
+                                            "children": [
+                                                {
+                                                    "data": 10,
+                                                    "type": "data_int"
+                                                },
+                                                {
+                                                    "data": "10",
+                                                    "type": "data_str"
+                                                }
+                                            ],
+                                            "type": "node",
+                                            "tags": [
+                                                "literal",
+                                                "integer"
+                                            ]
+                                        }
+                                    ],
+                                    "type": "node",
+                                    "tags": [
+                                        "parameter"
+                                    ]
+                                }
+                            ],
+                            "type": "node",
+                            "tags": [
+                                "parameters"
+                            ]
+                        },
+                        {
+                            "children": [
+                                {
+                                    "children": [
+                                        {
+                                            "children": [
+                                                {
+                                                    "children": [
+                                                        {
+                                                            "children": [
+                                                                {
+                                                                    "data": 0,
+                                                                    "type": "data_int"
+                                                                },
+                                                                {
+                                                                    "data": "0",
+                                                                    "type": "data_str"
+                                                                }
+                                                            ],
+                                                            "type": "node",
+                                                            "tags": [
+                                                                "literal",
+                                                                "integer"
+                                                            ]
+                                                        },
+                                                        {
+                                                            "children": [],
+                                                            "type": "node",
+                                                            "tags": [
+                                                                "lessthan",
+                                                                "<"
+                                                            ]
+                                                        },
+                                                        {
+                                                            "children": [
+                                                                {
+                                                                    "data": "x",
+                                                                    "type": "metadata_identifier"
+                                                                }
+                                                            ],
+                                                            "type": "node",
+                                                            "tags": [
+                                                                "variable"
+                                                            ]
+                                                        }
+                                                    ],
+                                                    "type": "node",
+                                                    "tags": [
+                                                        "operator",
+                                                        "binary"
+                                                    ]
+                                                },
+                                                {
+                                                    "children": [
+                                                        {
+                                                            "children": [
+                                                                {
+                                                                    "children": [
+                                                                        {
+                                                                            "data": "x",
+                                                                            "type": "metadata_identifier"
+                                                                        }
+                                                                    ],
+                                                                    "type": "node",
+                                                                    "tags": [
+                                                                        "variable"
+                                                                    ]
+                                                                }
+                                                            ],
+                                                            "type": "node",
+                                                            "tags": [
+                                                                "return"
+                                                            ]
+                                                        }
+                                                    ],
+                                                    "type": "node",
+                                                    "tags": [
+                                                        "body"
+                                                    ]
+                                                }
+                                            ],
+                                            "type": "node",
+                                            "tags": [
+                                                "case"
+                                            ]
+                                        },
+                                        {
+                                            "children": [
+                                                {
+                                                    "children": [
+                                                        {
+                                                            "children": [
+                                                                {
+                                                                    "children": [
+                                                                        {
+                                                                            "children": [
+                                                                                {
+                                                                                    "children": [
+                                                                                        {
+                                                                                            "data": 6,
+                                                                                            "type": "data_int"
+                                                                                        },
+                                                                                        {
+                                                                                            "data": "6",
+                                                                                            "type": "data_str"
+                                                                                        }
+                                                                                    ],
+                                                                                    "type": "node",
+                                                                                    "tags": [
+                                                                                        "literal",
+                                                                                        "integer"
+                                                                                    ]
+                                                                                },
+                                                                                {
+                                                                                    "children": [],
+                                                                                    "type": "node",
+                                                                                    "tags": [
+                                                                                        "divide",
+                                                                                        "/"
+                                                                                    ]
+                                                                                },
+                                                                                {
+                                                                                    "children": [
+                                                                                        {
+                                                                                            "children": [
+                                                                                                {
+                                                                                                    "children": [
+                                                                                                        {
+                                                                                                            "data": 10,
+                                                                                                            "type": "data_int"
+                                                                                                        },
+                                                                                                        {
+                                                                                                            "data": "10",
+                                                                                                            "type": "data_str"
+                                                                                                        }
+                                                                                                    ],
+                                                                                                    "type": "node",
+                                                                                                    "tags": [
+                                                                                                        "literal",
+                                                                                                        "integer"
+                                                                                                    ]
+                                                                                                },
+                                                                                                {
+                                                                                                    "children": [],
+                                                                                                    "type": "node",
+                                                                                                    "tags": [
+                                                                                                        "multiply",
+                                                                                                        "*"
+                                                                                                    ]
+                                                                                                },
+                                                                                                {
+                                                                                                    "children": [
+                                                                                                        {
+                                                                                                            "data": 4,
+                                                                                                            "type": "data_int"
+                                                                                                        },
+                                                                                                        {
+                                                                                                            "data": "4",
+                                                                                                            "type": "data_str"
+                                                                                                        }
+                                                                                                    ],
+                                                                                                    "type": "node",
+                                                                                                    "tags": [
+                                                                                                        "literal",
+                                                                                                        "integer"
+                                                                                                    ]
+                                                                                                }
+                                                                                            ],
+                                                                                            "type": "node",
+                                                                                            "tags": [
+                                                                                                "operator",
+                                                                                                "binary"
+                                                                                            ]
+                                                                                        }
+                                                                                    ],
+                                                                                    "type": "node",
+                                                                                    "tags": [
+                                                                                        "paren"
+                                                                                    ]
+                                                                                }
+                                                                            ],
+                                                                            "type": "node",
+                                                                            "tags": [
+                                                                                "operator",
+                                                                                "binary"
+                                                                            ]
+                                                                        }
+                                                                    ],
+                                                                    "type": "node",
+                                                                    "tags": [
+                                                                        "paren"
+                                                                    ]
+                                                                },
+                                                                {
+                                                                    "children": [],
+                                                                    "type": "node",
+                                                                    "tags": [
+                                                                        "plus",
+                                                                        "add",
+                                                                        "+"
+                                                                    ]
+                                                                },
+                                                                {
+                                                                    "children": [
+                                                                        {
+                                                                            "children": [
+                                                                                {
+                                                                                    "data": 3,
+                                                                                    "type": "data_int"
+                                                                                },
+                                                                                {
+                                                                                    "data": "3",
+                                                                                    "type": "data_str"
+                                                                                }
+                                                                            ],
+                                                                            "type": "node",
+                                                                            "tags": [
+                                                                                "literal",
+                                                                                "integer"
+                                                                            ]
+                                                                        },
+                                                                        {
+                                                                            "children": [],
+                                                                            "type": "node",
+                                                                            "tags": [
+                                                                                "minus",
+                                                                                "subtract",
+                                                                                "-"
+                                                                            ]
+                                                                        },
+                                                                        {
+                                                                            "children": [
+                                                                                {
+                                                                                    "data": "baz",
+                                                                                    "type": "metadata_identifier"
+                                                                                }
+                                                                            ],
+                                                                            "type": "node",
+                                                                            "tags": [
+                                                                                "variable"
+                                                                            ]
+                                                                        }
+                                                                    ],
+                                                                    "type": "node",
+                                                                    "tags": [
+                                                                        "operator",
+                                                                        "binary"
+                                                                    ]
+                                                                }
+                                                            ],
+                                                            "type": "node",
+                                                            "tags": [
+                                                                "operator",
+                                                                "binary"
+                                                            ]
+                                                        },
+                                                        {
+                                                            "children": [
+                                                                {
+                                                                    "data": "y",
+                                                                    "type": "metadata_identifier"
+                                                                }
+                                                            ],
+                                                            "type": "node",
+                                                            "tags": [
+                                                                "variable"
+                                                            ]
+                                                        }
+                                                    ],
+                                                    "type": "node",
+                                                    "tags": [
+                                                        "assign",
+                                                        "="
+                                                    ]
+                                                },
+                                                {
+                                                    "children": [
+                                                        {
+                                                            "children": [
+                                                                {
+                                                                    "children": [
+                                                                        {
+                                                                            "data": "range",
+                                                                            "type": "metadata_identifier"
+                                                                        }
+                                                                    ],
+                                                                    "type": "node",
+                                                                    "tags": [
+                                                                        "variable"
+                                                                    ]
+                                                                },
+                                                                {
+                                                                    "children": [
+                                                                        {
+                                                                            "children": [
+                                                                                {
+                                                                                    "children": [
+                                                                                        {
+                                                                                            "data": "int",
+                                                                                            "type": "metadata_identifier"
+                                                                                        }
+                                                                                    ],
+                                                                                    "type": "node",
+                                                                                    "tags": [
+                                                                                        "variable"
+                                                                                    ]
+                                                                                },
+                                                                                {
+                                                                                    "children": [
+                                                                                        {
+                                                                                            "children": [
+                                                                                                {
+                                                                                                    "data": "x",
+                                                                                                    "type": "metadata_identifier"
+                                                                                                }
+                                                                                            ],
+                                                                                            "type": "node",
+                                                                                            "tags": [
+                                                                                                "variable"
+                                                                                            ]
+                                                                                        }
+                                                                                    ],
+                                                                                    "type": "node",
+                                                                                    "tags": [
+                                                                                        "argument"
+                                                                                    ]
+                                                                                }
+                                                                            ],
+                                                                            "type": "node",
+                                                                            "tags": [
+                                                                                "call"
+                                                                            ]
+                                                                        }
+                                                                    ],
+                                                                    "type": "node",
+                                                                    "tags": [
+                                                                        "argument"
+                                                                    ]
+                                                                }
+                                                            ],
+                                                            "type": "node",
+                                                            "tags": [
+                                                                "call"
+                                                            ]
+                                                        },
+                                                        {
+                                                            "children": [
+                                                                {
+                                                                    "children": [
+                                                                        {
+                                                                            "data": "z",
+                                                                            "type": "metadata_identifier"
+                                                                        }
+                                                                    ],
+                                                                    "type": "node",
+                                                                    "tags": [
+                                                                        "variable"
+                                                                    ]
+                                                                }
+                                                            ],
+                                                            "type": "node",
+                                                            "tags": [
+                                                                "targets"
+                                                            ]
+                                                        },
+                                                        {
+                                                            "children": [
+                                                                {
+                                                                    "children": [
+                                                                        {
+                                                                            "children": [],
+                                                                            "type": "node",
+                                                                            "tags": [
+                                                                                "plusassign",
+                                                                                "+="
+                                                                            ]
+                                                                        },
+                                                                        {
+                                                                            "children": [
+                                                                                {
+                                                                                    "data": "z",
+                                                                                    "type": "metadata_identifier"
+                                                                                }
+                                                                            ],
+                                                                            "type": "node",
+                                                                            "tags": [
+                                                                                "variable"
+                                                                            ]
+                                                                        },
+                                                                        {
+                                                                            "children": [
+                                                                                {
+                                                                                    "data": "y",
+                                                                                    "type": "metadata_identifier"
+                                                                                }
+                                                                            ],
+                                                                            "type": "node",
+                                                                            "tags": [
+                                                                                "variable"
+                                                                            ]
+                                                                        }
+                                                                    ],
+                                                                    "type": "node",
+                                                                    "tags": [
+                                                                        "augmented",
+                                                                        "assign",
+                                                                        "="
+                                                                    ]
+                                                                }
+                                                            ],
+                                                            "type": "node",
+                                                            "tags": [
+                                                                "body"
+                                                            ]
+                                                        },
+                                                        {
+                                                            "children": [],
+                                                            "type": "node",
+                                                            "tags": [
+                                                                "else"
+                                                            ]
+                                                        }
+                                                    ],
+                                                    "type": "node",
+                                                    "tags": [
+                                                        "for",
+                                                        "loop",
+                                                        "foreach"
+                                                    ]
+                                                },
+                                                {
+                                                    "children": [
+                                                        {
+                                                            "children": [
+                                                                {
+                                                                    "data": "y",
+                                                                    "type": "metadata_identifier"
+                                                                }
+                                                            ],
+                                                            "type": "node",
+                                                            "tags": [
+                                                                "variable"
+                                                            ]
+                                                        }
+                                                    ],
+                                                    "type": "node",
+                                                    "tags": [
+                                                        "return"
+                                                    ]
+                                                }
+                                            ],
+                                            "type": "node",
+                                            "tags": [
+                                                "else"
+                                            ]
+                                        }
+                                    ],
+                                    "type": "node",
+                                    "tags": [
+                                        "conditional",
+                                        "if",
+                                        "switch"
+                                    ]
+                                }
+                            ],
+                            "type": "node",
+                            "tags": [
+                                "body"
+                            ]
+                        }
+                    ],
+                    "type": "node",
+                    "tags": [
+                        "def",
+                        "define",
+                        "function"
+                    ]
+                },
+                {
+                    "children": [
+                        {
+                            "data": "bar",
+                            "type": "metadata_identifier"
+                        },
+                        {
+                            "children": [],
+                            "type": "node",
+                            "tags": [
+                                "parameters"
+                            ]
+                        },
+                        {
+                            "children": [
+                                {
+                                    "children": [
+                                        {
+                                            "children": [
+                                                {
+                                                    "children": [
+                                                        {
+                                                            "data": "foo",
+                                                            "type": "metadata_identifier"
+                                                        }
+                                                    ],
+                                                    "type": "node",
+                                                    "tags": [
+                                                        "variable"
+                                                    ]
+                                                },
+                                                {
+                                                    "children": [
+                                                        {
+                                                            "children": [
+                                                                {
+                                                                    "data": 4,
+                                                                    "type": "data_int"
+                                                                },
+                                                                {
+                                                                    "data": "4",
+                                                                    "type": "data_str"
+                                                                }
+                                                            ],
+                                                            "type": "node",
+                                                            "tags": [
+                                                                "literal",
+                                                                "integer"
+                                                            ]
+                                                        }
+                                                    ],
+                                                    "type": "node",
+                                                    "tags": [
+                                                        "argument"
+                                                    ]
+                                                }
+                                            ],
+                                            "type": "node",
+                                            "tags": [
+                                                "call"
+                                            ]
+                                        }
+                                    ],
+                                    "type": "node",
+                                    "tags": [
+                                        "return"
+                                    ]
+                                }
+                            ],
+                            "type": "node",
+                            "tags": [
+                                "body"
+                            ]
+                        }
+                    ],
+                    "type": "node",
+                    "tags": [
+                        "def",
+                        "define",
+                        "function"
+                    ]
+                },
+                {
+                    "children": [
+                        {
+                            "children": [
+                                {
+                                    "data": "print",
+                                    "type": "metadata_identifier"
+                                }
+                            ],
+                            "type": "node",
+                            "tags": [
+                                "variable"
+                            ]
+                        },
+                        {
+                            "children": [
+                                {
+                                    "children": [
+                                        {
+                                            "children": [
+                                                {
+                                                    "data": "foo",
+                                                    "type": "metadata_identifier"
+                                                }
+                                            ],
+                                            "type": "node",
+                                            "tags": [
+                                                "variable"
+                                            ]
+                                        },
+                                        {
+                                            "children": [
+                                                {
+                                                    "children": [
+                                                        {
+                                                            "children": [
+                                                                {
+                                                                    "data": "bar",
+                                                                    "type": "metadata_identifier"
+                                                                }
+                                                            ],
+                                                            "type": "node",
+                                                            "tags": [
+                                                                "variable"
+                                                            ]
+                                                        }
+                                                    ],
+                                                    "type": "node",
+                                                    "tags": [
+                                                        "call"
+                                                    ]
+                                                }
+                                            ],
+                                            "type": "node",
+                                            "tags": [
+                                                "argument"
+                                            ]
+                                        },
+                                        {
+                                            "children": [
+                                                {
+                                                    "children": [
+                                                        {
+                                                            "data": 25,
+                                                            "type": "data_int"
+                                                        },
+                                                        {
+                                                            "data": "25",
+                                                            "type": "data_str"
+                                                        }
+                                                    ],
+                                                    "type": "node",
+                                                    "tags": [
+                                                        "literal",
+                                                        "integer"
+                                                    ]
+                                                }
+                                            ],
+                                            "type": "node",
+                                            "tags": [
+                                                "argument"
+                                            ]
+                                        }
+                                    ],
+                                    "type": "node",
+                                    "tags": [
+                                        "call"
+                                    ]
+                                }
+                            ],
+                            "type": "node",
+                            "tags": [
+                                "argument"
+                            ]
+                        }
+                    ],
+                    "type": "node",
+                    "tags": [
+                        "call"
+                    ]
+                }
+            ],
+            "type": "node",
+            "tags": [
+                "module"
+            ]
+        }
+
