@@ -187,26 +187,25 @@
                      ]
                   },
                   {
+                     "children": [],
+                     "type": "node",
+                     "tags":[
+                        "Assign"
+                     ]
+                  },
+                  {
                      "children": [
                         {
-                           "children": [
-                              {
-                                 "children": [],
-                                 "type": "node",
-                                 "tags":[
-                                    "args"
-                                 ]
-                              }
-                           ],
+                           "children": [],
                            "type": "node",
                            "tags":[
-                              "Call"
+                              "args"
                            ]
                         }
                      ],
                      "type": "node",
                      "tags":[
-                        "Assign"
+                        "Call"
                      ]
                   },
                   {
@@ -1120,10 +1119,26 @@
                                                       {
                                                          "children": [
                                                             {
-                                                               "children": [],
+                                                               "children": [
+                                                                  {
+                                                                     "children": [
+                                                                        {
+                                                                           "children": [],
+                                                                           "type": "node",
+                                                                           "tags":[
+                                                                              "Expr"
+                                                                           ]
+                                                                        }
+                                                                     ],
+                                                                     "type": "node",
+                                                                     "tags":[
+                                                                        "args"
+                                                                     ]
+                                                                  }
+                                                               ],
                                                                "type": "node",
                                                                "tags":[
-                                                                  "BinOp"
+                                                                  "Call"
                                                                ]
                                                             },
                                                             {
@@ -1343,10 +1358,26 @@
                                                       {
                                                          "children": [
                                                             {
-                                                               "children": [],
+                                                               "children": [
+                                                                  {
+                                                                     "children": [
+                                                                        {
+                                                                           "children": [],
+                                                                           "type": "node",
+                                                                           "tags":[
+                                                                              "Expr"
+                                                                           ]
+                                                                        }
+                                                                     ],
+                                                                     "type": "node",
+                                                                     "tags":[
+                                                                        "args"
+                                                                     ]
+                                                                  }
+                                                               ],
                                                                "type": "node",
                                                                "tags":[
-                                                                  "BinOp"
+                                                                  "Call"
                                                                ]
                                                             },
                                                             {
@@ -1846,13 +1877,6 @@
                                                             {
                                                                "children": [
                                                                   {
-                                                                     "children": [],
-                                                                     "type": "node",
-                                                                     "tags":[
-                                                                        "BinOp"
-                                                                     ]
-                                                                  },
-                                                                  {
                                                                      "children": [
                                                                         {
                                                                            "children": [],
@@ -1865,6 +1889,13 @@
                                                                      "type": "node",
                                                                      "tags":[
                                                                         "Call"
+                                                                     ]
+                                                                  },
+                                                                  {
+                                                                     "children": [],
+                                                                     "type": "node",
+                                                                     "tags":[
+                                                                        "BinOp"
                                                                      ]
                                                                   }
                                                                ],
@@ -2131,13 +2162,6 @@
                                                             {
                                                                "children": [
                                                                   {
-                                                                     "children": [],
-                                                                     "type": "node",
-                                                                     "tags":[
-                                                                        "BinOp"
-                                                                     ]
-                                                                  },
-                                                                  {
                                                                      "children": [
                                                                         {
                                                                            "children": [],
@@ -2150,6 +2174,13 @@
                                                                      "type": "node",
                                                                      "tags":[
                                                                         "Call"
+                                                                     ]
+                                                                  },
+                                                                  {
+                                                                     "children": [],
+                                                                     "type": "node",
+                                                                     "tags":[
+                                                                        "BinOp"
                                                                      ]
                                                                   }
                                                                ],

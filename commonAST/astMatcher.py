@@ -77,6 +77,7 @@ class Visitor(ast.NodeVisitor):
 		hasElts = False
 		hasExcept = False
 		hasValues = False
+		hasComparators = False
 		hasValue = False
 		#calculate the nextLevels
 		nextLevel = level+1
@@ -166,7 +167,8 @@ class Visitor(ast.NodeVisitor):
 			output += "<unaryOp," + strlevel + ">"
 		elif isinstance(node, ast.Compare):
 			output += "<comparison," + strlevel + ">"
-			hasChildren = True
+			hasLeft = True
+			hasComparators = True
 		elif isinstance(node, ast.Call):
 			if isinstance(node.func, ast.Attribute):
 				#calling from an object
@@ -232,20 +234,23 @@ class Visitor(ast.NodeVisitor):
 			output += "\n"
 			f.write(output)
 			output = ""
-					
-		
+
 		if hasValue:
-			self.generic_visit(node.value, nextLevel+1, node)
+			self.generic_visit(node.value, nextLevel, node)
 
 		if hasValues:
 			for value in node.values:
-				self.generic_visit(value, nextLevel+1, node)
+				self.generic_visit(value, nextLevel, node)
+
+		if hasComparators:
+			for comp in node.comparators:
+				self.generic_visit(comp, nextLevel, node)
 		
 		if hasLeft:
-			self.generic_visit(node.left, nextLevel+1, node)
+			self.generic_visit(node.left, nextLevel, node)
 		
 		if hasRight:	
-			self.generic_visit(node.right, nextLevel+1, node)
+			self.generic_visit(node.right, nextLevel, node)
 
 		if hasElts: 
 			for elmnt in node.elts:

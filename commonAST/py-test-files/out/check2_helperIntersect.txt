@@ -45,34 +45,33 @@
                         {
                            "children": [
                               {
+                                 "children": [],
+                                 "type": "node",
+                                 "tags":[
+                                    "Assign"
+                                 ]
+                              },
+                              {
                                  "children": [
                                     {
                                        "children": [
                                           {
-                                             "children": [
-                                                {
-                                                   "children": [],
-                                                   "type": "node",
-                                                   "tags":[
-                                                      "Tuple"
-                                                   ]
-                                                }
-                                             ],
+                                             "children": [],
                                              "type": "node",
                                              "tags":[
-                                                "args"
+                                                "Tuple"
                                              ]
                                           }
                                        ],
                                        "type": "node",
                                        "tags":[
-                                          "Call"
+                                          "args"
                                        ]
                                     }
                                  ],
                                  "type": "node",
                                  "tags":[
-                                    "Assign"
+                                    "Call"
                                  ]
                               }
                            ],
@@ -99,34 +98,33 @@
                         {
                            "children": [
                               {
+                                 "children": [],
+                                 "type": "node",
+                                 "tags":[
+                                    "Assign"
+                                 ]
+                              },
+                              {
                                  "children": [
                                     {
                                        "children": [
                                           {
-                                             "children": [
-                                                {
-                                                   "children": [],
-                                                   "type": "node",
-                                                   "tags":[
-                                                      "Tuple"
-                                                   ]
-                                                }
-                                             ],
+                                             "children": [],
                                              "type": "node",
                                              "tags":[
-                                                "args"
+                                                "Tuple"
                                              ]
                                           }
                                        ],
                                        "type": "node",
                                        "tags":[
-                                          "Call"
+                                          "args"
                                        ]
                                     }
                                  ],
                                  "type": "node",
                                  "tags":[
-                                    "Assign"
+                                    "Call"
                                  ]
                               }
                            ],
