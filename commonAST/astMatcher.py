@@ -203,23 +203,20 @@ class Visitor(ast.NodeVisitor):
 				output += "</args,1>\n"
 		elif isinstance(node, ast.Expr):
 			hasChildren = True
-		'''
-		#removed in python3
-		elif isinstance(node, ast.Print):
-			output += "<calling func: print"
-			output += "," + strlevel + ">\n"
-			output += "<args, " + strNextLevel + ">\n"
-			f.write(output)	
-			output = ""
-			for arg in node.values:
-				self.generic_visit(arg)
-				f.write(output);
-				output = ""
-			output += "</args,1>\n"
-
+		elif isinstance(node, ast.List):
+			output += "<list," + strlevel + ">"
 			hasChildren = True
-		'''
+		elif isinstance(node, ast.Tuple):
+			output += "<tuple," + strlevel + ">"
+			hasChildren = True
+		elif isinstance(node, ast.Dict):
+			output += "<dict," + strlevel + ">"
+			hasChildren = True
+		elif isinstance(node, ast.Set):
+			output += "<set," + strlevel + ">"
+			hasChildren = True
 
+		
 		if (isinstance(node, ast.FunctionDef) or hasBody or hasattr(node, "orelse") or hasExcept) and len(output) != 0:
 			nextLevel += 1
 
