@@ -553,9 +553,9 @@ class Parser{
 		}
 
 		List* parseList(int level){
-			List* l= new List();
+			List* l = new List();
 		
-			if(getLookaheadToken()-> level > level){
+			while(getLookaheadToken()-> level > level){
 				l->values.push_back(parseExpr());
 			}
 
@@ -565,7 +565,7 @@ class Parser{
 		Tuple* parseTuple(int level){
 			Tuple* t= new Tuple();
 		
-			if(getLookaheadToken()-> level > level){
+			while(getLookaheadToken()-> level > level){
 				t->values.push_back(parseExpr());
 			}
 			
@@ -575,7 +575,7 @@ class Parser{
 		Dict* parseDict(int level){
 			Dict* d= new Dict();
 
-			if(getLookaheadToken()-> level > level){
+			while(getLookaheadToken()-> level > level){
 				d->values.push_back(parseExpr());
 			}
 			
@@ -585,7 +585,7 @@ class Parser{
 		Set* parseSet(int level){
 			Set* s = new Set();
 
-			if(getLookaheadToken()-> level > level){
+			while(getLookaheadToken()-> level > level){
 				s->values.push_back(parseExpr());
 			}
 	

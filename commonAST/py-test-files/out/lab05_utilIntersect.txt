@@ -144,26 +144,26 @@
                                  "tags":[
                                     "Call"
                                  ]
-                              }
-                           ],
-                           "type": "node",
-                           "tags":[
-                              "List"
-                           ]
-                        },
-                        {
-                           "children": [
+                              },
                               {
-                                 "children": [],
+                                 "children": [
+                                    {
+                                       "children": [],
+                                       "type": "node",
+                                       "tags":[
+                                          "args"
+                                       ]
+                                    }
+                                 ],
                                  "type": "node",
                                  "tags":[
-                                    "args"
+                                    "Call"
                                  ]
                               }
                            ],
                            "type": "node",
                            "tags":[
-                              "Call"
+                              "List"
                            ]
                         }
                      ],

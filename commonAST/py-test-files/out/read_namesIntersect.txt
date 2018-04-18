@@ -865,6 +865,13 @@
                                              "tags":[
                                                 "List"
                                              ]
+                                          },
+                                          {
+                                             "children": [],
+                                             "type": "node",
+                                             "tags":[
+                                                "List"
+                                             ]
                                           }
                                        ],
                                        "type": "node",
@@ -876,13 +883,6 @@
                                  "type": "node",
                                  "tags":[
                                     "Return"
-                                 ]
-                              },
-                              {
-                                 "children": [],
-                                 "type": "node",
-                                 "tags":[
-                                    "List"
                                  ]
                               }
                            ],

@@ -452,18 +452,18 @@
                                                          "tags":[
                                                             "BinOp"
                                                          ]
+                                                      },
+                                                      {
+                                                         "children": [],
+                                                         "type": "node",
+                                                         "tags":[
+                                                            "BinOp"
+                                                         ]
                                                       }
                                                    ],
                                                    "type": "node",
                                                    "tags":[
                                                       "Tuple"
-                                                   ]
-                                                },
-                                                {
-                                                   "children": [],
-                                                   "type": "node",
-                                                   "tags":[
-                                                      "BinOp"
                                                    ]
                                                 }
                                              ],
@@ -505,18 +505,18 @@
                                                          "tags":[
                                                             "BinOp"
                                                          ]
+                                                      },
+                                                      {
+                                                         "children": [],
+                                                         "type": "node",
+                                                         "tags":[
+                                                            "BinOp"
+                                                         ]
                                                       }
                                                    ],
                                                    "type": "node",
                                                    "tags":[
                                                       "Tuple"
-                                                   ]
-                                                },
-                                                {
-                                                   "children": [],
-                                                   "type": "node",
-                                                   "tags":[
-                                                      "BinOp"
                                                    ]
                                                 }
                                              ],
@@ -558,18 +558,18 @@
                                                          "tags":[
                                                             "BinOp"
                                                          ]
+                                                      },
+                                                      {
+                                                         "children": [],
+                                                         "type": "node",
+                                                         "tags":[
+                                                            "BinOp"
+                                                         ]
                                                       }
                                                    ],
                                                    "type": "node",
                                                    "tags":[
                                                       "Tuple"
-                                                   ]
-                                                },
-                                                {
-                                                   "children": [],
-                                                   "type": "node",
-                                                   "tags":[
-                                                      "BinOp"
                                                    ]
                                                 }
                                              ],
@@ -611,18 +611,18 @@
                                                          "tags":[
                                                             "BinOp"
                                                          ]
+                                                      },
+                                                      {
+                                                         "children": [],
+                                                         "type": "node",
+                                                         "tags":[
+                                                            "BinOp"
+                                                         ]
                                                       }
                                                    ],
                                                    "type": "node",
                                                    "tags":[
                                                       "Tuple"
-                                                   ]
-                                                },
-                                                {
-                                                   "children": [],
-                                                   "type": "node",
-                                                   "tags":[
-                                                      "BinOp"
                                                    ]
                                                 }
                                              ],
@@ -1190,60 +1190,7 @@
                                                          "tags":[
                                                             "BinOp"
                                                          ]
-                                                      }
-                                                   ],
-                                                   "type": "node",
-                                                   "tags":[
-                                                      "Tuple"
-                                                   ]
-                                                },
-                                                {
-                                                   "children": [],
-                                                   "type": "node",
-                                                   "tags":[
-                                                      "BinOp"
-                                                   ]
-                                                }
-                                             ],
-                                             "type": "node",
-                                             "tags":[
-                                                "Assign"
-                                             ]
-                                          }
-                                       ],
-                                       "type": "node",
-                                       "tags":[
-                                          "CompoundStmt"
-                                       ]
-                                    }
-                                 ],
-                                 "type": "node",
-                                 "tags":[
-                                    "If"
-                                 ]
-                              },
-                              {
-                                 "children": [
-                                    {
-                                       "children": [],
-                                       "type": "node",
-                                       "tags":[
-                                          "Comparison"
-                                       ]
-                                    },
-                                    {
-                                       "children": [
-                                          {
-                                             "children": [],
-                                             "type": "node",
-                                             "tags":[
-                                                "Assign"
-                                             ]
-                                          },
-                                          {
-                                             "children": [
-                                                {
-                                                   "children": [
+                                                      },
                                                       {
                                                          "children": [],
                                                          "type": "node",
@@ -1255,66 +1202,6 @@
                                                    "type": "node",
                                                    "tags":[
                                                       "Tuple"
-                                                   ]
-                                                }
-                                             ],
-                                             "type": "node",
-                                             "tags":[
-                                                "Assign"
-                                             ]
-                                          }
-                                       ],
-                                       "type": "node",
-                                       "tags":[
-                                          "CompoundStmt"
-                                       ]
-                                    }
-                                 ],
-                                 "type": "node",
-                                 "tags":[
-                                    "If"
-                                 ]
-                              },
-                              {
-                                 "children": [
-                                    {
-                                       "children": [],
-                                       "type": "node",
-                                       "tags":[
-                                          "Comparison"
-                                       ]
-                                    },
-                                    {
-                                       "children": [
-                                          {
-                                             "children": [],
-                                             "type": "node",
-                                             "tags":[
-                                                "Assign"
-                                             ]
-                                          },
-                                          {
-                                             "children": [
-                                                {
-                                                   "children": [
-                                                      {
-                                                         "children": [],
-                                                         "type": "node",
-                                                         "tags":[
-                                                            "BinOp"
-                                                         ]
-                                                      }
-                                                   ],
-                                                   "type": "node",
-                                                   "tags":[
-                                                      "Tuple"
-                                                   ]
-                                                },
-                                                {
-                                                   "children": [],
-                                                   "type": "node",
-                                                   "tags":[
-                                                      "BinOp"
                                                    ]
                                                 }
                                              ],
@@ -1416,60 +1303,7 @@
                                                          "tags":[
                                                             "BinOp"
                                                          ]
-                                                      }
-                                                   ],
-                                                   "type": "node",
-                                                   "tags":[
-                                                      "Tuple"
-                                                   ]
-                                                },
-                                                {
-                                                   "children": [],
-                                                   "type": "node",
-                                                   "tags":[
-                                                      "BinOp"
-                                                   ]
-                                                }
-                                             ],
-                                             "type": "node",
-                                             "tags":[
-                                                "Assign"
-                                             ]
-                                          }
-                                       ],
-                                       "type": "node",
-                                       "tags":[
-                                          "CompoundStmt"
-                                       ]
-                                    }
-                                 ],
-                                 "type": "node",
-                                 "tags":[
-                                    "If"
-                                 ]
-                              },
-                              {
-                                 "children": [
-                                    {
-                                       "children": [],
-                                       "type": "node",
-                                       "tags":[
-                                          "Comparison"
-                                       ]
-                                    },
-                                    {
-                                       "children": [
-                                          {
-                                             "children": [],
-                                             "type": "node",
-                                             "tags":[
-                                                "Assign"
-                                             ]
-                                          },
-                                          {
-                                             "children": [
-                                                {
-                                                   "children": [
+                                                      },
                                                       {
                                                          "children": [],
                                                          "type": "node",
@@ -1535,12 +1369,178 @@
                                                    "tags":[
                                                       "Tuple"
                                                    ]
-                                                },
+                                                }
+                                             ],
+                                             "type": "node",
+                                             "tags":[
+                                                "Assign"
+                                             ]
+                                          }
+                                       ],
+                                       "type": "node",
+                                       "tags":[
+                                          "CompoundStmt"
+                                       ]
+                                    }
+                                 ],
+                                 "type": "node",
+                                 "tags":[
+                                    "If"
+                                 ]
+                              },
+                              {
+                                 "children": [
+                                    {
+                                       "children": [],
+                                       "type": "node",
+                                       "tags":[
+                                          "Comparison"
+                                       ]
+                                    },
+                                    {
+                                       "children": [
+                                          {
+                                             "children": [],
+                                             "type": "node",
+                                             "tags":[
+                                                "Assign"
+                                             ]
+                                          },
+                                          {
+                                             "children": [
                                                 {
-                                                   "children": [],
+                                                   "children": [
+                                                      {
+                                                         "children": [],
+                                                         "type": "node",
+                                                         "tags":[
+                                                            "BinOp"
+                                                         ]
+                                                      },
+                                                      {
+                                                         "children": [],
+                                                         "type": "node",
+                                                         "tags":[
+                                                            "BinOp"
+                                                         ]
+                                                      }
+                                                   ],
                                                    "type": "node",
                                                    "tags":[
-                                                      "BinOp"
+                                                      "Tuple"
+                                                   ]
+                                                }
+                                             ],
+                                             "type": "node",
+                                             "tags":[
+                                                "Assign"
+                                             ]
+                                          }
+                                       ],
+                                       "type": "node",
+                                       "tags":[
+                                          "CompoundStmt"
+                                       ]
+                                    }
+                                 ],
+                                 "type": "node",
+                                 "tags":[
+                                    "If"
+                                 ]
+                              },
+                              {
+                                 "children": [
+                                    {
+                                       "children": [],
+                                       "type": "node",
+                                       "tags":[
+                                          "Comparison"
+                                       ]
+                                    },
+                                    {
+                                       "children": [
+                                          {
+                                             "children": [],
+                                             "type": "node",
+                                             "tags":[
+                                                "Assign"
+                                             ]
+                                          },
+                                          {
+                                             "children": [
+                                                {
+                                                   "children": [
+                                                      {
+                                                         "children": [],
+                                                         "type": "node",
+                                                         "tags":[
+                                                            "BinOp"
+                                                         ]
+                                                      }
+                                                   ],
+                                                   "type": "node",
+                                                   "tags":[
+                                                      "Tuple"
+                                                   ]
+                                                }
+                                             ],
+                                             "type": "node",
+                                             "tags":[
+                                                "Assign"
+                                             ]
+                                          }
+                                       ],
+                                       "type": "node",
+                                       "tags":[
+                                          "CompoundStmt"
+                                       ]
+                                    }
+                                 ],
+                                 "type": "node",
+                                 "tags":[
+                                    "If"
+                                 ]
+                              },
+                              {
+                                 "children": [
+                                    {
+                                       "children": [],
+                                       "type": "node",
+                                       "tags":[
+                                          "Comparison"
+                                       ]
+                                    },
+                                    {
+                                       "children": [
+                                          {
+                                             "children": [],
+                                             "type": "node",
+                                             "tags":[
+                                                "Assign"
+                                             ]
+                                          },
+                                          {
+                                             "children": [
+                                                {
+                                                   "children": [
+                                                      {
+                                                         "children": [],
+                                                         "type": "node",
+                                                         "tags":[
+                                                            "BinOp"
+                                                         ]
+                                                      },
+                                                      {
+                                                         "children": [],
+                                                         "type": "node",
+                                                         "tags":[
+                                                            "BinOp"
+                                                         ]
+                                                      }
+                                                   ],
+                                                   "type": "node",
+                                                   "tags":[
+                                                      "Tuple"
                                                    ]
                                                 }
                                              ],

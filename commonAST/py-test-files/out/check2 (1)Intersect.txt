@@ -40,18 +40,18 @@
                      "tags":[
                         "BinOp"
                      ]
+                  },
+                  {
+                     "children": [],
+                     "type": "node",
+                     "tags":[
+                        "BinOp"
+                     ]
                   }
                ],
                "type": "node",
                "tags":[
                   "Tuple"
-               ]
-            },
-            {
-               "children": [],
-               "type": "node",
-               "tags":[
-                  "BinOp"
                ]
             }
          ],

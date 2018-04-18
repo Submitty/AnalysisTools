@@ -179,26 +179,26 @@
                                                    "tags":[
                                                       "Call"
                                                    ]
-                                                }
-                                             ],
-                                             "type": "node",
-                                             "tags":[
-                                                "Tuple"
-                                             ]
-                                          },
-                                          {
-                                             "children": [
+                                                },
                                                 {
-                                                   "children": [],
+                                                   "children": [
+                                                      {
+                                                         "children": [],
+                                                         "type": "node",
+                                                         "tags":[
+                                                            "args"
+                                                         ]
+                                                      }
+                                                   ],
                                                    "type": "node",
                                                    "tags":[
-                                                      "args"
+                                                      "Call"
                                                    ]
                                                 }
                                              ],
                                              "type": "node",
                                              "tags":[
-                                                "Call"
+                                                "Tuple"
                                              ]
                                           }
                                        ],
