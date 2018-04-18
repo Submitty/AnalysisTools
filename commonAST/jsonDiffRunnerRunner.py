@@ -16,7 +16,7 @@ def getMatchB(matcha):
 	prefix = matcha[:index]
 	print("prefix: ", prefix)
 	for fname in glob.glob(directory):
-		if prefix in fname and "Intersect" in fname:
+		if (prefix + "Intersect") in fname:
 			return fname 
 
 for fname in glob.glob(directory):
