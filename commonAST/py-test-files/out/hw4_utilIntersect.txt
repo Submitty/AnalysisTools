@@ -12,28 +12,60 @@
             {
                "children": [
                   {
-                     "children": [],
+                     "children": [
+                        {
+                           "children": [],
+                           "type": "node",
+                           "tags":[
+                              "List"
+                           ]
+                        }
+                     ],
                      "type": "node",
                      "tags":[
                         "Assign"
                      ]
                   },
                   {
-                     "children": [],
+                     "children": [
+                        {
+                           "children": [],
+                           "type": "node",
+                           "tags":[
+                              "List"
+                           ]
+                        }
+                     ],
                      "type": "node",
                      "tags":[
                         "Assign"
                      ]
                   },
                   {
-                     "children": [],
+                     "children": [
+                        {
+                           "children": [],
+                           "type": "node",
+                           "tags":[
+                              "List"
+                           ]
+                        }
+                     ],
                      "type": "node",
                      "tags":[
                         "Assign"
                      ]
                   },
                   {
-                     "children": [],
+                     "children": [
+                        {
+                           "children": [],
+                           "type": "node",
+                           "tags":[
+                              "List"
+                           ]
+                        }
+                     ],
                      "type": "node",
                      "tags":[
                         "Assign"
@@ -130,7 +162,46 @@
                               {
                                  "children": [
                                     {
-                                       "children": [],
+                                       "children": [
+                                          {
+                                             "children": [
+                                                {
+                                                   "children": [
+                                                      {
+                                                         "children": [],
+                                                         "type": "node",
+                                                         "tags":[
+                                                            "args"
+                                                         ]
+                                                      }
+                                                   ],
+                                                   "type": "node",
+                                                   "tags":[
+                                                      "Call"
+                                                   ]
+                                                }
+                                             ],
+                                             "type": "node",
+                                             "tags":[
+                                                "Tuple"
+                                             ]
+                                          },
+                                          {
+                                             "children": [
+                                                {
+                                                   "children": [],
+                                                   "type": "node",
+                                                   "tags":[
+                                                      "args"
+                                                   ]
+                                                }
+                                             ],
+                                             "type": "node",
+                                             "tags":[
+                                                "Call"
+                                             ]
+                                          }
+                                       ],
                                        "type": "node",
                                        "tags":[
                                           "args"
@@ -155,7 +226,15 @@
                      ]
                   },
                   {
-                     "children": [],
+                     "children": [
+                        {
+                           "children": [],
+                           "type": "node",
+                           "tags":[
+                              "Tuple"
+                           ]
+                        }
+                     ],
                      "type": "node",
                      "tags":[
                         "Return"
@@ -262,7 +341,15 @@
                      ]
                   },
                   {
-                     "children": [],
+                     "children": [
+                        {
+                           "children": [],
+                           "type": "node",
+                           "tags":[
+                              "List"
+                           ]
+                        }
+                     ],
                      "type": "node",
                      "tags":[
                         "Return"
@@ -299,21 +386,45 @@
                      ]
                   },
                   {
-                     "children": [],
+                     "children": [
+                        {
+                           "children": [],
+                           "type": "node",
+                           "tags":[
+                              "List"
+                           ]
+                        }
+                     ],
                      "type": "node",
                      "tags":[
                         "Assign"
                      ]
                   },
                   {
-                     "children": [],
+                     "children": [
+                        {
+                           "children": [],
+                           "type": "node",
+                           "tags":[
+                              "List"
+                           ]
+                        }
+                     ],
                      "type": "node",
                      "tags":[
                         "Assign"
                      ]
                   },
                   {
-                     "children": [],
+                     "children": [
+                        {
+                           "children": [],
+                           "type": "node",
+                           "tags":[
+                              "List"
+                           ]
+                        }
+                     ],
                      "type": "node",
                      "tags":[
                         "Assign"
@@ -386,7 +497,15 @@
                                                       {
                                                          "children": [
                                                             {
-                                                               "children": [],
+                                                               "children": [
+                                                                  {
+                                                                     "children": [],
+                                                                     "type": "node",
+                                                                     "tags":[
+                                                                        "List"
+                                                                     ]
+                                                                  }
+                                                               ],
                                                                "type": "node",
                                                                "tags":[
                                                                   "args"
@@ -512,7 +631,15 @@
                      ]
                   },
                   {
-                     "children": [],
+                     "children": [
+                        {
+                           "children": [],
+                           "type": "node",
+                           "tags":[
+                              "Tuple"
+                           ]
+                        }
+                     ],
                      "type": "node",
                      "tags":[
                         "Return"
@@ -542,7 +669,15 @@
             {
                "children": [
                   {
-                     "children": [],
+                     "children": [
+                        {
+                           "children": [],
+                           "type": "node",
+                           "tags":[
+                              "List"
+                           ]
+                        }
+                     ],
                      "type": "node",
                      "tags":[
                         "Assign"
@@ -628,7 +763,15 @@
                                  ]
                               },
                               {
-                                 "children": [],
+                                 "children": [
+                                    {
+                                       "children": [],
+                                       "type": "node",
+                                       "tags":[
+                                          "List"
+                                       ]
+                                    }
+                                 ],
                                  "type": "node",
                                  "tags":[
                                     "BinOp"

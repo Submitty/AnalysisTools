@@ -46,7 +46,15 @@
          ]
       },
       {
-         "children": [],
+         "children": [
+            {
+               "children": [],
+               "type": "node",
+               "tags":[
+                  "List"
+               ]
+            }
+         ],
          "type": "node",
          "tags":[
             "Assign"
@@ -236,7 +244,15 @@
          ]
       },
       {
-         "children": [],
+         "children": [
+            {
+               "children": [],
+               "type": "node",
+               "tags":[
+                  "List"
+               ]
+            }
+         ],
          "type": "node",
          "tags":[
             "Assign"

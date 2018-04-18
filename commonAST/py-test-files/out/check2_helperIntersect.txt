@@ -49,7 +49,15 @@
                                     {
                                        "children": [
                                           {
-                                             "children": [],
+                                             "children": [
+                                                {
+                                                   "children": [],
+                                                   "type": "node",
+                                                   "tags":[
+                                                      "Tuple"
+                                                   ]
+                                                }
+                                             ],
                                              "type": "node",
                                              "tags":[
                                                 "args"
@@ -95,7 +103,15 @@
                                     {
                                        "children": [
                                           {
-                                             "children": [],
+                                             "children": [
+                                                {
+                                                   "children": [],
+                                                   "type": "node",
+                                                   "tags":[
+                                                      "Tuple"
+                                                   ]
+                                                }
+                                             ],
                                              "type": "node",
                                              "tags":[
                                                 "args"

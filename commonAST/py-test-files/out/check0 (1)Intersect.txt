@@ -51,7 +51,15 @@
                   {
                      "children": [
                         {
-                           "children": [],
+                           "children": [
+                              {
+                                 "children": [],
+                                 "type": "node",
+                                 "tags":[
+                                    "Tuple"
+                                 ]
+                              }
+                           ],
                            "type": "node",
                            "tags":[
                               "Assign"
@@ -65,7 +73,23 @@
                            ]
                         },
                         {
-                           "children": [],
+                           "children": [
+                              {
+                                 "children": [
+                                    {
+                                       "children": [],
+                                       "type": "node",
+                                       "tags":[
+                                          "UnaryOp"
+                                       ]
+                                    }
+                                 ],
+                                 "type": "node",
+                                 "tags":[
+                                    "Tuple"
+                                 ]
+                              }
+                           ],
                            "type": "node",
                            "tags":[
                               "Assign"
@@ -531,7 +555,15 @@
                            ]
                         },
                         {
-                           "children": [],
+                           "children": [
+                              {
+                                 "children": [],
+                                 "type": "node",
+                                 "tags":[
+                                    "Tuple"
+                                 ]
+                              }
+                           ],
                            "type": "node",
                            "tags":[
                               "Assign"
@@ -636,7 +668,44 @@
                            ]
                         },
                         {
-                           "children": [],
+                           "children": [
+                              {
+                                 "children": [
+                                    {
+                                       "children": [],
+                                       "type": "node",
+                                       "tags":[
+                                          "BinOp"
+                                       ]
+                                    }
+                                 ],
+                                 "type": "node",
+                                 "tags":[
+                                    "Tuple"
+                                 ]
+                              },
+                              {
+                                 "children": [],
+                                 "type": "node",
+                                 "tags":[
+                                    "BinOp"
+                                 ]
+                              },
+                              {
+                                 "children": [],
+                                 "type": "node",
+                                 "tags":[
+                                    "BinOp"
+                                 ]
+                              },
+                              {
+                                 "children": [],
+                                 "type": "node",
+                                 "tags":[
+                                    "BinOp"
+                                 ]
+                              }
+                           ],
                            "type": "node",
                            "tags":[
                               "Assign"

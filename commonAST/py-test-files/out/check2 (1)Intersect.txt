@@ -31,7 +31,30 @@
          ]
       },
       {
-         "children": [],
+         "children": [
+            {
+               "children": [
+                  {
+                     "children": [],
+                     "type": "node",
+                     "tags":[
+                        "BinOp"
+                     ]
+                  }
+               ],
+               "type": "node",
+               "tags":[
+                  "Tuple"
+               ]
+            },
+            {
+               "children": [],
+               "type": "node",
+               "tags":[
+                  "BinOp"
+               ]
+            }
+         ],
          "type": "node",
          "tags":[
             "Assign"
@@ -42,7 +65,15 @@
             {
                "children": [
                   {
-                     "children": [],
+                     "children": [
+                        {
+                           "children": [],
+                           "type": "node",
+                           "tags":[
+                              "Tuple"
+                           ]
+                        }
+                     ],
                      "type": "node",
                      "tags":[
                         "args"
@@ -256,36 +287,12 @@
                            "tags":[
                               "args"
                            ]
-                        }
-                     ],
-                     "type": "node",
-                     "tags":[
-                        "Call"
-                     ]
-                  }
-               ],
-               "type": "node",
-               "tags":[
-                  "args"
-               ]
-            }
-         ],
-         "type": "node",
-         "tags":[
-            "Call"
-         ]
-      },
-      {
-         "children": [
-            {
-               "children": [
-                  {
-                     "children": [
+                        },
                         {
                            "children": [],
                            "type": "node",
                            "tags":[
-                              "args"
+                              "Tuple"
                            ]
                         }
                      ],
@@ -348,6 +355,51 @@
                            "type": "node",
                            "tags":[
                               "args"
+                           ]
+                        },
+                        {
+                           "children": [],
+                           "type": "node",
+                           "tags":[
+                              "Tuple"
+                           ]
+                        }
+                     ],
+                     "type": "node",
+                     "tags":[
+                        "Call"
+                     ]
+                  }
+               ],
+               "type": "node",
+               "tags":[
+                  "args"
+               ]
+            }
+         ],
+         "type": "node",
+         "tags":[
+            "Call"
+         ]
+      },
+      {
+         "children": [
+            {
+               "children": [
+                  {
+                     "children": [
+                        {
+                           "children": [],
+                           "type": "node",
+                           "tags":[
+                              "args"
+                           ]
+                        },
+                        {
+                           "children": [],
+                           "type": "node",
+                           "tags":[
+                              "Tuple"
                            ]
                         }
                      ],

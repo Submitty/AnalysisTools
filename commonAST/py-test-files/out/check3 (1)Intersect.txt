@@ -35,7 +35,15 @@
             {
                "children": [
                   {
-                     "children": [],
+                     "children": [
+                        {
+                           "children": [],
+                           "type": "node",
+                           "tags":[
+                              "Tuple"
+                           ]
+                        }
+                     ],
                      "type": "node",
                      "tags":[
                         "args"
@@ -234,7 +242,15 @@
          ]
       },
       {
-         "children": [],
+         "children": [
+            {
+               "children": [],
+               "type": "node",
+               "tags":[
+                  "Tuple"
+               ]
+            }
+         ],
          "type": "node",
          "tags":[
             "Assign"
@@ -503,10 +519,25 @@
                   {
                      "children": [
                         {
-                           "children": [],
+                           "children": [
+                              {
+                                 "children": [],
+                                 "type": "node",
+                                 "tags":[
+                                    "Tuple"
+                                 ]
+                              }
+                           ],
                            "type": "node",
                            "tags":[
                               "args"
+                           ]
+                        },
+                        {
+                           "children": [],
+                           "type": "node",
+                           "tags":[
+                              "Tuple"
                            ]
                         }
                      ],
@@ -557,10 +588,25 @@
                   {
                      "children": [
                         {
-                           "children": [],
+                           "children": [
+                              {
+                                 "children": [],
+                                 "type": "node",
+                                 "tags":[
+                                    "Tuple"
+                                 ]
+                              }
+                           ],
                            "type": "node",
                            "tags":[
                               "args"
+                           ]
+                        },
+                        {
+                           "children": [],
+                           "type": "node",
+                           "tags":[
+                              "Tuple"
                            ]
                         }
                      ],
@@ -611,10 +657,25 @@
                   {
                      "children": [
                         {
-                           "children": [],
+                           "children": [
+                              {
+                                 "children": [],
+                                 "type": "node",
+                                 "tags":[
+                                    "Tuple"
+                                 ]
+                              }
+                           ],
                            "type": "node",
                            "tags":[
                               "args"
+                           ]
+                        },
+                        {
+                           "children": [],
+                           "type": "node",
+                           "tags":[
+                              "Tuple"
                            ]
                         }
                      ],
@@ -665,10 +726,25 @@
                   {
                      "children": [
                         {
-                           "children": [],
+                           "children": [
+                              {
+                                 "children": [],
+                                 "type": "node",
+                                 "tags":[
+                                    "Tuple"
+                                 ]
+                              }
+                           ],
                            "type": "node",
                            "tags":[
                               "args"
+                           ]
+                        },
+                        {
+                           "children": [],
+                           "type": "node",
+                           "tags":[
+                              "Tuple"
                            ]
                         }
                      ],
@@ -719,10 +795,25 @@
                   {
                      "children": [
                         {
-                           "children": [],
+                           "children": [
+                              {
+                                 "children": [],
+                                 "type": "node",
+                                 "tags":[
+                                    "Tuple"
+                                 ]
+                              }
+                           ],
                            "type": "node",
                            "tags":[
                               "args"
+                           ]
+                        },
+                        {
+                           "children": [],
+                           "type": "node",
+                           "tags":[
+                              "Tuple"
                            ]
                         }
                      ],
@@ -773,10 +864,25 @@
                   {
                      "children": [
                         {
-                           "children": [],
+                           "children": [
+                              {
+                                 "children": [],
+                                 "type": "node",
+                                 "tags":[
+                                    "Tuple"
+                                 ]
+                              }
+                           ],
                            "type": "node",
                            "tags":[
                               "args"
+                           ]
+                        },
+                        {
+                           "children": [],
+                           "type": "node",
+                           "tags":[
+                              "Tuple"
                            ]
                         }
                      ],
