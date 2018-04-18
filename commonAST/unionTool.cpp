@@ -344,7 +344,7 @@ class ASTMatcherVisitor : public RecursiveASTVisitor<ASTMatcherVisitor> {
 			}
 
 
-			/*
+			
 			if(node == "Var"){
 				output += "<variableDecl, " + prevLevel +  ">";
 				numClosingVarsNeeded++;
@@ -353,14 +353,14 @@ class ASTMatcherVisitor : public RecursiveASTVisitor<ASTMatcherVisitor> {
 					output +="\n</variableDecl,1>\n";
 					numClosingVarsNeeded--;
 				}
-			}else if(node == "Function"){
+			}/*else if(node == "Function"){
 				FunctionDecl* FD = (FunctionDecl*) D; 
 				output += "<functionDef," + level +">";
 				//add function name to the output
 				output += "\n<name: " + FD->getNameInfo().getAsString()
 					+ "," + nextLevel + ">";
 
-			}else if(node == "CXXRecord"){
+			}*/else if(node == "CXXRecord"){
 				const Decl* parent = getDeclParent(D, Context);
 				if(parent && strcmp(parent->getDeclKindName(), "CXXRecord") != 0){
 					CXXRecordDecl* CD = (CXXRecordDecl*) D;
@@ -413,10 +413,10 @@ class ASTMatcherVisitor : public RecursiveASTVisitor<ASTMatcherVisitor> {
 					output += "\n<name: " + CM->getNameInfo().getAsString()
 						+ "," + nextLevel + ">";
 				}
-			}else{*/
+			}else{
 				output += "\n<" + node + ",";
 				output += level + ">";
-			//}
+			}
 
 			if(output.size() != 0){
 				cout << output << endl;
@@ -566,7 +566,7 @@ class ASTMatcherVisitor : public RecursiveASTVisitor<ASTMatcherVisitor> {
 						isElse = true;
 					}
 
-				}
+				}*/
 
 				
 				string node = x->getStmtClassName();
@@ -594,9 +594,11 @@ class ASTMatcherVisitor : public RecursiveASTVisitor<ASTMatcherVisitor> {
 					output += "; calling func: ";
 					output += expr->getDirectCallee()->getNameInfo().getAsString();
 					output += ", " + level + ">\n";
+					/*
 					output += "<args";
 					numClosingArgsNeeded++;
 					callStack.push(x);
+					*/	
 
 					if(callStackDebug){
 						cerr << "pushing" << endl;
@@ -605,16 +607,18 @@ class ASTMatcherVisitor : public RecursiveASTVisitor<ASTMatcherVisitor> {
 
 				}else if(node == "CallExpr"){
 					CallExpr* expr = (CallExpr*) x;
-					output += "<calling func: ";
-					output += expr->getDirectCallee()->getNameInfo().getAsString();
+					output += "<Call: ";
+					//output += "<calling func: ";
+					//output += expr->getDirectCallee()->getNameInfo().getAsString();
 					output += ", " + level + ">\n";
+					/*
 					output += "<args";
 					numClosingArgsNeeded++;
 					callStack.push(x);
 					if(callStackDebug){
 						cerr << "pushing" << endl;
 						printCallStack();								
-					}
+					}*/
 
 				}else if(node == "CXXConstructExpr"){
 					CXXConstructExpr* ce = (CXXConstructExpr*) x;
@@ -623,7 +627,8 @@ class ASTMatcherVisitor : public RecursiveASTVisitor<ASTMatcherVisitor> {
 					string filename;
 					if(isInCurFile(Context, CD, filename)){
 						CXXMethodDecl* MD =  ce->getConstructor();
-						output += "<calling func: ";
+						output += "<Call: ";
+						/*
 						output += MD->getNameInfo().getAsString();
 						output += "," + level + ">\n";
 						output += "<args";
@@ -632,7 +637,7 @@ class ASTMatcherVisitor : public RecursiveASTVisitor<ASTMatcherVisitor> {
 						if(callStackDebug){
 							cerr << "pushing" << endl;
 							printCallStack();								
-						}
+						}*/
 
 					}
 
@@ -679,6 +684,10 @@ class ASTMatcherVisitor : public RecursiveASTVisitor<ASTMatcherVisitor> {
 					string filename;
 					if(isInCurFile(Context, CD, filename)){
 						CXXMethodDecl* MD =  ce->getConstructor();
+
+						output += "<Call: ";
+						/*
+
 						output += "<calling func: ";
 						output += MD->getNameInfo().getAsString();
 						output += "," + level + ">\n";
@@ -688,17 +697,17 @@ class ASTMatcherVisitor : public RecursiveASTVisitor<ASTMatcherVisitor> {
 						if(callStackDebug){
 							cerr << "pushing" << endl;
 							printCallStack();								
-						}
+						}*/
 
 
 					}
 
-				}else{*/
+				}else{
 					string node = x->getStmtClassName();
 					output += "\n<" + node + ",";
 					output += level + ">";
 
-				//}
+				}
 
 
 				if(output.size() != 0 && !endsIn(output, "</cond,1>\n") && 

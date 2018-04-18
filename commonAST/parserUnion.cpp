@@ -33,7 +33,7 @@ class Parser{
 			Function* func = new Function();	
 			func->type = "Function";
 			while(getLookaheadToken()->level < t->level && getLookaheadToken()->value != "END"){
-				func->children.push_back(parseNode());
+				func->children.push_back(parseParameter());
 			}
 
 			while(getLookaheadToken()->level > t->level && getLookaheadToken()->value != "END"){
@@ -41,6 +41,14 @@ class Parser{
 			}
 
 			return func;
+		}
+
+		ASTNode* parseParameter(){
+			Token* t = getToken();
+			ASTNode* p = new ASTNode();
+			p->type = t->value;
+
+			return p;
 		}
 
 		ASTNode* parseASTNode(Token* t){
