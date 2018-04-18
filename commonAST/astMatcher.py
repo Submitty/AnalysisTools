@@ -238,7 +238,8 @@ class Visitor(ast.NodeVisitor):
 			self.generic_visit(node.value, nextLevel+1, node)
 
 		if hasValues:
-			self.generic_visit(node.values, nextLevel+1, node)
+			for value in node.values:
+				self.generic_visit(value, nextLevel+1, node)
 		
 		if hasLeft:
 			self.generic_visit(node.left, nextLevel+1, node)

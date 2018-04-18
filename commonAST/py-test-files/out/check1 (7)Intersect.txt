@@ -226,7 +226,7 @@
                                                    "children": [],
                                                    "type": "node",
                                                    "tags":[
-                                                      "BinOp"
+                                                      "Comparison"
                                                    ]
                                                 },
                                                 {
@@ -298,7 +298,7 @@
                                        "children": [],
                                        "type": "node",
                                        "tags":[
-                                          "BinOp"
+                                          "Comparison"
                                        ]
                                     },
                                     {
