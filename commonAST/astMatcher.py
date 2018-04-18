@@ -72,6 +72,7 @@ class Visitor(ast.NodeVisitor):
 		#variables used for searching children
 		hasBody = False
 		hasChildren = False	
+		hasElts = False
 		hasExcept = False
 		#calculate the nextLevels
 		nextLevel = level+1
@@ -205,16 +206,16 @@ class Visitor(ast.NodeVisitor):
 			hasChildren = True
 		elif isinstance(node, ast.List):
 			output += "<list," + strlevel + ">"
-			hasChildren = True
+			hasElts = True
 		elif isinstance(node, ast.Tuple):
 			output += "<tuple," + strlevel + ">"
-			hasChildren = True
+			hasElts = True
 		elif isinstance(node, ast.Dict):
 			output += "<dict," + strlevel + ">"
 			hasChildren = True
 		elif isinstance(node, ast.Set):
 			output += "<set," + strlevel + ">"
-			hasChildren = True
+			hasElts = True
 
 		
 		if (isinstance(node, ast.FunctionDef) or hasBody or hasattr(node, "orelse") or hasExcept) and len(output) != 0:
@@ -231,6 +232,10 @@ class Visitor(ast.NodeVisitor):
 
 		if(isinstance(node, ast.Assign)):
 			self.generic_visit(node.value, nextLevel+1, node)
+
+		if hasElts: 
+			for elmnt in node.elts:
+				self.generic_visit(elmnt, nextLevel, node)
 
 		if hasChildren:
 			for child in ast.iter_child_nodes(node):
