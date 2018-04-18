@@ -36,10 +36,13 @@ If the tags, context, and language match, the then common AST node matches to th
 
 
 emptyCntxt = context.Context("py")
+emptyCntxtCpp = context.Context("cpp")
 classNoCntxt = eqTag.EqTag(["class"], emptyCntxt)
 functionNoCntxt = eqTag.EqTag(["function"], emptyCntxt)
+functionNoCntxtCpp = eqTag.EqTag(["function"], emptyCntxtCpp)
 augAssignNoCntxt = eqTag.EqTag(["augmented", "assign"], emptyCntxt) 
 binOpNoCntxt = eqTag.EqTag(["binary", "operator"], emptyCntxt) 
+binOpNoCntxt = eqTag.EqTag(["binaryop"], emptyCntxtCpp) 
 unOpNoCntxt = eqTag.EqTag(["unary", "operator"], emptyCntxt) 
 bodyIfCntxt = eqTag.EqTag(["body"], context.Context("py",["\*"],["\*"],["case"],["if"]))
 bodyForCntxt = eqTag.EqTag(["body"], context.Context("py",["\*"],["\*"],["for"],["\*"]))
@@ -52,15 +55,22 @@ gtBinOpCntxt = eqTag.EqTag(["binary", "operator"], context.Context("py",["gt"],[
 gteBinOpCntxt = eqTag.EqTag(["binary", "operator"], context.Context("py",["gte"],["\*"], ["\*"],["\*"]))
 eqBinOpCntxt = eqTag.EqTag(["binary", "operator"], context.Context("py",["equals"],["\*"], ["\*"],["\*"]))
 caseIfCntxt = eqTag.EqTag(["case"], context.Context("py",["\*"], ["\*"], ["if"],["\*"]))
+ifCppCntxt = eqTag.EqTag(["ifstatement"], context.Context("cpp",["\*"], ["\*"], ["\*"],["\*"]))
+forLoopCppCntxt = eqTag.EqTag(["forloop"], context.Context("cpp",["\*"],["\*"],["\*"],["\*"]))
+assignCppCntxt = eqTag.EqTag(["assignment"], context.Context("cpp",["\*"],["\*"],["\*"],["\*"]))
+whileCppCntxt = eqTag.EqTag(["whileloop"], context.Context("cpp",["\*"],["\*"],["\*"],["\*"]))
 
 tagEqlMap = dict({"classdef": [classNoCntxt], #classdef matches to class in any context
-			"functiondef": [functionNoCntxt], 
+			"functiondef": [functionNoCntxt, functionNoCntxtCpp], 
 			"compoundstmt": [bodyIfCntxt, bodyForCntxt, bodyWhileCntxt, bodyFuncCntxt, elseIfCntxt],
 			"augassign": [augAssignNoCntxt],
 			"binop": [binOpNoCntxt],
 			"unaryop": [unOpNoCntxt],
 			"comparison": [eqBinOpCntxt, gtBinOpCntxt, gteBinOpCntxt, ltBinOpCntxt, lteBinOpCntxt],
-			"if": [caseIfCntxt]})
+			"for": [forLoopCppCntxt],
+			"while": [whileCppCntxt],
+			"assign": [assignCppCntxt],
+			"if": [caseIfCntxt, ifCppCntxt]})
 
 '''
 The adlDetailMap is a dictionary of nodes in the full AST that are not relevant to our use cases 
@@ -99,7 +109,8 @@ functionContext =  context.Context("py",["\*"],["\*"],["function"],["\*"])
 paramContext =  context.Context("py",["\*"],["\*"],["parameters"],["\*"])
 accessContext =  context.Context("py",["\*"],["\*"],["access"],["\*"])
 binOpContext = context.Context("py",["\*"], ["\*"],["binary", "operator"], ["\*"])
-adlDetailMap = dict({"literal": [assignContext, binOpContext],
+adlDetailMap = dict({"literal": [emptyCntxt],
+			"parmvar": [emptyCntxtCpp],
 			"string": [assignContext, binOpContext],
 			"gt": [binOpContext],
 			"gte": [binOpContext],

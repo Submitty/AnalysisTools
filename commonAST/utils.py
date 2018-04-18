@@ -72,6 +72,8 @@ def tagsMatch(node1, node2, parent1, parent2, lang):
 	return equalTags(node2, node1, parent2, parent1, lang)
 
 def cntxtInsensitiveCheck(eqObj, tags2):
+	tags2 = [tag.lower() for tag in tags2]
+
 	for tag_ in eqObj.tags:
 		if not tag_.lower() in tags2:
 			return False
@@ -157,7 +159,7 @@ def equalTags(node1, node2, parent1, parent2, lang):
 		if tag.lower() in refMaps.tagEqlMap:
 			for eqObj in refMaps.tagEqlMap[tag.lower()]:
 				if eqObj.context == context.Context(lang) and cntxtInsensitiveCheck(eqObj, tags2): return 1
-				elif cntxtInsensitiveCheck(eqObj, tags2) and contextSensitiveCheck(eqObj, node1, parent1):  
+				elif cntxtInsensitiveCheck(eqObj, tags2) and contextSensitiveCheck(eqObj, node1, lang):  
 					return calculateConfidence(node1, node2, 1,lang)
 	return -1
 
@@ -194,5 +196,5 @@ def createContext(node,lang):
 
 	return context.Context(lang, lookaheadTags, siblingTags, parentTags, gpTags)
 
-def contextSensitiveCheck(eqObj, node1, parent1):
-	return eqObj.context == createContext(node1)
+def contextSensitiveCheck(eqObj, node1, lang):
+	return eqObj.context == createContext(node1, lang)
