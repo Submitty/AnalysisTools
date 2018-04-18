@@ -27,14 +27,30 @@
             {
                "children": [
                   {
-                     "children": [],
+                     "children": [
+                        {
+                           "children": [],
+                           "type": "node",
+                           "tags":[
+                              "Expr"
+                           ]
+                        }
+                     ],
                      "type": "node",
                      "tags":[
                         "Assign"
                      ]
                   },
                   {
-                     "children": [],
+                     "children": [
+                        {
+                           "children": [],
+                           "type": "node",
+                           "tags":[
+                              "Expr"
+                           ]
+                        }
+                     ],
                      "type": "node",
                      "tags":[
                         "Assign"
@@ -215,56 +231,9 @@
                                                    "children": [],
                                                    "type": "node",
                                                    "tags":[
-                                                      "BinOp"
+                                                      "Expr"
                                                    ]
-                                                }
-                                             ],
-                                             "type": "node",
-                                             "tags":[
-                                                "args"
-                                             ]
-                                          }
-                                       ],
-                                       "type": "node",
-                                       "tags":[
-                                          "Call"
-                                       ]
-                                    }
-                                 ],
-                                 "type": "node",
-                                 "tags":[
-                                    "Assign"
-                                 ]
-                              }
-                           ],
-                           "type": "node",
-                           "tags":[
-                              "CompoundStmt"
-                           ]
-                        }
-                     ],
-                     "type": "node",
-                     "tags":[
-                        "If"
-                     ]
-                  },
-                  {
-                     "children": [
-                        {
-                           "children": [],
-                           "type": "node",
-                           "tags":[
-                              "Comparison"
-                           ]
-                        },
-                        {
-                           "children": [
-                              {
-                                 "children": [
-                                    {
-                                       "children": [
-                                          {
-                                             "children": [
+                                                },
                                                 {
                                                    "children": [],
                                                    "type": "node",
@@ -319,6 +288,74 @@
                                        "children": [
                                           {
                                              "children": [
+                                                {
+                                                   "children": [],
+                                                   "type": "node",
+                                                   "tags":[
+                                                      "Expr"
+                                                   ]
+                                                },
+                                                {
+                                                   "children": [],
+                                                   "type": "node",
+                                                   "tags":[
+                                                      "BinOp"
+                                                   ]
+                                                }
+                                             ],
+                                             "type": "node",
+                                             "tags":[
+                                                "args"
+                                             ]
+                                          }
+                                       ],
+                                       "type": "node",
+                                       "tags":[
+                                          "Call"
+                                       ]
+                                    }
+                                 ],
+                                 "type": "node",
+                                 "tags":[
+                                    "Assign"
+                                 ]
+                              }
+                           ],
+                           "type": "node",
+                           "tags":[
+                              "CompoundStmt"
+                           ]
+                        }
+                     ],
+                     "type": "node",
+                     "tags":[
+                        "If"
+                     ]
+                  },
+                  {
+                     "children": [
+                        {
+                           "children": [],
+                           "type": "node",
+                           "tags":[
+                              "Comparison"
+                           ]
+                        },
+                        {
+                           "children": [
+                              {
+                                 "children": [
+                                    {
+                                       "children": [
+                                          {
+                                             "children": [
+                                                {
+                                                   "children": [],
+                                                   "type": "node",
+                                                   "tags":[
+                                                      "Expr"
+                                                   ]
+                                                },
                                                 {
                                                    "children": [],
                                                    "type": "node",
@@ -354,56 +391,9 @@
                                                    "children": [],
                                                    "type": "node",
                                                    "tags":[
-                                                      "BinOp"
+                                                      "Expr"
                                                    ]
-                                                }
-                                             ],
-                                             "type": "node",
-                                             "tags":[
-                                                "args"
-                                             ]
-                                          }
-                                       ],
-                                       "type": "node",
-                                       "tags":[
-                                          "Call"
-                                       ]
-                                    }
-                                 ],
-                                 "type": "node",
-                                 "tags":[
-                                    "Assign"
-                                 ]
-                              }
-                           ],
-                           "type": "node",
-                           "tags":[
-                              "CompoundStmt"
-                           ]
-                        }
-                     ],
-                     "type": "node",
-                     "tags":[
-                        "If"
-                     ]
-                  },
-                  {
-                     "children": [
-                        {
-                           "children": [],
-                           "type": "node",
-                           "tags":[
-                              "Comparison"
-                           ]
-                        },
-                        {
-                           "children": [
-                              {
-                                 "children": [
-                                    {
-                                       "children": [
-                                          {
-                                             "children": [
+                                                },
                                                 {
                                                    "children": [],
                                                    "type": "node",
@@ -458,6 +448,74 @@
                                        "children": [
                                           {
                                              "children": [
+                                                {
+                                                   "children": [],
+                                                   "type": "node",
+                                                   "tags":[
+                                                      "Expr"
+                                                   ]
+                                                },
+                                                {
+                                                   "children": [],
+                                                   "type": "node",
+                                                   "tags":[
+                                                      "BinOp"
+                                                   ]
+                                                }
+                                             ],
+                                             "type": "node",
+                                             "tags":[
+                                                "args"
+                                             ]
+                                          }
+                                       ],
+                                       "type": "node",
+                                       "tags":[
+                                          "Call"
+                                       ]
+                                    }
+                                 ],
+                                 "type": "node",
+                                 "tags":[
+                                    "Assign"
+                                 ]
+                              }
+                           ],
+                           "type": "node",
+                           "tags":[
+                              "CompoundStmt"
+                           ]
+                        }
+                     ],
+                     "type": "node",
+                     "tags":[
+                        "If"
+                     ]
+                  },
+                  {
+                     "children": [
+                        {
+                           "children": [],
+                           "type": "node",
+                           "tags":[
+                              "Comparison"
+                           ]
+                        },
+                        {
+                           "children": [
+                              {
+                                 "children": [
+                                    {
+                                       "children": [
+                                          {
+                                             "children": [
+                                                {
+                                                   "children": [],
+                                                   "type": "node",
+                                                   "tags":[
+                                                      "Expr"
+                                                   ]
+                                                },
                                                 {
                                                    "children": [],
                                                    "type": "node",
@@ -784,7 +842,15 @@
                         {
                            "children": [
                               {
-                                 "children": [],
+                                 "children": [
+                                    {
+                                       "children": [],
+                                       "type": "node",
+                                       "tags":[
+                                          "Expr"
+                                       ]
+                                    }
+                                 ],
                                  "type": "node",
                                  "tags":[
                                     "args"
@@ -924,6 +990,13 @@
                                  "type": "node",
                                  "tags":[
                                     "AugAssign"
+                                 ]
+                              },
+                              {
+                                 "children": [],
+                                 "type": "node",
+                                 "tags":[
+                                    "Expr"
                                  ]
                               }
                            ],
@@ -1108,6 +1181,13 @@
                      "type": "node",
                      "tags":[
                         "AugAssign"
+                     ]
+                  },
+                  {
+                     "children": [],
+                     "type": "node",
+                     "tags":[
+                        "Expr"
                      ]
                   },
                   {
@@ -1305,7 +1385,15 @@
                                                       {
                                                          "children": [
                                                             {
-                                                               "children": [],
+                                                               "children": [
+                                                                  {
+                                                                     "children": [],
+                                                                     "type": "node",
+                                                                     "tags":[
+                                                                        "Expr"
+                                                                     ]
+                                                                  }
+                                                               ],
                                                                "type": "node",
                                                                "tags":[
                                                                   "args"
@@ -1688,21 +1776,45 @@
          ]
       },
       {
-         "children": [],
+         "children": [
+            {
+               "children": [],
+               "type": "node",
+               "tags":[
+                  "Expr"
+               ]
+            }
+         ],
          "type": "node",
          "tags":[
             "Assign"
          ]
       },
       {
-         "children": [],
+         "children": [
+            {
+               "children": [],
+               "type": "node",
+               "tags":[
+                  "Expr"
+               ]
+            }
+         ],
          "type": "node",
          "tags":[
             "Assign"
          ]
       },
       {
-         "children": [],
+         "children": [
+            {
+               "children": [],
+               "type": "node",
+               "tags":[
+                  "Expr"
+               ]
+            }
+         ],
          "type": "node",
          "tags":[
             "Assign"
@@ -1719,7 +1831,15 @@
                               {
                                  "children": [
                                     {
-                                       "children": [],
+                                       "children": [
+                                          {
+                                             "children": [],
+                                             "type": "node",
+                                             "tags":[
+                                                "Expr"
+                                             ]
+                                          }
+                                       ],
                                        "type": "node",
                                        "tags":[
                                           "Comparison"
@@ -1728,7 +1848,15 @@
                                     {
                                        "children": [
                                           {
-                                             "children": [],
+                                             "children": [
+                                                {
+                                                   "children": [],
+                                                   "type": "node",
+                                                   "tags":[
+                                                      "Expr"
+                                                   ]
+                                                }
+                                             ],
                                              "type": "node",
                                              "tags":[
                                                 "Assign"
@@ -1749,7 +1877,15 @@
                               {
                                  "children": [
                                     {
-                                       "children": [],
+                                       "children": [
+                                          {
+                                             "children": [],
+                                             "type": "node",
+                                             "tags":[
+                                                "Expr"
+                                             ]
+                                          }
+                                       ],
                                        "type": "node",
                                        "tags":[
                                           "Comparison"
@@ -1758,7 +1894,15 @@
                                     {
                                        "children": [
                                           {
-                                             "children": [],
+                                             "children": [
+                                                {
+                                                   "children": [],
+                                                   "type": "node",
+                                                   "tags":[
+                                                      "Expr"
+                                                   ]
+                                                }
+                                             ],
                                              "type": "node",
                                              "tags":[
                                                 "Assign"
@@ -1803,7 +1947,15 @@
       {
          "children": [
             {
-               "children": [],
+               "children": [
+                  {
+                     "children": [],
+                     "type": "node",
+                     "tags":[
+                        "Expr"
+                     ]
+                  }
+               ],
                "type": "node",
                "tags":[
                   "args"
@@ -1833,7 +1985,15 @@
       {
          "children": [
             {
-               "children": [],
+               "children": [
+                  {
+                     "children": [],
+                     "type": "node",
+                     "tags":[
+                        "Expr"
+                     ]
+                  }
+               ],
                "type": "node",
                "tags":[
                   "args"
@@ -1848,7 +2008,22 @@
       {
          "children": [
             {
-               "children": [],
+               "children": [
+                  {
+                     "children": [],
+                     "type": "node",
+                     "tags":[
+                        "Expr"
+                     ]
+                  },
+                  {
+                     "children": [],
+                     "type": "node",
+                     "tags":[
+                        "Expr"
+                     ]
+                  }
+               ],
                "type": "node",
                "tags":[
                   "args"
@@ -1863,7 +2038,22 @@
       {
          "children": [
             {
-               "children": [],
+               "children": [
+                  {
+                     "children": [],
+                     "type": "node",
+                     "tags":[
+                        "Expr"
+                     ]
+                  },
+                  {
+                     "children": [],
+                     "type": "node",
+                     "tags":[
+                        "Expr"
+                     ]
+                  }
+               ],
                "type": "node",
                "tags":[
                   "args"

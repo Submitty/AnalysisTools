@@ -111,7 +111,15 @@
                                     {
                                        "children": [
                                           {
-                                             "children": [],
+                                             "children": [
+                                                {
+                                                   "children": [],
+                                                   "type": "node",
+                                                   "tags":[
+                                                      "Expr"
+                                                   ]
+                                                }
+                                             ],
                                              "type": "node",
                                              "tags":[
                                                 "args"
@@ -126,7 +134,15 @@
                                     {
                                        "children": [
                                           {
-                                             "children": [],
+                                             "children": [
+                                                {
+                                                   "children": [],
+                                                   "type": "node",
+                                                   "tags":[
+                                                      "Expr"
+                                                   ]
+                                                }
+                                             ],
                                              "type": "node",
                                              "tags":[
                                                 "args"
@@ -141,7 +157,15 @@
                                     {
                                        "children": [
                                           {
-                                             "children": [],
+                                             "children": [
+                                                {
+                                                   "children": [],
+                                                   "type": "node",
+                                                   "tags":[
+                                                      "Expr"
+                                                   ]
+                                                }
+                                             ],
                                              "type": "node",
                                              "tags":[
                                                 "args"
@@ -216,7 +240,15 @@
       {
          "children": [
             {
-               "children": [],
+               "children": [
+                  {
+                     "children": [],
+                     "type": "node",
+                     "tags":[
+                        "Expr"
+                     ]
+                  }
+               ],
                "type": "node",
                "tags":[
                   "args"
@@ -231,7 +263,15 @@
       {
          "children": [
             {
-               "children": [],
+               "children": [
+                  {
+                     "children": [],
+                     "type": "node",
+                     "tags":[
+                        "Expr"
+                     ]
+                  }
+               ],
                "type": "node",
                "tags":[
                   "args"
@@ -274,6 +314,13 @@
                      "type": "node",
                      "tags":[
                         "AugAssign"
+                     ]
+                  },
+                  {
+                     "children": [],
+                     "type": "node",
+                     "tags":[
+                        "Expr"
                      ]
                   }
                ],
@@ -330,7 +377,15 @@
       {
          "children": [
             {
-               "children": [],
+               "children": [
+                  {
+                     "children": [],
+                     "type": "node",
+                     "tags":[
+                        "Expr"
+                     ]
+                  }
+               ],
                "type": "node",
                "tags":[
                   "args"

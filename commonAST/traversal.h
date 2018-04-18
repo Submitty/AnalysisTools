@@ -38,7 +38,7 @@ class List;
 class Dict;
 class Set;
 class Tuple;
-
+class Expr;
 
 
 
@@ -105,6 +105,7 @@ class CounterVisitor{
 		void visit(Dict* d);
 		void visit(Set* s);
 		void visit(Tuple* t);
+		void visit(Expr* e);
 
 private:
 

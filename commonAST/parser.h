@@ -55,6 +55,23 @@ class ASTNode{
 
 
 class Expr : public ASTNode{
+	public:
+		string getType(){
+			return "Expr";
+		}
+
+		list<ASTNode*> getChildren(){
+			return children;
+		}
+
+		void accept(CounterVisitor& v){
+			v.visit(this);
+		}
+
+		list<ASTNode*> children;
+};
+
+class Stmt : public ASTNode{
 	virtual string getType() = 0;
 	virtual list<ASTNode*> getChildren() = 0;
 	virtual void accept(CounterVisitor& v) = 0;
@@ -87,7 +104,7 @@ class Call: public Expr{
 		string func;
 		Args* argsList;
 		list<ASTNode*> otherChildren;
-		
+
 		string obj;
 		int level;
 };
@@ -128,11 +145,6 @@ class Module : public ASTNode{
 		list<ASTNode*> body;
 };
 
-class Stmt : public ASTNode{
-	virtual string getType() = 0;
-	virtual list<ASTNode*> getChildren() = 0;
-	virtual void accept(CounterVisitor& v) = 0;
-};
 
 class Dict: public Expr{
 	public:
@@ -140,7 +152,7 @@ class Dict: public Expr{
 			return "Dict";
 		}
 
-		
+
 		list<ASTNode*> getChildren(){
 			return values;
 		}
@@ -160,7 +172,7 @@ class Dict: public Expr{
 			cout << "-----------------" << endl;
 		}
 
-	list<ASTNode*> values;
+		list<ASTNode*> values;
 };
 
 
@@ -172,7 +184,7 @@ class Set: public Expr{
 			return "Set";
 		}
 
-		
+
 		list<ASTNode*> getChildren(){
 			return values;
 		}
@@ -192,7 +204,7 @@ class Set: public Expr{
 			cout << "-----------------" << endl;
 		}
 
-	list<ASTNode*> values;
+		list<ASTNode*> values;
 };
 
 
@@ -202,7 +214,7 @@ class Tuple: public Expr{
 			return "Tuple";
 		}
 
-		
+
 		list<ASTNode*> getChildren(){
 			return values;
 		}
@@ -222,7 +234,7 @@ class Tuple: public Expr{
 			cout << "-----------------" << endl;
 		}
 
-	list<ASTNode*> values;
+		list<ASTNode*> values;
 };
 
 class List: public Expr{
@@ -231,7 +243,7 @@ class List: public Expr{
 			return "List";
 		}
 
-		
+
 		list<ASTNode*> getChildren(){
 			return values;
 		}
@@ -251,7 +263,7 @@ class List: public Expr{
 			cout << "-----------------" << endl;
 		}
 
-	list<ASTNode*> values;
+		list<ASTNode*> values;
 };
 
 class Identifier : public Expr{
@@ -294,7 +306,7 @@ class Args : public ASTNode{
 			if(argList.size() == 0){
 				return list<ASTNode*>(); 
 			}
-			
+
 			list<ASTNode*> children;
 			list<Expr*>::iterator itr;
 			for(itr= argList.begin(); itr != argList.end(); itr++){
@@ -371,7 +383,7 @@ class FunctionDef : public Stmt{
 			for(itr=children.begin(); itr != children.end(); itr++){
 				(*itr)->accept(v);	
 				if((*itr)->complexity >= this->complexity){
-					
+
 					this->complexity = (*itr)->complexity;
 				}
 			}
@@ -486,7 +498,7 @@ class While: public Stmt{
 			list<ASTNode*> children = getChildren();
 
 			this->complexity = 1;
-		
+
 			list<ASTNode*>::iterator itr;
 			for(itr=children.begin(); itr != children.end(); itr++){
 				(*itr)->accept(v);	
@@ -526,7 +538,7 @@ class DoWhile: public Stmt{
 			list<ASTNode*> children = getChildren();
 
 			this->complexity = 1;
-		
+
 			list<ASTNode*>::iterator itr;
 			for(itr=children.begin(); itr != children.end(); itr++){
 				(*itr)->accept(v);	
@@ -582,7 +594,7 @@ class If: public Stmt{
 			for(itr=children.begin(); itr != children.end(); itr++){
 				(*itr)->accept(v);	
 				if(this->complexity <= (*itr)->complexity){
-			 		this->complexity = (*itr)->complexity;
+					this->complexity = (*itr)->complexity;
 				}
 			}
 
@@ -655,7 +667,7 @@ class Switch: public Stmt{
 			for(itr=children.begin(); itr != children.end(); itr++){
 				(*itr)->accept(v);	
 				if(this->complexity <= (*itr)->complexity){
-			 		this->complexity = (*itr)->complexity;
+					this->complexity = (*itr)->complexity;
 				}
 			}
 
@@ -694,9 +706,9 @@ class Case: public Stmt{
 			list<ASTNode*>::iterator itr;
 			for(itr=children.begin(); itr != children.end(); itr++){
 				(*itr)->accept(v);	
-			
-			 	if(this->complexity <= (*itr)->complexity){
-			 		this->complexity = (*itr)->complexity;
+
+				if(this->complexity <= (*itr)->complexity){
+					this->complexity = (*itr)->complexity;
 				}
 			}
 
@@ -739,7 +751,7 @@ class ClassDef : public Stmt{
 			for(itr=children.begin(); itr != children.end(); itr++){
 				(*itr)->accept(v);	
 				if(this->complexity <= (*itr)->complexity){
-			 		this->complexity = (*itr)->complexity;
+					this->complexity = (*itr)->complexity;
 				}
 
 			}
@@ -813,7 +825,7 @@ class CompoundStmt : public Stmt{
 			for(itr=children.begin(); itr != children.end(); itr++){
 				(*itr)->accept(v);	
 				if(this->complexity <= (*itr)->complexity){
-			 		this->complexity = (*itr)->complexity;
+					this->complexity = (*itr)->complexity;
 				}
 
 			}
@@ -847,7 +859,7 @@ class Return: public Stmt{
 			for(itr=children.begin(); itr != children.end(); itr++){
 				(*itr)->accept(v);	
 				if(this->complexity <= (*itr)->complexity){
-			 		this->complexity = (*itr)->complexity;
+					this->complexity = (*itr)->complexity;
 				}
 
 			}
@@ -887,7 +899,7 @@ class Assign: public Stmt{
 			for(itr=children.begin(); itr != children.end(); itr++){
 				(*itr)->accept(v);	
 				if(this->complexity <= (*itr)->complexity){
-			 		this->complexity = (*itr)->complexity;
+					this->complexity = (*itr)->complexity;
 				}
 
 			}
@@ -924,7 +936,7 @@ class AugAssign: public Stmt{
 			for(itr=children.begin(); itr != children.end(); itr++){
 				(*itr)->accept(v);	
 				if(this->complexity <= (*itr)->complexity){
-			 		this->complexity = (*itr)->complexity;
+					this->complexity = (*itr)->complexity;
 				}
 
 			}
@@ -992,7 +1004,7 @@ class Try: public Stmt{
 			for(itr=children.begin(); itr != children.end(); itr++){
 				(*itr)->accept(v);	
 				if(this->complexity <= (*itr)->complexity){
-			 		this->complexity = (*itr)->complexity;
+					this->complexity = (*itr)->complexity;
 				}
 
 			}
@@ -1056,7 +1068,7 @@ class BinOp: public Expr{
 			for(itr=children.begin(); itr != children.end(); itr++){
 				(*itr)->accept(v);	
 				if(this->complexity <= (*itr)->complexity){
-			 		this->complexity = (*itr)->complexity;
+					this->complexity = (*itr)->complexity;
 				}
 
 			}
@@ -1130,7 +1142,7 @@ class Comparison: public Expr{
 			for(itr=children.begin(); itr != children.end(); itr++){
 				(*itr)->accept(v);	
 				if(this->complexity <= (*itr)->complexity){
-			 		this->complexity = (*itr)->complexity;
+					this->complexity = (*itr)->complexity;
 				}
 			}
 

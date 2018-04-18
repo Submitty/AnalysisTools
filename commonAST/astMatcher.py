@@ -103,6 +103,8 @@ class Visitor(ast.NodeVisitor):
 			for base in node.bases:
 				output += "\n<base: " + base.id + "," + strNextNextLevel +  ">"
 			hasChildren = True
+		elif isinstance(node, ast.Subscript):
+			output += "<subscript," + strlevel + ">"
 		elif isinstance(node, ast.Return):
 			output += "<return," + strlevel + ">"
 			hasValue = True

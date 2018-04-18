@@ -244,6 +244,10 @@ void CounterVisitor::visit(For* f){
 	}
 }
 
+void CounterVisitor::visit(Expr* e){
+
+}
+
 void CounterVisitor::visit(Module* m){
 	countModule += 1;
 }

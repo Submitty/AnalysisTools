@@ -307,7 +307,15 @@
                         {
                            "children": [
                               {
-                                 "children": [],
+                                 "children": [
+                                    {
+                                       "children": [],
+                                       "type": "node",
+                                       "tags":[
+                                          "Expr"
+                                       ]
+                                    }
+                                 ],
                                  "type": "node",
                                  "tags":[
                                     "args"
@@ -423,6 +431,13 @@
                                              "tags":[
                                                 "AugAssign"
                                              ]
+                                          },
+                                          {
+                                             "children": [],
+                                             "type": "node",
+                                             "tags":[
+                                                "Expr"
+                                             ]
                                           }
                                        ],
                                        "type": "node",
@@ -444,7 +459,15 @@
                                                 {
                                                    "children": [
                                                       {
-                                                         "children": [],
+                                                         "children": [
+                                                            {
+                                                               "children": [],
+                                                               "type": "node",
+                                                               "tags":[
+                                                                  "Expr"
+                                                               ]
+                                                            }
+                                                         ],
                                                          "type": "node",
                                                          "tags":[
                                                             "args"
@@ -573,6 +596,20 @@
                                  "type": "node",
                                  "tags":[
                                     "BinOp"
+                                 ]
+                              },
+                              {
+                                 "children": [],
+                                 "type": "node",
+                                 "tags":[
+                                    "Expr"
+                                 ]
+                              },
+                              {
+                                 "children": [],
+                                 "type": "node",
+                                 "tags":[
+                                    "Expr"
                                  ]
                               }
                            ],
@@ -755,7 +792,15 @@
                                                       {
                                                          "children": [
                                                             {
-                                                               "children": [],
+                                                               "children": [
+                                                                  {
+                                                                     "children": [],
+                                                                     "type": "node",
+                                                                     "tags":[
+                                                                        "Expr"
+                                                                     ]
+                                                                  }
+                                                               ],
                                                                "type": "node",
                                                                "tags":[
                                                                   "args"
@@ -1158,7 +1203,15 @@
                                                                                                       {
                                                                                                          "children": [
                                                                                                             {
-                                                                                                               "children": [],
+                                                                                                               "children": [
+                                                                                                                  {
+                                                                                                                     "children": [],
+                                                                                                                     "type": "node",
+                                                                                                                     "tags":[
+                                                                                                                        "Expr"
+                                                                                                                     ]
+                                                                                                                  }
+                                                                                                               ],
                                                                                                                "type": "node",
                                                                                                                "tags":[
                                                                                                                   "Comparison"
@@ -1266,7 +1319,15 @@
                                                                                                       {
                                                                                                          "children": [
                                                                                                             {
-                                                                                                               "children": [],
+                                                                                                               "children": [
+                                                                                                                  {
+                                                                                                                     "children": [],
+                                                                                                                     "type": "node",
+                                                                                                                     "tags":[
+                                                                                                                        "Expr"
+                                                                                                                     ]
+                                                                                                                  }
+                                                                                                               ],
                                                                                                                "type": "node",
                                                                                                                "tags":[
                                                                                                                   "Comparison"
@@ -1374,7 +1435,15 @@
                                                                                                       {
                                                                                                          "children": [
                                                                                                             {
-                                                                                                               "children": [],
+                                                                                                               "children": [
+                                                                                                                  {
+                                                                                                                     "children": [],
+                                                                                                                     "type": "node",
+                                                                                                                     "tags":[
+                                                                                                                        "Expr"
+                                                                                                                     ]
+                                                                                                                  }
+                                                                                                               ],
                                                                                                                "type": "node",
                                                                                                                "tags":[
                                                                                                                   "Comparison"
@@ -1482,7 +1551,15 @@
                                                                                                       {
                                                                                                          "children": [
                                                                                                             {
-                                                                                                               "children": [],
+                                                                                                               "children": [
+                                                                                                                  {
+                                                                                                                     "children": [],
+                                                                                                                     "type": "node",
+                                                                                                                     "tags":[
+                                                                                                                        "Expr"
+                                                                                                                     ]
+                                                                                                                  }
+                                                                                                               ],
                                                                                                                "type": "node",
                                                                                                                "tags":[
                                                                                                                   "Comparison"
@@ -1590,7 +1667,15 @@
                                                                                                       {
                                                                                                          "children": [
                                                                                                             {
-                                                                                                               "children": [],
+                                                                                                               "children": [
+                                                                                                                  {
+                                                                                                                     "children": [],
+                                                                                                                     "type": "node",
+                                                                                                                     "tags":[
+                                                                                                                        "Expr"
+                                                                                                                     ]
+                                                                                                                  }
+                                                                                                               ],
                                                                                                                "type": "node",
                                                                                                                "tags":[
                                                                                                                   "Comparison"
@@ -1698,7 +1783,15 @@
                                                                                                       {
                                                                                                          "children": [
                                                                                                             {
-                                                                                                               "children": [],
+                                                                                                               "children": [
+                                                                                                                  {
+                                                                                                                     "children": [],
+                                                                                                                     "type": "node",
+                                                                                                                     "tags":[
+                                                                                                                        "Expr"
+                                                                                                                     ]
+                                                                                                                  }
+                                                                                                               ],
                                                                                                                "type": "node",
                                                                                                                "tags":[
                                                                                                                   "Comparison"
