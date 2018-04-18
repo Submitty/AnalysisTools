@@ -155,18 +155,10 @@
                               {
                                  "children": [
                                     {
-                                       "children": [
-                                          {
-                                             "children": [],
-                                             "type": "node",
-                                             "tags":[
-                                                "args"
-                                             ]
-                                          }
-                                       ],
+                                       "children": [],
                                        "type": "node",
                                        "tags":[
-                                          "Call"
+                                          "BinOp"
                                        ]
                                     },
                                     {

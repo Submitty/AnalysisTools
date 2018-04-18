@@ -1933,18 +1933,10 @@
                                           {
                                              "children": [
                                                 {
-                                                   "children": [
-                                                      {
-                                                         "children": [],
-                                                         "type": "node",
-                                                         "tags":[
-                                                            "BinOp"
-                                                         ]
-                                                      }
-                                                   ],
+                                                   "children": [],
                                                    "type": "node",
                                                    "tags":[
-                                                      "Comparison"
+                                                      "BinOp"
                                                    ]
                                                 },
                                                 {

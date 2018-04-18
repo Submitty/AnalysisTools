@@ -576,22 +576,7 @@
                   {
                      "children": [
                         {
-                           "children": [
-                              {
-                                 "children": [],
-                                 "type": "node",
-                                 "tags":[
-                                    "Comparison"
-                                 ]
-                              },
-                              {
-                                 "children": [],
-                                 "type": "node",
-                                 "tags":[
-                                    "Comparison"
-                                 ]
-                              }
-                           ],
+                           "children": [],
                            "type": "node",
                            "tags":[
                               "BinOp"
@@ -955,22 +940,7 @@
                                           {
                                              "children": [
                                                 {
-                                                   "children": [
-                                                      {
-                                                         "children": [],
-                                                         "type": "node",
-                                                         "tags":[
-                                                            "Comparison"
-                                                         ]
-                                                      },
-                                                      {
-                                                         "children": [],
-                                                         "type": "node",
-                                                         "tags":[
-                                                            "Comparison"
-                                                         ]
-                                                      }
-                                                   ],
+                                                   "children": [],
                                                    "type": "node",
                                                    "tags":[
                                                       "BinOp"

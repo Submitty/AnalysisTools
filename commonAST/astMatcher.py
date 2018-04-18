@@ -72,8 +72,12 @@ class Visitor(ast.NodeVisitor):
 		#variables used for searching children
 		hasBody = False
 		hasChildren = False	
+		hasLeft = False
+		hasRight = False
 		hasElts = False
 		hasExcept = False
+		hasValues = False
+		hasValue = False
 		#calculate the nextLevels
 		nextLevel = level+1
 		nextNextLevel = nextLevel+1
@@ -101,12 +105,12 @@ class Visitor(ast.NodeVisitor):
 			hasChildren = True
 		elif isinstance(node, ast.Return):
 			output += "<return," + strlevel + ">"
-			#hasChildren = True
+			hasValue = True
 		elif isinstance(node, ast.Assign):
 			output += "<assignment," + strlevel + ">"
 			f2 = open("outErr.txt", "w")
 			f2.write(ast.dump(node))
-			#hasChildren = True
+			hasValue = True
 		elif isinstance(node, ast.AugAssign):
 			output += "<augAssign,"+ strlevel + ">"
 			hasChildren = True
@@ -151,10 +155,11 @@ class Visitor(ast.NodeVisitor):
 		#	output += "<exec," + strlevel + ">"
 		elif isinstance(node, ast.BoolOp):
 			output += "<binaryOp," + strlevel + ">"
-			hasChildren = True
+			hasValues = True
 		elif isinstance(node, ast.BinOp):
 			output += "<binaryOp," + strlevel + ">"
-			hasChildren = True
+			hasLeft = True
+			hasRight = True
 		elif isinstance(node, ast.UnaryOp):
 			output += "<unaryOp," + strlevel + ">"
 		elif isinstance(node, ast.Compare):
@@ -226,12 +231,18 @@ class Visitor(ast.NodeVisitor):
 			f.write(output)
 			output = ""
 					
-		if(isinstance(node, ast.Return)):
+		
+		if hasValue:
 			self.generic_visit(node.value, nextLevel+1, node)
 
-
-		if(isinstance(node, ast.Assign)):
-			self.generic_visit(node.value, nextLevel+1, node)
+		if hasValues:
+			self.generic_visit(node.values, nextLevel+1, node)
+		
+		if hasLeft:
+			self.generic_visit(node.left, nextLevel+1, node)
+		
+		if hasRight:	
+			self.generic_visit(node.right, nextLevel+1, node)
 
 		if hasElts: 
 			for elmnt in node.elts:

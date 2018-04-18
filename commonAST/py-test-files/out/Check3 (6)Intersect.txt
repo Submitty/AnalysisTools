@@ -580,22 +580,7 @@
                               {
                                  "children": [
                                     {
-                                       "children": [
-                                          {
-                                             "children": [],
-                                             "type": "node",
-                                             "tags":[
-                                                "Comparison"
-                                             ]
-                                          },
-                                          {
-                                             "children": [],
-                                             "type": "node",
-                                             "tags":[
-                                                "Comparison"
-                                             ]
-                                          }
-                                       ],
+                                       "children": [],
                                        "type": "node",
                                        "tags":[
                                           "BinOp"
