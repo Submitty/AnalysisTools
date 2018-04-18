@@ -117,13 +117,6 @@
                   {
                      "children": [
                         {
-                           "children": [],
-                           "type": "node",
-                           "tags":[
-                              "Return"
-                           ]
-                        },
-                        {
                            "children": [
                               {
                                  "children": [
@@ -132,22 +125,30 @@
                                           {
                                              "children": [
                                                 {
-                                                   "children": [],
+                                                   "children": [
+                                                      {
+                                                         "children": [],
+                                                         "type": "node",
+                                                         "tags":[
+                                                            "BinOp"
+                                                         ]
+                                                      }
+                                                   ],
                                                    "type": "node",
                                                    "tags":[
                                                       "BinOp"
                                                    ]
-                                                }
-                                             ],
-                                             "type": "node",
-                                             "tags":[
-                                                "BinOp"
-                                             ]
-                                          },
-                                          {
-                                             "children": [
+                                                },
                                                 {
-                                                   "children": [],
+                                                   "children": [
+                                                      {
+                                                         "children": [],
+                                                         "type": "node",
+                                                         "tags":[
+                                                            "BinOp"
+                                                         ]
+                                                      }
+                                                   ],
                                                    "type": "node",
                                                    "tags":[
                                                       "BinOp"
@@ -162,19 +163,19 @@
                                        ],
                                        "type": "node",
                                        "tags":[
-                                          "BinOp"
+                                          "args"
                                        ]
                                     }
                                  ],
                                  "type": "node",
                                  "tags":[
-                                    "args"
+                                    "Call"
                                  ]
                               }
                            ],
                            "type": "node",
                            "tags":[
-                              "Call"
+                              "Return"
                            ]
                         }
                      ],

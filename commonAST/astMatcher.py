@@ -236,7 +236,7 @@ class Visitor(ast.NodeVisitor):
 			output = ""
 
 		if hasValue:
-			self.generic_visit(node.value, nextLevel, node)
+			self.generic_visit(node.value, nextLevel+1, node)
 
 		if hasValues:
 			for value in node.values:
