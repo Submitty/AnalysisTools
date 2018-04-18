@@ -19,23 +19,7 @@
             {
                "children": [
                   {
-                     "children": [
-                        {
-                           "children": [
-                              {
-                                 "children": [],
-                                 "type": "node",
-                                 "tags":[
-                                    "IntegerLiteral"
-                                 ]
-                              }
-                           ],
-                           "type": "node",
-                           "tags":[
-                              "Var"
-                           ]
-                        }
-                     ],
+                     "children": [],
                      "type": "node",
                      "tags":[
                         "DeclStmt"
@@ -47,13 +31,13 @@
                            "children": [],
                            "type": "node",
                            "tags":[
-                              "DeclRefExpr"
+                              "IntegerLiteral"
                            ]
                         }
                      ],
                      "type": "node",
                      "tags":[
-                        "UnaryOperator"
+                        "variableDecl"
                      ]
                   },
                   {
@@ -68,7 +52,7 @@
                      ],
                      "type": "node",
                      "tags":[
-                        "UnaryOperator"
+                        "unaryOp"
                      ]
                   },
                   {
@@ -79,7 +63,15 @@
                            "tags":[
                               "DeclRefExpr"
                            ]
-                        },
+                        }
+                     ],
+                     "type": "node",
+                     "tags":[
+                        "unaryOp"
+                     ]
+                  },
+                  {
+                     "children": [
                         {
                            "children": [
                               {
@@ -92,13 +84,13 @@
                            ],
                            "type": "node",
                            "tags":[
-                              "UnaryOperator"
+                              "DeclRefExpr"
                            ]
                         }
                      ],
                      "type": "node",
                      "tags":[
-                        "BinaryOperator"
+                        "assignment"
                      ]
                   },
                   {
@@ -113,7 +105,7 @@
                      ],
                      "type": "node",
                      "tags":[
-                        "UnaryOperator"
+                        "unaryOp"
                      ]
                   },
                   {
@@ -128,7 +120,7 @@
                      ],
                      "type": "node",
                      "tags":[
-                        "UnaryOperator"
+                        "unaryOp"
                      ]
                   },
                   {
@@ -150,30 +142,29 @@
                      ],
                      "type": "node",
                      "tags":[
-                        "BinaryOperator"
+                        "assignment"
+                     ]
+                  },
+                  {
+                     "children": [],
+                     "type": "node",
+                     "tags":[
+                        "DeclStmt"
                      ]
                   },
                   {
                      "children": [
                         {
-                           "children": [
-                              {
-                                 "children": [],
-                                 "type": "node",
-                                 "tags":[
-                                    "CXXBoolLiteralExpr"
-                                 ]
-                              }
-                           ],
+                           "children": [],
                            "type": "node",
                            "tags":[
-                              "Var"
+                              "CXXBoolLiteralExpr"
                            ]
                         }
                      ],
                      "type": "node",
                      "tags":[
-                        "DeclStmt"
+                        "variableDecl"
                      ]
                   },
                   {
@@ -205,13 +196,13 @@
                            ],
                            "type": "node",
                            "tags":[
-                              "UnaryOperator"
+                              "unaryOp"
                            ]
                         }
                      ],
                      "type": "node",
                      "tags":[
-                        "BinaryOperator"
+                        "assignment"
                      ]
                   },
                   {
@@ -253,7 +244,7 @@
                                  ],
                                  "type": "node",
                                  "tags":[
-                                    "UnaryOperator"
+                                    "unaryOp"
                                  ]
                               }
                            ],
@@ -265,13 +256,13 @@
                      ],
                      "type": "node",
                      "tags":[
-                        "BinaryOperator"
+                        "assignment"
                      ]
                   }
                ],
                "type": "node",
                "tags":[
-                  "CompoundStmt"
+                  "compoundStmt"
                ]
             }
          ],

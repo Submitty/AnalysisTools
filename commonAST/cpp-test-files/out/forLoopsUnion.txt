@@ -56,19 +56,19 @@
                                  ],
                                  "type": "node",
                                  "tags":[
-                                    "BinaryOperator"
+                                    "binaryOp"
                                  ]
                               }
                            ],
                            "type": "node",
                            "tags":[
-                              "ReturnStmt"
+                              "return"
                            ]
                         }
                      ],
                      "type": "node",
                      "tags":[
-                        "CompoundStmt"
+                        "compoundStmt"
                      ]
                   },
                   {
@@ -76,26 +76,25 @@
                         {
                            "children": [
                               {
+                                 "children": [],
+                                 "type": "node",
+                                 "tags":[
+                                    "DeclStmt"
+                                 ]
+                              },
+                              {
                                  "children": [
                                     {
-                                       "children": [
-                                          {
-                                             "children": [],
-                                             "type": "node",
-                                             "tags":[
-                                                "IntegerLiteral"
-                                             ]
-                                          }
-                                       ],
+                                       "children": [],
                                        "type": "node",
                                        "tags":[
-                                          "Var"
+                                          "IntegerLiteral"
                                        ]
                                     }
                                  ],
                                  "type": "node",
                                  "tags":[
-                                    "DeclStmt"
+                                    "variableDecl"
                                  ]
                               },
                               {
@@ -146,25 +145,25 @@
                                                    ],
                                                    "type": "node",
                                                    "tags":[
-                                                      "CallExpr"
+                                                      "Call: "
                                                    ]
                                                 }
                                              ],
                                              "type": "node",
                                              "tags":[
-                                                "BinaryOperator"
+                                                "assignment"
                                              ]
                                           }
                                        ],
                                        "type": "node",
                                        "tags":[
-                                          "CompoundStmt"
+                                          "compoundStmt"
                                        ]
                                     }
                                  ],
                                  "type": "node",
                                  "tags":[
-                                    "ForStmt"
+                                    "forLoop"
                                  ]
                               },
                               {
@@ -183,19 +182,19 @@
                                              ],
                                              "type": "node",
                                              "tags":[
-                                                "UnaryOperator"
+                                                "unaryOp"
                                              ]
                                           }
                                        ],
                                        "type": "node",
                                        "tags":[
-                                          "CompoundStmt"
+                                          "compoundStmt"
                                        ]
                                     }
                                  ],
                                  "type": "node",
                                  "tags":[
-                                    "ForStmt"
+                                    "forLoop"
                                  ]
                               },
                               {
@@ -221,42 +220,41 @@
                                              ],
                                              "type": "node",
                                              "tags":[
-                                                "CompoundAssignOperator"
+                                                "augAssign"
                                              ]
                                           }
                                        ],
                                        "type": "node",
                                        "tags":[
-                                          "CompoundStmt"
+                                          "compoundStmt"
                                        ]
                                     }
                                  ],
                                  "type": "node",
                                  "tags":[
-                                    "ForStmt"
+                                    "forLoop"
+                                 ]
+                              },
+                              {
+                                 "children": [],
+                                 "type": "node",
+                                 "tags":[
+                                    "DeclStmt"
                                  ]
                               },
                               {
                                  "children": [
                                     {
-                                       "children": [
-                                          {
-                                             "children": [],
-                                             "type": "node",
-                                             "tags":[
-                                                "CXXBoolLiteralExpr"
-                                             ]
-                                          }
-                                       ],
+                                       "children": [],
                                        "type": "node",
                                        "tags":[
-                                          "Var"
+                                          "CXXBoolLiteralExpr"
                                        ]
                                     }
                                  ],
                                  "type": "node",
                                  "tags":[
-                                    "DeclStmt"
+                                    "variableDecl"
                                  ]
                               },
                               {
@@ -307,7 +305,7 @@
                                                    ],
                                                    "type": "node",
                                                    "tags":[
-                                                      "BinaryOperator"
+                                                      "comparison"
                                                    ]
                                                 },
                                                 {
@@ -331,13 +329,13 @@
                                                          ],
                                                          "type": "node",
                                                          "tags":[
-                                                            "BinaryOperator"
+                                                            "assignment"
                                                          ]
                                                       }
                                                    ],
                                                    "type": "node",
                                                    "tags":[
-                                                      "CompoundStmt"
+                                                      "compoundStmt"
                                                    ]
                                                 },
                                                 {
@@ -369,7 +367,7 @@
                                                          ],
                                                          "type": "node",
                                                          "tags":[
-                                                            "BinaryOperator"
+                                                            "comparison"
                                                          ]
                                                       },
                                                       {
@@ -393,13 +391,13 @@
                                                                ],
                                                                "type": "node",
                                                                "tags":[
-                                                                  "BinaryOperator"
+                                                                  "assignment"
                                                                ]
                                                             }
                                                          ],
                                                          "type": "node",
                                                          "tags":[
-                                                            "CompoundStmt"
+                                                            "compoundStmt"
                                                          ]
                                                       },
                                                       {
@@ -414,19 +412,19 @@
                                                          ],
                                                          "type": "node",
                                                          "tags":[
-                                                            "CompoundStmt"
+                                                            "compoundStmt"
                                                          ]
                                                       }
                                                    ],
                                                    "type": "node",
                                                    "tags":[
-                                                      "IfStmt"
+                                                      "ifStatement"
                                                    ]
                                                 }
                                              ],
                                              "type": "node",
                                              "tags":[
-                                                "IfStmt"
+                                                "ifStatement"
                                              ]
                                           },
                                           {
@@ -473,31 +471,31 @@
                                                    ],
                                                    "type": "node",
                                                    "tags":[
-                                                      "CallExpr"
+                                                      "Call: "
                                                    ]
                                                 }
                                              ],
                                              "type": "node",
                                              "tags":[
-                                                "BinaryOperator"
+                                                "assignment"
                                              ]
                                           }
                                        ],
                                        "type": "node",
                                        "tags":[
-                                          "CompoundStmt"
+                                          "compoundStmt"
                                        ]
                                     }
                                  ],
                                  "type": "node",
                                  "tags":[
-                                    "WhileStmt"
+                                    "whileLoop"
                                  ]
                               }
                            ],
                            "type": "node",
                            "tags":[
-                              "CompoundStmt"
+                              "compoundStmt"
                            ]
                         }
                      ],
