@@ -34,6 +34,10 @@ class UnaryOp;
 class Comparison;
 class Switch;
 class Case;
+class List;
+class Dict;
+class Set;
+class Tuple;
 
 
 
@@ -97,6 +101,10 @@ class CounterVisitor{
 		void visit(BinOp* bo);
 		void visit(UnaryOp* uo);
 		void visit(Comparison* c);
+		void visit(List* l);
+		void visit(Dict* d);
+		void visit(Set* s);
+		void visit(Tuple* t);
 
 private:
 
@@ -127,6 +135,11 @@ private:
 		int countSwitch;
 		int countArgs;
 		int complexity;
+		int countList;
+		int countSet;
+		int countTuple;
+		int countDict;
+
 		
 		bool findingComplexity;
 	
