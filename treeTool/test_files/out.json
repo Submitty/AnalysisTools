@@ -1,0 +1,185 @@
+{
+	"children": [{
+			"children": [{
+					"children": [{
+						"data": "\"the dog runs\"",
+						"type": "data_str"
+					}],
+					"type": "node",
+					"tags": [
+						"string"
+					]
+				},
+				{
+					"children": [{
+						"data": "a",
+						"type": "metadata_identifier"
+					}],
+					"type": "node",
+					"tags": [
+						"variable"
+					]
+				}
+			],
+			"type": "node",
+			"tags": [
+				"assign",
+				"=",
+				"blue"
+			]
+		},
+		{
+			"children": [{
+					"children": [{
+						"data": "\"talks\"",
+						"type": "data_str"
+					}],
+					"type": "node",
+					"tags": [
+						"string"
+					]
+				},
+				{
+					"children": [{
+						"data": "b",
+						"type": "metadata_identifier"
+					}],
+					"type": "node",
+					"tags": [
+						"variable"
+					]
+				}
+			],
+			"type": "node",
+			"tags": [
+				"assign",
+				"=",
+				"blue"
+			]
+		},
+		{
+			"children": [{
+					"children": [{
+							"children": [{
+								"data": "a",
+								"type": "metadata_identifier"
+							}],
+							"type": "node",
+							"tags": [
+								"variable"
+							]
+						},
+						{
+							"data": "replace",
+							"type": "metadata_identifier"
+						}
+					],
+					"type": "node",
+					"tags": [
+						"dot",
+						".",
+						"element",
+						"access"
+					]
+				},
+				{
+					"children": [{
+						"children": [{
+							"data": "\"runs\"",
+							"type": "data_str"
+						}],
+						"type": "node",
+						"tags": [
+							"string"
+						]
+					}],
+					"type": "node",
+					"tags": [
+						"argument"
+					]
+				},
+				{
+					"children": [{
+						"children": [{
+								"children": [{
+										"children": [{
+											"data": "b",
+											"type": "metadata_identifier"
+										}],
+										"type": "node",
+										"tags": [
+											"variable"
+										]
+									},
+									{
+										"data": "replace",
+										"type": "metadata_identifier"
+									}
+								],
+								"type": "node",
+								"tags": [
+									"dot",
+									".",
+									"element",
+									"access"
+								]
+							},
+							{
+								"children": [{
+									"children": [{
+										"data": "\"t\"",
+										"type": "data_str"
+									}],
+									"type": "node",
+									"tags": [
+										"string"
+									]
+								}],
+								"type": "node",
+								"tags": [
+									"argument"
+								]
+							},
+							{
+								"children": [{
+									"children": [{
+										"data": "\"w\"",
+										"type": "data_str"
+									}],
+									"type": "node",
+									"tags": [
+										"string"
+									]
+								}],
+								"type": "node",
+								"tags": [
+									"argument"
+								]
+							}
+						],
+						"type": "node",
+						"tags": [
+							"call",
+							"blue"
+						]
+					}],
+					"type": "node",
+					"tags": [
+						"argument",
+						"blue"
+					]
+				}
+			],
+			"type": "node",
+			"tags": [
+				"call",
+				"blue"
+			]
+		}
+	],
+	"type": "node",
+	"tags": [
+		"module",
+		"blue"
+	]
+}
