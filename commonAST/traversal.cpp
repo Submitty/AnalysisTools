@@ -109,6 +109,10 @@ CounterVisitor::CounterVisitor(map<string, vector<string> > nodesToCount){
 	countComparison = 0;
 	countCase = 0;
 	countSwitch = 0;	
+	countList = 0;
+	countSet = 0;
+	countTuple = 0;
+	countDict = 0;
 	countArgs = 0;
 	complexity = 0;
 }
@@ -240,6 +244,10 @@ void CounterVisitor::visit(For* f){
 	}
 }
 
+void CounterVisitor::visit(Expr* e){
+
+}
+
 void CounterVisitor::visit(Module* m){
 	countModule += 1;
 }
@@ -355,6 +363,23 @@ void CounterVisitor::visit(DoWhile* dw){
 		complexity = dw->complexity;
 	}
 }
+
+void CounterVisitor::visit(List* l){
+	countList += 1;
+}
+
+void CounterVisitor::visit(Dict* d){
+	countDict += 1;
+}
+		
+void CounterVisitor::visit(Set* s){
+	countSet += 1;
+}
+		
+void CounterVisitor::visit(Tuple* t){
+	countTuple +=1;
+}
+
 
 void CounterVisitor::visit(Switch* s){
 	countSwitch += 1;

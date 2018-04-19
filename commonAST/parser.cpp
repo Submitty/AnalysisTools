@@ -123,12 +123,28 @@ class Parser{
 				return (Expr*) parseUnaryOp(t->level);
 			}else if(t->value == "comparison"){
 				return (Expr*) parseComparison(t->level);
+			}else if(t->value == "list"){
+				return (Expr*) parseList(t->level);
+			}else if(t->value == "set"){
+				return (Expr*) parseSet(t->level);
+			}else if(t->value == "dict"){
+				return (Expr*) parseDict(t->level);
+			}else if(t->value == "tuple"){
+				return (Expr*) parseTuple(t->level);
 			}else if(t->value.compare(0, compVal.length(), compVal) == 0){
 				return (Expr*) parseCallingFunc(t->value, t->level);
 			}else if(t->value.compare(0, objCompVal.length(), objCompVal) == 0){
-				return (Expr*) parseObjectCallingFunc(t->value);	
+				return (Expr*) parseObjectCallingFunc(t->value, t->level);	
 			}else if(t->value == "END"){
 				return NULL;
+			}else if(t->value == "subscript"){
+				Expr* s = new Expr();
+
+				while(getLookaheadToken()->level > t->level){
+					s->children.push_back(parseExpr());
+				}	
+
+				return s;
 			}else{
 				cerr << "parseExpr -> PARSE ERROR: did not expect token: " << t->value << endl;
 				exit(1);
@@ -202,7 +218,7 @@ class Parser{
 			return i;
 		}
 
-		Call* parseObjectCallingFunc(string val){
+		Call* parseObjectCallingFunc(string val, int level){
 			Call* c = new Call();
 
 			size_t pos = val.find(":");
@@ -223,6 +239,7 @@ class Parser{
 
 			c->func = val.substr(pos+2);
 			c->argsList = parseArgs();
+			//c->otherChildren = parseBody(level);
 			return c;
 		}
 
@@ -236,6 +253,7 @@ class Parser{
 			}
 			c->func = val.substr(pos+2);
 			c->argsList = parseArgs();
+			c->otherChildren = parseBody(level);
 			return c;
 		}
 
@@ -542,6 +560,46 @@ class Parser{
 			return cp;
 		}
 
+		List* parseList(int level){
+			List* l = new List();
+		
+			while(getLookaheadToken()-> level > level){
+				l->values.push_back(parseExpr());
+			}
+
+			return l;
+		}
+
+		Tuple* parseTuple(int level){
+			Tuple* t= new Tuple();
+		
+			while(getLookaheadToken()-> level > level){
+				t->values.push_back(parseExpr());
+			}
+			
+			return t;
+		}
+
+		Dict* parseDict(int level){
+			Dict* d= new Dict();
+
+			while(getLookaheadToken()-> level > level){
+				d->values.push_back(parseExpr());
+			}
+			
+			return d;
+		}
+
+		Set* parseSet(int level){
+			Set* s = new Set();
+
+			while(getLookaheadToken()-> level > level){
+				s->values.push_back(parseExpr());
+			}
+	
+			return s;
+		}
+
 		UnaryOp* parseUnaryOp(int level){
 			UnaryOp* uo = new UnaryOp();
 			if(getLookaheadToken()->level > level /*&& getLookaheadToken()->value != "END"*/){
@@ -650,8 +708,7 @@ bool isExpr(string val){
 
 	string objCompVal("object:");
 	string compVal("calling func");
-	return val == "binaryOp" || val == "unaryOp" || val == "comparison"||
-		(val.compare(0, compVal.length(), compVal) == 0) || val.compare(0, objCompVal.length(), objCompVal) == 0;
+	return val == "subscript" || val == "binaryOp" || val == "unaryOp" || val == "comparison"|| val == "list" || val == "set" || val == "dict" || val == "tuple" || (val.compare(0, compVal.length(), compVal) == 0) || val.compare(0, objCompVal.length(), objCompVal) == 0;
 }
 
 bool isStmt(string val){

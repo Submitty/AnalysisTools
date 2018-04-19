@@ -9,15 +9,29 @@ tree = ast.parse(buffer)
 
 class Visitor(ast.NodeVisitor):
 
-	def chainedCalls(self, node, output, strlevel, strPrevLevel):
+	def chainedCalls(self, node, output, level, prevLevel):
+		strlevel = str(level)
+		strPrevLevel = str(prevLevel)
+		if strPrevLevel  == 0 or strlevel == 0: prevLevel = 1; level = 2; strPrevLevel = 1; strLevel = 2
 		if(isinstance(node, ast.Call)):
 			if(hasattr(node.func, "value") and not hasattr(node.func.value, "id")):
-				self.chainedCalls(node.func.value, output, strlevel, strPrevLevel)				
 				output += "\n<calling func: "
 				output += node.func.attr
 				output += "," + strlevel +  ">"
+				output += "\n<args, " + str(level+1) + ">\n"
 				f.write(output);
 				output = ""
+				for arg in node.args:
+					self.generic_visit(arg, 2)
+					f.write(output)
+					output = ""
+				output += "</args,1>\n"
+
+				f.write(output);
+				output = ""
+
+				self.chainedCalls(node.func.value, output, level+1, level)				
+				return
 
 			elif(hasattr(node.func, "value")):
 				output += "\n<object: "
@@ -27,20 +41,20 @@ class Visitor(ast.NodeVisitor):
 				output += "," + strPrevLevel +  ">"
 				f.write(output);
 				output = ""
-				self.chainedCalls(node.func, output, strlevel, strPrevLevel)				
+				self.chainedCalls(node.func, output, level+1, level)				
 			else:
 				output += "\n<calling func: "
 				output += node.func.id
 				output += "," + strlevel + ">"
 				f.write(output)
 				output = ""
-				self.chainedCalls(node.func, output, strlevel, strPrevLevel)
+				self.chainedCalls(node.func, output, level+1, level)
 
 			output += "\n<args, " + strlevel + ">\n"
 			f.write(output);
 			output = ""
 			for arg in node.args:
-				self.generic_visit(arg)
+				self.generic_visit(arg, 2)
 				f.write(output)
 				output = ""
 			output += "</args,1>\n"
@@ -58,7 +72,13 @@ class Visitor(ast.NodeVisitor):
 		#variables used for searching children
 		hasBody = False
 		hasChildren = False	
+		hasLeft = False
+		hasRight = False
+		hasElts = False
 		hasExcept = False
+		hasValues = False
+		hasComparators = False
+		hasValue = False
 		#calculate the nextLevels
 		nextLevel = level+1
 		nextNextLevel = nextLevel+1
@@ -84,14 +104,19 @@ class Visitor(ast.NodeVisitor):
 			for base in node.bases:
 				output += "\n<base: " + base.id + "," + strNextNextLevel +  ">"
 			hasChildren = True
+		elif isinstance(node, ast.Subscript):
+			output += "<subscript," + strlevel + ">"
 		elif isinstance(node, ast.Return):
 			output += "<return," + strlevel + ">"
-			hasChildren = True
+			hasValue = True
 		elif isinstance(node, ast.Assign):
 			output += "<assignment," + strlevel + ">"
-			hasChildren = True
+			f2 = open("outErr.txt", "w")
+			f2.write(ast.dump(node))
+			hasValue = True
 		elif isinstance(node, ast.AugAssign):
 			output += "<augAssign,"+ strlevel + ">"
+			hasChildren = True
 		elif isinstance(node, ast.For):
 			output += "<forLoop," + strlevel + ">"
 			output += "\n<compoundStmt," + strNextLevel + ">"
@@ -133,36 +158,41 @@ class Visitor(ast.NodeVisitor):
 		#	output += "<exec," + strlevel + ">"
 		elif isinstance(node, ast.BoolOp):
 			output += "<binaryOp," + strlevel + ">"
-			hasChildren = True
+			hasValues = True
 		elif isinstance(node, ast.BinOp):
 			output += "<binaryOp," + strlevel + ">"
-			hasChildren = True
+			hasLeft = True
+			hasRight = True
 		elif isinstance(node, ast.UnaryOp):
 			output += "<unaryOp," + strlevel + ">"
 		elif isinstance(node, ast.Compare):
 			output += "<comparison," + strlevel + ">"
-			hasChildren = True
+			hasLeft = True
+			hasComparators = True
 		elif isinstance(node, ast.Call):
 			if isinstance(node.func, ast.Attribute):
 				#calling from an object
 				if(isinstance(node.func.value, ast.Call)):
-					self.chainedCalls(node,output,strlevel, strPrevLevel)
+					self.chainedCalls(node,output,level, prevLevel)
 				else:
 					if(hasattr(node.func.value, "id")):
 						output += "<object: "
 						output += node.func.value.id
 						output += "; calling func: "
+						output += node.func.attr
+						output += "," + strPrevLevel +  ">"
 
 					else:
 						output += "<calling func: "
+						output += node.func.attr
+						output += "," + strPrevLevel +  ">"
 
-					output += node.func.attr
-					output += "," + strPrevLevel +  ">"
+
 					output += "\n<args, " + strNextLevel + ">\n"
 					f.write(output);
 					output = ""
 					for arg in node.args:
-						self.generic_visit(arg)
+						self.generic_visit(arg, 2)
 						f.write(output);
 						output = ""
 					output += "</args,1>\n"
@@ -170,34 +200,33 @@ class Visitor(ast.NodeVisitor):
 			elif isinstance(node.func, ast.Name):
 				output += "<calling func: "
 				output += node.func.id
-				output += "," + strlevel +  ">"
+				if node.func.id == "print": 
+					output += "," + strPrevLevel +  ">"
+				else: output += "," + strlevel +  ">"
 				output += "\n<args, " + strNextLevel + ">\n"
 				f.write(output);
 				output = ""
 				for arg in node.args:
-					self.generic_visit(arg)
+					self.generic_visit(arg, 2)
 					f.write(output);
 					output = ""
 				output += "</args,1>\n"
 		elif isinstance(node, ast.Expr):
 			hasChildren = True
-		'''
-		#removed in python3
-		elif isinstance(node, ast.Print):
-			output += "<calling func: print"
-			output += "," + strlevel + ">\n"
-			output += "<args, " + strNextLevel + ">\n"
-			f.write(output)	
-			output = ""
-			for arg in node.values:
-				self.generic_visit(arg)
-				f.write(output);
-				output = ""
-			output += "</args,1>\n"
-
+		elif isinstance(node, ast.List):
+			output += "<list," + strlevel + ">"
+			hasElts = True
+		elif isinstance(node, ast.Tuple):
+			output += "<tuple," + strlevel + ">"
+			hasElts = True
+		elif isinstance(node, ast.Dict):
+			output += "<dict," + strlevel + ">"
 			hasChildren = True
-		'''
+		elif isinstance(node, ast.Set):
+			output += "<set," + strlevel + ">"
+			hasElts = True
 
+		
 		if (isinstance(node, ast.FunctionDef) or hasBody or hasattr(node, "orelse") or hasExcept) and len(output) != 0:
 			nextLevel += 1
 
@@ -205,7 +234,28 @@ class Visitor(ast.NodeVisitor):
 			output += "\n"
 			f.write(output)
 			output = ""
-					
+
+		if hasValue:
+			self.generic_visit(node.value, nextLevel+1, node)
+
+		if hasValues:
+			for value in node.values:
+				self.generic_visit(value, nextLevel, node)
+
+		if hasComparators:
+			for comp in node.comparators:
+				self.generic_visit(comp, nextLevel, node)
+		
+		if hasLeft:
+			self.generic_visit(node.left, nextLevel, node)
+		
+		if hasRight:	
+			self.generic_visit(node.right, nextLevel, node)
+
+		if hasElts: 
+			for elmnt in node.elts:
+				self.generic_visit(elmnt, nextLevel, node)
+
 		if hasChildren:
 			for child in ast.iter_child_nodes(node):
 				self.generic_visit(child, nextLevel, node)
