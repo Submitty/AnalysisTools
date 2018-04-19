@@ -651,13 +651,6 @@
             {
                "children": [
                   {
-                     "children": [],
-                     "type": "node",
-                     "tags":[
-                        "Comparison"
-                     ]
-                  },
-                  {
                      "children": [
                         {
                            "children": [
@@ -675,6 +668,13 @@
                            ]
                         }
                      ],
+                     "type": "node",
+                     "tags":[
+                        "Comparison"
+                     ]
+                  },
+                  {
+                     "children": [],
                      "type": "node",
                      "tags":[
                         "Comparison"

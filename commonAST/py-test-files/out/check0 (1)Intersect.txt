@@ -784,24 +784,85 @@
                               {
                                  "children": [
                                     {
-                                       "children": [
-                                          {
-                                             "children": [],
-                                             "type": "node",
-                                             "tags":[
-                                                "BinOp"
-                                             ]
-                                          }
-                                       ],
+                                       "children": [],
                                        "type": "node",
                                        "tags":[
-                                          "Comparison"
+                                          "UnaryOp"
                                        ]
                                     },
                                     {
                                        "children": [
                                           {
-                                             "children": [],
+                                             "children": [
+                                                {
+                                                   "children": [],
+                                                   "type": "node",
+                                                   "tags":[
+                                                      "BinOp"
+                                                   ]
+                                                }
+                                             ],
+                                             "type": "node",
+                                             "tags":[
+                                                "Comparison"
+                                             ]
+                                          },
+                                          {
+                                             "children": [
+                                                {
+                                                   "children": [
+                                                      {
+                                                         "children": [],
+                                                         "type": "node",
+                                                         "tags":[
+                                                            "BinOp"
+                                                         ]
+                                                      }
+                                                   ],
+                                                   "type": "node",
+                                                   "tags":[
+                                                      "Comparison"
+                                                   ]
+                                                },
+                                                {
+                                                   "children": [
+                                                      {
+                                                         "children": [
+                                                            {
+                                                               "children": [],
+                                                               "type": "node",
+                                                               "tags":[
+                                                                  "BinOp"
+                                                               ]
+                                                            }
+                                                         ],
+                                                         "type": "node",
+                                                         "tags":[
+                                                            "Comparison"
+                                                         ]
+                                                      },
+                                                      {
+                                                         "children": [
+                                                            {
+                                                               "children": [],
+                                                               "type": "node",
+                                                               "tags":[
+                                                                  "BinOp"
+                                                               ]
+                                                            }
+                                                         ],
+                                                         "type": "node",
+                                                         "tags":[
+                                                            "Comparison"
+                                                         ]
+                                                      }
+                                                   ],
+                                                   "type": "node",
+                                                   "tags":[
+                                                      "BinOp"
+                                                   ]
+                                                }
+                                             ],
                                              "type": "node",
                                              "tags":[
                                                 "BinOp"
@@ -810,50 +871,13 @@
                                        ],
                                        "type": "node",
                                        "tags":[
-                                          "Comparison"
+                                          "BinOp"
                                        ]
                                     }
                                  ],
                                  "type": "node",
                                  "tags":[
                                     "BinOp"
-                                 ]
-                              },
-                              {
-                                 "children": [
-                                    {
-                                       "children": [],
-                                       "type": "node",
-                                       "tags":[
-                                          "BinOp"
-                                       ]
-                                    }
-                                 ],
-                                 "type": "node",
-                                 "tags":[
-                                    "Comparison"
-                                 ]
-                              },
-                              {
-                                 "children": [
-                                    {
-                                       "children": [],
-                                       "type": "node",
-                                       "tags":[
-                                          "BinOp"
-                                       ]
-                                    }
-                                 ],
-                                 "type": "node",
-                                 "tags":[
-                                    "Comparison"
-                                 ]
-                              },
-                              {
-                                 "children": [],
-                                 "type": "node",
-                                 "tags":[
-                                    "UnaryOp"
                                  ]
                               },
                               {

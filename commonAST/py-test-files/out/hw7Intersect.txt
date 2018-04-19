@@ -2082,7 +2082,76 @@
                                                 {
                                                    "children": [
                                                       {
-                                                         "children": [],
+                                                         "children": [
+                                                            {
+                                                               "children": [],
+                                                               "type": "node",
+                                                               "tags":[
+                                                                  "BinOp"
+                                                               ]
+                                                            }
+                                                         ],
+                                                         "type": "node",
+                                                         "tags":[
+                                                            "Comparison"
+                                                         ]
+                                                      },
+                                                      {
+                                                         "children": [
+                                                            {
+                                                               "children": [
+                                                                  {
+                                                                     "children": [],
+                                                                     "type": "node",
+                                                                     "tags":[
+                                                                        "BinOp"
+                                                                     ]
+                                                                  }
+                                                               ],
+                                                               "type": "node",
+                                                               "tags":[
+                                                                  "Comparison"
+                                                               ]
+                                                            },
+                                                            {
+                                                               "children": [
+                                                                  {
+                                                                     "children": [
+                                                                        {
+                                                                           "children": [],
+                                                                           "type": "node",
+                                                                           "tags":[
+                                                                              "BinOp"
+                                                                           ]
+                                                                        }
+                                                                     ],
+                                                                     "type": "node",
+                                                                     "tags":[
+                                                                        "Comparison"
+                                                                     ]
+                                                                  },
+                                                                  {
+                                                                     "children": [
+                                                                        {
+                                                                           "children": [],
+                                                                           "type": "node",
+                                                                           "tags":[
+                                                                              "BinOp"
+                                                                           ]
+                                                                        }
+                                                                     ],
+                                                                     "type": "node",
+                                                                     "tags":[
+                                                                        "Comparison"
+                                                                     ]
+                                                                  }
+                                                               ],
+                                                               "type": "node",
+                                                               "tags":[
+                                                                  "BinOp"
+                                                               ]
+                                                            }
+                                                         ],
                                                          "type": "node",
                                                          "tags":[
                                                             "BinOp"
@@ -2091,7 +2160,7 @@
                                                    ],
                                                    "type": "node",
                                                    "tags":[
-                                                      "Comparison"
+                                                      "BinOp"
                                                    ]
                                                 },
                                                 {

@@ -273,6 +273,13 @@
                               {
                                  "children": [
                                     {
+                                       "children": [],
+                                       "type": "node",
+                                       "tags":[
+                                          "UnaryOp"
+                                       ]
+                                    },
+                                    {
                                        "children": [
                                           {
                                              "children": [],
@@ -285,13 +292,6 @@
                                        "type": "node",
                                        "tags":[
                                           "Comparison"
-                                       ]
-                                    },
-                                    {
-                                       "children": [],
-                                       "type": "node",
-                                       "tags":[
-                                          "UnaryOp"
                                        ]
                                     }
                                  ],
