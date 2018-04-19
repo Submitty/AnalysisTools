@@ -110,37 +110,6 @@
                               {
                                  "children": [
                                     {
-                                       "children": [],
-                                       "type": "node",
-                                       "tags":[
-                                          "args"
-                                       ]
-                                    }
-                                 ],
-                                 "type": "node",
-                                 "tags":[
-                                    "Call"
-                                 ]
-                              }
-                           ],
-                           "type": "node",
-                           "tags":[
-                              "args"
-                           ]
-                        }
-                     ],
-                     "type": "node",
-                     "tags":[
-                        "Call"
-                     ]
-                  },
-                  {
-                     "children": [
-                        {
-                           "children": [
-                              {
-                                 "children": [
-                                    {
                                        "children": [
                                           {
                                              "children": [
@@ -355,6 +324,37 @@
                            "type": "node",
                            "tags":[
                               "CompoundStmt"
+                           ]
+                        },
+                        {
+                           "children": [
+                              {
+                                 "children": [
+                                    {
+                                       "children": [
+                                          {
+                                             "children": [],
+                                             "type": "node",
+                                             "tags":[
+                                                "args"
+                                             ]
+                                          }
+                                       ],
+                                       "type": "node",
+                                       "tags":[
+                                          "Call"
+                                       ]
+                                    }
+                                 ],
+                                 "type": "node",
+                                 "tags":[
+                                    "args"
+                                 ]
+                              }
+                           ],
+                           "type": "node",
+                           "tags":[
+                              "Call"
                            ]
                         }
                      ],

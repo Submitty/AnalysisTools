@@ -1108,23 +1108,7 @@
          ]
       },
       {
-         "children": [
-            {
-               "children": [
-                  {
-                     "children": [],
-                     "type": "node",
-                     "tags":[
-                        "args"
-                     ]
-                  }
-               ],
-               "type": "node",
-               "tags":[
-                  "Call"
-               ]
-            }
-         ],
+         "children": [],
          "type": "node",
          "tags":[
             "Assign"
@@ -1275,6 +1259,21 @@
                "type": "node",
                "tags":[
                   "CompoundStmt"
+               ]
+            },
+            {
+               "children": [
+                  {
+                     "children": [],
+                     "type": "node",
+                     "tags":[
+                        "args"
+                     ]
+                  }
+               ],
+               "type": "node",
+               "tags":[
+                  "Call"
                ]
             }
          ],

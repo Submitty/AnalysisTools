@@ -1,23 +1,7 @@
 {
    "children": [
       {
-         "children": [
-            {
-               "children": [
-                  {
-                     "children": [],
-                     "type": "node",
-                     "tags":[
-                        "args"
-                     ]
-                  }
-               ],
-               "type": "node",
-               "tags":[
-                  "Call"
-               ]
-            }
-         ],
+         "children": [],
          "type": "node",
          "tags":[
             "Assign"
@@ -27,21 +11,6 @@
          "children": [
             {
                "children": [
-                  {
-                     "children": [
-                        {
-                           "children": [],
-                           "type": "node",
-                           "tags":[
-                              "args"
-                           ]
-                        }
-                     ],
-                     "type": "node",
-                     "tags":[
-                        "Call"
-                     ]
-                  },
                   {
                      "children": [
                         {
@@ -81,6 +50,21 @@
                            "tags":[
                               "CompoundStmt"
                            ]
+                        },
+                        {
+                           "children": [
+                              {
+                                 "children": [],
+                                 "type": "node",
+                                 "tags":[
+                                    "args"
+                                 ]
+                              }
+                           ],
+                           "type": "node",
+                           "tags":[
+                              "Call"
+                           ]
                         }
                      ],
                      "type": "node",
@@ -92,6 +76,21 @@
                "type": "node",
                "tags":[
                   "CompoundStmt"
+               ]
+            },
+            {
+               "children": [
+                  {
+                     "children": [],
+                     "type": "node",
+                     "tags":[
+                        "args"
+                     ]
+                  }
+               ],
+               "type": "node",
+               "tags":[
+                  "Call"
                ]
             }
          ],

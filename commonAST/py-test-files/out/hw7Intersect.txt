@@ -232,13 +232,6 @@
                            "tags":[
                               "List"
                            ]
-                        },
-                        {
-                           "children": [],
-                           "type": "node",
-                           "tags":[
-                              "Expr"
-                           ]
                         }
                      ],
                      "type": "node",
@@ -335,6 +328,13 @@
                            "type": "node",
                            "tags":[
                               "CompoundStmt"
+                           ]
+                        },
+                        {
+                           "children": [],
+                           "type": "node",
+                           "tags":[
+                              "Expr"
                            ]
                         }
                      ],
@@ -476,13 +476,6 @@
                            "tags":[
                               "List"
                            ]
-                        },
-                        {
-                           "children": [],
-                           "type": "node",
-                           "tags":[
-                              "Expr"
-                           ]
                         }
                      ],
                      "type": "node",
@@ -558,6 +551,13 @@
                            "type": "node",
                            "tags":[
                               "CompoundStmt"
+                           ]
+                        },
+                        {
+                           "children": [],
+                           "type": "node",
+                           "tags":[
+                              "Expr"
                            ]
                         }
                      ],
@@ -714,13 +714,6 @@
                            "tags":[
                               "List"
                            ]
-                        },
-                        {
-                           "children": [],
-                           "type": "node",
-                           "tags":[
-                              "Expr"
-                           ]
                         }
                      ],
                      "type": "node",
@@ -803,6 +796,13 @@
                            "type": "node",
                            "tags":[
                               "CompoundStmt"
+                           ]
+                        },
+                        {
+                           "children": [],
+                           "type": "node",
+                           "tags":[
+                              "Expr"
                            ]
                         }
                      ],

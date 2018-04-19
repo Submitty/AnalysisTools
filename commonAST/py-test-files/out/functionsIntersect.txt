@@ -152,21 +152,6 @@
                "tags":[
                   "Call"
                ]
-            },
-            {
-               "children": [
-                  {
-                     "children": [],
-                     "type": "node",
-                     "tags":[
-                        "args"
-                     ]
-                  }
-               ],
-               "type": "node",
-               "tags":[
-                  "Call"
-               ]
             }
          ],
          "type": "node",
@@ -386,6 +371,21 @@
                "type": "node",
                "tags":[
                   "CompoundStmt"
+               ]
+            },
+            {
+               "children": [
+                  {
+                     "children": [],
+                     "type": "node",
+                     "tags":[
+                        "args"
+                     ]
+                  }
+               ],
+               "type": "node",
+               "tags":[
+                  "Call"
                ]
             }
          ],

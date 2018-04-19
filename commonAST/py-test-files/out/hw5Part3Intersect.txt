@@ -929,23 +929,7 @@
                      ]
                   },
                   {
-                     "children": [
-                        {
-                           "children": [
-                              {
-                                 "children": [],
-                                 "type": "node",
-                                 "tags":[
-                                    "args"
-                                 ]
-                              }
-                           ],
-                           "type": "node",
-                           "tags":[
-                              "Call"
-                           ]
-                        }
-                     ],
+                     "children": [],
                      "type": "node",
                      "tags":[
                         "Assign"
@@ -1019,6 +1003,21 @@
                            "type": "node",
                            "tags":[
                               "CompoundStmt"
+                           ]
+                        },
+                        {
+                           "children": [
+                              {
+                                 "children": [],
+                                 "type": "node",
+                                 "tags":[
+                                    "args"
+                                 ]
+                              }
+                           ],
+                           "type": "node",
+                           "tags":[
+                              "Call"
                            ]
                         }
                      ],
@@ -1108,21 +1107,6 @@
                            "tags":[
                               "List"
                            ]
-                        },
-                        {
-                           "children": [
-                              {
-                                 "children": [],
-                                 "type": "node",
-                                 "tags":[
-                                    "args"
-                                 ]
-                              }
-                           ],
-                           "type": "node",
-                           "tags":[
-                              "Call"
-                           ]
                         }
                      ],
                      "type": "node",
@@ -1141,21 +1125,6 @@
                                        "type": "node",
                                        "tags":[
                                           "List"
-                                       ]
-                                    },
-                                    {
-                                       "children": [
-                                          {
-                                             "children": [],
-                                             "type": "node",
-                                             "tags":[
-                                                "args"
-                                             ]
-                                          }
-                                       ],
-                                       "type": "node",
-                                       "tags":[
-                                          "Call"
                                        ]
                                     }
                                  ],
@@ -1188,6 +1157,21 @@
                                        "tags":[
                                           "CompoundStmt"
                                        ]
+                                    },
+                                    {
+                                       "children": [
+                                          {
+                                             "children": [],
+                                             "type": "node",
+                                             "tags":[
+                                                "args"
+                                             ]
+                                          }
+                                       ],
+                                       "type": "node",
+                                       "tags":[
+                                          "Call"
+                                       ]
                                     }
                                  ],
                                  "type": "node",
@@ -1215,6 +1199,21 @@
                            "tags":[
                               "CompoundStmt"
                            ]
+                        },
+                        {
+                           "children": [
+                              {
+                                 "children": [],
+                                 "type": "node",
+                                 "tags":[
+                                    "args"
+                                 ]
+                              }
+                           ],
+                           "type": "node",
+                           "tags":[
+                              "Call"
+                           ]
                         }
                      ],
                      "type": "node",
@@ -1234,21 +1233,6 @@
                      "type": "node",
                      "tags":[
                         "Expr"
-                     ]
-                  },
-                  {
-                     "children": [
-                        {
-                           "children": [],
-                           "type": "node",
-                           "tags":[
-                              "args"
-                           ]
-                        }
-                     ],
-                     "type": "node",
-                     "tags":[
-                        "Call"
                      ]
                   },
                   {
@@ -1386,6 +1370,21 @@
                            "tags":[
                               "CompoundStmt"
                            ]
+                        },
+                        {
+                           "children": [
+                              {
+                                 "children": [],
+                                 "type": "node",
+                                 "tags":[
+                                    "args"
+                                 ]
+                              }
+                           ],
+                           "type": "node",
+                           "tags":[
+                              "Call"
+                           ]
                         }
                      ],
                      "type": "node",
@@ -1434,37 +1433,7 @@
                   {
                      "children": [
                         {
-                           "children": [],
-                           "type": "node",
-                           "tags":[
-                              "args"
-                           ]
-                        }
-                     ],
-                     "type": "node",
-                     "tags":[
-                        "Call"
-                     ]
-                  },
-                  {
-                     "children": [
-                        {
                            "children": [
-                              {
-                                 "children": [
-                                    {
-                                       "children": [],
-                                       "type": "node",
-                                       "tags":[
-                                          "args"
-                                       ]
-                                    }
-                                 ],
-                                 "type": "node",
-                                 "tags":[
-                                    "Call"
-                                 ]
-                              },
                               {
                                  "children": [
                                     {
@@ -1513,6 +1482,21 @@
                                        "tags":[
                                           "CompoundStmt"
                                        ]
+                                    },
+                                    {
+                                       "children": [
+                                          {
+                                             "children": [],
+                                             "type": "node",
+                                             "tags":[
+                                                "args"
+                                             ]
+                                          }
+                                       ],
+                                       "type": "node",
+                                       "tags":[
+                                          "Call"
+                                       ]
                                     }
                                  ],
                                  "type": "node",
@@ -1539,6 +1523,21 @@
                            "type": "node",
                            "tags":[
                               "CompoundStmt"
+                           ]
+                        },
+                        {
+                           "children": [
+                              {
+                                 "children": [],
+                                 "type": "node",
+                                 "tags":[
+                                    "args"
+                                 ]
+                              }
+                           ],
+                           "type": "node",
+                           "tags":[
+                              "Call"
                            ]
                         }
                      ],
@@ -1904,21 +1903,6 @@
                "tags":[
                   "Expr"
                ]
-            },
-            {
-               "children": [
-                  {
-                     "children": [],
-                     "type": "node",
-                     "tags":[
-                        "args"
-                     ]
-                  }
-               ],
-               "type": "node",
-               "tags":[
-                  "Call"
-               ]
             }
          ],
          "type": "node",
@@ -1930,21 +1914,6 @@
          "children": [
             {
                "children": [
-                  {
-                     "children": [
-                        {
-                           "children": [],
-                           "type": "node",
-                           "tags":[
-                              "args"
-                           ]
-                        }
-                     ],
-                     "type": "node",
-                     "tags":[
-                        "Call"
-                     ]
-                  },
                   {
                      "children": [
                         {
@@ -2046,6 +2015,21 @@
                            "tags":[
                               "CompoundStmt"
                            ]
+                        },
+                        {
+                           "children": [
+                              {
+                                 "children": [],
+                                 "type": "node",
+                                 "tags":[
+                                    "args"
+                                 ]
+                              }
+                           ],
+                           "type": "node",
+                           "tags":[
+                              "Call"
+                           ]
                         }
                      ],
                      "type": "node",
@@ -2057,6 +2041,21 @@
                "type": "node",
                "tags":[
                   "CompoundStmt"
+               ]
+            },
+            {
+               "children": [
+                  {
+                     "children": [],
+                     "type": "node",
+                     "tags":[
+                        "args"
+                     ]
+                  }
+               ],
+               "type": "node",
+               "tags":[
+                  "Call"
                ]
             }
          ],

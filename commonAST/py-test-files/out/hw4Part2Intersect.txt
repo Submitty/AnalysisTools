@@ -87,45 +87,6 @@
                            "tags":[
                               "Call"
                            ]
-                        },
-                        {
-                           "children": [
-                              {
-                                 "children": [
-                                    {
-                                       "children": [
-                                          {
-                                             "children": [
-                                                {
-                                                   "children": [],
-                                                   "type": "node",
-                                                   "tags":[
-                                                      "args"
-                                                   ]
-                                                }
-                                             ],
-                                             "type": "node",
-                                             "tags":[
-                                                "Call"
-                                             ]
-                                          }
-                                       ],
-                                       "type": "node",
-                                       "tags":[
-                                          "BinOp"
-                                       ]
-                                    }
-                                 ],
-                                 "type": "node",
-                                 "tags":[
-                                    "args"
-                                 ]
-                              }
-                           ],
-                           "type": "node",
-                           "tags":[
-                              "Call"
-                           ]
                         }
                      ],
                      "type": "node",
@@ -187,42 +148,50 @@
                            "tags":[
                               "CompoundStmt"
                            ]
-                        }
-                     ],
-                     "type": "node",
-                     "tags":[
-                        "For"
-                     ]
-                  },
-                  {
-                     "children": [
+                        },
                         {
                            "children": [
                               {
                                  "children": [
                                     {
-                                       "children": [],
+                                       "children": [
+                                          {
+                                             "children": [
+                                                {
+                                                   "children": [],
+                                                   "type": "node",
+                                                   "tags":[
+                                                      "args"
+                                                   ]
+                                                }
+                                             ],
+                                             "type": "node",
+                                             "tags":[
+                                                "Call"
+                                             ]
+                                          }
+                                       ],
                                        "type": "node",
                                        "tags":[
-                                          "args"
+                                          "BinOp"
                                        ]
                                     }
                                  ],
                                  "type": "node",
                                  "tags":[
-                                    "Call"
+                                    "args"
                                  ]
                               }
                            ],
                            "type": "node",
                            "tags":[
-                              "args"
+                              "Call"
                            ]
                         }
                      ],
                      "type": "node",
                      "tags":[
-                        "Call"
+                        "For"
                      ]
                   },
                   {
@@ -385,6 +354,37 @@
                            "type": "node",
                            "tags":[
                               "CompoundStmt"
+                           ]
+                        },
+                        {
+                           "children": [
+                              {
+                                 "children": [
+                                    {
+                                       "children": [
+                                          {
+                                             "children": [],
+                                             "type": "node",
+                                             "tags":[
+                                                "args"
+                                             ]
+                                          }
+                                       ],
+                                       "type": "node",
+                                       "tags":[
+                                          "Call"
+                                       ]
+                                    }
+                                 ],
+                                 "type": "node",
+                                 "tags":[
+                                    "args"
+                                 ]
+                              }
+                           ],
+                           "type": "node",
+                           "tags":[
+                              "Call"
                            ]
                         }
                      ],
