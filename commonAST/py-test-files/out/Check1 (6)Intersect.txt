@@ -206,21 +206,6 @@
                                  ]
                               },
                               {
-                                 "children": [
-                                    {
-                                       "children": [],
-                                       "type": "node",
-                                       "tags":[
-                                          "Return"
-                                       ]
-                                    }
-                                 ],
-                                 "type": "node",
-                                 "tags":[
-                                    "CompoundStmt"
-                                 ]
-                              },
-                              {
                                  "children": [],
                                  "type": "node",
                                  "tags":[
