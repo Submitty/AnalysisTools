@@ -226,21 +226,6 @@
                                        "tags":[
                                           "Call"
                                        ]
-                                    },
-                                    {
-                                       "children": [
-                                          {
-                                             "children": [],
-                                             "type": "node",
-                                             "tags":[
-                                                "args"
-                                             ]
-                                          }
-                                       ],
-                                       "type": "node",
-                                       "tags":[
-                                          "Call"
-                                       ]
                                     }
                                  ],
                                  "type": "node",
@@ -269,57 +254,57 @@
                                                          "tags":[
                                                             "args"
                                                          ]
-                                                      },
+                                                      }
+                                                   ],
+                                                   "type": "node",
+                                                   "tags":[
+                                                      "Call"
+                                                   ]
+                                                },
+                                                {
+                                                   "children": [
                                                       {
                                                          "children": [
-                                                            {
-                                                               "children": [
-                                                                  {
-                                                                     "children": [
-                                                                        {
-                                                                           "children": [],
-                                                                           "type": "node",
-                                                                           "tags":[
-                                                                              "args"
-                                                                           ]
-                                                                        }
-                                                                     ],
-                                                                     "type": "node",
-                                                                     "tags":[
-                                                                        "Call"
-                                                                     ]
-                                                                  }
-                                                               ],
-                                                               "type": "node",
-                                                               "tags":[
-                                                                  "Comparison"
-                                                               ]
-                                                            },
                                                             {
                                                                "children": [
                                                                   {
                                                                      "children": [],
                                                                      "type": "node",
                                                                      "tags":[
-                                                                        "UnaryOp"
+                                                                        "args"
                                                                      ]
                                                                   }
                                                                ],
                                                                "type": "node",
                                                                "tags":[
-                                                                  "Comparison"
+                                                                  "Call"
                                                                ]
                                                             }
                                                          ],
                                                          "type": "node",
                                                          "tags":[
-                                                            "BinOp"
+                                                            "Comparison"
+                                                         ]
+                                                      },
+                                                      {
+                                                         "children": [
+                                                            {
+                                                               "children": [],
+                                                               "type": "node",
+                                                               "tags":[
+                                                                  "UnaryOp"
+                                                               ]
+                                                            }
+                                                         ],
+                                                         "type": "node",
+                                                         "tags":[
+                                                            "Comparison"
                                                          ]
                                                       }
                                                    ],
                                                    "type": "node",
                                                    "tags":[
-                                                      "Call"
+                                                      "BinOp"
                                                    ]
                                                 }
                                              ],
@@ -445,34 +430,34 @@
                                                          "tags":[
                                                             "args"
                                                          ]
-                                                      },
-                                                      {
-                                                         "children": [
-                                                            {
-                                                               "children": [
-                                                                  {
-                                                                     "children": [],
-                                                                     "type": "node",
-                                                                     "tags":[
-                                                                        "args"
-                                                                     ]
-                                                                  }
-                                                               ],
-                                                               "type": "node",
-                                                               "tags":[
-                                                                  "Call"
-                                                               ]
-                                                            }
-                                                         ],
-                                                         "type": "node",
-                                                         "tags":[
-                                                            "Comparison"
-                                                         ]
                                                       }
                                                    ],
                                                    "type": "node",
                                                    "tags":[
                                                       "Call"
+                                                   ]
+                                                },
+                                                {
+                                                   "children": [
+                                                      {
+                                                         "children": [
+                                                            {
+                                                               "children": [],
+                                                               "type": "node",
+                                                               "tags":[
+                                                                  "args"
+                                                               ]
+                                                            }
+                                                         ],
+                                                         "type": "node",
+                                                         "tags":[
+                                                            "Call"
+                                                         ]
+                                                      }
+                                                   ],
+                                                   "type": "node",
+                                                   "tags":[
+                                                      "Comparison"
                                                    ]
                                                 }
                                              ],
@@ -658,16 +643,17 @@
                                                          "tags":[
                                                             "args"
                                                          ]
-                                                      },
+                                                      }
+                                                   ],
+                                                   "type": "node",
+                                                   "tags":[
+                                                      "Call"
+                                                   ]
+                                                },
+                                                {
+                                                   "children": [
                                                       {
                                                          "children": [
-                                                            {
-                                                               "children": [],
-                                                               "type": "node",
-                                                               "tags":[
-                                                                  "Comparison"
-                                                               ]
-                                                            },
                                                             {
                                                                "children": [
                                                                   {
@@ -686,7 +672,7 @@
                                                          ],
                                                          "type": "node",
                                                          "tags":[
-                                                            "BinOp"
+                                                            "Comparison"
                                                          ]
                                                       },
                                                       {
@@ -715,7 +701,7 @@
                                                    ],
                                                    "type": "node",
                                                    "tags":[
-                                                      "Call"
+                                                      "BinOp"
                                                    ]
                                                 }
                                              ],
@@ -812,16 +798,17 @@
                                                          "tags":[
                                                             "args"
                                                          ]
-                                                      },
+                                                      }
+                                                   ],
+                                                   "type": "node",
+                                                   "tags":[
+                                                      "Call"
+                                                   ]
+                                                },
+                                                {
+                                                   "children": [
                                                       {
                                                          "children": [
-                                                            {
-                                                               "children": [],
-                                                               "type": "node",
-                                                               "tags":[
-                                                                  "Comparison"
-                                                               ]
-                                                            },
                                                             {
                                                                "children": [
                                                                   {
@@ -840,7 +827,7 @@
                                                          ],
                                                          "type": "node",
                                                          "tags":[
-                                                            "BinOp"
+                                                            "Comparison"
                                                          ]
                                                       },
                                                       {
@@ -869,7 +856,7 @@
                                                    ],
                                                    "type": "node",
                                                    "tags":[
-                                                      "Call"
+                                                      "BinOp"
                                                    ]
                                                 }
                                              ],
@@ -1190,16 +1177,24 @@
                               {
                                  "children": [
                                     {
-                                       "children": [],
+                                       "children": [
+                                          {
+                                             "children": [],
+                                             "type": "node",
+                                             "tags":[
+                                                "args"
+                                             ]
+                                          }
+                                       ],
                                        "type": "node",
                                        "tags":[
-                                          "args"
+                                          "Call"
                                        ]
                                     }
                                  ],
                                  "type": "node",
                                  "tags":[
-                                    "Call"
+                                    "Comparison"
                                  ]
                               },
                               {

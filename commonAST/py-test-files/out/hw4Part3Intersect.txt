@@ -260,25 +260,26 @@
          ]
       },
       {
-         "children": [],
-         "type": "node",
-         "tags":[
-            "Assign"
-         ]
-      },
-      {
          "children": [
             {
-               "children": [],
+               "children": [
+                  {
+                     "children": [],
+                     "type": "node",
+                     "tags":[
+                        "args"
+                     ]
+                  }
+               ],
                "type": "node",
                "tags":[
-                  "args"
+                  "Call"
                ]
             }
          ],
          "type": "node",
          "tags":[
-            "Call"
+            "Assign"
          ]
       },
       {
@@ -438,26 +439,26 @@
                            "tags":[
                               "Call"
                            ]
-                        }
-                     ],
-                     "type": "node",
-                     "tags":[
-                        "Assign"
-                     ]
-                  },
-                  {
-                     "children": [
+                        },
                         {
-                           "children": [],
+                           "children": [
+                              {
+                                 "children": [],
+                                 "type": "node",
+                                 "tags":[
+                                    "args"
+                                 ]
+                              }
+                           ],
                            "type": "node",
                            "tags":[
-                              "args"
+                              "Call"
                            ]
                         }
                      ],
                      "type": "node",
                      "tags":[
-                        "Call"
+                        "Assign"
                      ]
                   },
                   {
@@ -565,25 +566,26 @@
                                        ]
                                     },
                                     {
-                                       "children": [],
-                                       "type": "node",
-                                       "tags":[
-                                          "AugAssign"
-                                       ]
-                                    },
-                                    {
                                        "children": [
                                           {
-                                             "children": [],
+                                             "children": [
+                                                {
+                                                   "children": [],
+                                                   "type": "node",
+                                                   "tags":[
+                                                      "args"
+                                                   ]
+                                                }
+                                             ],
                                              "type": "node",
                                              "tags":[
-                                                "args"
+                                                "Call"
                                              ]
                                           }
                                        ],
                                        "type": "node",
                                        "tags":[
-                                          "Call"
+                                          "AugAssign"
                                        ]
                                     }
                                  ],
@@ -732,26 +734,26 @@
                                              "tags":[
                                                 "Call"
                                              ]
-                                          }
-                                       ],
-                                       "type": "node",
-                                       "tags":[
-                                          "Assign"
-                                       ]
-                                    },
-                                    {
-                                       "children": [
+                                          },
                                           {
-                                             "children": [],
+                                             "children": [
+                                                {
+                                                   "children": [],
+                                                   "type": "node",
+                                                   "tags":[
+                                                      "args"
+                                                   ]
+                                                }
+                                             ],
                                              "type": "node",
                                              "tags":[
-                                                "args"
+                                                "Call"
                                              ]
                                           }
                                        ],
                                        "type": "node",
                                        "tags":[
-                                          "Call"
+                                          "Assign"
                                        ]
                                     },
                                     {
@@ -853,41 +855,41 @@
                                                                "tags":[
                                                                   "Tuple"
                                                                ]
-                                                            }
-                                                         ],
-                                                         "type": "node",
-                                                         "tags":[
-                                                            "Assign"
-                                                         ]
-                                                      },
-                                                      {
-                                                         "children": [
+                                                            },
                                                             {
                                                                "children": [
                                                                   {
-                                                                     "children": [],
+                                                                     "children": [
+                                                                        {
+                                                                           "children": [],
+                                                                           "type": "node",
+                                                                           "tags":[
+                                                                              "Expr"
+                                                                           ]
+                                                                        },
+                                                                        {
+                                                                           "children": [],
+                                                                           "type": "node",
+                                                                           "tags":[
+                                                                              "Expr"
+                                                                           ]
+                                                                        }
+                                                                     ],
                                                                      "type": "node",
                                                                      "tags":[
-                                                                        "Expr"
-                                                                     ]
-                                                                  },
-                                                                  {
-                                                                     "children": [],
-                                                                     "type": "node",
-                                                                     "tags":[
-                                                                        "Expr"
+                                                                        "args"
                                                                      ]
                                                                   }
                                                                ],
                                                                "type": "node",
                                                                "tags":[
-                                                                  "args"
+                                                                  "Call"
                                                                ]
                                                             }
                                                          ],
                                                          "type": "node",
                                                          "tags":[
-                                                            "Call"
+                                                            "Assign"
                                                          ]
                                                       },
                                                       {
@@ -975,41 +977,41 @@
                                                                "tags":[
                                                                   "Tuple"
                                                                ]
-                                                            }
-                                                         ],
-                                                         "type": "node",
-                                                         "tags":[
-                                                            "Assign"
-                                                         ]
-                                                      },
-                                                      {
-                                                         "children": [
+                                                            },
                                                             {
                                                                "children": [
                                                                   {
-                                                                     "children": [],
+                                                                     "children": [
+                                                                        {
+                                                                           "children": [],
+                                                                           "type": "node",
+                                                                           "tags":[
+                                                                              "Expr"
+                                                                           ]
+                                                                        },
+                                                                        {
+                                                                           "children": [],
+                                                                           "type": "node",
+                                                                           "tags":[
+                                                                              "Expr"
+                                                                           ]
+                                                                        }
+                                                                     ],
                                                                      "type": "node",
                                                                      "tags":[
-                                                                        "Expr"
-                                                                     ]
-                                                                  },
-                                                                  {
-                                                                     "children": [],
-                                                                     "type": "node",
-                                                                     "tags":[
-                                                                        "Expr"
+                                                                        "args"
                                                                      ]
                                                                   }
                                                                ],
                                                                "type": "node",
                                                                "tags":[
-                                                                  "args"
+                                                                  "Call"
                                                                ]
                                                             }
                                                          ],
                                                          "type": "node",
                                                          "tags":[
-                                                            "Call"
+                                                            "Assign"
                                                          ]
                                                       },
                                                       {
@@ -1097,41 +1099,41 @@
                                                                "tags":[
                                                                   "Tuple"
                                                                ]
-                                                            }
-                                                         ],
-                                                         "type": "node",
-                                                         "tags":[
-                                                            "Assign"
-                                                         ]
-                                                      },
-                                                      {
-                                                         "children": [
+                                                            },
                                                             {
                                                                "children": [
                                                                   {
-                                                                     "children": [],
+                                                                     "children": [
+                                                                        {
+                                                                           "children": [],
+                                                                           "type": "node",
+                                                                           "tags":[
+                                                                              "Expr"
+                                                                           ]
+                                                                        },
+                                                                        {
+                                                                           "children": [],
+                                                                           "type": "node",
+                                                                           "tags":[
+                                                                              "Expr"
+                                                                           ]
+                                                                        }
+                                                                     ],
                                                                      "type": "node",
                                                                      "tags":[
-                                                                        "Expr"
-                                                                     ]
-                                                                  },
-                                                                  {
-                                                                     "children": [],
-                                                                     "type": "node",
-                                                                     "tags":[
-                                                                        "Expr"
+                                                                        "args"
                                                                      ]
                                                                   }
                                                                ],
                                                                "type": "node",
                                                                "tags":[
-                                                                  "args"
+                                                                  "Call"
                                                                ]
                                                             }
                                                          ],
                                                          "type": "node",
                                                          "tags":[
-                                                            "Call"
+                                                            "Assign"
                                                          ]
                                                       },
                                                       {
@@ -1219,41 +1221,41 @@
                                                                "tags":[
                                                                   "Tuple"
                                                                ]
-                                                            }
-                                                         ],
-                                                         "type": "node",
-                                                         "tags":[
-                                                            "Assign"
-                                                         ]
-                                                      },
-                                                      {
-                                                         "children": [
+                                                            },
                                                             {
                                                                "children": [
                                                                   {
-                                                                     "children": [],
+                                                                     "children": [
+                                                                        {
+                                                                           "children": [],
+                                                                           "type": "node",
+                                                                           "tags":[
+                                                                              "Expr"
+                                                                           ]
+                                                                        },
+                                                                        {
+                                                                           "children": [],
+                                                                           "type": "node",
+                                                                           "tags":[
+                                                                              "Expr"
+                                                                           ]
+                                                                        }
+                                                                     ],
                                                                      "type": "node",
                                                                      "tags":[
-                                                                        "Expr"
-                                                                     ]
-                                                                  },
-                                                                  {
-                                                                     "children": [],
-                                                                     "type": "node",
-                                                                     "tags":[
-                                                                        "Expr"
+                                                                        "args"
                                                                      ]
                                                                   }
                                                                ],
                                                                "type": "node",
                                                                "tags":[
-                                                                  "args"
+                                                                  "Call"
                                                                ]
                                                             }
                                                          ],
                                                          "type": "node",
                                                          "tags":[
-                                                            "Call"
+                                                            "Assign"
                                                          ]
                                                       },
                                                       {

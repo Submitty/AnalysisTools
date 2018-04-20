@@ -637,15 +637,7 @@
                "tags":[
                   "BinOp"
                ]
-            }
-         ],
-         "type": "node",
-         "tags":[
-            "Assign"
-         ]
-      },
-      {
-         "children": [
+            },
             {
                "children": [
                   {
@@ -655,47 +647,55 @@
                               {
                                  "children": [
                                     {
-                                       "children": [],
+                                       "children": [
+                                          {
+                                             "children": [],
+                                             "type": "node",
+                                             "tags":[
+                                                "Expr"
+                                             ]
+                                          }
+                                       ],
                                        "type": "node",
                                        "tags":[
-                                          "Expr"
+                                          "Tuple"
                                        ]
                                     }
                                  ],
                                  "type": "node",
                                  "tags":[
-                                    "Tuple"
+                                    "args"
                                  ]
                               }
                            ],
                            "type": "node",
                            "tags":[
-                              "args"
+                              "Call"
+                           ]
+                        },
+                        {
+                           "children": [],
+                           "type": "node",
+                           "tags":[
+                              "Tuple"
                            ]
                         }
                      ],
                      "type": "node",
                      "tags":[
-                        "Call"
-                     ]
-                  },
-                  {
-                     "children": [],
-                     "type": "node",
-                     "tags":[
-                        "Tuple"
+                        "args"
                      ]
                   }
                ],
                "type": "node",
                "tags":[
-                  "args"
+                  "Call"
                ]
             }
          ],
          "type": "node",
          "tags":[
-            "Call"
+            "Assign"
          ]
       },
       {
@@ -714,15 +714,7 @@
                "tags":[
                   "BinOp"
                ]
-            }
-         ],
-         "type": "node",
-         "tags":[
-            "Assign"
-         ]
-      },
-      {
-         "children": [
+            },
             {
                "children": [
                   {
@@ -732,47 +724,55 @@
                               {
                                  "children": [
                                     {
-                                       "children": [],
+                                       "children": [
+                                          {
+                                             "children": [],
+                                             "type": "node",
+                                             "tags":[
+                                                "Expr"
+                                             ]
+                                          }
+                                       ],
                                        "type": "node",
                                        "tags":[
-                                          "Expr"
+                                          "Tuple"
                                        ]
                                     }
                                  ],
                                  "type": "node",
                                  "tags":[
-                                    "Tuple"
+                                    "args"
                                  ]
                               }
                            ],
                            "type": "node",
                            "tags":[
-                              "args"
+                              "Call"
+                           ]
+                        },
+                        {
+                           "children": [],
+                           "type": "node",
+                           "tags":[
+                              "Tuple"
                            ]
                         }
                      ],
                      "type": "node",
                      "tags":[
-                        "Call"
-                     ]
-                  },
-                  {
-                     "children": [],
-                     "type": "node",
-                     "tags":[
-                        "Tuple"
+                        "args"
                      ]
                   }
                ],
                "type": "node",
                "tags":[
-                  "args"
+                  "Call"
                ]
             }
          ],
          "type": "node",
          "tags":[
-            "Call"
+            "Assign"
          ]
       },
       {
@@ -791,15 +791,7 @@
                "tags":[
                   "BinOp"
                ]
-            }
-         ],
-         "type": "node",
-         "tags":[
-            "Assign"
-         ]
-      },
-      {
-         "children": [
+            },
             {
                "children": [
                   {
@@ -809,47 +801,55 @@
                               {
                                  "children": [
                                     {
-                                       "children": [],
+                                       "children": [
+                                          {
+                                             "children": [],
+                                             "type": "node",
+                                             "tags":[
+                                                "Expr"
+                                             ]
+                                          }
+                                       ],
                                        "type": "node",
                                        "tags":[
-                                          "Expr"
+                                          "Tuple"
                                        ]
                                     }
                                  ],
                                  "type": "node",
                                  "tags":[
-                                    "Tuple"
+                                    "args"
                                  ]
                               }
                            ],
                            "type": "node",
                            "tags":[
-                              "args"
+                              "Call"
+                           ]
+                        },
+                        {
+                           "children": [],
+                           "type": "node",
+                           "tags":[
+                              "Tuple"
                            ]
                         }
                      ],
                      "type": "node",
                      "tags":[
-                        "Call"
-                     ]
-                  },
-                  {
-                     "children": [],
-                     "type": "node",
-                     "tags":[
-                        "Tuple"
+                        "args"
                      ]
                   }
                ],
                "type": "node",
                "tags":[
-                  "args"
+                  "Call"
                ]
             }
          ],
          "type": "node",
          "tags":[
-            "Call"
+            "Assign"
          ]
       },
       {
@@ -868,15 +868,7 @@
                "tags":[
                   "BinOp"
                ]
-            }
-         ],
-         "type": "node",
-         "tags":[
-            "Assign"
-         ]
-      },
-      {
-         "children": [
+            },
             {
                "children": [
                   {
@@ -886,47 +878,55 @@
                               {
                                  "children": [
                                     {
-                                       "children": [],
+                                       "children": [
+                                          {
+                                             "children": [],
+                                             "type": "node",
+                                             "tags":[
+                                                "Expr"
+                                             ]
+                                          }
+                                       ],
                                        "type": "node",
                                        "tags":[
-                                          "Expr"
+                                          "Tuple"
                                        ]
                                     }
                                  ],
                                  "type": "node",
                                  "tags":[
-                                    "Tuple"
+                                    "args"
                                  ]
                               }
                            ],
                            "type": "node",
                            "tags":[
-                              "args"
+                              "Call"
+                           ]
+                        },
+                        {
+                           "children": [],
+                           "type": "node",
+                           "tags":[
+                              "Tuple"
                            ]
                         }
                      ],
                      "type": "node",
                      "tags":[
-                        "Call"
-                     ]
-                  },
-                  {
-                     "children": [],
-                     "type": "node",
-                     "tags":[
-                        "Tuple"
+                        "args"
                      ]
                   }
                ],
                "type": "node",
                "tags":[
-                  "args"
+                  "Call"
                ]
             }
          ],
          "type": "node",
          "tags":[
-            "Call"
+            "Assign"
          ]
       },
       {
@@ -945,15 +945,7 @@
                "tags":[
                   "BinOp"
                ]
-            }
-         ],
-         "type": "node",
-         "tags":[
-            "Assign"
-         ]
-      },
-      {
-         "children": [
+            },
             {
                "children": [
                   {
@@ -963,47 +955,55 @@
                               {
                                  "children": [
                                     {
-                                       "children": [],
+                                       "children": [
+                                          {
+                                             "children": [],
+                                             "type": "node",
+                                             "tags":[
+                                                "Expr"
+                                             ]
+                                          }
+                                       ],
                                        "type": "node",
                                        "tags":[
-                                          "Expr"
+                                          "Tuple"
                                        ]
                                     }
                                  ],
                                  "type": "node",
                                  "tags":[
-                                    "Tuple"
+                                    "args"
                                  ]
                               }
                            ],
                            "type": "node",
                            "tags":[
-                              "args"
+                              "Call"
+                           ]
+                        },
+                        {
+                           "children": [],
+                           "type": "node",
+                           "tags":[
+                              "Tuple"
                            ]
                         }
                      ],
                      "type": "node",
                      "tags":[
-                        "Call"
-                     ]
-                  },
-                  {
-                     "children": [],
-                     "type": "node",
-                     "tags":[
-                        "Tuple"
+                        "args"
                      ]
                   }
                ],
                "type": "node",
                "tags":[
-                  "args"
+                  "Call"
                ]
             }
          ],
          "type": "node",
          "tags":[
-            "Call"
+            "Assign"
          ]
       },
       {
@@ -1022,15 +1022,7 @@
                "tags":[
                   "BinOp"
                ]
-            }
-         ],
-         "type": "node",
-         "tags":[
-            "Assign"
-         ]
-      },
-      {
-         "children": [
+            },
             {
                "children": [
                   {
@@ -1040,62 +1032,70 @@
                               {
                                  "children": [
                                     {
-                                       "children": [],
+                                       "children": [
+                                          {
+                                             "children": [],
+                                             "type": "node",
+                                             "tags":[
+                                                "Expr"
+                                             ]
+                                          }
+                                       ],
                                        "type": "node",
                                        "tags":[
-                                          "Expr"
+                                          "Tuple"
                                        ]
                                     }
                                  ],
                                  "type": "node",
                                  "tags":[
-                                    "Tuple"
+                                    "args"
                                  ]
                               }
                            ],
                            "type": "node",
                            "tags":[
-                              "args"
+                              "Call"
+                           ]
+                        },
+                        {
+                           "children": [],
+                           "type": "node",
+                           "tags":[
+                              "Tuple"
                            ]
                         }
                      ],
                      "type": "node",
                      "tags":[
-                        "Call"
-                     ]
-                  },
-                  {
-                     "children": [],
-                     "type": "node",
-                     "tags":[
-                        "Tuple"
+                        "args"
                      ]
                   }
                ],
                "type": "node",
                "tags":[
-                  "args"
+                  "Call"
                ]
-            }
-         ],
-         "type": "node",
-         "tags":[
-            "Call"
-         ]
-      },
-      {
-         "children": [
+            },
             {
-               "children": [],
+               "children": [
+                  {
+                     "children": [],
+                     "type": "node",
+                     "tags":[
+                        "args"
+                     ]
+                  }
+               ],
                "type": "node",
                "tags":[
-                  "args"
+                  "Call"
                ]
             }
          ],
          "type": "node",
          "tags":[
-            "Call"
+            "Assign"
          ]
       }
    ],
