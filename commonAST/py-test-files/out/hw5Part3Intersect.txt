@@ -746,26 +746,26 @@
                            "tags":[
                               "CompoundStmt"
                            ]
-                        },
-                        {
-                           "children": [
-                              {
-                                 "children": [],
-                                 "type": "node",
-                                 "tags":[
-                                    "Assign"
-                                 ]
-                              }
-                           ],
-                           "type": "node",
-                           "tags":[
-                              "CompoundStmt"
-                           ]
                         }
                      ],
                      "type": "node",
                      "tags":[
                         "If"
+                     ]
+                  },
+                  {
+                     "children": [
+                        {
+                           "children": [],
+                           "type": "node",
+                           "tags":[
+                              "Assign"
+                           ]
+                        }
+                     ],
+                     "type": "node",
+                     "tags":[
+                        "CompoundStmt"
                      ]
                   },
                   {

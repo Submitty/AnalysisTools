@@ -303,6 +303,21 @@
                                        "tags":[
                                           "CompoundStmt"
                                        ]
+                                    }
+                                 ],
+                                 "type": "node",
+                                 "tags":[
+                                    "If"
+                                 ]
+                              },
+                              {
+                                 "children": [
+                                    {
+                                       "children": [],
+                                       "type": "node",
+                                       "tags":[
+                                          "AugAssign"
+                                       ]
                                     },
                                     {
                                        "children": [
@@ -310,7 +325,7 @@
                                              "children": [],
                                              "type": "node",
                                              "tags":[
-                                                "AugAssign"
+                                                "Comparison"
                                              ]
                                           },
                                           {
@@ -319,40 +334,25 @@
                                                    "children": [],
                                                    "type": "node",
                                                    "tags":[
-                                                      "Comparison"
-                                                   ]
-                                                },
-                                                {
-                                                   "children": [
-                                                      {
-                                                         "children": [],
-                                                         "type": "node",
-                                                         "tags":[
-                                                            "Assign"
-                                                         ]
-                                                      }
-                                                   ],
-                                                   "type": "node",
-                                                   "tags":[
-                                                      "CompoundStmt"
+                                                      "Assign"
                                                    ]
                                                 }
                                              ],
                                              "type": "node",
                                              "tags":[
-                                                "If"
+                                                "CompoundStmt"
                                              ]
                                           }
                                        ],
                                        "type": "node",
                                        "tags":[
-                                          "CompoundStmt"
+                                          "If"
                                        ]
                                     }
                                  ],
                                  "type": "node",
                                  "tags":[
-                                    "If"
+                                    "CompoundStmt"
                                  ]
                               }
                            ],
