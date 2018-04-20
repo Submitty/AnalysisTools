@@ -983,22 +983,30 @@
                                     {
                                        "children": [
                                           {
-                                             "children": [],
+                                             "children": [
+                                                {
+                                                   "children": [],
+                                                   "type": "node",
+                                                   "tags":[
+                                                      "AugAssign"
+                                                   ]
+                                                }
+                                             ],
                                              "type": "node",
                                              "tags":[
-                                                "AugAssign"
+                                                "CompoundStmt"
                                              ]
                                           }
                                        ],
                                        "type": "node",
                                        "tags":[
-                                          "CompoundStmt"
+                                          "If"
                                        ]
                                     }
                                  ],
                                  "type": "node",
                                  "tags":[
-                                    "If"
+                                    "IfBlock"
                                  ]
                               },
                               {
@@ -1343,19 +1351,12 @@
                                           {
                                              "children": [
                                                 {
-                                                   "children": [],
-                                                   "type": "node",
-                                                   "tags":[
-                                                      "Comparison"
-                                                   ]
-                                                },
-                                                {
                                                    "children": [
                                                       {
                                                          "children": [],
                                                          "type": "node",
                                                          "tags":[
-                                                            "Assign"
+                                                            "Comparison"
                                                          ]
                                                       },
                                                       {
@@ -1364,43 +1365,51 @@
                                                                "children": [],
                                                                "type": "node",
                                                                "tags":[
-                                                                  "BinOp"
+                                                                  "Assign"
+                                                               ]
+                                                            },
+                                                            {
+                                                               "children": [
+                                                                  {
+                                                                     "children": [],
+                                                                     "type": "node",
+                                                                     "tags":[
+                                                                        "BinOp"
+                                                                     ]
+                                                                  }
+                                                               ],
+                                                               "type": "node",
+                                                               "tags":[
+                                                                  "Assign"
                                                                ]
                                                             }
                                                          ],
                                                          "type": "node",
                                                          "tags":[
-                                                            "Assign"
+                                                            "CompoundStmt"
                                                          ]
                                                       }
                                                    ],
                                                    "type": "node",
                                                    "tags":[
-                                                      "CompoundStmt"
+                                                      "If"
                                                    ]
                                                 }
                                              ],
                                              "type": "node",
                                              "tags":[
-                                                "If"
+                                                "IfBlock"
                                              ]
                                           },
                                           {
                                              "children": [
                                                 {
-                                                   "children": [],
-                                                   "type": "node",
-                                                   "tags":[
-                                                      "Comparison"
-                                                   ]
-                                                },
-                                                {
                                                    "children": [
                                                       {
                                                          "children": [],
                                                          "type": "node",
                                                          "tags":[
-                                                            "Assign"
+                                                            "Comparison"
                                                          ]
                                                       },
                                                       {
@@ -1409,25 +1418,40 @@
                                                                "children": [],
                                                                "type": "node",
                                                                "tags":[
-                                                                  "BinOp"
+                                                                  "Assign"
+                                                               ]
+                                                            },
+                                                            {
+                                                               "children": [
+                                                                  {
+                                                                     "children": [],
+                                                                     "type": "node",
+                                                                     "tags":[
+                                                                        "BinOp"
+                                                                     ]
+                                                                  }
+                                                               ],
+                                                               "type": "node",
+                                                               "tags":[
+                                                                  "Assign"
                                                                ]
                                                             }
                                                          ],
                                                          "type": "node",
                                                          "tags":[
-                                                            "Assign"
+                                                            "CompoundStmt"
                                                          ]
                                                       }
                                                    ],
                                                    "type": "node",
                                                    "tags":[
-                                                      "CompoundStmt"
+                                                      "If"
                                                    ]
                                                 }
                                              ],
                                              "type": "node",
                                              "tags":[
-                                                "If"
+                                                "IfBlock"
                                              ]
                                           }
                                        ],
@@ -2000,21 +2024,6 @@
                                     {
                                        "children": [
                                           {
-                                             "children": [],
-                                             "type": "node",
-                                             "tags":[
-                                                "Expr"
-                                             ]
-                                          }
-                                       ],
-                                       "type": "node",
-                                       "tags":[
-                                          "Comparison"
-                                       ]
-                                    },
-                                    {
-                                       "children": [
-                                          {
                                              "children": [
                                                 {
                                                    "children": [],
@@ -2026,19 +2035,42 @@
                                              ],
                                              "type": "node",
                                              "tags":[
-                                                "Assign"
+                                                "Comparison"
+                                             ]
+                                          },
+                                          {
+                                             "children": [
+                                                {
+                                                   "children": [
+                                                      {
+                                                         "children": [],
+                                                         "type": "node",
+                                                         "tags":[
+                                                            "Expr"
+                                                         ]
+                                                      }
+                                                   ],
+                                                   "type": "node",
+                                                   "tags":[
+                                                      "Assign"
+                                                   ]
+                                                }
+                                             ],
+                                             "type": "node",
+                                             "tags":[
+                                                "CompoundStmt"
                                              ]
                                           }
                                        ],
                                        "type": "node",
                                        "tags":[
-                                          "CompoundStmt"
+                                          "If"
                                        ]
                                     }
                                  ],
                                  "type": "node",
                                  "tags":[
-                                    "If"
+                                    "IfBlock"
                                  ]
                               },
                               {
@@ -2046,21 +2078,6 @@
                                     {
                                        "children": [
                                           {
-                                             "children": [],
-                                             "type": "node",
-                                             "tags":[
-                                                "Expr"
-                                             ]
-                                          }
-                                       ],
-                                       "type": "node",
-                                       "tags":[
-                                          "Comparison"
-                                       ]
-                                    },
-                                    {
-                                       "children": [
-                                          {
                                              "children": [
                                                 {
                                                    "children": [],
@@ -2072,19 +2089,42 @@
                                              ],
                                              "type": "node",
                                              "tags":[
-                                                "Assign"
+                                                "Comparison"
+                                             ]
+                                          },
+                                          {
+                                             "children": [
+                                                {
+                                                   "children": [
+                                                      {
+                                                         "children": [],
+                                                         "type": "node",
+                                                         "tags":[
+                                                            "Expr"
+                                                         ]
+                                                      }
+                                                   ],
+                                                   "type": "node",
+                                                   "tags":[
+                                                      "Assign"
+                                                   ]
+                                                }
+                                             ],
+                                             "type": "node",
+                                             "tags":[
+                                                "CompoundStmt"
                                              ]
                                           }
                                        ],
                                        "type": "node",
                                        "tags":[
-                                          "CompoundStmt"
+                                          "If"
                                        ]
                                     }
                                  ],
                                  "type": "node",
                                  "tags":[
-                                    "If"
+                                    "IfBlock"
                                  ]
                               }
                            ],

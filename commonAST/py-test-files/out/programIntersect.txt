@@ -343,45 +343,53 @@
                                           {
                                              "children": [
                                                 {
-                                                   "children": [],
-                                                   "type": "node",
-                                                   "tags":[
-                                                      "BinOp"
-                                                   ]
-                                                }
-                                             ],
-                                             "type": "node",
-                                             "tags":[
-                                                "Comparison"
-                                             ]
-                                          },
-                                          {
-                                             "children": [
-                                                {
                                                    "children": [
                                                       {
                                                          "children": [],
                                                          "type": "node",
                                                          "tags":[
-                                                            "args"
+                                                            "BinOp"
                                                          ]
                                                       }
                                                    ],
                                                    "type": "node",
                                                    "tags":[
-                                                      "Call"
+                                                      "Comparison"
+                                                   ]
+                                                },
+                                                {
+                                                   "children": [
+                                                      {
+                                                         "children": [
+                                                            {
+                                                               "children": [],
+                                                               "type": "node",
+                                                               "tags":[
+                                                                  "args"
+                                                               ]
+                                                            }
+                                                         ],
+                                                         "type": "node",
+                                                         "tags":[
+                                                            "Call"
+                                                         ]
+                                                      }
+                                                   ],
+                                                   "type": "node",
+                                                   "tags":[
+                                                      "CompoundStmt"
                                                    ]
                                                 }
                                              ],
                                              "type": "node",
                                              "tags":[
-                                                "CompoundStmt"
+                                                "If"
                                              ]
                                           }
                                        ],
                                        "type": "node",
                                        "tags":[
-                                          "If"
+                                          "IfBlock"
                                        ]
                                     },
                                     {
@@ -507,14 +515,14 @@
                                     {
                                        "children": [
                                           {
-                                             "children": [],
-                                             "type": "node",
-                                             "tags":[
-                                                "Comparison"
-                                             ]
-                                          },
-                                          {
                                              "children": [
+                                                {
+                                                   "children": [],
+                                                   "type": "node",
+                                                   "tags":[
+                                                      "Comparison"
+                                                   ]
+                                                },
                                                 {
                                                    "children": [
                                                       {
@@ -524,46 +532,54 @@
                                                                   {
                                                                      "children": [
                                                                         {
-                                                                           "children": [],
+                                                                           "children": [
+                                                                              {
+                                                                                 "children": [],
+                                                                                 "type": "node",
+                                                                                 "tags":[
+                                                                                    "BinOp"
+                                                                                 ]
+                                                                              }
+                                                                           ],
                                                                            "type": "node",
                                                                            "tags":[
-                                                                              "BinOp"
+                                                                              "args"
                                                                            ]
                                                                         }
                                                                      ],
                                                                      "type": "node",
                                                                      "tags":[
-                                                                        "args"
+                                                                        "Call"
                                                                      ]
                                                                   }
                                                                ],
                                                                "type": "node",
                                                                "tags":[
-                                                                  "Call"
+                                                                  "BinOp"
                                                                ]
                                                             }
                                                          ],
                                                          "type": "node",
                                                          "tags":[
-                                                            "BinOp"
+                                                            "Assign"
                                                          ]
                                                       }
                                                    ],
                                                    "type": "node",
                                                    "tags":[
-                                                      "Assign"
+                                                      "CompoundStmt"
                                                    ]
                                                 }
                                              ],
                                              "type": "node",
                                              "tags":[
-                                                "CompoundStmt"
+                                                "If"
                                              ]
                                           }
                                        ],
                                        "type": "node",
                                        "tags":[
-                                          "If"
+                                          "IfBlock"
                                        ]
                                     },
                                     {
@@ -594,75 +610,6 @@
                                                 {
                                                    "children": [
                                                       {
-                                                         "children": [],
-                                                         "type": "node",
-                                                         "tags":[
-                                                            "BinOp"
-                                                         ]
-                                                      }
-                                                   ],
-                                                   "type": "node",
-                                                   "tags":[
-                                                      "BinOp"
-                                                   ]
-                                                }
-                                             ],
-                                             "type": "node",
-                                             "tags":[
-                                                "Comparison"
-                                             ]
-                                          },
-                                          {
-                                             "children": [
-                                                {
-                                                   "children": [
-                                                      {
-                                                         "children": [],
-                                                         "type": "node",
-                                                         "tags":[
-                                                            "BinOp"
-                                                         ]
-                                                      }
-                                                   ],
-                                                   "type": "node",
-                                                   "tags":[
-                                                      "Assign"
-                                                   ]
-                                                }
-                                             ],
-                                             "type": "node",
-                                             "tags":[
-                                                "CompoundStmt"
-                                             ]
-                                          }
-                                       ],
-                                       "type": "node",
-                                       "tags":[
-                                          "If"
-                                       ]
-                                    },
-                                    {
-                                       "children": [
-                                          {
-                                             "children": [
-                                                {
-                                                   "children": [],
-                                                   "type": "node",
-                                                   "tags":[
-                                                      "BinOp"
-                                                   ]
-                                                }
-                                             ],
-                                             "type": "node",
-                                             "tags":[
-                                                "Comparison"
-                                             ]
-                                          },
-                                          {
-                                             "children": [
-                                                {
-                                                   "children": [
-                                                      {
                                                          "children": [
                                                             {
                                                                "children": [],
@@ -680,19 +627,104 @@
                                                    ],
                                                    "type": "node",
                                                    "tags":[
-                                                      "Assign"
+                                                      "Comparison"
+                                                   ]
+                                                },
+                                                {
+                                                   "children": [
+                                                      {
+                                                         "children": [
+                                                            {
+                                                               "children": [],
+                                                               "type": "node",
+                                                               "tags":[
+                                                                  "BinOp"
+                                                               ]
+                                                            }
+                                                         ],
+                                                         "type": "node",
+                                                         "tags":[
+                                                            "Assign"
+                                                         ]
+                                                      }
+                                                   ],
+                                                   "type": "node",
+                                                   "tags":[
+                                                      "CompoundStmt"
                                                    ]
                                                 }
                                              ],
                                              "type": "node",
                                              "tags":[
-                                                "CompoundStmt"
+                                                "If"
                                              ]
                                           }
                                        ],
                                        "type": "node",
                                        "tags":[
-                                          "If"
+                                          "IfBlock"
+                                       ]
+                                    },
+                                    {
+                                       "children": [
+                                          {
+                                             "children": [
+                                                {
+                                                   "children": [
+                                                      {
+                                                         "children": [],
+                                                         "type": "node",
+                                                         "tags":[
+                                                            "BinOp"
+                                                         ]
+                                                      }
+                                                   ],
+                                                   "type": "node",
+                                                   "tags":[
+                                                      "Comparison"
+                                                   ]
+                                                },
+                                                {
+                                                   "children": [
+                                                      {
+                                                         "children": [
+                                                            {
+                                                               "children": [
+                                                                  {
+                                                                     "children": [],
+                                                                     "type": "node",
+                                                                     "tags":[
+                                                                        "BinOp"
+                                                                     ]
+                                                                  }
+                                                               ],
+                                                               "type": "node",
+                                                               "tags":[
+                                                                  "BinOp"
+                                                               ]
+                                                            }
+                                                         ],
+                                                         "type": "node",
+                                                         "tags":[
+                                                            "Assign"
+                                                         ]
+                                                      }
+                                                   ],
+                                                   "type": "node",
+                                                   "tags":[
+                                                      "CompoundStmt"
+                                                   ]
+                                                }
+                                             ],
+                                             "type": "node",
+                                             "tags":[
+                                                "If"
+                                             ]
+                                          }
+                                       ],
+                                       "type": "node",
+                                       "tags":[
+                                          "IfBlock"
                                        ]
                                     }
                                  ],

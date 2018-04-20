@@ -18,31 +18,39 @@
                               {
                                  "children": [
                                     {
-                                       "children": [],
-                                       "type": "node",
-                                       "tags":[
-                                          "Comparison"
-                                       ]
-                                    },
-                                    {
                                        "children": [
                                           {
                                              "children": [],
                                              "type": "node",
                                              "tags":[
-                                                "AugAssign"
+                                                "Comparison"
+                                             ]
+                                          },
+                                          {
+                                             "children": [
+                                                {
+                                                   "children": [],
+                                                   "type": "node",
+                                                   "tags":[
+                                                      "AugAssign"
+                                                   ]
+                                                }
+                                             ],
+                                             "type": "node",
+                                             "tags":[
+                                                "CompoundStmt"
                                              ]
                                           }
                                        ],
                                        "type": "node",
                                        "tags":[
-                                          "CompoundStmt"
+                                          "If"
                                        ]
                                     }
                                  ],
                                  "type": "node",
                                  "tags":[
-                                    "If"
+                                    "IfBlock"
                                  ]
                               }
                            ],
