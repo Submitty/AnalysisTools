@@ -586,7 +586,23 @@
                         {
                            "children": [
                               {
-                                 "children": [],
+                                 "children": [
+                                    {
+                                       "children": [
+                                          {
+                                             "children": [],
+                                             "type": "node",
+                                             "tags":[
+                                                "Expr"
+                                             ]
+                                          }
+                                       ],
+                                       "type": "node",
+                                       "tags":[
+                                          "Expr"
+                                       ]
+                                    }
+                                 ],
                                  "type": "node",
                                  "tags":[
                                     "Assign"
@@ -733,6 +749,13 @@
                                        "type": "node",
                                        "tags":[
                                           "List"
+                                       ]
+                                    },
+                                    {
+                                       "children": [],
+                                       "type": "node",
+                                       "tags":[
+                                          "Expr"
                                        ]
                                     }
                                  ],

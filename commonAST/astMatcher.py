@@ -34,6 +34,7 @@ class Visitor(ast.NodeVisitor):
 
 
 	
+	'''
 	def chainedCalls(self, node, output, level, prevLevel):
 		strlevel = str(level)
 		strPrevLevel = str(prevLevel)
@@ -88,6 +89,8 @@ class Visitor(ast.NodeVisitor):
 		else:
 			return output
 
+	'''
+
 	def visit(self, node):
 		self.generic_visit(node)
 
@@ -101,7 +104,10 @@ class Visitor(ast.NodeVisitor):
 		hasRight = False
 		hasElts = False
 		hasExcept = False
+		hasFunc = False
+		hasTargets = False
 		hasValues = False
+		hasArgs = False
 		hasSlice = False
 		hasComparators = False
 		hasValue = False
@@ -121,8 +127,8 @@ class Visitor(ast.NodeVisitor):
 		elif isinstance(node, ast.FunctionDef):
 			output += "<functionDef," + strlevel + ">"
 			output += "\n<name: " + node.name + "," + strNextLevel + ">"
-			hasChildren = True
 			output += "\n<compoundStmt," + strNextLevel + ">"
+			hasBody = True
 		elif isinstance(node, ast.ClassDef):
 			output += "<classDef," + strlevel + ">"
 			output += "\n<name: " + node.name  + "," + strNextLevel + ">"
@@ -142,6 +148,7 @@ class Visitor(ast.NodeVisitor):
 		elif isinstance(node, ast.Assign):
 			output += "<assignment," + strlevel + ">"
 			hasValue = True
+			hasTargets = True
 		elif isinstance(node, ast.AugAssign):
 			output += "<augAssign,"+ strlevel + ">"
 			hasValue = True
@@ -194,24 +201,31 @@ class Visitor(ast.NodeVisitor):
 			hasLeft = True
 			hasComparators = True
 		elif isinstance(node, ast.Call):
+			hasArgs = True
+			hasFunc = True
 			if isinstance(node.func, ast.Attribute):
 				#calling from an object
+				'''
 				if(isinstance(node.func.value, ast.Call)):
 					self.chainedCalls(node,output,level, prevLevel)
-				else:
+				else:'''
+				if True:
 					if(hasattr(node.func.value, "id")):
 						output += "<object: "
 						output += node.func.value.id
 						output += "; calling func: "
 						output += node.func.attr
-						output += "," + strPrevLevel +  ">"
+						output += "," + strlevel +  ">"
+						#output += "," + strPrevLevel +  ">"
 
 					else:
 						output += "<calling func: "
 						output += node.func.attr
-						output += "," + strPrevLevel +  ">"
+						output += "," + strlevel +  ">"
+						#output += "," + strPrevLevel +  ">"
 
 
+				'''
 					output += "\n<args, " + strNextLevel + ">\n"
 					f.write(output);
 					output = ""
@@ -220,13 +234,18 @@ class Visitor(ast.NodeVisitor):
 						f.write(output);
 						output = ""
 					output += "</args,1>\n"
+				'''
 
 			elif isinstance(node.func, ast.Name):
 				output += "<calling func: "
 				output += node.func.id
 				if node.func.id == "print": 
-					output += "," + strPrevLevel +  ">"
+					output += "," + strlevel +  ">"
+					#output += "," + strPrevLevel +  ">"
 				else: output += "," + strlevel +  ">"
+	
+				'''
+
 				output += "\n<args, " + strNextLevel + ">\n"
 				f.write(output);
 				output = ""
@@ -235,8 +254,9 @@ class Visitor(ast.NodeVisitor):
 					f.write(output);
 					output = ""
 				output += "</args,1>\n"
-		elif isinstance(node, ast.Expr):
-			hasChildren = True
+				'''
+		elif isinstance(node, ast.Expr) or isinstance(node, ast.Attribute):
+			self.generic_visit(node.value, level, node)
 		elif isinstance(node, ast.List):
 			output += "<list," + strlevel + ">"
 			hasElts = True
@@ -252,7 +272,8 @@ class Visitor(ast.NodeVisitor):
 
 		
 		#if (isinstance(node, ast.FunctionDef) or hasBody or hasattr(node, "orelse") or hasExcept) and len(output) != 0:
-		if (isinstance(node, ast.FunctionDef) or hasBody or hasExcept) and len(output) != 0:
+		
+		if (hasBody or hasExcept) and len(output) != 0:
 			nextLevel += 1
 
 		if len(output) != 0:
@@ -261,10 +282,15 @@ class Visitor(ast.NodeVisitor):
 			output = ""
 
 		if hasValue:
-			self.generic_visit(node.value, nextLevel+1, node)
+			#self.generic_visit(node.value, nextLevel+1, node)
+			self.generic_visit(node.value, nextLevel, node)
 
 		if hasSlice:
 			self.generic_visit(node.slice, nextLevel+1, node)
+
+		if hasTargets:
+			for target in node.targets:
+				self.generic_visit(target, nextLevel, node)
 
 		if hasValues:
 			count = 1
@@ -289,6 +315,21 @@ class Visitor(ast.NodeVisitor):
 		if hasComparators:
 			for comp in node.comparators:
 				self.generic_visit(comp, nextLevel, node)
+
+		if hasArgs:
+			output += "<args, " + strNextLevel + ">\n"
+			f.write(output);
+			output = ""
+			for arg in node.args:
+				self.generic_visit(arg, nextLevel+1, node)
+				f.write(output);
+				output = ""
+			output += "</args,1>\n"
+			f.write(output);
+			output = ""
+
+		if hasFunc:
+			self.generic_visit(node.func, nextLevel, node)
 		
 		if hasLeft:
 			self.generic_visit(node.left, nextLevel, node)

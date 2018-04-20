@@ -449,7 +449,15 @@
                                     {
                                        "children": [
                                           {
-                                             "children": [],
+                                             "children": [
+                                                {
+                                                   "children": [],
+                                                   "type": "node",
+                                                   "tags":[
+                                                      "Expr"
+                                                   ]
+                                                }
+                                             ],
                                              "type": "node",
                                              "tags":[
                                                 "Assign"
@@ -478,6 +486,13 @@
                                                    "type": "node",
                                                    "tags":[
                                                       "Call"
+                                                   ]
+                                                },
+                                                {
+                                                   "children": [],
+                                                   "type": "node",
+                                                   "tags":[
+                                                      "Expr"
                                                    ]
                                                 }
                                              ],

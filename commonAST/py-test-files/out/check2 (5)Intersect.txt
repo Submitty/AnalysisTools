@@ -564,6 +564,13 @@
                                  "tags":[
                                     "Tuple"
                                  ]
+                              },
+                              {
+                                 "children": [],
+                                 "type": "node",
+                                 "tags":[
+                                    "Tuple"
+                                 ]
                               }
                            ],
                            "type": "node",
