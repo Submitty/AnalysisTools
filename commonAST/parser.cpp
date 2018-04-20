@@ -127,14 +127,8 @@ class Parser{
 				return (Expr*) parseUnaryOp(t->level);
 			}else if(t->value == "comparison"){
 				return (Expr*) parseComparison(t->level);
-			}else if(t->value == "list"){
-				return (Expr*) parseList(t->level);
-			}else if(t->value == "set"){
-				return (Expr*) parseSet(t->level);
-			}else if(t->value == "dict"){
-				return (Expr*) parseDict(t->level);
-			}else if(t->value == "tuple"){
-				return (Expr*) parseTuple(t->level);
+			}else if(t->value == "container"){
+				return (Expr*) parseContainer(t->level);
 			}else if(t->value.compare(0, compVal.length(), compVal) == 0){
 				return (Expr*) parseCallingFunc(t->value, t->level);
 			}else if(t->value.compare(0, objCompVal.length(), objCompVal) == 0){
@@ -243,7 +237,7 @@ class Parser{
 
 			c->func = val.substr(pos+2);
 			c->argsList = parseArgs();
-			//c->otherChildren = parseBody(level);
+			c->otherChildren = parseBody(level);
 			return c;
 		}
 
@@ -593,44 +587,14 @@ class Parser{
 			return cp;
 		}
 
-		List* parseList(int level){
-			List* l = new List();
-		
-			while(getLookaheadToken()-> level > level){
-				l->values.push_back(parseExpr());
-			}
-
-			return l;
-		}
-
-		Tuple* parseTuple(int level){
-			Tuple* t= new Tuple();
-		
-			while(getLookaheadToken()-> level > level){
-				t->values.push_back(parseExpr());
-			}
-			
-			return t;
-		}
-
-		Dict* parseDict(int level){
-			Dict* d= new Dict();
+		Container* parseContainer(int level){
+			Container* c = new Container();
 
 			while(getLookaheadToken()-> level > level){
-				d->values.push_back(parseExpr());
-			}
-			
-			return d;
-		}
-
-		Set* parseSet(int level){
-			Set* s = new Set();
-
-			while(getLookaheadToken()-> level > level){
-				s->values.push_back(parseExpr());
+				c->values.push_back(parseExpr());
 			}
 	
-			return s;
+			return c;
 		}
 
 		UnaryOp* parseUnaryOp(int level){
@@ -741,7 +705,7 @@ bool isExpr(string val){
 
 	string objCompVal("object:");
 	string compVal("calling func");
-	return val == "subscript" || val == "binaryOp" || val == "unaryOp" || val == "comparison"|| val == "list" || val == "set" || val == "dict" || val == "tuple" || (val.compare(0, compVal.length(), compVal) == 0) || val.compare(0, objCompVal.length(), objCompVal) == 0;
+	return val == "subscript" || val == "binaryOp" || val == "unaryOp" || val == "comparison"|| val == "container" || (val.compare(0, compVal.length(), compVal) == 0) || val.compare(0, objCompVal.length(), objCompVal) == 0;
 }
 
 bool isStmt(string val){

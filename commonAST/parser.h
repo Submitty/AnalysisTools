@@ -145,11 +145,10 @@ class Module : public ASTNode{
 		list<ASTNode*> body;
 };
 
-
-class Dict: public Expr{
+class Container: public Expr{
 	public:
 		string getType(){
-			return "Dict";
+			return "Container";
 		}
 
 
@@ -167,98 +166,7 @@ class Dict: public Expr{
 			cout << getIndentation(level);
 			cout << "-----------------" << endl;
 			cout << getIndentation(level);
-			cout << "- Dict: " << endl;
-			cout << getIndentation(level);
-			cout << "-----------------" << endl;
-		}
-
-		list<ASTNode*> values;
-};
-
-
-
-
-class Set: public Expr{
-	public:
-		string getType(){
-			return "Set";
-		}
-
-
-		list<ASTNode*> getChildren(){
-			return values;
-		}
-
-
-		void accept(CounterVisitor& v){
-			v.visit(this);
-		}
-
-
-		void printNode(int level){
-			cout << getIndentation(level);
-			cout << "-----------------" << endl;
-			cout << getIndentation(level);
-			cout << "- Set: " << endl;
-			cout << getIndentation(level);
-			cout << "-----------------" << endl;
-		}
-
-		list<ASTNode*> values;
-};
-
-
-class Tuple: public Expr{
-	public:
-		string getType(){
-			return "Tuple";
-		}
-
-
-		list<ASTNode*> getChildren(){
-			return values;
-		}
-
-
-		void accept(CounterVisitor& v){
-			v.visit(this);
-		}
-
-
-		void printNode(int level){
-			cout << getIndentation(level);
-			cout << "-----------------" << endl;
-			cout << getIndentation(level);
-			cout << "- Tuple: " << endl;
-			cout << getIndentation(level);
-			cout << "-----------------" << endl;
-		}
-
-		list<ASTNode*> values;
-};
-
-class List: public Expr{
-	public:
-		string getType(){
-			return "List";
-		}
-
-
-		list<ASTNode*> getChildren(){
-			return values;
-		}
-
-
-		void accept(CounterVisitor& v){
-			v.visit(this);
-		}
-
-
-		void printNode(int level){
-			cout << getIndentation(level);
-			cout << "-----------------" << endl;
-			cout << getIndentation(level);
-			cout << "- List: " << endl;
+			cout << "- Container: " << endl;
 			cout << getIndentation(level);
 			cout << "-----------------" << endl;
 		}

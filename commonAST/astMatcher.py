@@ -201,16 +201,16 @@ class Visitor(ast.NodeVisitor):
 		elif isinstance(node, ast.Expr) or isinstance(node, ast.Attribute):
 			self.generic_visit(node.value, level, node)
 		elif isinstance(node, ast.List):
-			output += "<list," + strlevel + ">"
+			output += "<container," + strlevel + ">"
 			hasElts = True
 		elif isinstance(node, ast.Tuple):
-			output += "<tuple," + strlevel + ">"
+			output += "<container," + strlevel + ">"
 			hasElts = True
 		elif isinstance(node, ast.Dict):
-			output += "<dict," + strlevel + ">"
+			output += "<container," + strlevel + ">"
 			hasChildren = True
 		elif isinstance(node, ast.Set):
-			output += "<set," + strlevel + ">"
+			output += "<container," + strlevel + ">"
 			hasElts = True
 
 		

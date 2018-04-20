@@ -32,7 +32,7 @@
                            "children": [],
                            "type": "node",
                            "tags":[
-                              "List"
+                              "Container"
                            ]
                         }
                      ],
