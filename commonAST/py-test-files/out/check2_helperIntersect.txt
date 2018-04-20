@@ -36,14 +36,14 @@
                   {
                      "children": [
                         {
-                           "children": [],
-                           "type": "node",
-                           "tags":[
-                              "Comparison"
-                           ]
-                        },
-                        {
                            "children": [
+                              {
+                                 "children": [],
+                                 "type": "node",
+                                 "tags":[
+                                    "Comparison"
+                                 ]
+                              },
                               {
                                  "children": [
                                     {
@@ -51,34 +51,42 @@
                                           {
                                              "children": [
                                                 {
-                                                   "children": [],
+                                                   "children": [
+                                                      {
+                                                         "children": [],
+                                                         "type": "node",
+                                                         "tags":[
+                                                            "Tuple"
+                                                         ]
+                                                      }
+                                                   ],
                                                    "type": "node",
                                                    "tags":[
-                                                      "Tuple"
+                                                      "args"
                                                    ]
                                                 }
                                              ],
                                              "type": "node",
                                              "tags":[
-                                                "args"
+                                                "Call"
                                              ]
                                           }
                                        ],
                                        "type": "node",
                                        "tags":[
-                                          "Call"
+                                          "Assign"
                                        ]
                                     }
                                  ],
                                  "type": "node",
                                  "tags":[
-                                    "Assign"
+                                    "CompoundStmt"
                                  ]
                               }
                            ],
                            "type": "node",
                            "tags":[
-                              "CompoundStmt"
+                              "If"
                            ]
                         },
                         {
@@ -138,7 +146,7 @@
                      ],
                      "type": "node",
                      "tags":[
-                        "If"
+                        "If Block"
                      ]
                   },
                   {

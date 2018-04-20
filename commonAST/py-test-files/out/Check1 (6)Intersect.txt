@@ -125,20 +125,20 @@
                                     {
                                        "children": [
                                           {
-                                             "children": [],
+                                             "children": [
+                                                {
+                                                   "children": [],
+                                                   "type": "node",
+                                                   "tags":[
+                                                      "args"
+                                                   ]
+                                                }
+                                             ],
                                              "type": "node",
                                              "tags":[
-                                                "args"
+                                                "Call"
                                              ]
-                                          }
-                                       ],
-                                       "type": "node",
-                                       "tags":[
-                                          "Call"
-                                       ]
-                                    },
-                                    {
-                                       "children": [
+                                          },
                                           {
                                              "children": [
                                                 {
@@ -148,55 +148,63 @@
                                                             {
                                                                "children": [
                                                                   {
-                                                                     "children": [],
+                                                                     "children": [
+                                                                        {
+                                                                           "children": [],
+                                                                           "type": "node",
+                                                                           "tags":[
+                                                                              "Expr"
+                                                                           ]
+                                                                        }
+                                                                     ],
                                                                      "type": "node",
                                                                      "tags":[
-                                                                        "Expr"
+                                                                        "args"
                                                                      ]
                                                                   }
                                                                ],
                                                                "type": "node",
                                                                "tags":[
-                                                                  "args"
+                                                                  "Call"
                                                                ]
                                                             }
                                                          ],
                                                          "type": "node",
                                                          "tags":[
-                                                            "Call"
+                                                            "Tuple"
                                                          ]
                                                       }
                                                    ],
                                                    "type": "node",
                                                    "tags":[
-                                                      "Tuple"
+                                                      "Assign"
                                                    ]
-                                                }
-                                             ],
-                                             "type": "node",
-                                             "tags":[
-                                                "Assign"
-                                             ]
-                                          },
-                                          {
-                                             "children": [
+                                                },
                                                 {
-                                                   "children": [],
+                                                   "children": [
+                                                      {
+                                                         "children": [],
+                                                         "type": "node",
+                                                         "tags":[
+                                                            "BinOp"
+                                                         ]
+                                                      }
+                                                   ],
                                                    "type": "node",
                                                    "tags":[
-                                                      "BinOp"
+                                                      "Assign"
                                                    ]
                                                 }
                                              ],
                                              "type": "node",
                                              "tags":[
-                                                "Assign"
+                                                "CompoundStmt"
                                              ]
                                           }
                                        ],
                                        "type": "node",
                                        "tags":[
-                                          "CompoundStmt"
+                                          "If"
                                        ]
                                     },
                                     {
@@ -217,7 +225,7 @@
                                  ],
                                  "type": "node",
                                  "tags":[
-                                    "If"
+                                    "If Block"
                                  ]
                               },
                               {

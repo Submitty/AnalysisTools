@@ -203,46 +203,54 @@
                                     {
                                        "children": [
                                           {
-                                             "children": [],
-                                             "type": "node",
-                                             "tags":[
-                                                "UnaryOp"
-                                             ]
-                                          },
-                                          {
-                                             "children": [],
-                                             "type": "node",
-                                             "tags":[
-                                                "Expr"
-                                             ]
-                                          }
-                                       ],
-                                       "type": "node",
-                                       "tags":[
-                                          "Comparison"
-                                       ]
-                                    },
-                                    {
-                                       "children": [
-                                          {
                                              "children": [
                                                 {
                                                    "children": [],
                                                    "type": "node",
                                                    "tags":[
-                                                      "args"
+                                                      "UnaryOp"
+                                                   ]
+                                                },
+                                                {
+                                                   "children": [],
+                                                   "type": "node",
+                                                   "tags":[
+                                                      "Expr"
                                                    ]
                                                 }
                                              ],
                                              "type": "node",
                                              "tags":[
-                                                "Call"
+                                                "Comparison"
+                                             ]
+                                          },
+                                          {
+                                             "children": [
+                                                {
+                                                   "children": [
+                                                      {
+                                                         "children": [],
+                                                         "type": "node",
+                                                         "tags":[
+                                                            "args"
+                                                         ]
+                                                      }
+                                                   ],
+                                                   "type": "node",
+                                                   "tags":[
+                                                      "Call"
+                                                   ]
+                                                }
+                                             ],
+                                             "type": "node",
+                                             "tags":[
+                                                "CompoundStmt"
                                              ]
                                           }
                                        ],
                                        "type": "node",
                                        "tags":[
-                                          "CompoundStmt"
+                                          "If"
                                        ]
                                     },
                                     {
@@ -284,6 +292,36 @@
                                              "tags":[
                                                 "CompoundStmt"
                                              ]
+                                          }
+                                       ],
+                                       "type": "node",
+                                       "tags":[
+                                          "If"
+                                       ]
+                                    },
+                                    {
+                                       "children": [
+                                          {
+                                             "children": [
+                                                {
+                                                   "children": [],
+                                                   "type": "node",
+                                                   "tags":[
+                                                      "Expr"
+                                                   ]
+                                                },
+                                                {
+                                                   "children": [],
+                                                   "type": "node",
+                                                   "tags":[
+                                                      "UnaryOp"
+                                                   ]
+                                                }
+                                             ],
+                                             "type": "node",
+                                             "tags":[
+                                                "Comparison"
+                                             ]
                                           },
                                           {
                                              "children": [
@@ -293,49 +331,19 @@
                                                          "children": [],
                                                          "type": "node",
                                                          "tags":[
-                                                            "Expr"
-                                                         ]
-                                                      },
-                                                      {
-                                                         "children": [],
-                                                         "type": "node",
-                                                         "tags":[
-                                                            "UnaryOp"
+                                                            "args"
                                                          ]
                                                       }
                                                    ],
                                                    "type": "node",
                                                    "tags":[
-                                                      "Comparison"
-                                                   ]
-                                                },
-                                                {
-                                                   "children": [
-                                                      {
-                                                         "children": [
-                                                            {
-                                                               "children": [],
-                                                               "type": "node",
-                                                               "tags":[
-                                                                  "args"
-                                                               ]
-                                                            }
-                                                         ],
-                                                         "type": "node",
-                                                         "tags":[
-                                                            "Call"
-                                                         ]
-                                                      }
-                                                   ],
-                                                   "type": "node",
-                                                   "tags":[
-                                                      "CompoundStmt"
+                                                      "Call"
                                                    ]
                                                 }
                                              ],
                                              "type": "node",
                                              "tags":[
-                                                "If"
+                                                "CompoundStmt"
                                              ]
                                           }
                                        ],
@@ -347,7 +355,7 @@
                                  ],
                                  "type": "node",
                                  "tags":[
-                                    "If"
+                                    "If Block"
                                  ]
                               }
                            ],
@@ -796,41 +804,49 @@
       {
          "children": [
             {
-               "children": [],
-               "type": "node",
-               "tags":[
-                  "Comparison"
-               ]
-            },
-            {
                "children": [
+                  {
+                     "children": [],
+                     "type": "node",
+                     "tags":[
+                        "Comparison"
+                     ]
+                  },
                   {
                      "children": [
                         {
                            "children": [
                               {
-                                 "children": [],
+                                 "children": [
+                                    {
+                                       "children": [],
+                                       "type": "node",
+                                       "tags":[
+                                          "BinOp"
+                                       ]
+                                    }
+                                 ],
                                  "type": "node",
                                  "tags":[
-                                    "BinOp"
+                                    "args"
                                  ]
                               }
                            ],
                            "type": "node",
                            "tags":[
-                              "args"
+                              "Call"
                            ]
                         }
                      ],
                      "type": "node",
                      "tags":[
-                        "Call"
+                        "CompoundStmt"
                      ]
                   }
                ],
                "type": "node",
                "tags":[
-                  "CompoundStmt"
+                  "If"
                ]
             },
             {
@@ -872,29 +888,6 @@
                      "tags":[
                         "CompoundStmt"
                      ]
-                  },
-                  {
-                     "children": [
-                        {
-                           "children": [
-                              {
-                                 "children": [],
-                                 "type": "node",
-                                 "tags":[
-                                    "args"
-                                 ]
-                              }
-                           ],
-                           "type": "node",
-                           "tags":[
-                              "Call"
-                           ]
-                        }
-                     ],
-                     "type": "node",
-                     "tags":[
-                        "CompoundStmt"
-                     ]
                   }
                ],
                "type": "node",
@@ -905,7 +898,7 @@
          ],
          "type": "node",
          "tags":[
-            "If"
+            "If Block"
          ]
       }
    ],

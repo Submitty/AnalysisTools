@@ -157,25 +157,33 @@
                         {
                            "children": [
                               {
-                                 "children": [],
-                                 "type": "node",
-                                 "tags":[
-                                    "Comparison"
-                                 ]
-                              },
-                              {
                                  "children": [
                                     {
                                        "children": [],
                                        "type": "node",
                                        "tags":[
-                                          "Assign"
+                                          "Comparison"
+                                       ]
+                                    },
+                                    {
+                                       "children": [
+                                          {
+                                             "children": [],
+                                             "type": "node",
+                                             "tags":[
+                                                "Assign"
+                                             ]
+                                          }
+                                       ],
+                                       "type": "node",
+                                       "tags":[
+                                          "CompoundStmt"
                                        ]
                                     }
                                  ],
                                  "type": "node",
                                  "tags":[
-                                    "CompoundStmt"
+                                    "If"
                                  ]
                               },
                               {
@@ -196,7 +204,7 @@
                            ],
                            "type": "node",
                            "tags":[
-                              "If"
+                              "If Block"
                            ]
                         }
                      ],

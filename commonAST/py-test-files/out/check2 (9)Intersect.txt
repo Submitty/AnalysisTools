@@ -462,46 +462,54 @@
                         {
                            "children": [
                               {
-                                 "children": [],
-                                 "type": "node",
-                                 "tags":[
-                                    "Expr"
-                                 ]
-                              }
-                           ],
-                           "type": "node",
-                           "tags":[
-                              "Comparison"
-                           ]
-                        },
-                        {
-                           "children": [
-                              {
                                  "children": [
                                     {
                                        "children": [],
                                        "type": "node",
                                        "tags":[
-                                          "args"
+                                          "Expr"
                                        ]
                                     }
                                  ],
                                  "type": "node",
                                  "tags":[
-                                    "Call"
+                                    "Comparison"
                                  ]
                               },
                               {
-                                 "children": [],
+                                 "children": [
+                                    {
+                                       "children": [
+                                          {
+                                             "children": [],
+                                             "type": "node",
+                                             "tags":[
+                                                "args"
+                                             ]
+                                          }
+                                       ],
+                                       "type": "node",
+                                       "tags":[
+                                          "Call"
+                                       ]
+                                    },
+                                    {
+                                       "children": [],
+                                       "type": "node",
+                                       "tags":[
+                                          "Return"
+                                       ]
+                                    }
+                                 ],
                                  "type": "node",
                                  "tags":[
-                                    "Return"
+                                    "CompoundStmt"
                                  ]
                               }
                            ],
                            "type": "node",
                            "tags":[
-                              "CompoundStmt"
+                              "If"
                            ]
                         },
                         {
@@ -538,7 +546,7 @@
                      ],
                      "type": "node",
                      "tags":[
-                        "If"
+                        "If Block"
                      ]
                   },
                   {

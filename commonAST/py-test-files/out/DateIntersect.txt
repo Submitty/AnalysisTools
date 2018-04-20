@@ -190,38 +190,46 @@
                               {
                                  "children": [
                                     {
-                                       "children": [],
+                                       "children": [
+                                          {
+                                             "children": [],
+                                             "type": "node",
+                                             "tags":[
+                                                "Comparison"
+                                             ]
+                                          },
+                                          {
+                                             "children": [],
+                                             "type": "node",
+                                             "tags":[
+                                                "Comparison"
+                                             ]
+                                          }
+                                       ],
                                        "type": "node",
                                        "tags":[
-                                          "Comparison"
+                                          "BinOp"
                                        ]
                                     },
                                     {
-                                       "children": [],
+                                       "children": [
+                                          {
+                                             "children": [],
+                                             "type": "node",
+                                             "tags":[
+                                                "Return"
+                                             ]
+                                          }
+                                       ],
                                        "type": "node",
                                        "tags":[
-                                          "Comparison"
+                                          "CompoundStmt"
                                        ]
                                     }
                                  ],
                                  "type": "node",
                                  "tags":[
-                                    "BinOp"
-                                 ]
-                              },
-                              {
-                                 "children": [
-                                    {
-                                       "children": [],
-                                       "type": "node",
-                                       "tags":[
-                                          "Return"
-                                       ]
-                                    }
-                                 ],
-                                 "type": "node",
-                                 "tags":[
-                                    "CompoundStmt"
+                                    "If"
                                  ]
                               },
                               {
@@ -242,7 +250,7 @@
                            ],
                            "type": "node",
                            "tags":[
-                              "If"
+                              "If Block"
                            ]
                         }
                      ],
