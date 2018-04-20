@@ -34,6 +34,53 @@
                            "tags":[
                               "CompoundStmt"
                            ]
+                        },
+                        {
+                           "children": [
+                              {
+                                 "children": [
+                                    {
+                                       "children": [
+                                          {
+                                             "children": [
+                                                {
+                                                   "children": [
+                                                      {
+                                                         "children": [],
+                                                         "type": "node",
+                                                         "tags":[
+                                                            "BinOp"
+                                                         ]
+                                                      }
+                                                   ],
+                                                   "type": "node",
+                                                   "tags":[
+                                                      "args"
+                                                   ]
+                                                }
+                                             ],
+                                             "type": "node",
+                                             "tags":[
+                                                "Call"
+                                             ]
+                                          }
+                                       ],
+                                       "type": "node",
+                                       "tags":[
+                                          "BinOp"
+                                       ]
+                                    }
+                                 ],
+                                 "type": "node",
+                                 "tags":[
+                                    "Return"
+                                 ]
+                              }
+                           ],
+                           "type": "node",
+                           "tags":[
+                              "CompoundStmt"
+                           ]
                         }
                      ],
                      "type": "node",
@@ -87,6 +134,91 @@
                            "tags":[
                               "CompoundStmt"
                            ]
+                        },
+                        {
+                           "children": [
+                              {
+                                 "children": [],
+                                 "type": "node",
+                                 "tags":[
+                                    "Comparison"
+                                 ]
+                              },
+                              {
+                                 "children": [
+                                    {
+                                       "children": [],
+                                       "type": "node",
+                                       "tags":[
+                                          "Return"
+                                       ]
+                                    }
+                                 ],
+                                 "type": "node",
+                                 "tags":[
+                                    "CompoundStmt"
+                                 ]
+                              },
+                              {
+                                 "children": [
+                                    {
+                                       "children": [
+                                          {
+                                             "children": [
+                                                {
+                                                   "children": [
+                                                      {
+                                                         "children": [
+                                                            {
+                                                               "children": [
+                                                                  {
+                                                                     "children": [],
+                                                                     "type": "node",
+                                                                     "tags":[
+                                                                        "BinOp"
+                                                                     ]
+                                                                  }
+                                                               ],
+                                                               "type": "node",
+                                                               "tags":[
+                                                                  "args"
+                                                               ]
+                                                            }
+                                                         ],
+                                                         "type": "node",
+                                                         "tags":[
+                                                            "Call"
+                                                         ]
+                                                      }
+                                                   ],
+                                                   "type": "node",
+                                                   "tags":[
+                                                      "args"
+                                                   ]
+                                                }
+                                             ],
+                                             "type": "node",
+                                             "tags":[
+                                                "Call"
+                                             ]
+                                          }
+                                       ],
+                                       "type": "node",
+                                       "tags":[
+                                          "Return"
+                                       ]
+                                    }
+                                 ],
+                                 "type": "node",
+                                 "tags":[
+                                    "CompoundStmt"
+                                 ]
+                              }
+                           ],
+                           "type": "node",
+                           "tags":[
+                              "If"
+                           ]
                         }
                      ],
                      "type": "node",
@@ -232,6 +364,151 @@
                            "type": "node",
                            "tags":[
                               "CompoundStmt"
+                           ]
+                        },
+                        {
+                           "children": [
+                              {
+                                 "children": [],
+                                 "type": "node",
+                                 "tags":[
+                                    "Comparison"
+                                 ]
+                              },
+                              {
+                                 "children": [
+                                    {
+                                       "children": [],
+                                       "type": "node",
+                                       "tags":[
+                                          "Return"
+                                       ]
+                                    }
+                                 ],
+                                 "type": "node",
+                                 "tags":[
+                                    "CompoundStmt"
+                                 ]
+                              },
+                              {
+                                 "children": [
+                                    {
+                                       "children": [],
+                                       "type": "node",
+                                       "tags":[
+                                          "Comparison"
+                                       ]
+                                    },
+                                    {
+                                       "children": [
+                                          {
+                                             "children": [],
+                                             "type": "node",
+                                             "tags":[
+                                                "Return"
+                                             ]
+                                          }
+                                       ],
+                                       "type": "node",
+                                       "tags":[
+                                          "CompoundStmt"
+                                       ]
+                                    },
+                                    {
+                                       "children": [
+                                          {
+                                             "children": [],
+                                             "type": "node",
+                                             "tags":[
+                                                "Comparison"
+                                             ]
+                                          },
+                                          {
+                                             "children": [
+                                                {
+                                                   "children": [],
+                                                   "type": "node",
+                                                   "tags":[
+                                                      "Return"
+                                                   ]
+                                                }
+                                             ],
+                                             "type": "node",
+                                             "tags":[
+                                                "CompoundStmt"
+                                             ]
+                                          },
+                                          {
+                                             "children": [
+                                                {
+                                                   "children": [
+                                                      {
+                                                         "children": [
+                                                            {
+                                                               "children": [
+                                                                  {
+                                                                     "children": [
+                                                                        {
+                                                                           "children": [
+                                                                              {
+                                                                                 "children": [],
+                                                                                 "type": "node",
+                                                                                 "tags":[
+                                                                                    "BinOp"
+                                                                                 ]
+                                                                              }
+                                                                           ],
+                                                                           "type": "node",
+                                                                           "tags":[
+                                                                              "args"
+                                                                           ]
+                                                                        }
+                                                                     ],
+                                                                     "type": "node",
+                                                                     "tags":[
+                                                                        "Call"
+                                                                     ]
+                                                                  }
+                                                               ],
+                                                               "type": "node",
+                                                               "tags":[
+                                                                  "args"
+                                                               ]
+                                                            }
+                                                         ],
+                                                         "type": "node",
+                                                         "tags":[
+                                                            "Call"
+                                                         ]
+                                                      }
+                                                   ],
+                                                   "type": "node",
+                                                   "tags":[
+                                                      "Return"
+                                                   ]
+                                                }
+                                             ],
+                                             "type": "node",
+                                             "tags":[
+                                                "CompoundStmt"
+                                             ]
+                                          }
+                                       ],
+                                       "type": "node",
+                                       "tags":[
+                                          "If"
+                                       ]
+                                    }
+                                 ],
+                                 "type": "node",
+                                 "tags":[
+                                    "If"
+                                 ]
+                              }
+                           ],
+                           "type": "node",
+                           "tags":[
+                              "If"
                            ]
                         }
                      ],

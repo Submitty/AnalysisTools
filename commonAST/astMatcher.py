@@ -138,10 +138,20 @@ class Visitor(ast.NodeVisitor):
 			output = ""
 			self.generic_visit(node.test, nextLevel, node)
 			output += "</cond,1>\n"
+			f.write(output)
+			output = ""
+
+			orelseLevel = nextLevel
+
+			if len(node.orelse) > 1 or (len(node.orelse) > 0 and not isinstance(node.orelse[0], ast.If)):
+				output = "<elseStatement," + strNextLevel + ">\n"
+				orelseLevel += 1
+
 			for orelse in node.orelse:
 				f.write(output)
 				output = ""
-				self.generic_visit(node.orelse, nextLevel, node)
+				self.generic_visit(orelse, orelseLevel, node)
+
 			output += "<compoundStmt," + strNextLevel + ">"
 		elif isinstance(node, ast.Raise):
 			output += "<raisingException," + strlevel + ">"
@@ -234,7 +244,8 @@ class Visitor(ast.NodeVisitor):
 			hasElts = True
 
 		
-		if (isinstance(node, ast.FunctionDef) or hasBody or hasattr(node, "orelse") or hasExcept) and len(output) != 0:
+		#if (isinstance(node, ast.FunctionDef) or hasBody or hasattr(node, "orelse") or hasExcept) and len(output) != 0:
+		if (isinstance(node, ast.FunctionDef) or hasBody or hasExcept) and len(output) != 0:
 			nextLevel += 1
 
 		if len(output) != 0:

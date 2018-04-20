@@ -66,7 +66,7 @@ class Parser{
 				return (Stmt*) parseFunctionDef(t->level);
 			}else if(t->value == "classDef"){
 				return (Stmt*) parseClassDef(t->level);
-			}else if(t->value == "compoundStmt"){
+			}else if(t->value == "compoundStmt") {
 				return (Stmt*) parseCompoundStmt();
 			}else if(t->value == "return"){
 				return (Stmt*) parseReturn(t->level);
@@ -84,7 +84,7 @@ class Parser{
 				return (Stmt*) parseWhile(t->level);
 			}else if(t->value == "do"){
 				return (Stmt*) parseDoWhile(t->level);
-			}else if(t->value == "ifStatement"){
+			}else if(t->value == "ifStatement") {
 				return (Stmt*) parseIf(t->level);
 			}else if(t->value == "importing"){
 				return (Stmt*) parseImport(t->level);	
@@ -254,6 +254,7 @@ class Parser{
 			c->func = val.substr(pos+2);
 			c->argsList = parseArgs();
 			c->otherChildren = parseBody(level);
+			if(printDebug) { cerr << "Done parsing calling func" << endl; }
 			return c;
 		}
 
@@ -288,8 +289,16 @@ class Parser{
 				exit(1);
 			}
 
+			return parseCompoundStmtHelper(t);
+		}
+
+
+		CompoundStmt* parseCompoundStmtHelper(Token* t){
 			CompoundStmt* cs = new CompoundStmt();
+			if(printDebug) { cerr << "parsing anything with level greater than: " << t->level << endl; }
 			while(getLookaheadToken()->level > t->level){
+				if(printDebug){ cerr << "lookahead level: " << getLookaheadToken()->level << endl; }
+
 				if(isExpr(getLookaheadToken()->value)){
 					cs->body.push_back(parseExpr());	
 				}else if(isStmt(getLookaheadToken()->value)){
@@ -301,6 +310,8 @@ class Parser{
 					exit(1);
 				}
 			}	
+
+			if(printDebug) { cerr << "Done parsing compound stmt" << endl; }
 			return cs;
 		}
 
@@ -375,6 +386,9 @@ class Parser{
 			while(getLookaheadToken()->level > level && getLookaheadToken()->value != "END") {
 				assign->targets.push_back(parseExpr());
 			}
+			
+			if(printDebug){ cout << "done parsing assignment" << endl; }
+	
 			return assign;
 		}
 
@@ -451,21 +465,28 @@ class Parser{
 				cerr << "parsing If's compoundStmt: " << getLookaheadToken()->value << endl;
 			}
 
+
+						
+			while(getLookaheadToken()->level > level && getLookaheadToken()->value == "ifStatement"){
+				if( printDebug) { cerr << "parsing a sub if statement" << endl; }
+				Token* t = getToken();
+				i->orelses.push_back(parseIf(t->level));
+				if(printDebug) { cout<< "Done parsing sub if statement" << endl;}
+			}
+
+			if(getLookaheadToken()->level > level && getLookaheadToken()->value == "elseStatement"){
+				i->orelses.push_back(parseCompoundStmtHelper(getToken()));
+			}
+
+			
 			if(getLookaheadToken()->value == "compoundStmt"){
+				if(printDebug) { cerr << "parsing if's compound stmt" << endl; }
 				i->compoundStmt = parseCompoundStmt();
+				if(printDebug) { cout<< "Done parsing sub if's compound stmt" << endl;}
 			}else{
 				i->body = parseBody(level);	
 			}
 
-
-			if(getLookaheadToken()->level > level && getLookaheadToken()->value == "elseStatement"){
-				i->orelse = parseCompoundStmt();
-			}else if(getLookaheadToken()->level > level && getLookaheadToken()->value == "ifSatement"){
-				Token* t = getToken();
-				i->orelse = parseIf(t->level);
-			}else{
-				i->orelse = NULL;
-			}
 			return i;
 		}
 

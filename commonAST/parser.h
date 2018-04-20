@@ -581,8 +581,9 @@ class If: public Stmt{
 				}
 			}
 
-			if(orelse){
-				children.push_back((ASTNode*)orelse);
+			list<Stmt*>::iterator itr;
+			for(itr=orelses.begin(); itr != orelses.end(); itr++){
+				children.push_back(*itr);	
 			}
 			return children;
 		}
@@ -607,7 +608,7 @@ class If: public Stmt{
 		Expr* test;
 		CompoundStmt* compoundStmt;
 		list<ASTNode*> body;
-		Stmt* orelse;	
+		list<Stmt*> orelses;	
 };
 
 class Bases: public Stmt{
