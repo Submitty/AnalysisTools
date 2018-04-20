@@ -315,13 +315,6 @@
                      "tags":[
                         "AugAssign"
                      ]
-                  },
-                  {
-                     "children": [],
-                     "type": "node",
-                     "tags":[
-                        "Expr"
-                     ]
                   }
                ],
                "type": "node",

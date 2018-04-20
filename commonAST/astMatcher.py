@@ -141,7 +141,7 @@ class Visitor(ast.NodeVisitor):
 			hasValue = True
 		elif isinstance(node, ast.AugAssign):
 			output += "<augAssign,"+ strlevel + ">"
-			hasChildren = True
+			hasValue = True
 		elif isinstance(node, ast.For):
 			output += "<forLoop," + strlevel + ">\n"
 			f.write(output)
@@ -175,6 +175,7 @@ class Visitor(ast.NodeVisitor):
 			output = ""'''
 
 
+			'''
 			if len(node.orelse) > 1 or (len(node.orelse) > 0 and not isinstance(node.orelse[0], ast.If)):
 				output = "<elseStatement," + strNextLevel + ">\n"
 
@@ -183,7 +184,7 @@ class Visitor(ast.NodeVisitor):
 					output = ""
 					self.generic_visit(orelse, level+2, node)
 				
-			'''if isinstance(orelse, ast.If):
+			if isinstance(orelse, ast.If):
 					self.nestedIfHelper(node, nextLevel)	
 				else:
 					f.write(output)
