@@ -160,6 +160,7 @@ int CounterVisitor::getIf() const{
 	return countIf;
 }
 
+
 int CounterVisitor::getClassDef() const{
 	return countClassDef;
 }
@@ -245,6 +246,10 @@ void CounterVisitor::visit(For* f){
 }
 
 void CounterVisitor::visit(Expr* e){
+
+}
+
+void CounterVisitor::visit(IfBlock* ib){
 
 }
 

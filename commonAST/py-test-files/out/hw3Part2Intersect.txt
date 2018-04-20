@@ -1103,6 +1103,44 @@
                "tags":[
                   "If"
                ]
+            },
+            {
+               "children": [
+                  {
+                     "children": [
+                        {
+                           "children": [],
+                           "type": "node",
+                           "tags":[
+                              "args"
+                           ]
+                        }
+                     ],
+                     "type": "node",
+                     "tags":[
+                        "Call"
+                     ]
+                  },
+                  {
+                     "children": [
+                        {
+                           "children": [],
+                           "type": "node",
+                           "tags":[
+                              "args"
+                           ]
+                        }
+                     ],
+                     "type": "node",
+                     "tags":[
+                        "Call"
+                     ]
+                  }
+               ],
+               "type": "node",
+               "tags":[
+                  "CompoundStmt"
+               ]
             }
          ],
          "type": "node",

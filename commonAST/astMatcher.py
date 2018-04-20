@@ -7,8 +7,33 @@ f = open('out.txt', 'w')
 tree = ast.parse(buffer)
 #exec(compile(tree, "<ast>", "exec"))
 
-class Visitor(ast.NodeVisitor):
 
+
+class Visitor(ast.NodeVisitor):
+	def nestedIfHelper(self, node, level):
+		output = "\n<ifStatement," + str(level) + ">\n"
+		f.write(output)
+		output = ""
+		self.generic_visit(node.test, level+1, node)
+		output += "</cond,1>\n"
+		output += "<compoundStmt,"+ str(level+1) + ">\n"
+		f.write(output)
+		output = ""
+		for child in node.body:
+				self.generic_visit(child, level+2, node)
+		
+		if len(node.orelse) == 1 and isinstance(node.orelse[0], ast.If):
+			self.nestedIfHelper(node.orelse[0], level)
+		elif len(node.orelse) > 1 or (len(node.orelse) > 0 and not isinstance(node.orelse[0], ast.If)):
+			output = "<elseStatement," + str(level) + ">\n"
+
+			for orelse in node.orelse:
+				f.write(output)
+				output = ""
+				self.generic_visit(orelse, level+1, node)
+
+
+	
 	def chainedCalls(self, node, output, level, prevLevel):
 		strlevel = str(level)
 		strPrevLevel = str(prevLevel)
@@ -132,27 +157,41 @@ class Visitor(ast.NodeVisitor):
 			self.generic_visit(node.test, nextLevel, node)
 			output += "<compoundStmt," + strNextLevel + ">"
 		elif isinstance(node, ast.If):
-			hasBody = True
-			output += "<ifStatement," + strlevel + ">\n"
-			f.write(output)
-			output = ""
-			self.generic_visit(node.test, nextLevel, node)
-			output += "</cond,1>\n"
+			#hasBody = True
+
+			#dummy adl str node
+			output += "<ifBlock," + strlevel + ">\n"
 			f.write(output)
 			output = ""
 
-			orelseLevel = nextLevel
+			self.nestedIfHelper(node, level+1)
+
+			'''output += "<ifStatement," + strNextLevel + ">\n"
+			f.write(output)
+			output = ""
+			self.generic_visit(node.test, nextLevel+1, node)
+			output += "</cond,1>\n"
+			f.write(output)
+			output = ""'''
+
 
 			if len(node.orelse) > 1 or (len(node.orelse) > 0 and not isinstance(node.orelse[0], ast.If)):
 				output = "<elseStatement," + strNextLevel + ">\n"
-				orelseLevel += 1
 
-			for orelse in node.orelse:
-				f.write(output)
-				output = ""
-				self.generic_visit(orelse, orelseLevel, node)
+				for orelse in node.orelse:
+					f.write(output)
+					output = ""
+					self.generic_visit(orelse, level+2, node)
+				
+			'''if isinstance(orelse, ast.If):
+					self.nestedIfHelper(node, nextLevel)	
+				else:
+					f.write(output)
+					output = ""
+					self.generic_visit(orelse, orelseLevel, node)
 
 			output += "<compoundStmt," + strNextLevel + ">"
+			'''
 		elif isinstance(node, ast.Raise):
 			output += "<raisingException," + strlevel + ">"
 		elif isinstance(node, ast.Try):

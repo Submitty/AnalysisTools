@@ -17,6 +17,7 @@ class While;
 class Args;
 class VariableDecl;
 class If;
+class IfBlock;
 class Bases;
 class ClassDef;
 class Import;
@@ -96,6 +97,7 @@ class CounterVisitor{
 		void visit(Exec* e);
 		void visit(Try* t);
 		void visit(Except* e);
+		void visit(IfBlock* ib);
 		void visit(Bases* b);
 		void visit(Call* c);
 		void visit(BinOp* bo);

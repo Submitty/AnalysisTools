@@ -76,6 +76,8 @@ class Parser{
 				return (Stmt*) parseAugAssign(t->level);
 			}else if(t->value == "switch"){
 				return (Stmt*) parseSwitch();
+			}else if(t->value == "elseStatement"){
+				return (Stmt*) parseCompoundStmtHelper(t);
 			}else if(t->value == "case"){
 				return (Stmt*) parseCase(t->level);
 			}else if(t->value == "forLoop"){
@@ -86,6 +88,8 @@ class Parser{
 				return (Stmt*) parseDoWhile(t->level);
 			}else if(t->value == "ifStatement") {
 				return (Stmt*) parseIf(t->level);
+			}else if(t->value == "ifBlock"){
+				return (Stmt*) parseIfBlock(t->level);
 			}else if(t->value == "importing"){
 				return (Stmt*) parseImport(t->level);	
 			}else if(t->value == "exec"){
@@ -442,6 +446,15 @@ class Parser{
 		}
 
 
+		IfBlock* parseIfBlock(int level){
+			IfBlock* ib = new IfBlock();
+			while(getLookaheadToken()->level > level && isStmt(getLookaheadToken()->value)){
+				ib->ifs.push_back(parseStmt());
+			}
+
+			return ib;
+		}
+
 		If* parseIf(int level){
 			If* i = new If();
 
@@ -465,8 +478,7 @@ class Parser{
 				cerr << "parsing If's compoundStmt: " << getLookaheadToken()->value << endl;
 			}
 
-
-						
+			/*
 			while(getLookaheadToken()->level > level && getLookaheadToken()->value == "ifStatement"){
 				if( printDebug) { cerr << "parsing a sub if statement" << endl; }
 				Token* t = getToken();
@@ -476,7 +488,7 @@ class Parser{
 
 			if(getLookaheadToken()->level > level && getLookaheadToken()->value == "elseStatement"){
 				i->orelses.push_back(parseCompoundStmtHelper(getToken()));
-			}
+			}*/
 
 			
 			if(getLookaheadToken()->value == "compoundStmt"){
@@ -739,7 +751,7 @@ bool isStmt(string val){
 
 
 	string compVal("name");
-	return val == "functionDef" || val == "classDef" || val == "compoundStmt" || val == "return" || val == "assignment" || val == "augAssign" || val == "forLoop" || val == "whileLoop" || val == "do" || val == "ifStatement" || val == "importing" || val == "exec" || val == "variableDecl" || val == "try" || val == "except" || val == "raisingException" || val == "switch" || val == "case" || val.compare(0, compVal.length(), compVal) == 0;
+	return val == "functionDef" || val == "classDef" || val == "compoundStmt" || val == "return" || val == "assignment" || val == "augAssign" || val == "forLoop" || val == "whileLoop" || val == "do" || val == "ifBlock" || val == "ifStatement" || val == "elseStatement" || val == "importing" || val == "exec" || val == "variableDecl" || val == "try" || val == "except" || val == "raisingException" || val == "switch" || val == "case" || val.compare(0, compVal.length(), compVal) == 0;
 }
 
 void printASTasJSON(ASTNode* node, int level=0, bool addComma=false){

@@ -372,6 +372,60 @@
                            "tags":[
                               "CompoundStmt"
                            ]
+                        },
+                        {
+                           "children": [
+                              {
+                                 "children": [
+                                    {
+                                       "children": [
+                                          {
+                                             "children": [
+                                                {
+                                                   "children": [],
+                                                   "type": "node",
+                                                   "tags":[
+                                                      "args"
+                                                   ]
+                                                }
+                                             ],
+                                             "type": "node",
+                                             "tags":[
+                                                "Call"
+                                             ]
+                                          },
+                                          {
+                                             "children": [
+                                                {
+                                                   "children": [],
+                                                   "type": "node",
+                                                   "tags":[
+                                                      "args"
+                                                   ]
+                                                }
+                                             ],
+                                             "type": "node",
+                                             "tags":[
+                                                "Call"
+                                             ]
+                                          }
+                                       ],
+                                       "type": "node",
+                                       "tags":[
+                                          "BinOp"
+                                       ]
+                                    }
+                                 ],
+                                 "type": "node",
+                                 "tags":[
+                                    "Assign"
+                                 ]
+                              }
+                           ],
+                           "type": "node",
+                           "tags":[
+                              "CompoundStmt"
+                           ]
                         }
                      ],
                      "type": "node",

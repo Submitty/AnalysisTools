@@ -555,6 +555,30 @@ class DoWhile: public Stmt{
 		CompoundStmt* compoundStmt;
 };
 
+class IfBlock: public Stmt{
+	public: 
+	
+		string getType(){
+			return "IfBlock";
+		}
+
+		list<ASTNode*> getChildren(){
+			list<ASTNode*> children;
+			list<Stmt*>::iterator itr;
+			for(itr=ifs.begin(); itr != ifs.end(); itr++){
+				children.push_back((ASTNode*) *itr);
+			}
+
+			return children;
+		}
+
+		void accept(CounterVisitor &v){
+			v.visit(this);
+		}
+
+
+	list<Stmt*> ifs;
+};
 
 class If: public Stmt{
 	public:
