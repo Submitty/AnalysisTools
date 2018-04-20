@@ -288,7 +288,15 @@
                                                             {
                                                                "children": [
                                                                   {
-                                                                     "children": [],
+                                                                     "children": [
+                                                                        {
+                                                                           "children": [],
+                                                                           "type": "node",
+                                                                           "tags":[
+                                                                              "BinOp"
+                                                                           ]
+                                                                        }
+                                                                     ],
                                                                      "type": "node",
                                                                      "tags":[
                                                                         "Expr"

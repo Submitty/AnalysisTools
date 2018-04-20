@@ -102,6 +102,7 @@ class Visitor(ast.NodeVisitor):
 		hasElts = False
 		hasExcept = False
 		hasValues = False
+		hasSlice = False
 		hasComparators = False
 		hasValue = False
 		#calculate the nextLevels
@@ -129,9 +130,12 @@ class Visitor(ast.NodeVisitor):
 			for base in node.bases:
 				output += "\n<base: " + base.id + "," + strNextNextLevel +  ">"
 			hasChildren = True
+		elif isinstance(node, ast.Index):
+			hasValue = True
 		elif isinstance(node, ast.Subscript):
 			output += "<subscript," + strlevel + ">"
 			hasValue = True
+			hasSlice = True
 		elif isinstance(node, ast.Return):
 			output += "<return," + strlevel + ">"
 			hasValue = True
@@ -259,6 +263,8 @@ class Visitor(ast.NodeVisitor):
 		if hasValue:
 			self.generic_visit(node.value, nextLevel+1, node)
 
+		if hasSlice:
+			self.generic_visit(node.slice, nextLevel+1, node)
 
 		if hasValues:
 			count = 1

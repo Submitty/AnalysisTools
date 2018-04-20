@@ -467,7 +467,15 @@
                                                          ]
                                                       },
                                                       {
-                                                         "children": [],
+                                                         "children": [
+                                                            {
+                                                               "children": [],
+                                                               "type": "node",
+                                                               "tags":[
+                                                                  "BinOp"
+                                                               ]
+                                                            }
+                                                         ],
                                                          "type": "node",
                                                          "tags":[
                                                             "Expr"
@@ -511,7 +519,15 @@
                                                    ]
                                                 },
                                                 {
-                                                   "children": [],
+                                                   "children": [
+                                                      {
+                                                         "children": [],
+                                                         "type": "node",
+                                                         "tags":[
+                                                            "BinOp"
+                                                         ]
+                                                      }
+                                                   ],
                                                    "type": "node",
                                                    "tags":[
                                                       "Expr"
