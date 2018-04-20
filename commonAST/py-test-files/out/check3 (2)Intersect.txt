@@ -453,7 +453,15 @@
                         {
                            "children": [
                               {
-                                 "children": [],
+                                 "children": [
+                                    {
+                                       "children": [],
+                                       "type": "node",
+                                       "tags":[
+                                          "Comparison"
+                                       ]
+                                    }
+                                 ],
                                  "type": "node",
                                  "tags":[
                                     "Comparison"
@@ -515,7 +523,15 @@
                         {
                            "children": [
                               {
-                                 "children": [],
+                                 "children": [
+                                    {
+                                       "children": [],
+                                       "type": "node",
+                                       "tags":[
+                                          "Comparison"
+                                       ]
+                                    }
+                                 ],
                                  "type": "node",
                                  "tags":[
                                     "Comparison"
@@ -577,7 +593,15 @@
                         {
                            "children": [
                               {
-                                 "children": [],
+                                 "children": [
+                                    {
+                                       "children": [],
+                                       "type": "node",
+                                       "tags":[
+                                          "Comparison"
+                                       ]
+                                    }
+                                 ],
                                  "type": "node",
                                  "tags":[
                                     "Comparison"

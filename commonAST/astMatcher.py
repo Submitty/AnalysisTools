@@ -34,63 +34,6 @@ class Visitor(ast.NodeVisitor):
 
 
 	
-	'''
-	def chainedCalls(self, node, output, level, prevLevel):
-		strlevel = str(level)
-		strPrevLevel = str(prevLevel)
-		if strPrevLevel  == 0 or strlevel == 0: prevLevel = 1; level = 2; strPrevLevel = 1; strLevel = 2
-		if(isinstance(node, ast.Call)):
-			if(hasattr(node.func, "value") and not hasattr(node.func.value, "id")):
-				output += "\n<calling func: "
-				output += node.func.attr
-				output += "," + strlevel +  ">"
-				output += "\n<args, " + str(level+1) + ">\n"
-				f.write(output);
-				output = ""
-				for arg in node.args:
-					self.generic_visit(arg, 2)
-					f.write(output)
-					output = ""
-				output += "</args,1>\n"
-
-				f.write(output);
-				output = ""
-
-				self.chainedCalls(node.func.value, output, level+1, level)				
-				return
-
-			elif(hasattr(node.func, "value")):
-				output += "\n<object: "
-				output += node.func.value.id
-				output += "; calling func: "
-				output += node.func.attr
-				output += "," + strPrevLevel +  ">"
-				f.write(output);
-				output = ""
-				self.chainedCalls(node.func, output, level+1, level)				
-			else:
-				output += "\n<calling func: "
-				output += node.func.id
-				output += "," + strlevel + ">"
-				f.write(output)
-				output = ""
-				self.chainedCalls(node.func, output, level+1, level)
-
-			output += "\n<args, " + strlevel + ">\n"
-			f.write(output);
-			output = ""
-			for arg in node.args:
-				self.generic_visit(arg, 2)
-				f.write(output)
-				output = ""
-			output += "</args,1>\n"
-			f.write(output);
-			output = ""
-		else:
-			return output
-
-	'''
-
 	def visit(self, node):
 		self.generic_visit(node)
 
@@ -313,8 +256,24 @@ class Visitor(ast.NodeVisitor):
 				count += 1
 
 		if hasComparators:
+			count = 1
+			temp = 1
+			numCompsLeft = len(node.comparators)
 			for comp in node.comparators:
-				self.generic_visit(comp, nextLevel, node)
+				if count % 2 == 0: #and numCompsLeft > 1:
+					output += "<comparison," + str(nextLevel + temp) + ">"
+					count += 1
+					temp += 1
+
+				if len(output) != 0:
+					output += "\n"
+					f.write(output)
+					output = ""
+
+				self.generic_visit(comp, nextLevel+temp, node)
+				numCompsLeft -= 1
+				count += 1
+
 
 		if hasArgs:
 			output += "<args, " + strNextLevel + ">\n"
