@@ -118,7 +118,10 @@ class Visitor(ast.NodeVisitor):
 			output += "<augAssign,"+ strlevel + ">"
 			hasChildren = True
 		elif isinstance(node, ast.For):
-			output += "<forLoop," + strlevel + ">"
+			output += "<forLoop," + strlevel + ">\n"
+			f.write(output)
+			output = ""
+			self.generic_visit(node.iter, nextLevel, node)
 			output += "\n<compoundStmt," + strNextLevel + ">"
 			hasBody = True
 		elif isinstance(node, ast.While):
@@ -135,6 +138,10 @@ class Visitor(ast.NodeVisitor):
 			output = ""
 			self.generic_visit(node.test, nextLevel, node)
 			output += "</cond,1>\n"
+			for orelse in node.orelse:
+				f.write(output)
+				output = ""
+				self.generic_visit(node.orelse, nextLevel, node)
 			output += "<compoundStmt," + strNextLevel + ">"
 		elif isinstance(node, ast.Raise):
 			output += "<raisingException," + strlevel + ">"
@@ -238,9 +245,26 @@ class Visitor(ast.NodeVisitor):
 		if hasValue:
 			self.generic_visit(node.value, nextLevel+1, node)
 
+
 		if hasValues:
-			for value in node.values:
-				self.generic_visit(value, nextLevel, node)
+			count = 1
+			temp = 1
+			numValuesLeft = len(node.values)
+			
+			for value in reversed(node.values):
+				if count % 2 == 0 and numValuesLeft > 1:
+					output += "<binaryOp," + str(nextLevel+temp) + ">"
+					count += 1
+					temp+=1
+
+				if len(output) != 0:
+					output += "\n"
+					f.write(output)
+					output = ""
+
+				self.generic_visit(value, nextLevel+temp, node)
+				numValuesLeft -= 1
+				count += 1
 
 		if hasComparators:
 			for comp in node.comparators:
@@ -265,6 +289,7 @@ class Visitor(ast.NodeVisitor):
 				self.generic_visit(child, nextLevel, node)
 
 
+		'''	
 		if(hasattr(node, "orelse") and len(node.orelse) > 0):
 			orelse = node.orelse[0]
 			if(not isinstance(orelse, ast.If)):
@@ -274,6 +299,7 @@ class Visitor(ast.NodeVisitor):
 					self.generic_visit(bodynode, nextLevel+1, node)
 			else:
 				self.generic_visit(orelse, level, node)
+		'''
 
 		if hasExcept:
 			if len(node.handlers) > 0:
