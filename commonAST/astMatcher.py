@@ -103,6 +103,7 @@ class Visitor(ast.NodeVisitor):
 		hasExcept = False
 		hasValues = False
 		hasComparators = False
+		hasSlice = False
 		hasValue = False
 		#calculate the nextLevels
 		nextLevel = level+1
@@ -131,13 +132,12 @@ class Visitor(ast.NodeVisitor):
 			hasChildren = True
 		elif isinstance(node, ast.Subscript):
 			output += "<subscript," + strlevel + ">"
+			hasSlice = True
 		elif isinstance(node, ast.Return):
 			output += "<return," + strlevel + ">"
 			hasValue = True
 		elif isinstance(node, ast.Assign):
 			output += "<assignment," + strlevel + ">"
-			f2 = open("outErr.txt", "w")
-			f2.write(ast.dump(node))
 			hasValue = True
 		elif isinstance(node, ast.AugAssign):
 			output += "<augAssign,"+ strlevel + ">"
@@ -157,42 +157,12 @@ class Visitor(ast.NodeVisitor):
 			self.generic_visit(node.test, nextLevel, node)
 			output += "<compoundStmt," + strNextLevel + ">"
 		elif isinstance(node, ast.If):
-			#hasBody = True
-
 			#dummy adl str node
 			output += "<ifBlock," + strlevel + ">\n"
 			f.write(output)
 			output = ""
 
 			self.nestedIfHelper(node, level+1)
-
-			'''output += "<ifStatement," + strNextLevel + ">\n"
-			f.write(output)
-			output = ""
-			self.generic_visit(node.test, nextLevel+1, node)
-			output += "</cond,1>\n"
-			f.write(output)
-			output = ""'''
-
-
-			'''
-			if len(node.orelse) > 1 or (len(node.orelse) > 0 and not isinstance(node.orelse[0], ast.If)):
-				output = "<elseStatement," + strNextLevel + ">\n"
-
-				for orelse in node.orelse:
-					f.write(output)
-					output = ""
-					self.generic_visit(orelse, level+2, node)
-				
-			if isinstance(orelse, ast.If):
-					self.nestedIfHelper(node, nextLevel)	
-				else:
-					f.write(output)
-					output = ""
-					self.generic_visit(orelse, orelseLevel, node)
-
-			output += "<compoundStmt," + strNextLevel + ">"
-			'''
 		elif isinstance(node, ast.Raise):
 			output += "<raisingException," + strlevel + ">"
 		elif isinstance(node, ast.Try):
@@ -202,17 +172,11 @@ class Visitor(ast.NodeVisitor):
 			output += "\n<compoundStmt," + strNextLevel + ">"
 		elif isinstance(node, ast.ExceptHandler):
 			hasBody = True
-		#removed in python3
-		#elif isinstance(node, ast.TryFinally):
-		#	output += "<tryFinally," + strlevel + ">"
 		elif isinstance(node, ast.Import) or isinstance(node, ast.ImportFrom):
 			output +=  "<importing," + strlevel + ">"
 			for alias in node.names:
 				output += "\n<name: " + alias.name + "," +  strNextLevel + ">"
 			output += "\n</importing,1>"
-		#removed in python3
-		#elif isinstance(node, ast.Exec):
-		#	output += "<exec," + strlevel + ">"
 		elif isinstance(node, ast.BoolOp):
 			output += "<binaryOp," + strlevel + ">"
 			hasValues = True
@@ -296,6 +260,8 @@ class Visitor(ast.NodeVisitor):
 		if hasValue:
 			self.generic_visit(node.value, nextLevel+1, node)
 
+		if hasSlice:
+			self.generic_visit(node.slice, nextLevel+1, node)
 
 		if hasValues:
 			count = 1

@@ -398,9 +398,9 @@ class Parser{
 
 		AugAssign* parseAugAssign(int level){
 			AugAssign* augAssign = new AugAssign();
-			//FIX THIS
-			augAssign->target = NULL;
-			augAssign->value = NULL;
+			while(getLookaheadToken()->level > level){
+				augAssign->values.push_back(parseExpr());
+			}
 
 			return augAssign;
 		}

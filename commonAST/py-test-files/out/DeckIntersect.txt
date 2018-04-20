@@ -120,7 +120,39 @@
                            ]
                         },
                         {
-                           "children": [],
+                           "children": [
+                              {
+                                 "children": [
+                                    {
+                                       "children": [
+                                          {
+                                             "children": [
+                                                {
+                                                   "children": [],
+                                                   "type": "node",
+                                                   "tags":[
+                                                      "args"
+                                                   ]
+                                                }
+                                             ],
+                                             "type": "node",
+                                             "tags":[
+                                                "Call"
+                                             ]
+                                          }
+                                       ],
+                                       "type": "node",
+                                       "tags":[
+                                          "args"
+                                       ]
+                                    }
+                                 ],
+                                 "type": "node",
+                                 "tags":[
+                                    "Call"
+                                 ]
+                              }
+                           ],
                            "type": "node",
                            "tags":[
                               "AugAssign"
@@ -133,221 +165,9 @@
                                     {
                                        "children": [
                                           {
-                                             "children": [],
-                                             "type": "node",
-                                             "tags":[
-                                                "args"
-                                             ]
-                                          }
-                                       ],
-                                       "type": "node",
-                                       "tags":[
-                                          "Call"
-                                       ]
-                                    }
-                                 ],
-                                 "type": "node",
-                                 "tags":[
-                                    "args"
-                                 ]
-                              }
-                           ],
-                           "type": "node",
-                           "tags":[
-                              "Call"
-                           ]
-                        },
-                        {
-                           "children": [
-                              {
-                                 "children": [
-                                    {
-                                       "children": [],
-                                       "type": "node",
-                                       "tags":[
-                                          "AugAssign"
-                                       ]
-                                    },
-                                    {
-                                       "children": [
-                                          {
                                              "children": [
                                                 {
                                                    "children": [
-                                                      {
-                                                         "children": [],
-                                                         "type": "node",
-                                                         "tags":[
-                                                            "Expr"
-                                                         ]
-                                                      }
-                                                   ],
-                                                   "type": "node",
-                                                   "tags":[
-                                                      "BinOp"
-                                                   ]
-                                                },
-                                                {
-                                                   "children": [],
-                                                   "type": "node",
-                                                   "tags":[
-                                                      "Expr"
-                                                   ]
-                                                }
-                                             ],
-                                             "type": "node",
-                                             "tags":[
-                                                "BinOp"
-                                             ]
-                                          }
-                                       ],
-                                       "type": "node",
-                                       "tags":[
-                                          "BinOp"
-                                       ]
-                                    },
-                                    {
-                                       "children": [
-                                          {
-                                             "children": [
-                                                {
-                                                   "children": [],
-                                                   "type": "node",
-                                                   "tags":[
-                                                      "Comparison"
-                                                   ]
-                                                },
-                                                {
-                                                   "children": [
-                                                      {
-                                                         "children": [],
-                                                         "type": "node",
-                                                         "tags":[
-                                                            "AugAssign"
-                                                         ]
-                                                      },
-                                                      {
-                                                         "children": [
-                                                            {
-                                                               "children": [
-                                                                  {
-                                                                     "children": [],
-                                                                     "type": "node",
-                                                                     "tags":[
-                                                                        "Expr"
-                                                                     ]
-                                                                  }
-                                                               ],
-                                                               "type": "node",
-                                                               "tags":[
-                                                                  "BinOp"
-                                                               ]
-                                                            }
-                                                         ],
-                                                         "type": "node",
-                                                         "tags":[
-                                                            "BinOp"
-                                                         ]
-                                                      }
-                                                   ],
-                                                   "type": "node",
-                                                   "tags":[
-                                                      "CompoundStmt"
-                                                   ]
-                                                }
-                                             ],
-                                             "type": "node",
-                                             "tags":[
-                                                "If"
-                                             ]
-                                          }
-                                       ],
-                                       "type": "node",
-                                       "tags":[
-                                          "IfBlock"
-                                       ]
-                                    },
-                                    {
-                                       "children": [
-                                          {
-                                             "children": [
-                                                {
-                                                   "children": [],
-                                                   "type": "node",
-                                                   "tags":[
-                                                      "Comparison"
-                                                   ]
-                                                },
-                                                {
-                                                   "children": [
-                                                      {
-                                                         "children": [],
-                                                         "type": "node",
-                                                         "tags":[
-                                                            "AugAssign"
-                                                         ]
-                                                      },
-                                                      {
-                                                         "children": [
-                                                            {
-                                                               "children": [
-                                                                  {
-                                                                     "children": [],
-                                                                     "type": "node",
-                                                                     "tags":[
-                                                                        "Expr"
-                                                                     ]
-                                                                  }
-                                                               ],
-                                                               "type": "node",
-                                                               "tags":[
-                                                                  "BinOp"
-                                                               ]
-                                                            }
-                                                         ],
-                                                         "type": "node",
-                                                         "tags":[
-                                                            "BinOp"
-                                                         ]
-                                                      }
-                                                   ],
-                                                   "type": "node",
-                                                   "tags":[
-                                                      "CompoundStmt"
-                                                   ]
-                                                }
-                                             ],
-                                             "type": "node",
-                                             "tags":[
-                                                "If"
-                                             ]
-                                          }
-                                       ],
-                                       "type": "node",
-                                       "tags":[
-                                          "IfBlock"
-                                       ]
-                                    },
-                                    {
-                                       "children": [
-                                          {
-                                             "children": [
-                                                {
-                                                   "children": [],
-                                                   "type": "node",
-                                                   "tags":[
-                                                      "Comparison"
-                                                   ]
-                                                },
-                                                {
-                                                   "children": [
-                                                      {
-                                                         "children": [],
-                                                         "type": "node",
-                                                         "tags":[
-                                                            "AugAssign"
-                                                         ]
-                                                      },
                                                       {
                                                          "children": [
                                                             {
@@ -362,6 +182,191 @@
                                                          "tags":[
                                                             "BinOp"
                                                          ]
+                                                      },
+                                                      {
+                                                         "children": [],
+                                                         "type": "node",
+                                                         "tags":[
+                                                            "Expr"
+                                                         ]
+                                                      }
+                                                   ],
+                                                   "type": "node",
+                                                   "tags":[
+                                                      "BinOp"
+                                                   ]
+                                                }
+                                             ],
+                                             "type": "node",
+                                             "tags":[
+                                                "BinOp"
+                                             ]
+                                          }
+                                       ],
+                                       "type": "node",
+                                       "tags":[
+                                          "AugAssign"
+                                       ]
+                                    },
+                                    {
+                                       "children": [
+                                          {
+                                             "children": [
+                                                {
+                                                   "children": [],
+                                                   "type": "node",
+                                                   "tags":[
+                                                      "Comparison"
+                                                   ]
+                                                },
+                                                {
+                                                   "children": [
+                                                      {
+                                                         "children": [
+                                                            {
+                                                               "children": [
+                                                                  {
+                                                                     "children": [
+                                                                        {
+                                                                           "children": [],
+                                                                           "type": "node",
+                                                                           "tags":[
+                                                                              "Expr"
+                                                                           ]
+                                                                        }
+                                                                     ],
+                                                                     "type": "node",
+                                                                     "tags":[
+                                                                        "BinOp"
+                                                                     ]
+                                                                  }
+                                                               ],
+                                                               "type": "node",
+                                                               "tags":[
+                                                                  "BinOp"
+                                                               ]
+                                                            }
+                                                         ],
+                                                         "type": "node",
+                                                         "tags":[
+                                                            "AugAssign"
+                                                         ]
+                                                      }
+                                                   ],
+                                                   "type": "node",
+                                                   "tags":[
+                                                      "CompoundStmt"
+                                                   ]
+                                                }
+                                             ],
+                                             "type": "node",
+                                             "tags":[
+                                                "If"
+                                             ]
+                                          }
+                                       ],
+                                       "type": "node",
+                                       "tags":[
+                                          "IfBlock"
+                                       ]
+                                    },
+                                    {
+                                       "children": [
+                                          {
+                                             "children": [
+                                                {
+                                                   "children": [],
+                                                   "type": "node",
+                                                   "tags":[
+                                                      "Comparison"
+                                                   ]
+                                                },
+                                                {
+                                                   "children": [
+                                                      {
+                                                         "children": [
+                                                            {
+                                                               "children": [
+                                                                  {
+                                                                     "children": [
+                                                                        {
+                                                                           "children": [],
+                                                                           "type": "node",
+                                                                           "tags":[
+                                                                              "Expr"
+                                                                           ]
+                                                                        }
+                                                                     ],
+                                                                     "type": "node",
+                                                                     "tags":[
+                                                                        "BinOp"
+                                                                     ]
+                                                                  }
+                                                               ],
+                                                               "type": "node",
+                                                               "tags":[
+                                                                  "BinOp"
+                                                               ]
+                                                            }
+                                                         ],
+                                                         "type": "node",
+                                                         "tags":[
+                                                            "AugAssign"
+                                                         ]
+                                                      }
+                                                   ],
+                                                   "type": "node",
+                                                   "tags":[
+                                                      "CompoundStmt"
+                                                   ]
+                                                }
+                                             ],
+                                             "type": "node",
+                                             "tags":[
+                                                "If"
+                                             ]
+                                          }
+                                       ],
+                                       "type": "node",
+                                       "tags":[
+                                          "IfBlock"
+                                       ]
+                                    },
+                                    {
+                                       "children": [
+                                          {
+                                             "children": [
+                                                {
+                                                   "children": [],
+                                                   "type": "node",
+                                                   "tags":[
+                                                      "Comparison"
+                                                   ]
+                                                },
+                                                {
+                                                   "children": [
+                                                      {
+                                                         "children": [
+                                                            {
+                                                               "children": [
+                                                                  {
+                                                                     "children": [],
+                                                                     "type": "node",
+                                                                     "tags":[
+                                                                        "Expr"
+                                                                     ]
+                                                                  }
+                                                               ],
+                                                               "type": "node",
+                                                               "tags":[
+                                                                  "BinOp"
+                                                               ]
+                                                            }
+                                                         ],
+                                                         "type": "node",
+                                                         "tags":[
+                                                            "AugAssign"
+                                                         ]
                                                       }
                                                    ],
                                                    "type": "node",
@@ -402,17 +407,18 @@
                                                 {
                                                    "children": [
                                                       {
-                                                         "children": [],
+                                                         "children": [
+                                                            {
+                                                               "children": [],
+                                                               "type": "node",
+                                                               "tags":[
+                                                                  "Expr"
+                                                               ]
+                                                            }
+                                                         ],
                                                          "type": "node",
                                                          "tags":[
                                                             "AugAssign"
-                                                         ]
-                                                      },
-                                                      {
-                                                         "children": [],
-                                                         "type": "node",
-                                                         "tags":[
-                                                            "Expr"
                                                          ]
                                                       }
                                                    ],

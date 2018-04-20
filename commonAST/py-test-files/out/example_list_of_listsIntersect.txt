@@ -597,17 +597,18 @@
                                     {
                                        "children": [
                                           {
-                                             "children": [],
+                                             "children": [
+                                                {
+                                                   "children": [],
+                                                   "type": "node",
+                                                   "tags":[
+                                                      "BinOp"
+                                                   ]
+                                                }
+                                             ],
                                              "type": "node",
                                              "tags":[
                                                 "AugAssign"
-                                             ]
-                                          },
-                                          {
-                                             "children": [],
-                                             "type": "node",
-                                             "tags":[
-                                                "BinOp"
                                              ]
                                           }
                                        ],

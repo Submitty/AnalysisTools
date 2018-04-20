@@ -942,25 +942,26 @@
                                  ]
                               },
                               {
-                                 "children": [],
-                                 "type": "node",
-                                 "tags":[
-                                    "AugAssign"
-                                 ]
-                              },
-                              {
                                  "children": [
                                     {
-                                       "children": [],
+                                       "children": [
+                                          {
+                                             "children": [],
+                                             "type": "node",
+                                             "tags":[
+                                                "List"
+                                             ]
+                                          }
+                                       ],
                                        "type": "node",
                                        "tags":[
-                                          "List"
+                                          "BinOp"
                                        ]
                                     }
                                  ],
                                  "type": "node",
                                  "tags":[
-                                    "BinOp"
+                                    "AugAssign"
                                  ]
                               }
                            ],

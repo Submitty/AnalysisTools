@@ -945,11 +945,9 @@ class AugAssign: public Stmt{
 
 		list<ASTNode*> getChildren(){
 			list<ASTNode*> children;
-			if(target){
-				children.push_back(target);
-			}
-			if(value){
-				children.push_back(value);
+			list<Expr*>::iterator itr;
+			for(itr=values.begin(); itr != values.end(); itr++){
+				children.push_back((ASTNode*)*itr);
 			}
 			return children;
 		}
@@ -969,11 +967,7 @@ class AugAssign: public Stmt{
 			v.visit(this);
 		}
 
-
-
-
-		Expr* target;
-		Expr* value;
+		list<Expr*> values;
 };
 
 class Raise: public Stmt{
