@@ -135,7 +135,7 @@
                                              ],
                                              "type": "node",
                                              "tags":[
-                                                "If Block"
+                                                "IfBlock"
                                              ]
                                           }
                                        ],
@@ -774,7 +774,7 @@
                      ],
                      "type": "node",
                      "tags":[
-                        "If Block"
+                        "IfBlock"
                      ]
                   },
                   {

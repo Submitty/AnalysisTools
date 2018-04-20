@@ -361,7 +361,7 @@
                      ],
                      "type": "node",
                      "tags":[
-                        "If Block"
+                        "IfBlock"
                      ]
                   },
                   {
