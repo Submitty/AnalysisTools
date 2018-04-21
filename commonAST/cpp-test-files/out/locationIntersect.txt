@@ -1,0 +1,59 @@
+{
+   "children": [
+      {
+         "children": [],
+         "type": "node",
+         "tags":[
+            "Import"
+         ]
+      },
+      {
+         "children": [
+            {
+               "children": [],
+               "type": "node",
+               "tags":[
+                  "Identifier"
+               ]
+            },
+            {
+               "children": [],
+               "type": "node",
+               "tags":[
+                  "CompoundStmt"
+               ]
+            }
+         ],
+         "type": "node",
+         "tags":[
+            "FunctionDef"
+         ]
+      },
+      {
+         "children": [
+            {
+               "children": [],
+               "type": "node",
+               "tags":[
+                  "Identifier"
+               ]
+            },
+            {
+               "children": [],
+               "type": "node",
+               "tags":[
+                  "CompoundStmt"
+               ]
+            }
+         ],
+         "type": "node",
+         "tags":[
+            "FunctionDef"
+         ]
+      }
+   ],
+   "type": "node",
+   "tags":[
+      "Module"
+   ]
+}

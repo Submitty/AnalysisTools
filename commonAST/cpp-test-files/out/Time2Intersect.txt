@@ -21,73 +21,12 @@
                   {
                      "children": [
                         {
-                           "children": [],
-                           "type": "node",
-                           "tags":[
-                              "BinOp"
-                           ]
-                        }
-                     ],
-                     "type": "node",
-                     "tags":[
-                        "Return"
-                     ]
-                  }
-               ],
-               "type": "node",
-               "tags":[
-                  "CompoundStmt"
-               ]
-            }
-         ],
-         "type": "node",
-         "tags":[
-            "FunctionDef"
-         ]
-      },
-      {
-         "children": [
-            {
-               "children": [],
-               "type": "node",
-               "tags":[
-                  "Identifier"
-               ]
-            },
-            {
-               "children": [
-                  {
-                     "children": [],
-                     "type": "node",
-                     "tags":[
-                        "VariableDecl"
-                     ]
-                  },
-                  {
-                     "children": [
-                        {
                            "children": [
                               {
-                                 "children": [
-                                    {
-                                       "children": [
-                                          {
-                                             "children": [],
-                                             "type": "node",
-                                             "tags":[
-                                                "args"
-                                             ]
-                                          }
-                                       ],
-                                       "type": "node",
-                                       "tags":[
-                                          "Call"
-                                       ]
-                                    }
-                                 ],
+                                 "children": [],
                                  "type": "node",
                                  "tags":[
-                                    "Assign"
+                                    "Return"
                                  ]
                               }
                            ],
@@ -99,7 +38,7 @@
                      ],
                      "type": "node",
                      "tags":[
-                        "For"
+                        "If"
                      ]
                   },
                   {
@@ -110,7 +49,7 @@
                                  "children": [],
                                  "type": "node",
                                  "tags":[
-                                    "UnaryOp"
+                                    "Return"
                                  ]
                               }
                            ],
@@ -122,37 +61,7 @@
                      ],
                      "type": "node",
                      "tags":[
-                        "For"
-                     ]
-                  },
-                  {
-                     "children": [
-                        {
-                           "children": [
-                              {
-                                 "children": [],
-                                 "type": "node",
-                                 "tags":[
-                                    "AugAssign"
-                                 ]
-                              }
-                           ],
-                           "type": "node",
-                           "tags":[
-                              "CompoundStmt"
-                           ]
-                        }
-                     ],
-                     "type": "node",
-                     "tags":[
-                        "For"
-                     ]
-                  },
-                  {
-                     "children": [],
-                     "type": "node",
-                     "tags":[
-                        "VariableDecl"
+                        "If"
                      ]
                   },
                   {
@@ -165,67 +74,46 @@
                                        "children": [],
                                        "type": "node",
                                        "tags":[
-                                          "Comparison"
-                                       ]
-                                    },
-                                    {
-                                       "children": [
-                                          {
-                                             "children": [],
-                                             "type": "node",
-                                             "tags":[
-                                                "Assign"
-                                             ]
-                                          }
-                                       ],
-                                       "type": "node",
-                                       "tags":[
-                                          "CompoundStmt"
+                                          "Return"
                                        ]
                                     }
                                  ],
-                                 "type": "node",
-                                 "tags":[
-                                    "If"
-                                 ]
-                              },
-                              {
-                                 "children": [
-                                    {
-                                       "children": [],
-                                       "type": "node",
-                                       "tags":[
-                                          "Comparison"
-                                       ]
-                                    },
-                                    {
-                                       "children": [
-                                          {
-                                             "children": [],
-                                             "type": "node",
-                                             "tags":[
-                                                "Assign"
-                                             ]
-                                          }
-                                       ],
-                                       "type": "node",
-                                       "tags":[
-                                          "CompoundStmt"
-                                       ]
-                                    }
-                                 ],
-                                 "type": "node",
-                                 "tags":[
-                                    "If"
-                                 ]
-                              },
-                              {
-                                 "children": [],
                                  "type": "node",
                                  "tags":[
                                     "CompoundStmt"
                                  ]
-                              },
+                              }
+                           ],
+                           "type": "node",
+                           "tags":[
+                              "If"
+                           ]
+                        },
+                        {
+                           "children": [
+                              {
+                                 "children": [
+                                    {
+                                       "children": [],
+                                       "type": "node",
+                                       "tags":[
+                                          "Return"
+                                       ]
+                                    }
+                                 ],
+                                 "type": "node",
+                                 "tags":[
+                                    "CompoundStmt"
+                                 ]
+                              }
+                           ],
+                           "type": "node",
+                           "tags":[
+                              "If"
+                           ]
+                        },
+                        {
+                           "children": [
                               {
                                  "children": [
                                     {
@@ -234,19 +122,34 @@
                                              "children": [],
                                              "type": "node",
                                              "tags":[
-                                                "args"
+                                                "Return"
                                              ]
                                           }
                                        ],
                                        "type": "node",
                                        "tags":[
-                                          "Call"
+                                          "CompoundStmt"
                                        ]
                                     }
                                  ],
                                  "type": "node",
                                  "tags":[
-                                    "Assign"
+                                    "If"
+                                 ]
+                              },
+                              {
+                                 "children": [
+                                    {
+                                       "children": [],
+                                       "type": "node",
+                                       "tags":[
+                                          "Return"
+                                       ]
+                                    }
+                                 ],
+                                 "type": "node",
+                                 "tags":[
+                                    "CompoundStmt"
                                  ]
                               }
                            ],
@@ -258,7 +161,7 @@
                      ],
                      "type": "node",
                      "tags":[
-                        "While"
+                        "CompoundStmt"
                      ]
                   }
                ],

@@ -1,0 +1,263 @@
+{
+   "children": [
+      {
+         "children": [],
+         "type": "node",
+         "tags":[
+            "Import"
+         ]
+      },
+      {
+         "children": [
+            {
+               "children": [],
+               "type": "node",
+               "tags":[
+                  "Identifier"
+               ]
+            },
+            {
+               "children": [
+                  {
+                     "children": [],
+                     "type": "node",
+                     "tags":[
+                        "VariableDecl"
+                     ]
+                  },
+                  {
+                     "children": [],
+                     "type": "node",
+                     "tags":[
+                        "VariableDecl"
+                     ]
+                  },
+                  {
+                     "children": [],
+                     "type": "node",
+                     "tags":[
+                        "VariableDecl"
+                     ]
+                  },
+                  {
+                     "children": [
+                        {
+                           "children": [],
+                           "type": "node",
+                           "tags":[
+                              "Comparison"
+                           ]
+                        },
+                        {
+                           "children": [
+                              {
+                                 "children": [
+                                    {
+                                       "children": [],
+                                       "type": "node",
+                                       "tags":[
+                                          "BinOp"
+                                       ]
+                                    }
+                                 ],
+                                 "type": "node",
+                                 "tags":[
+                                    "Assign"
+                                 ]
+                              },
+                              {
+                                 "children": [],
+                                 "type": "node",
+                                 "tags":[
+                                    "Assign"
+                                 ]
+                              },
+                              {
+                                 "children": [
+                                    {
+                                       "children": [
+                                          {
+                                             "children": [
+                                                {
+                                                   "children": [],
+                                                   "type": "node",
+                                                   "tags":[
+                                                      "UnaryOp"
+                                                   ]
+                                                }
+                                             ],
+                                             "type": "node",
+                                             "tags":[
+                                                "BinOp"
+                                             ]
+                                          },
+                                          {
+                                             "children": [],
+                                             "type": "node",
+                                             "tags":[
+                                                "BinOp"
+                                             ]
+                                          }
+                                       ],
+                                       "type": "node",
+                                       "tags":[
+                                          "BinOp"
+                                       ]
+                                    }
+                                 ],
+                                 "type": "node",
+                                 "tags":[
+                                    "Assign"
+                                 ]
+                              }
+                           ],
+                           "type": "node",
+                           "tags":[
+                              "CompoundStmt"
+                           ]
+                        }
+                     ],
+                     "type": "node",
+                     "tags":[
+                        "If"
+                     ]
+                  },
+                  {
+                     "children": [
+                        {
+                           "children": [],
+                           "type": "node",
+                           "tags":[
+                              "Comparison"
+                           ]
+                        },
+                        {
+                           "children": [
+                              {
+                                 "children": [
+                                    {
+                                       "children": [],
+                                       "type": "node",
+                                       "tags":[
+                                          "BinOp"
+                                       ]
+                                    }
+                                 ],
+                                 "type": "node",
+                                 "tags":[
+                                    "Assign"
+                                 ]
+                              }
+                           ],
+                           "type": "node",
+                           "tags":[
+                              "CompoundStmt"
+                           ]
+                        }
+                     ],
+                     "type": "node",
+                     "tags":[
+                        "If"
+                     ]
+                  },
+                  {
+                     "children": [
+                        {
+                           "children": [],
+                           "type": "node",
+                           "tags":[
+                              "Comparison"
+                           ]
+                        },
+                        {
+                           "children": [
+                              {
+                                 "children": [
+                                    {
+                                       "children": [],
+                                       "type": "node",
+                                       "tags":[
+                                          "BinOp"
+                                       ]
+                                    }
+                                 ],
+                                 "type": "node",
+                                 "tags":[
+                                    "Assign"
+                                 ]
+                              }
+                           ],
+                           "type": "node",
+                           "tags":[
+                              "CompoundStmt"
+                           ]
+                        }
+                     ],
+                     "type": "node",
+                     "tags":[
+                        "If"
+                     ]
+                  },
+                  {
+                     "children": [
+                        {
+                           "children": [],
+                           "type": "node",
+                           "tags":[
+                              "UnaryOp"
+                           ]
+                        },
+                        {
+                           "children": [
+                              {
+                                 "children": [],
+                                 "type": "node",
+                                 "tags":[
+                                    "Assign"
+                                 ]
+                              }
+                           ],
+                           "type": "node",
+                           "tags":[
+                              "CompoundStmt"
+                           ]
+                        }
+                     ],
+                     "type": "node",
+                     "tags":[
+                        "If"
+                     ]
+                  },
+                  {
+                     "children": [
+                        {
+                           "children": [],
+                           "type": "node",
+                           "tags":[
+                              "Assign"
+                           ]
+                        }
+                     ],
+                     "type": "node",
+                     "tags":[
+                        "CompoundStmt"
+                     ]
+                  }
+               ],
+               "type": "node",
+               "tags":[
+                  "CompoundStmt"
+               ]
+            }
+         ],
+         "type": "node",
+         "tags":[
+            "FunctionDef"
+         ]
+      }
+   ],
+   "type": "node",
+   "tags":[
+      "Module"
+   ]
+}

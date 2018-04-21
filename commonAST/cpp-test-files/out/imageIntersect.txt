@@ -1,0 +1,29 @@
+{
+   "children": [
+      {
+         "children": [],
+         "type": "node",
+         "tags":[
+            "Import"
+         ]
+      },
+      {
+         "children": [],
+         "type": "node",
+         "tags":[
+            "VariableDecl"
+         ]
+      },
+      {
+         "children": [],
+         "type": "node",
+         "tags":[
+            "VariableDecl"
+         ]
+      }
+   ],
+   "type": "node",
+   "tags":[
+      "Module"
+   ]
+}
