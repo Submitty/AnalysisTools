@@ -17,25 +17,25 @@ class Context:
 		if not self.language == other.language: return False
 
 		if(not self.lookaheadTags == None and not other.lookaheadTags == None and 
-			(utils.tagsMatch(self.dummyLookahead, other.dummyLookahead, self.dummyNode, other.dummyNode, self.language) == -1)):
+			(utils.tagsMatch(self.dummyLookahead, other.dummyLookahead, self.dummyNode, other.dummyNode, self.language, False) == -1)):
 				return False
 		elif((self.lookaheadTags == None) ^ (other.lookaheadTags == None) and not
 			(self.lookaheadTags == ["\*"] or other.lookaheadTags == ["\*"])): return False
 
 		if(not self.siblingTags == None and not other.siblingTags == None and 
-			(utils.tagsMatch(self.dummySibling, other.dummySibling, self.dummyParent, other.dummyParent, self.language) == -1)):
+			(utils.tagsMatch(self.dummySibling, other.dummySibling, self.dummyParent, other.dummyParent, self.language, False) == -1)):
 				return False
 		elif((self.siblingTags == None) ^ (other.siblingTags == None) and not
 			(self.siblingTags == ["\*"] or other.siblingTags == ["\*"])): return False
 
 		if (not self.parentTags == None and not other.parentTags == None and 
-			(utils.tagsMatch(self.dummyParent, other.dummyParent, self.dummyGP, other.dummyGP, self.language) == -1)):
+			(utils.tagsMatch(self.dummyParent, other.dummyParent, self.dummyGP, other.dummyGP, self.language, False) == -1)):
 				return False
 		elif((self.parentTags == None) ^ (other.parentTags == None) and not
 			(self.parentTags == ["\*"] or other.parentTags == ["\*"])): return False
 
 		if (not self.grandParentTags == None and not other.grandParentTags == None and 
-			(utils.tagsMatch(self.dummyGP, other.dummyGP, None, None, self.language) == -1)):
+			(utils.tagsMatch(self.dummyGP, other.dummyGP, None, None, self.language, False) == -1)):
 				return False
 		elif((self.grandParentTags == None) ^ (other.grandParentTags == None) and not
 			(self.grandParentTags == ["\*"] or other.grandParentTags == ["\*"])): return False

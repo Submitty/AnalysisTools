@@ -39,11 +39,22 @@ emptyCntxt = context.Context("py")
 emptyCntxtCpp = context.Context("cpp")
 classNoCntxt = eqTag.EqTag(["class"], emptyCntxt)
 functionNoCntxt = eqTag.EqTag(["function"], emptyCntxt)
+caseNoCntxt = eqTag.EqTag(["case"], emptyCntxt)
+ifNoCntxt = eqTag.EqTag(["if"], emptyCntxt)
 functionNoCntxtCpp = eqTag.EqTag(["function"], emptyCntxtCpp)
 augAssignNoCntxt = eqTag.EqTag(["augmented", "assign"], emptyCntxt) 
 binOpNoCntxt = eqTag.EqTag(["binary", "operator"], emptyCntxt) 
-binOpNoCntxt = eqTag.EqTag(["binaryop"], emptyCntxtCpp) 
+binOpNoCntxtCpp = eqTag.EqTag(["binaryop"], emptyCntxtCpp) 
 unOpNoCntxt = eqTag.EqTag(["unary", "operator"], emptyCntxt) 
+listNoCntxt = eqTag.EqTag(["list"], emptyCntxt) 
+setNoCntxt = eqTag.EqTag(["set"], emptyCntxt) 
+dictNoCntxt = eqTag.EqTag(["dict"], emptyCntxt) 
+tupleNoCntxt = eqTag.EqTag(["tuple"], emptyCntxt) 
+subscriptNoCntxt = eqTag.EqTag(["subscript"], emptyCntxt)
+basesCntxt = eqTag.EqTag(["variable"], context.Context("py", ["\*"],["\*"],["argument"],["parameters"]))
+paramClassContext = eqTag.EqTag(["parameters"], context.Context("py", ["\*"],["\*"],["class"],["\*"]))
+dottedNameImportCntxt = eqTag.EqTag(["dottedname"], context.Context("py", ["\*"],["\*"],["import"],["\*"]))
+dottedNameGpImportCntxt = eqTag.EqTag(["dottedname"], context.Context("py", ["\*"],["\*"],["\*"],["import"]))
 bodyIfCntxt = eqTag.EqTag(["body"], context.Context("py",["\*"],["\*"],["case"],["if"]))
 bodyForCntxt = eqTag.EqTag(["body"], context.Context("py",["\*"],["\*"],["for"],["\*"]))
 bodyWhileCntxt = eqTag.EqTag(["body"], context.Context("py",["\*"],["\*"],["while"], ["\*"]))
@@ -60,17 +71,23 @@ forLoopCppCntxt = eqTag.EqTag(["forloop"], context.Context("cpp",["\*"],["\*"],[
 assignCppCntxt = eqTag.EqTag(["assignment"], context.Context("cpp",["\*"],["\*"],["\*"],["\*"]))
 whileCppCntxt = eqTag.EqTag(["whileloop"], context.Context("cpp",["\*"],["\*"],["\*"],["\*"]))
 
+
 tagEqlMap = dict({"classdef": [classNoCntxt], #classdef matches to class in any context
 			"functiondef": [functionNoCntxt, functionNoCntxtCpp], 
 			"compoundstmt": [bodyIfCntxt, bodyForCntxt, bodyWhileCntxt, bodyFuncCntxt, elseIfCntxt],
 			"augassign": [augAssignNoCntxt],
-			"binop": [binOpNoCntxt],
+			"binop": [binOpNoCntxt, binOpNoCntxtCpp],
 			"unaryop": [unOpNoCntxt],
 			"comparison": [eqBinOpCntxt, gtBinOpCntxt, gteBinOpCntxt, ltBinOpCntxt, lteBinOpCntxt],
 			"for": [forLoopCppCntxt],
 			"while": [whileCppCntxt],
 			"assign": [assignCppCntxt],
-			"if": [caseIfCntxt, ifCppCntxt]})
+			"identifier": [dottedNameImportCntxt, dottedNameGpImportCntxt, basesCntxt],
+			"bases": [paramClassContext],
+			"container": [listNoCntxt, setNoCntxt, dictNoCntxt, tupleNoCntxt],
+			"if": [caseNoCntxt, ifCppCntxt],
+			"ifblock": [ifNoCntxt, ifCppCntxt],
+			"expr": [subscriptNoCntxt]})
 
 '''
 The adlDetailMap is a dictionary of nodes in the full AST that are not relevant to our use cases 
@@ -108,11 +125,14 @@ assignContext =  context.Context("py",["\*"],["\*"],["assign"],["\*"])
 functionContext =  context.Context("py",["\*"],["\*"],["function"],["\*"])
 paramContext =  context.Context("py",["\*"],["\*"],["parameters"],["\*"])
 accessContext =  context.Context("py",["\*"],["\*"],["access"],["\*"])
+augAssignContext =  context.Context("py",["\*"],["\*"],["augmented", "assign"],["\*"])
 forContext =  context.Context("py",["\*"],["\*"],["for"],["\*"])
 binOpContext = context.Context("py",["\*"], ["\*"],["binary", "operator"], ["\*"])
+unOpContext = context.Context("py",["\*"], ["\*"],["unary", "operator"], ["\*"])
 adlDetailMap = dict({"literal": [emptyCntxt],
 			"parmvar": [emptyCntxtCpp],
 			"string": [assignContext, binOpContext],
+			"greaterthan": [binOpContext],
 			"gt": [binOpContext],
 			"gte": [binOpContext],
 			"lessthan": [binOpContext],
@@ -121,14 +141,25 @@ adlDetailMap = dict({"literal": [emptyCntxt],
 			"and": [binOpContext],
 			"or": [binOpContext],
 			"string": [emptyCntxt],
+			"none": [emptyCntxt],
+			"null": [emptyCntxt],
 			"variable": [emptyCntxt],
 			"parameters": [functionContext],
 			"parameter": [paramContext],
 			"targets": [forContext],
 			"minus": [binOpContext],
+			"modulo": [binOpContext],
 			"plus": [binOpContext],
+			"plusassign": [augAssignContext],
+			"divassign": [augAssignContext],
+			"floordivassign":[augAssignContext],
+			"multassign": [augAssignContext],
+			"minusassign": [augAssignContext],
 			"exponent": [binOpContext],
-			"multiply":[binOpContext]})
+			"multiply":[binOpContext],
+			"divide":[binOpContext],
+			"not":[unOpContext],
+			"integerliteral": [emptyCntxtCpp]})
 
 
 '''
@@ -148,7 +179,10 @@ If the tag and one of the contexts match, the node is marked as an additional st
 
 #TODO: Fix this - some of these are language py but they should apply to the common AST
 classContext = context.Context("py",["\*"],["\*"],["class"],["\*"])
-ifContext = context.Context("py",["\*"],["!case"],["if"],["\*"]) #! signifys not
+basesContext = context.Context("py",["\*"],["\*"],["bases"],["\*"]) #commonAST not PY
+paramCntxt = context.Context("py",["\*"],["\*"],["parameters"],["class"]) 
+importCntxt = context.Context("py",["\*"],["\*"],["import"],["\*"])
+importCntxtGP = context.Context("py",["\*"],["\*"],["\*"],["import"])
 ifElseContext = context.Context("py",["+case"], ["\*"], ["\*"], ["\*"]) #+ signifys more than one
 callContext = context.Context("py",["\*"],["\*"],["call"],["\*"])
 functionContext = context.Context("py",["\*"],["\*"],["functiondef"],["\*"])
@@ -156,11 +190,13 @@ noChildrenContext = context.Context("py",None,["\*"], ["if"], ["\*"])
 whileNoChildrenContext = context.Context("py",None,["\*"], ["while"], ["\*"])
 forNoChildrenContext = context.Context("py",None,["\*"], ["for"], ["\*"])
 adlStructMap = dict({"body":[classContext], 
-			"case":[ifContext], 
 			"args":[callContext], 
-			"if": [ifElseContext],
+			#"if": [ifElseContext],
 			"access": [emptyCntxt],
 			"else": [noChildrenContext, whileNoChildrenContext, forNoChildrenContext],
-			"argument":[callContext],
+			"argument":[callContext, paramCntxt],
 			"paren":[emptyCntxt],
-			"identifier":[functionContext]})
+			"import":[importCntxt],
+			"importitem":[importCntxt, importCntxtGP],
+			"importeverything":[importCntxt],
+			"identifier":[functionContext, classContext]})
