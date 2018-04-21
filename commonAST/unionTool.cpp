@@ -585,6 +585,7 @@ class ASTMatcherVisitor : public RecursiveASTVisitor<ASTMatcherVisitor> {
 				}else if(node == "CaseStmt"){
 					output += "<case";
 				}else if(node == "CXXMemberCallExpr"){
+					/*
 					CXXMemberCallExpr* ce = (CXXMemberCallExpr*) x;
 					Expr* obj = ce->getImplicitObjectArgument();
 					CallExpr* expr = (CallExpr*) x;
@@ -592,8 +593,9 @@ class ASTMatcherVisitor : public RecursiveASTVisitor<ASTMatcherVisitor> {
 					QualType qt = obj->getType();
 					output += qt.getBaseTypeIdentifier()->getName().str();
 					output += "; calling func: ";
-					output += expr->getDirectCallee()->getNameInfo().getAsString();
-					output += ", " + level + ">\n";
+					output += expr->getDirectCallee()->getNameInfo().getAsString();*/
+					//output += ", " + level + ">\n";
+					output += "<Call, " + level + ">\n";
 					/*
 					output += "<args";
 					numClosingArgsNeeded++;
@@ -607,7 +609,7 @@ class ASTMatcherVisitor : public RecursiveASTVisitor<ASTMatcherVisitor> {
 
 				}else if(node == "CallExpr"){
 					CallExpr* expr = (CallExpr*) x;
-					output += "<Call: ";
+					output += "<Call";
 					//output += "<calling func: ";
 					//output += expr->getDirectCallee()->getNameInfo().getAsString();
 					output += ", " + level + ">\n";
@@ -627,7 +629,7 @@ class ASTMatcherVisitor : public RecursiveASTVisitor<ASTMatcherVisitor> {
 					string filename;
 					if(isInCurFile(Context, CD, filename)){
 						CXXMethodDecl* MD =  ce->getConstructor();
-						output += "<Call: ";
+						output += "<Call ";
 						/*
 						output += MD->getNameInfo().getAsString();
 						output += "," + level + ">\n";
@@ -685,7 +687,7 @@ class ASTMatcherVisitor : public RecursiveASTVisitor<ASTMatcherVisitor> {
 					if(isInCurFile(Context, CD, filename)){
 						CXXMethodDecl* MD =  ce->getConstructor();
 
-						output += "<Call: ";
+						output += "<Call ";
 						/*
 
 						output += "<calling func: ";

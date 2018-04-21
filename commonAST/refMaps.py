@@ -108,6 +108,7 @@ assignContext =  context.Context("py",["\*"],["\*"],["assign"],["\*"])
 functionContext =  context.Context("py",["\*"],["\*"],["function"],["\*"])
 paramContext =  context.Context("py",["\*"],["\*"],["parameters"],["\*"])
 accessContext =  context.Context("py",["\*"],["\*"],["access"],["\*"])
+forContext =  context.Context("py",["\*"],["\*"],["for"],["\*"])
 binOpContext = context.Context("py",["\*"], ["\*"],["binary", "operator"], ["\*"])
 adlDetailMap = dict({"literal": [emptyCntxt],
 			"parmvar": [emptyCntxtCpp],
@@ -123,6 +124,7 @@ adlDetailMap = dict({"literal": [emptyCntxt],
 			"variable": [emptyCntxt],
 			"parameters": [functionContext],
 			"parameter": [paramContext],
+			"targets": [forContext],
 			"minus": [binOpContext],
 			"plus": [binOpContext],
 			"exponent": [binOpContext],
