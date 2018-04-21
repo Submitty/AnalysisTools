@@ -113,6 +113,66 @@
                         {
                            "children": [
                               {
+                                 "children": [],
+                                 "type": "node",
+                                 "tags":[
+                                    "IntegerLiteral"
+                                 ]
+                              }
+                           ],
+                           "type": "node",
+                           "tags":[
+                              "DeclStmt"
+                           ]
+                        },
+                        {
+                           "children": [
+                              {
+                                 "children": [
+                                    {
+                                       "children": [],
+                                       "type": "node",
+                                       "tags":[
+                                          "DeclRefExpr"
+                                       ]
+                                    }
+                                 ],
+                                 "type": "node",
+                                 "tags":[
+                                    "ImplicitCastExpr"
+                                 ]
+                              },
+                              {
+                                 "children": [],
+                                 "type": "node",
+                                 "tags":[
+                                    "IntegerLiteral"
+                                 ]
+                              }
+                           ],
+                           "type": "node",
+                           "tags":[
+                              "comparison"
+                           ]
+                        },
+                        {
+                           "children": [
+                              {
+                                 "children": [],
+                                 "type": "node",
+                                 "tags":[
+                                    "DeclRefExpr"
+                                 ]
+                              }
+                           ],
+                           "type": "node",
+                           "tags":[
+                              "unaryOp"
+                           ]
+                        },
+                        {
+                           "children": [
+                              {
                                  "children": [
                                     {
                                        "children": [],
@@ -182,6 +242,66 @@
                         {
                            "children": [
                               {
+                                 "children": [],
+                                 "type": "node",
+                                 "tags":[
+                                    "IntegerLiteral"
+                                 ]
+                              }
+                           ],
+                           "type": "node",
+                           "tags":[
+                              "DeclStmt"
+                           ]
+                        },
+                        {
+                           "children": [
+                              {
+                                 "children": [
+                                    {
+                                       "children": [],
+                                       "type": "node",
+                                       "tags":[
+                                          "DeclRefExpr"
+                                       ]
+                                    }
+                                 ],
+                                 "type": "node",
+                                 "tags":[
+                                    "ImplicitCastExpr"
+                                 ]
+                              },
+                              {
+                                 "children": [],
+                                 "type": "node",
+                                 "tags":[
+                                    "IntegerLiteral"
+                                 ]
+                              }
+                           ],
+                           "type": "node",
+                           "tags":[
+                              "comparison"
+                           ]
+                        },
+                        {
+                           "children": [
+                              {
+                                 "children": [],
+                                 "type": "node",
+                                 "tags":[
+                                    "DeclRefExpr"
+                                 ]
+                              }
+                           ],
+                           "type": "node",
+                           "tags":[
+                              "unaryOp"
+                           ]
+                        },
+                        {
+                           "children": [
+                              {
                                  "children": [
                                     {
                                        "children": [],
@@ -210,6 +330,66 @@
                   },
                   {
                      "children": [
+                        {
+                           "children": [
+                              {
+                                 "children": [],
+                                 "type": "node",
+                                 "tags":[
+                                    "IntegerLiteral"
+                                 ]
+                              }
+                           ],
+                           "type": "node",
+                           "tags":[
+                              "DeclStmt"
+                           ]
+                        },
+                        {
+                           "children": [
+                              {
+                                 "children": [
+                                    {
+                                       "children": [],
+                                       "type": "node",
+                                       "tags":[
+                                          "DeclRefExpr"
+                                       ]
+                                    }
+                                 ],
+                                 "type": "node",
+                                 "tags":[
+                                    "ImplicitCastExpr"
+                                 ]
+                              },
+                              {
+                                 "children": [],
+                                 "type": "node",
+                                 "tags":[
+                                    "IntegerLiteral"
+                                 ]
+                              }
+                           ],
+                           "type": "node",
+                           "tags":[
+                              "comparison"
+                           ]
+                        },
+                        {
+                           "children": [
+                              {
+                                 "children": [],
+                                 "type": "node",
+                                 "tags":[
+                                    "DeclRefExpr"
+                                 ]
+                              }
+                           ],
+                           "type": "node",
+                           "tags":[
+                              "unaryOp"
+                           ]
+                        },
                         {
                            "children": [
                               {
