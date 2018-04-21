@@ -857,7 +857,7 @@
                                                    ],
                                                    "type": "node",
                                                    "tags":[
-                                                      "compoundStmt"
+                                                      "elseStatement"
                                                    ]
                                                 }
                                              ],
@@ -1091,7 +1091,7 @@
                                              ],
                                              "type": "node",
                                              "tags":[
-                                                "compoundStmt"
+                                                "elseStatement"
                                              ]
                                           }
                                        ],
