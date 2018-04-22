@@ -1,3 +1,6 @@
+#include<vector>
+
+using namespace std;
 
 void mergeSort(const vector<int>& v, int low, int high)
 {
@@ -43,6 +46,6 @@ void mergeSort(const vector<int>& v, int low, int high)
         }
     } 
 
-    v = temp;
+    //v = temp;
 }
 
