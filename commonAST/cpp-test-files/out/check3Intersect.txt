@@ -80,78 +80,34 @@
                                                    "tags":[
                                                       "IfBlock"
                                                    ]
-                                                },
+                                                }
+                                             ],
+                                             "type": "node",
+                                             "tags":[
+                                                "CompoundStmt"
+                                             ]
+                                          }
+                                       ],
+                                       "type": "node",
+                                       "tags":[
+                                          "If"
+                                       ]
+                                    },
+                                    {
+                                       "children": [
+                                          {
+                                             "children": [],
+                                             "type": "node",
+                                             "tags":[
+                                                "Comparison"
+                                             ]
+                                          },
+                                          {
+                                             "children": [
                                                 {
                                                    "children": [
                                                       {
-                                                         "children": [],
-                                                         "type": "node",
-                                                         "tags":[
-                                                            "Comparison"
-                                                         ]
-                                                      },
-                                                      {
                                                          "children": [
-                                                            {
-                                                               "children": [
-                                                                  {
-                                                                     "children": [
-                                                                        {
-                                                                           "children": [],
-                                                                           "type": "node",
-                                                                           "tags":[
-                                                                              "CompoundStmt"
-                                                                           ]
-                                                                        }
-                                                                     ],
-                                                                     "type": "node",
-                                                                     "tags":[
-                                                                        "If"
-                                                                     ]
-                                                                  }
-                                                               ],
-                                                               "type": "node",
-                                                               "tags":[
-                                                                  "IfBlock"
-                                                               ]
-                                                            },
-                                                            {
-                                                               "children": [],
-                                                               "type": "node",
-                                                               "tags":[
-                                                                  "Return"
-                                                               ]
-                                                            },
-                                                            {
-                                                               "children": [
-                                                                  {
-                                                                     "children": [
-                                                                        {
-                                                                           "children": [],
-                                                                           "type": "node",
-                                                                           "tags":[
-                                                                              "args"
-                                                                           ]
-                                                                        }
-                                                                     ],
-                                                                     "type": "node",
-                                                                     "tags":[
-                                                                        "Call"
-                                                                     ]
-                                                                  },
-                                                                  {
-                                                                     "children": [],
-                                                                     "type": "node",
-                                                                     "tags":[
-                                                                        "CompoundStmt"
-                                                                     ]
-                                                                  }
-                                                               ],
-                                                               "type": "node",
-                                                               "tags":[
-                                                                  "If"
-                                                               ]
-                                                            },
                                                             {
                                                                "children": [],
                                                                "type": "node",
@@ -162,13 +118,20 @@
                                                          ],
                                                          "type": "node",
                                                          "tags":[
-                                                            "CompoundStmt"
+                                                            "If"
                                                          ]
                                                       }
                                                    ],
                                                    "type": "node",
                                                    "tags":[
-                                                      "If"
+                                                      "IfBlock"
+                                                   ]
+                                                },
+                                                {
+                                                   "children": [],
+                                                   "type": "node",
+                                                   "tags":[
+                                                      "Return"
                                                    ]
                                                 }
                                              ],
@@ -181,6 +144,43 @@
                                        "type": "node",
                                        "tags":[
                                           "If"
+                                       ]
+                                    },
+                                    {
+                                       "children": [
+                                          {
+                                             "children": [
+                                                {
+                                                   "children": [],
+                                                   "type": "node",
+                                                   "tags":[
+                                                      "args"
+                                                   ]
+                                                }
+                                             ],
+                                             "type": "node",
+                                             "tags":[
+                                                "Call"
+                                             ]
+                                          },
+                                          {
+                                             "children": [],
+                                             "type": "node",
+                                             "tags":[
+                                                "CompoundStmt"
+                                             ]
+                                          }
+                                       ],
+                                       "type": "node",
+                                       "tags":[
+                                          "If"
+                                       ]
+                                    },
+                                    {
+                                       "children": [],
+                                       "type": "node",
+                                       "tags":[
+                                          "CompoundStmt"
                                        ]
                                     }
                                  ],

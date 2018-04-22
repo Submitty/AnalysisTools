@@ -568,66 +568,51 @@
                                                    "tags":[
                                                       "Assign"
                                                    ]
-                                                },
+                                                }
+                                             ],
+                                             "type": "node",
+                                             "tags":[
+                                                "CompoundStmt"
+                                             ]
+                                          }
+                                       ],
+                                       "type": "node",
+                                       "tags":[
+                                          "If"
+                                       ]
+                                    },
+                                    {
+                                       "children": [
+                                          {
+                                             "children": [],
+                                             "type": "node",
+                                             "tags":[
+                                                "Comparison"
+                                             ]
+                                          },
+                                          {
+                                             "children": [
                                                 {
                                                    "children": [
                                                       {
-                                                         "children": [],
-                                                         "type": "node",
-                                                         "tags":[
-                                                            "Comparison"
-                                                         ]
-                                                      },
-                                                      {
                                                          "children": [
                                                             {
-                                                               "children": [
-                                                                  {
-                                                                     "children": [
-                                                                        {
-                                                                           "children": [],
-                                                                           "type": "node",
-                                                                           "tags":[
-                                                                              "BinOp"
-                                                                           ]
-                                                                        }
-                                                                     ],
-                                                                     "type": "node",
-                                                                     "tags":[
-                                                                        "BinOp"
-                                                                     ]
-                                                                  }
-                                                               ],
+                                                               "children": [],
                                                                "type": "node",
                                                                "tags":[
-                                                                  "Assign"
+                                                                  "BinOp"
                                                                ]
                                                             }
                                                          ],
                                                          "type": "node",
                                                          "tags":[
-                                                            "CompoundStmt"
+                                                            "BinOp"
                                                          ]
                                                       }
                                                    ],
                                                    "type": "node",
                                                    "tags":[
-                                                      "If"
-                                                   ]
-                                                },
-                                                {
-                                                   "children": [
-                                                      {
-                                                         "children": [],
-                                                         "type": "node",
-                                                         "tags":[
-                                                            "Assign"
-                                                         ]
-                                                      }
-                                                   ],
-                                                   "type": "node",
-                                                   "tags":[
-                                                      "CompoundStmt"
+                                                      "Assign"
                                                    ]
                                                 }
                                              ],
@@ -640,6 +625,21 @@
                                        "type": "node",
                                        "tags":[
                                           "If"
+                                       ]
+                                    },
+                                    {
+                                       "children": [
+                                          {
+                                             "children": [],
+                                             "type": "node",
+                                             "tags":[
+                                                "Assign"
+                                             ]
+                                          }
+                                       ],
+                                       "type": "node",
+                                       "tags":[
+                                          "CompoundStmt"
                                        ]
                                     }
                                  ],
