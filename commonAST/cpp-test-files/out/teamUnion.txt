@@ -8,13 +8,6 @@
          ]
       },
       {
-         "children": [],
-         "type": "node",
-         "tags":[
-            "/importing"
-         ]
-      },
-      {
          "children": [
             {
                "children": [],
