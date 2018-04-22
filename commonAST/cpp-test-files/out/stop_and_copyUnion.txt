@@ -6,6 +6,36 @@
          "tags":[
             "importing"
          ]
+      },
+      {
+         "children": [
+            {
+               "children": [],
+               "type": "node",
+               "tags":[
+                  "UsingDirective"
+               ]
+            },
+            {
+               "children": [
+                  {
+                     "children": [],
+                     "type": "node",
+                     "tags":[
+                        "compoundStmt"
+                     ]
+                  }
+               ],
+               "type": "node",
+               "tags":[
+                  "Function"
+               ]
+            }
+         ],
+         "type": "node",
+         "tags":[
+            "IntegerLiteral"
+         ]
       }
    ],
    "type": "node",

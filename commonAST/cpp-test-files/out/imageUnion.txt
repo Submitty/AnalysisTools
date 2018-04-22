@@ -6,6 +6,41 @@
          "tags":[
             "importing"
          ]
+      },
+      {
+         "children": [],
+         "type": "node",
+         "tags":[
+            "IntegerLiteral"
+         ]
+      },
+      {
+         "children": [],
+         "type": "node",
+         "tags":[
+            "variableDecl"
+         ]
+      },
+      {
+         "children": [],
+         "type": "node",
+         "tags":[
+            "/variableDecl"
+         ]
+      },
+      {
+         "children": [],
+         "type": "node",
+         "tags":[
+            "variableDecl"
+         ]
+      },
+      {
+         "children": [],
+         "type": "node",
+         "tags":[
+            "/variableDecl"
+         ]
       }
    ],
    "type": "node",

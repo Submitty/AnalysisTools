@@ -6,6 +6,778 @@
          "tags":[
             "importing"
          ]
+      },
+      {
+         "children": [],
+         "type": "node",
+         "tags":[
+            "IntegerLiteral"
+         ]
+      },
+      {
+         "children": [
+            {
+               "children": [],
+               "type": "node",
+               "tags":[
+                  "DeclRefExpr"
+               ]
+            }
+         ],
+         "type": "node",
+         "tags":[
+            "ParenExpr"
+         ]
+      },
+      {
+         "children": [
+            {
+               "children": [],
+               "type": "node",
+               "tags":[
+                  "DeclRefExpr"
+               ]
+            }
+         ],
+         "type": "node",
+         "tags":[
+            "ParenExpr"
+         ]
+      },
+      {
+         "children": [
+            {
+               "children": [],
+               "type": "node",
+               "tags":[
+                  "DeclRefExpr"
+               ]
+            }
+         ],
+         "type": "node",
+         "tags":[
+            "ParenExpr"
+         ]
+      },
+      {
+         "children": [
+            {
+               "children": [],
+               "type": "node",
+               "tags":[
+                  "DeclRefExpr"
+               ]
+            }
+         ],
+         "type": "node",
+         "tags":[
+            "ParenExpr"
+         ]
+      },
+      {
+         "children": [
+            {
+               "children": [],
+               "type": "node",
+               "tags":[
+                  "DeclRefExpr"
+               ]
+            }
+         ],
+         "type": "node",
+         "tags":[
+            "ParenExpr"
+         ]
+      },
+      {
+         "children": [
+            {
+               "children": [],
+               "type": "node",
+               "tags":[
+                  "DeclRefExpr"
+               ]
+            }
+         ],
+         "type": "node",
+         "tags":[
+            "ParenExpr"
+         ]
+      },
+      {
+         "children": [
+            {
+               "children": [],
+               "type": "node",
+               "tags":[
+                  "DeclRefExpr"
+               ]
+            }
+         ],
+         "type": "node",
+         "tags":[
+            "ParenExpr"
+         ]
+      },
+      {
+         "children": [
+            {
+               "children": [],
+               "type": "node",
+               "tags":[
+                  "DeclRefExpr"
+               ]
+            }
+         ],
+         "type": "node",
+         "tags":[
+            "ParenExpr"
+         ]
+      },
+      {
+         "children": [
+            {
+               "children": [],
+               "type": "node",
+               "tags":[
+                  "DeclRefExpr"
+               ]
+            }
+         ],
+         "type": "node",
+         "tags":[
+            "ParenExpr"
+         ]
+      },
+      {
+         "children": [
+            {
+               "children": [],
+               "type": "node",
+               "tags":[
+                  "DeclRefExpr"
+               ]
+            }
+         ],
+         "type": "node",
+         "tags":[
+            "ParenExpr"
+         ]
+      },
+      {
+         "children": [
+            {
+               "children": [],
+               "type": "node",
+               "tags":[
+                  "DeclRefExpr"
+               ]
+            }
+         ],
+         "type": "node",
+         "tags":[
+            "ParenExpr"
+         ]
+      },
+      {
+         "children": [
+            {
+               "children": [],
+               "type": "node",
+               "tags":[
+                  "DeclRefExpr"
+               ]
+            }
+         ],
+         "type": "node",
+         "tags":[
+            "ParenExpr"
+         ]
+      },
+      {
+         "children": [
+            {
+               "children": [],
+               "type": "node",
+               "tags":[
+                  "DeclRefExpr"
+               ]
+            }
+         ],
+         "type": "node",
+         "tags":[
+            "ParenExpr"
+         ]
+      },
+      {
+         "children": [
+            {
+               "children": [],
+               "type": "node",
+               "tags":[
+                  "DeclRefExpr"
+               ]
+            }
+         ],
+         "type": "node",
+         "tags":[
+            "ParenExpr"
+         ]
+      },
+      {
+         "children": [
+            {
+               "children": [],
+               "type": "node",
+               "tags":[
+                  "DeclRefExpr"
+               ]
+            }
+         ],
+         "type": "node",
+         "tags":[
+            "ParenExpr"
+         ]
+      },
+      {
+         "children": [
+            {
+               "children": [],
+               "type": "node",
+               "tags":[
+                  "DeclRefExpr"
+               ]
+            }
+         ],
+         "type": "node",
+         "tags":[
+            "ParenExpr"
+         ]
+      },
+      {
+         "children": [
+            {
+               "children": [],
+               "type": "node",
+               "tags":[
+                  "DeclRefExpr"
+               ]
+            }
+         ],
+         "type": "node",
+         "tags":[
+            "ParenExpr"
+         ]
+      },
+      {
+         "children": [
+            {
+               "children": [],
+               "type": "node",
+               "tags":[
+                  "DeclRefExpr"
+               ]
+            }
+         ],
+         "type": "node",
+         "tags":[
+            "ParenExpr"
+         ]
+      },
+      {
+         "children": [
+            {
+               "children": [],
+               "type": "node",
+               "tags":[
+                  "DeclRefExpr"
+               ]
+            }
+         ],
+         "type": "node",
+         "tags":[
+            "ParenExpr"
+         ]
+      },
+      {
+         "children": [
+            {
+               "children": [],
+               "type": "node",
+               "tags":[
+                  "DeclRefExpr"
+               ]
+            }
+         ],
+         "type": "node",
+         "tags":[
+            "ParenExpr"
+         ]
+      },
+      {
+         "children": [
+            {
+               "children": [],
+               "type": "node",
+               "tags":[
+                  "DeclRefExpr"
+               ]
+            }
+         ],
+         "type": "node",
+         "tags":[
+            "ParenExpr"
+         ]
+      },
+      {
+         "children": [
+            {
+               "children": [],
+               "type": "node",
+               "tags":[
+                  "DeclRefExpr"
+               ]
+            }
+         ],
+         "type": "node",
+         "tags":[
+            "ParenExpr"
+         ]
+      },
+      {
+         "children": [
+            {
+               "children": [],
+               "type": "node",
+               "tags":[
+                  "DeclRefExpr"
+               ]
+            }
+         ],
+         "type": "node",
+         "tags":[
+            "ParenExpr"
+         ]
+      },
+      {
+         "children": [
+            {
+               "children": [],
+               "type": "node",
+               "tags":[
+                  "DeclRefExpr"
+               ]
+            }
+         ],
+         "type": "node",
+         "tags":[
+            "ParenExpr"
+         ]
+      },
+      {
+         "children": [
+            {
+               "children": [],
+               "type": "node",
+               "tags":[
+                  "DeclRefExpr"
+               ]
+            }
+         ],
+         "type": "node",
+         "tags":[
+            "ParenExpr"
+         ]
+      },
+      {
+         "children": [
+            {
+               "children": [],
+               "type": "node",
+               "tags":[
+                  "DeclRefExpr"
+               ]
+            }
+         ],
+         "type": "node",
+         "tags":[
+            "ParenExpr"
+         ]
+      },
+      {
+         "children": [
+            {
+               "children": [],
+               "type": "node",
+               "tags":[
+                  "DeclRefExpr"
+               ]
+            }
+         ],
+         "type": "node",
+         "tags":[
+            "ParenExpr"
+         ]
+      },
+      {
+         "children": [
+            {
+               "children": [],
+               "type": "node",
+               "tags":[
+                  "DeclRefExpr"
+               ]
+            },
+            {
+               "children": [
+                  {
+                     "children": [],
+                     "type": "node",
+                     "tags":[
+                        "name: hash_string_obj"
+                     ]
+                  },
+                  {
+                     "children": [],
+                     "type": "node",
+                     "tags":[
+                        "bases"
+                     ]
+                  },
+                  {
+                     "children": [],
+                     "type": "node",
+                     "tags":[
+                        "AccessSpec"
+                     ]
+                  },
+                  {
+                     "children": [
+                        {
+                           "children": [],
+                           "type": "node",
+                           "tags":[
+                              "name: operator()"
+                           ]
+                        }
+                     ],
+                     "type": "node",
+                     "tags":[
+                        "functionDef"
+                     ]
+                  }
+               ],
+               "type": "node",
+               "tags":[
+                  "classDef"
+               ]
+            }
+         ],
+         "type": "node",
+         "tags":[
+            "ParenExpr"
+         ]
+      },
+      {
+         "children": [
+            {
+               "children": [
+                  {
+                     "children": [
+                        {
+                           "children": [
+                              {
+                                 "children": [],
+                                 "type": "node",
+                                 "tags":[
+                                    "IntegerLiteral"
+                                 ]
+                              }
+                           ],
+                           "type": "node",
+                           "tags":[
+                              "ImplicitCastExpr"
+                           ]
+                        }
+                     ],
+                     "type": "node",
+                     "tags":[
+                        "return"
+                     ]
+                  }
+               ],
+               "type": "node",
+               "tags":[
+                  "compoundStmt"
+               ]
+            },
+            {
+               "children": [
+                  {
+                     "children": [],
+                     "type": "node",
+                     "tags":[
+                        "name: operator()"
+                     ]
+                  }
+               ],
+               "type": "node",
+               "tags":[
+                  "functionDef"
+               ]
+            }
+         ],
+         "type": "node",
+         "tags":[
+            "ParmVar"
+         ]
+      },
+      {
+         "children": [
+            {
+               "children": [
+                  {
+                     "children": [],
+                     "type": "node",
+                     "tags":[
+                        "DeclStmt"
+                     ]
+                  },
+                  {
+                     "children": [
+                        {
+                           "children": [
+                              {
+                                 "children": [],
+                                 "type": "node",
+                                 "tags":[
+                                    "IntegerLiteral"
+                                 ]
+                              }
+                           ],
+                           "type": "node",
+                           "tags":[
+                              "ImplicitCastExpr"
+                           ]
+                        }
+                     ],
+                     "type": "node",
+                     "tags":[
+                        "variableDecl"
+                     ]
+                  },
+                  {
+                     "children": [
+                        {
+                           "children": [
+                              {
+                                 "children": [],
+                                 "type": "node",
+                                 "tags":[
+                                    "DeclRefExpr"
+                                 ]
+                              }
+                           ],
+                           "type": "node",
+                           "tags":[
+                              "ImplicitCastExpr"
+                           ]
+                        }
+                     ],
+                     "type": "node",
+                     "tags":[
+                        "return"
+                     ]
+                  }
+               ],
+               "type": "node",
+               "tags":[
+                  "compoundStmt"
+               ]
+            },
+            {
+               "children": [],
+               "type": "node",
+               "tags":[
+                  "Typedef"
+               ]
+            },
+            {
+               "children": [
+                  {
+                     "children": [
+                        {
+                           "children": [],
+                           "type": "node",
+                           "tags":[
+                              "DeclStmt"
+                           ]
+                        },
+                        {
+                           "children": [],
+                           "type": "node",
+                           "tags":[
+                              "variableDecl"
+                           ]
+                        }
+                     ],
+                     "type": "node",
+                     "tags":[
+                        "compoundStmt"
+                     ]
+                  }
+               ],
+               "type": "node",
+               "tags":[
+                  "Function"
+               ]
+            }
+         ],
+         "type": "node",
+         "tags":[
+            "ParmVar"
+         ]
+      },
+      {
+         "children": [
+            {
+               "children": [],
+               "type": "node",
+               "tags":[
+                  "DeclStmt"
+               ]
+            },
+            {
+               "children": [],
+               "type": "node",
+               "tags":[
+                  "variableDecl"
+               ]
+            }
+         ],
+         "type": "node",
+         "tags":[
+            "/variableDecl"
+         ]
+      },
+      {
+         "children": [
+            {
+               "children": [],
+               "type": "node",
+               "tags":[
+                  "DeclStmt"
+               ]
+            },
+            {
+               "children": [],
+               "type": "node",
+               "tags":[
+                  "variableDecl"
+               ]
+            }
+         ],
+         "type": "node",
+         "tags":[
+            "/variableDecl"
+         ]
+      },
+      {
+         "children": [
+            {
+               "children": [],
+               "type": "node",
+               "tags":[
+                  "DeclStmt"
+               ]
+            },
+            {
+               "children": [],
+               "type": "node",
+               "tags":[
+                  "variableDecl"
+               ]
+            }
+         ],
+         "type": "node",
+         "tags":[
+            "/variableDecl"
+         ]
+      },
+      {
+         "children": [
+            {
+               "children": [],
+               "type": "node",
+               "tags":[
+                  "DeclStmt"
+               ]
+            },
+            {
+               "children": [],
+               "type": "node",
+               "tags":[
+                  "variableDecl"
+               ]
+            }
+         ],
+         "type": "node",
+         "tags":[
+            "/variableDecl"
+         ]
+      },
+      {
+         "children": [
+            {
+               "children": [],
+               "type": "node",
+               "tags":[
+                  "DeclStmt"
+               ]
+            },
+            {
+               "children": [
+                  {
+                     "children": [
+                        {
+                           "children": [],
+                           "type": "node",
+                           "tags":[
+                              "DeclRefExpr"
+                           ]
+                        }
+                     ],
+                     "type": "node",
+                     "tags":[
+                        "ImplicitCastExpr"
+                     ]
+                  }
+               ],
+               "type": "node",
+               "tags":[
+                  "variableDecl"
+               ]
+            },
+            {
+               "children": [
+                  {
+                     "children": [],
+                     "type": "node",
+                     "tags":[
+                        "IntegerLiteral"
+                     ]
+                  }
+               ],
+               "type": "node",
+               "tags":[
+                  "return"
+               ]
+            }
+         ],
+         "type": "node",
+         "tags":[
+            "/variableDecl"
+         ]
       }
    ],
    "type": "node",

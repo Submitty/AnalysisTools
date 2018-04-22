@@ -1,38 +1,9 @@
 {
    "children": [
       {
-         "children": [],
-         "type": "node",
-         "tags":[
-            "importing"
-         ]
-      },
-      {
          "children": [
             {
                "children": [
-                  {
-                     "children": [],
-                     "type": "node",
-                     "tags":[
-                        "DeclStmt"
-                     ]
-                  },
-                  {
-                     "children": [
-                        {
-                           "children": [],
-                           "type": "node",
-                           "tags":[
-                              "IntegerLiteral"
-                           ]
-                        }
-                     ],
-                     "type": "node",
-                     "tags":[
-                        "variableDecl"
-                     ]
-                  },
                   {
                      "children": [
                         {
@@ -45,21 +16,6 @@
                         {
                            "children": [
                               {
-                                 "children": [
-                                    {
-                                       "children": [],
-                                       "type": "node",
-                                       "tags":[
-                                          "DeclRefExpr"
-                                       ]
-                                    }
-                                 ],
-                                 "type": "node",
-                                 "tags":[
-                                    "ImplicitCastExpr"
-                                 ]
-                              },
-                              {
                                  "children": [],
                                  "type": "node",
                                  "tags":[
@@ -69,7 +25,7 @@
                            ],
                            "type": "node",
                            "tags":[
-                              "comparison"
+                              "variableDecl"
                            ]
                         },
                         {
@@ -78,56 +34,11 @@
                                  "children": [],
                                  "type": "node",
                                  "tags":[
-                                    "DeclRefExpr"
+                                    "DeclStmt"
                                  ]
-                              }
-                           ],
-                           "type": "node",
-                           "tags":[
-                              "unaryOp"
-                           ]
-                        },
-                        {
-                           "children": [
+                              },
                               {
                                  "children": [
-                                    {
-                                       "children": [],
-                                       "type": "node",
-                                       "tags":[
-                                          "DeclStmt"
-                                       ]
-                                    },
-                                    {
-                                       "children": [
-                                          {
-                                             "children": [
-                                                {
-                                                   "children": [],
-                                                   "type": "node",
-                                                   "tags":[
-                                                      "DeclRefExpr"
-                                                   ]
-                                                }
-                                             ],
-                                             "type": "node",
-                                             "tags":[
-                                                "ImplicitCastExpr"
-                                             ]
-                                          },
-                                          {
-                                             "children": [],
-                                             "type": "node",
-                                             "tags":[
-                                                "IntegerLiteral"
-                                             ]
-                                          }
-                                       ],
-                                       "type": "node",
-                                       "tags":[
-                                          "comparison"
-                                       ]
-                                    },
                                     {
                                        "children": [
                                           {
@@ -140,11 +51,93 @@
                                        ],
                                        "type": "node",
                                        "tags":[
-                                          "unaryOp"
+                                          "ImplicitCastExpr"
                                        ]
                                     },
                                     {
+                                       "children": [],
+                                       "type": "node",
+                                       "tags":[
+                                          "IntegerLiteral"
+                                       ]
+                                    }
+                                 ],
+                                 "type": "node",
+                                 "tags":[
+                                    "comparison"
+                                 ]
+                              },
+                              {
+                                 "children": [
+                                    {
+                                       "children": [],
+                                       "type": "node",
+                                       "tags":[
+                                          "DeclRefExpr"
+                                       ]
+                                    }
+                                 ],
+                                 "type": "node",
+                                 "tags":[
+                                    "unaryOp"
+                                 ]
+                              },
+                              {
+                                 "children": [
+                                    {
                                        "children": [
+                                          {
+                                             "children": [],
+                                             "type": "node",
+                                             "tags":[
+                                                "DeclStmt"
+                                             ]
+                                          },
+                                          {
+                                             "children": [
+                                                {
+                                                   "children": [
+                                                      {
+                                                         "children": [],
+                                                         "type": "node",
+                                                         "tags":[
+                                                            "DeclRefExpr"
+                                                         ]
+                                                      }
+                                                   ],
+                                                   "type": "node",
+                                                   "tags":[
+                                                      "ImplicitCastExpr"
+                                                   ]
+                                                },
+                                                {
+                                                   "children": [],
+                                                   "type": "node",
+                                                   "tags":[
+                                                      "IntegerLiteral"
+                                                   ]
+                                                }
+                                             ],
+                                             "type": "node",
+                                             "tags":[
+                                                "comparison"
+                                             ]
+                                          },
+                                          {
+                                             "children": [
+                                                {
+                                                   "children": [],
+                                                   "type": "node",
+                                                   "tags":[
+                                                      "DeclRefExpr"
+                                                   ]
+                                                }
+                                             ],
+                                             "type": "node",
+                                             "tags":[
+                                                "unaryOp"
+                                             ]
+                                          },
                                           {
                                              "children": [
                                                 {
@@ -154,115 +147,123 @@
                                                             {
                                                                "children": [
                                                                   {
-                                                                     "children": [],
+                                                                     "children": [
+                                                                        {
+                                                                           "children": [],
+                                                                           "type": "node",
+                                                                           "tags":[
+                                                                              "DeclRefExpr"
+                                                                           ]
+                                                                        }
+                                                                     ],
                                                                      "type": "node",
                                                                      "tags":[
-                                                                        "DeclRefExpr"
+                                                                        "ImplicitCastExpr"
+                                                                     ]
+                                                                  },
+                                                                  {
+                                                                     "children": [
+                                                                        {
+                                                                           "children": [],
+                                                                           "type": "node",
+                                                                           "tags":[
+                                                                              "DeclRefExpr"
+                                                                           ]
+                                                                        }
+                                                                     ],
+                                                                     "type": "node",
+                                                                     "tags":[
+                                                                        "ImplicitCastExpr"
                                                                      ]
                                                                   }
                                                                ],
                                                                "type": "node",
                                                                "tags":[
-                                                                  "ImplicitCastExpr"
+                                                                  "comparison"
                                                                ]
                                                             },
                                                             {
                                                                "children": [
                                                                   {
-                                                                     "children": [],
+                                                                     "children": [
+                                                                        {
+                                                                           "children": [],
+                                                                           "type": "node",
+                                                                           "tags":[
+                                                                              "DeclRefExpr"
+                                                                           ]
+                                                                        },
+                                                                        {
+                                                                           "children": [],
+                                                                           "type": "node",
+                                                                           "tags":[
+                                                                              "IntegerLiteral"
+                                                                           ]
+                                                                        }
+                                                                     ],
                                                                      "type": "node",
                                                                      "tags":[
-                                                                        "DeclRefExpr"
+                                                                        "augAssign"
                                                                      ]
                                                                   }
                                                                ],
                                                                "type": "node",
                                                                "tags":[
-                                                                  "ImplicitCastExpr"
+                                                                  "compoundStmt"
                                                                ]
                                                             }
                                                          ],
                                                          "type": "node",
                                                          "tags":[
-                                                            "comparison"
-                                                         ]
-                                                      },
-                                                      {
-                                                         "children": [
-                                                            {
-                                                               "children": [
-                                                                  {
-                                                                     "children": [],
-                                                                     "type": "node",
-                                                                     "tags":[
-                                                                        "DeclRefExpr"
-                                                                     ]
-                                                                  },
-                                                                  {
-                                                                     "children": [],
-                                                                     "type": "node",
-                                                                     "tags":[
-                                                                        "IntegerLiteral"
-                                                                     ]
-                                                                  }
-                                                               ],
-                                                               "type": "node",
-                                                               "tags":[
-                                                                  "augAssign"
-                                                               ]
-                                                            }
-                                                         ],
-                                                         "type": "node",
-                                                         "tags":[
-                                                            "compoundStmt"
+                                                            "ifStatement"
                                                          ]
                                                       }
                                                    ],
                                                    "type": "node",
                                                    "tags":[
-                                                      "ifStatement"
+                                                      "ifBlock"
                                                    ]
                                                 }
                                              ],
                                              "type": "node",
                                              "tags":[
-                                                "ifBlock"
+                                                "compoundStmt"
                                              ]
                                           }
                                        ],
                                        "type": "node",
                                        "tags":[
-                                          "compoundStmt"
+                                          "forLoop"
                                        ]
                                     }
                                  ],
                                  "type": "node",
                                  "tags":[
-                                    "forLoop"
+                                    "compoundStmt"
                                  ]
                               }
                            ],
                            "type": "node",
                            "tags":[
-                              "compoundStmt"
+                              "forLoop"
                            ]
                         }
                      ],
                      "type": "node",
                      "tags":[
-                        "forLoop"
+                        "compoundStmt"
                      ]
                   }
                ],
                "type": "node",
                "tags":[
-                  "compoundStmt"
+                  "Function"
                ]
             }
          ],
          "type": "node",
          "tags":[
-            "Function"
+            "importing"
          ]
       }
    ],
