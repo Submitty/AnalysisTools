@@ -505,61 +505,24 @@
                                              "tags":[
                                                 "assignment"
                                              ]
-                                          }
-                                       ],
-                                       "type": "node",
-                                       "tags":[
-                                          "compoundStmt"
-                                       ]
-                                    },
-                                    {
-                                       "children": [
-                                          {
-                                             "children": [],
-                                             "type": "node",
-                                             "tags":[
-                                                "ifStatement"
-                                             ]
                                           },
                                           {
                                              "children": [
                                                 {
                                                    "children": [
                                                       {
-                                                         "children": [],
+                                                         "children": [
+                                                            {
+                                                               "children": [],
+                                                               "type": "node",
+                                                               "tags":[
+                                                                  "DeclRefExpr"
+                                                               ]
+                                                            }
+                                                         ],
                                                          "type": "node",
                                                          "tags":[
-                                                            "DeclRefExpr"
-                                                         ]
-                                                      }
-                                                   ],
-                                                   "type": "node",
-                                                   "tags":[
-                                                      "ImplicitCastExpr"
-                                                   ]
-                                                },
-                                                {
-                                                   "children": [],
-                                                   "type": "node",
-                                                   "tags":[
-                                                      "IntegerLiteral"
-                                                   ]
-                                                }
-                                             ],
-                                             "type": "node",
-                                             "tags":[
-                                                "comparison"
-                                             ]
-                                          },
-                                          {
-                                             "children": [
-                                                {
-                                                   "children": [
-                                                      {
-                                                         "children": [],
-                                                         "type": "node",
-                                                         "tags":[
-                                                            "DeclRefExpr"
+                                                            "ImplicitCastExpr"
                                                          ]
                                                       },
                                                       {
@@ -572,34 +535,64 @@
                                                    ],
                                                    "type": "node",
                                                    "tags":[
-                                                      "assignment"
+                                                      "comparison"
                                                    ]
-                                                }
-                                             ],
-                                             "type": "node",
-                                             "tags":[
-                                                "compoundStmt"
-                                             ]
-                                          },
-                                          {
-                                             "children": [
+                                                },
                                                 {
-                                                   "children": [],
+                                                   "children": [
+                                                      {
+                                                         "children": [
+                                                            {
+                                                               "children": [],
+                                                               "type": "node",
+                                                               "tags":[
+                                                                  "DeclRefExpr"
+                                                               ]
+                                                            },
+                                                            {
+                                                               "children": [],
+                                                               "type": "node",
+                                                               "tags":[
+                                                                  "IntegerLiteral"
+                                                               ]
+                                                            }
+                                                         ],
+                                                         "type": "node",
+                                                         "tags":[
+                                                            "assignment"
+                                                         ]
+                                                      }
+                                                   ],
                                                    "type": "node",
                                                    "tags":[
-                                                      "ContinueStmt"
+                                                      "compoundStmt"
+                                                   ]
+                                                },
+                                                {
+                                                   "children": [
+                                                      {
+                                                         "children": [],
+                                                         "type": "node",
+                                                         "tags":[
+                                                            "ContinueStmt"
+                                                         ]
+                                                      }
+                                                   ],
+                                                   "type": "node",
+                                                   "tags":[
+                                                      "elseStatement"
                                                    ]
                                                 }
                                              ],
                                              "type": "node",
                                              "tags":[
-                                                "elseStatement"
+                                                "ifStatement"
                                              ]
                                           }
                                        ],
                                        "type": "node",
                                        "tags":[
-                                          "ifBlock"
+                                          "compoundStmt"
                                        ]
                                     }
                                  ],

@@ -30,71 +30,32 @@
                                        "tags":[
                                           "Return"
                                        ]
-                                    }
-                                 ],
-                                 "type": "node",
-                                 "tags":[
-                                    "CompoundStmt"
-                                 ]
-                              }
-                           ],
-                           "type": "node",
-                           "tags":[
-                              "If"
-                           ]
-                        },
-                        {
-                           "children": [
-                              {
-                                 "children": [
-                                    {
-                                       "children": [
-                                          {
-                                             "children": [],
-                                             "type": "node",
-                                             "tags":[
-                                                "Return"
-                                             ]
-                                          }
-                                       ],
-                                       "type": "node",
-                                       "tags":[
-                                          "CompoundStmt"
-                                       ]
-                                    }
-                                 ],
-                                 "type": "node",
-                                 "tags":[
-                                    "If"
-                                 ]
-                              },
-                              {
-                                 "children": [
+                                    },
                                     {
                                        "children": [
                                           {
                                              "children": [
                                                 {
-                                                   "children": [
-                                                      {
-                                                         "children": [],
-                                                         "type": "node",
-                                                         "tags":[
-                                                            "Return"
-                                                         ]
-                                                      }
-                                                   ],
+                                                   "children": [],
                                                    "type": "node",
                                                    "tags":[
-                                                      "CompoundStmt"
+                                                      "Return"
                                                    ]
                                                 }
                                              ],
                                              "type": "node",
                                              "tags":[
-                                                "If"
+                                                "CompoundStmt"
                                              ]
-                                          },
+                                          }
+                                       ],
+                                       "type": "node",
+                                       "tags":[
+                                          "If"
+                                       ]
+                                    },
+                                    {
+                                       "children": [
                                           {
                                              "children": [
                                                 {
@@ -107,23 +68,7 @@
                                                                "tags":[
                                                                   "Return"
                                                                ]
-                                                            }
-                                                         ],
-                                                         "type": "node",
-                                                         "tags":[
-                                                            "CompoundStmt"
-                                                         ]
-                                                      }
-                                                   ],
-                                                   "type": "node",
-                                                   "tags":[
-                                                      "If"
-                                                   ]
-                                                },
-                                                {
-                                                   "children": [
-                                                      {
-                                                         "children": [
+                                                            },
                                                             {
                                                                "children": [
                                                                   {
@@ -150,10 +95,49 @@
                                                             {
                                                                "children": [
                                                                   {
-                                                                     "children": [],
+                                                                     "children": [
+                                                                        {
+                                                                           "children": [
+                                                                              {
+                                                                                 "children": [
+                                                                                    {
+                                                                                       "children": [],
+                                                                                       "type": "node",
+                                                                                       "tags":[
+                                                                                          "Return"
+                                                                                       ]
+                                                                                    }
+                                                                                 ],
+                                                                                 "type": "node",
+                                                                                 "tags":[
+                                                                                    "CompoundStmt"
+                                                                                 ]
+                                                                              }
+                                                                           ],
+                                                                           "type": "node",
+                                                                           "tags":[
+                                                                              "If"
+                                                                           ]
+                                                                        },
+                                                                        {
+                                                                           "children": [
+                                                                              {
+                                                                                 "children": [],
+                                                                                 "type": "node",
+                                                                                 "tags":[
+                                                                                    "Return"
+                                                                                 ]
+                                                                              }
+                                                                           ],
+                                                                           "type": "node",
+                                                                           "tags":[
+                                                                              "CompoundStmt"
+                                                                           ]
+                                                                        }
+                                                                     ],
                                                                      "type": "node",
                                                                      "tags":[
-                                                                        "Return"
+                                                                        "IfBlock"
                                                                      ]
                                                                   }
                                                                ],
@@ -165,13 +149,13 @@
                                                          ],
                                                          "type": "node",
                                                          "tags":[
-                                                            "IfBlock"
+                                                            "CompoundStmt"
                                                          ]
                                                       }
                                                    ],
                                                    "type": "node",
                                                    "tags":[
-                                                      "CompoundStmt"
+                                                      "If"
                                                    ]
                                                 }
                                              ],
@@ -183,7 +167,7 @@
                                        ],
                                        "type": "node",
                                        "tags":[
-                                          "IfBlock"
+                                          "CompoundStmt"
                                        ]
                                     }
                                  ],
@@ -195,7 +179,7 @@
                            ],
                            "type": "node",
                            "tags":[
-                              "IfBlock"
+                              "If"
                            ]
                         }
                      ],
