@@ -1,127 +1,19 @@
 {
    "children": [
       {
+         "children": [],
+         "type": "node",
+         "tags":[
+            "importing"
+         ]
+      },
+      {
          "children": [
             {
-               "children": [
-                  {
-                     "children": [],
-                     "type": "node",
-                     "tags":[
-                        "ParmVar"
-                     ]
-                  },
-                  {
-                     "children": [
-                        {
-                           "children": [
-                              {
-                                 "children": [
-                                    {
-                                       "children": [
-                                          {
-                                             "children": [],
-                                             "type": "node",
-                                             "tags":[
-                                                "DeclRefExpr"
-                                             ]
-                                          }
-                                       ],
-                                       "type": "node",
-                                       "tags":[
-                                          "ImplicitCastExpr"
-                                       ]
-                                    },
-                                    {
-                                       "children": [],
-                                       "type": "node",
-                                       "tags":[
-                                          "IntegerLiteral"
-                                       ]
-                                    }
-                                 ],
-                                 "type": "node",
-                                 "tags":[
-                                    "binaryOp"
-                                 ]
-                              }
-                           ],
-                           "type": "node",
-                           "tags":[
-                              "return"
-                           ]
-                        }
-                     ],
-                     "type": "node",
-                     "tags":[
-                        "compoundStmt"
-                     ]
-                  }
-               ],
+               "children": [],
                "type": "node",
                "tags":[
-                  "Function"
-               ]
-            },
-            {
-               "children": [
-                  {
-                     "children": [],
-                     "type": "node",
-                     "tags":[
-                        "ParmVar"
-                     ]
-                  },
-                  {
-                     "children": [
-                        {
-                           "children": [
-                              {
-                                 "children": [
-                                    {
-                                       "children": [
-                                          {
-                                             "children": [],
-                                             "type": "node",
-                                             "tags":[
-                                                "DeclRefExpr"
-                                             ]
-                                          }
-                                       ],
-                                       "type": "node",
-                                       "tags":[
-                                          "ImplicitCastExpr"
-                                       ]
-                                    },
-                                    {
-                                       "children": [],
-                                       "type": "node",
-                                       "tags":[
-                                          "IntegerLiteral"
-                                       ]
-                                    }
-                                 ],
-                                 "type": "node",
-                                 "tags":[
-                                    "binaryOp"
-                                 ]
-                              }
-                           ],
-                           "type": "node",
-                           "tags":[
-                              "return"
-                           ]
-                        }
-                     ],
-                     "type": "node",
-                     "tags":[
-                        "compoundStmt"
-                     ]
-                  }
-               ],
-               "type": "node",
-               "tags":[
-                  "Function"
+                  "ParmVar"
                ]
             },
             {
@@ -129,14 +21,22 @@
                   {
                      "children": [
                         {
-                           "children": [],
-                           "type": "node",
-                           "tags":[
-                              "DeclStmt"
-                           ]
-                        },
-                        {
                            "children": [
+                              {
+                                 "children": [
+                                    {
+                                       "children": [],
+                                       "type": "node",
+                                       "tags":[
+                                          "DeclRefExpr"
+                                       ]
+                                    }
+                                 ],
+                                 "type": "node",
+                                 "tags":[
+                                    "ImplicitCastExpr"
+                                 ]
+                              },
                               {
                                  "children": [],
                                  "type": "node",
@@ -147,18 +47,140 @@
                            ],
                            "type": "node",
                            "tags":[
-                              "variableDecl"
+                              "binaryOp"
                            ]
-                        },
+                        }
+                     ],
+                     "type": "node",
+                     "tags":[
+                        "return"
+                     ]
+                  }
+               ],
+               "type": "node",
+               "tags":[
+                  "compoundStmt"
+               ]
+            }
+         ],
+         "type": "node",
+         "tags":[
+            "Function"
+         ]
+      },
+      {
+         "children": [
+            {
+               "children": [],
+               "type": "node",
+               "tags":[
+                  "ParmVar"
+               ]
+            },
+            {
+               "children": [
+                  {
+                     "children": [
+                        {
+                           "children": [
+                              {
+                                 "children": [
+                                    {
+                                       "children": [],
+                                       "type": "node",
+                                       "tags":[
+                                          "DeclRefExpr"
+                                       ]
+                                    }
+                                 ],
+                                 "type": "node",
+                                 "tags":[
+                                    "ImplicitCastExpr"
+                                 ]
+                              },
+                              {
+                                 "children": [],
+                                 "type": "node",
+                                 "tags":[
+                                    "IntegerLiteral"
+                                 ]
+                              }
+                           ],
+                           "type": "node",
+                           "tags":[
+                              "binaryOp"
+                           ]
+                        }
+                     ],
+                     "type": "node",
+                     "tags":[
+                        "return"
+                     ]
+                  }
+               ],
+               "type": "node",
+               "tags":[
+                  "compoundStmt"
+               ]
+            }
+         ],
+         "type": "node",
+         "tags":[
+            "Function"
+         ]
+      },
+      {
+         "children": [
+            {
+               "children": [
+                  {
+                     "children": [],
+                     "type": "node",
+                     "tags":[
+                        "DeclStmt"
+                     ]
+                  },
+                  {
+                     "children": [
                         {
                            "children": [],
                            "type": "node",
                            "tags":[
-                              "DeclStmt"
+                              "IntegerLiteral"
                            ]
-                        },
+                        }
+                     ],
+                     "type": "node",
+                     "tags":[
+                        "variableDecl"
+                     ]
+                  },
+                  {
+                     "children": [],
+                     "type": "node",
+                     "tags":[
+                        "DeclStmt"
+                     ]
+                  },
+                  {
+                     "children": [
                         {
                            "children": [
+                              {
+                                 "children": [
+                                    {
+                                       "children": [],
+                                       "type": "node",
+                                       "tags":[
+                                          "DeclRefExpr"
+                                       ]
+                                    }
+                                 ],
+                                 "type": "node",
+                                 "tags":[
+                                    "ImplicitCastExpr"
+                                 ]
+                              },
                               {
                                  "children": [
                                     {
@@ -179,39 +201,16 @@
                                     {
                                        "children": [
                                           {
-                                             "children": [
-                                                {
-                                                   "children": [],
-                                                   "type": "node",
-                                                   "tags":[
-                                                      "DeclRefExpr"
-                                                   ]
-                                                }
-                                             ],
+                                             "children": [],
                                              "type": "node",
                                              "tags":[
-                                                "ImplicitCastExpr"
-                                             ]
-                                          },
-                                          {
-                                             "children": [
-                                                {
-                                                   "children": [],
-                                                   "type": "node",
-                                                   "tags":[
-                                                      "DeclRefExpr"
-                                                   ]
-                                                }
-                                             ],
-                                             "type": "node",
-                                             "tags":[
-                                                "ImplicitCastExpr"
+                                                "DeclRefExpr"
                                              ]
                                           }
                                        ],
                                        "type": "node",
                                        "tags":[
-                                          "Call"
+                                          "ImplicitCastExpr"
                                        ]
                                     }
                                  ],
@@ -223,25 +222,25 @@
                            ],
                            "type": "node",
                            "tags":[
-                              "variableDecl"
+                              "Call"
                            ]
                         }
                      ],
                      "type": "node",
                      "tags":[
-                        "compoundStmt"
+                        "variableDecl"
                      ]
                   }
                ],
                "type": "node",
                "tags":[
-                  "Function"
+                  "compoundStmt"
                ]
             }
          ],
          "type": "node",
          "tags":[
-            "importing"
+            "Function"
          ]
       }
    ],

@@ -1,6 +1,13 @@
 {
    "children": [
       {
+         "children": [],
+         "type": "node",
+         "tags":[
+            "importing"
+         ]
+      },
+      {
          "children": [
             {
                "children": [
@@ -9,49 +16,41 @@
                         {
                            "children": [
                               {
-                                 "children": [
-                                    {
-                                       "children": [],
-                                       "type": "node",
-                                       "tags":[
-                                          "OpaqueValueExpr"
-                                       ]
-                                    },
-                                    {
-                                       "children": [],
-                                       "type": "node",
-                                       "tags":[
-                                          "compoundStmt"
-                                       ]
-                                    }
-                                 ],
+                                 "children": [],
                                  "type": "node",
                                  "tags":[
-                                    "ifStatement"
+                                    "OpaqueValueExpr"
+                                 ]
+                              },
+                              {
+                                 "children": [],
+                                 "type": "node",
+                                 "tags":[
+                                    "compoundStmt"
                                  ]
                               }
                            ],
                            "type": "node",
                            "tags":[
-                              "ifBlock"
+                              "ifStatement"
                            ]
                         }
                      ],
                      "type": "node",
                      "tags":[
-                        "compoundStmt"
+                        "ifBlock"
                      ]
                   }
                ],
                "type": "node",
                "tags":[
-                  "Function"
+                  "compoundStmt"
                ]
             }
          ],
          "type": "node",
          "tags":[
-            "importing"
+            "Function"
          ]
       }
    ],
