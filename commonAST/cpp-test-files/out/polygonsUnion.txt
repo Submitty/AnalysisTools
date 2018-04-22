@@ -56,6 +56,13 @@
                   {
                      "children": [
                         {
+                           "children": [],
+                           "type": "node",
+                           "tags":[
+                              "ifStatement"
+                           ]
+                        },
+                        {
                            "children": [
                               {
                                  "children": [
@@ -158,7 +165,7 @@
                      ],
                      "type": "node",
                      "tags":[
-                        "ifStatement"
+                        "ifBlock"
                      ]
                   },
                   {
@@ -303,6 +310,13 @@
                   {
                      "children": [
                         {
+                           "children": [],
+                           "type": "node",
+                           "tags":[
+                              "ifStatement"
+                           ]
+                        },
+                        {
                            "children": [
                               {
                                  "children": [
@@ -374,7 +388,7 @@
                      ],
                      "type": "node",
                      "tags":[
-                        "ifStatement"
+                        "ifBlock"
                      ]
                   },
                   {

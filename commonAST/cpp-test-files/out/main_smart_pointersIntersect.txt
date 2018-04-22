@@ -279,46 +279,54 @@
                                     {
                                        "children": [
                                           {
-                                             "children": [],
-                                             "type": "node",
-                                             "tags":[
-                                                "Comparison"
-                                             ]
-                                          },
-                                          {
                                              "children": [
                                                 {
+                                                   "children": [],
+                                                   "type": "node",
+                                                   "tags":[
+                                                      "Comparison"
+                                                   ]
+                                                },
+                                                {
                                                    "children": [
+                                                      {
+                                                         "children": [
+                                                            {
+                                                               "children": [],
+                                                               "type": "node",
+                                                               "tags":[
+                                                                  "BinOp"
+                                                               ]
+                                                            }
+                                                         ],
+                                                         "type": "node",
+                                                         "tags":[
+                                                            "Assign"
+                                                         ]
+                                                      },
                                                       {
                                                          "children": [],
                                                          "type": "node",
                                                          "tags":[
-                                                            "BinOp"
+                                                            "UnaryOp"
                                                          ]
                                                       }
                                                    ],
                                                    "type": "node",
                                                    "tags":[
-                                                      "Assign"
-                                                   ]
-                                                },
-                                                {
-                                                   "children": [],
-                                                   "type": "node",
-                                                   "tags":[
-                                                      "UnaryOp"
+                                                      "CompoundStmt"
                                                    ]
                                                 }
                                              ],
                                              "type": "node",
                                              "tags":[
-                                                "CompoundStmt"
+                                                "If"
                                              ]
                                           }
                                        ],
                                        "type": "node",
                                        "tags":[
-                                          "If"
+                                          "IfBlock"
                                        ]
                                     }
                                  ],
@@ -365,10 +373,79 @@
                   {
                      "children": [
                         {
-                           "children": [],
+                           "children": [
+                              {
+                                 "children": [],
+                                 "type": "node",
+                                 "tags":[
+                                    "UnaryOp"
+                                 ]
+                              },
+                              {
+                                 "children": [
+                                    {
+                                       "children": [],
+                                       "type": "node",
+                                       "tags":[
+                                          "Return"
+                                       ]
+                                    }
+                                 ],
+                                 "type": "node",
+                                 "tags":[
+                                    "CompoundStmt"
+                                 ]
+                              }
+                           ],
                            "type": "node",
                            "tags":[
-                              "UnaryOp"
+                              "If"
+                           ]
+                        }
+                     ],
+                     "type": "node",
+                     "tags":[
+                        "IfBlock"
+                     ]
+                  },
+                  {
+                     "children": [],
+                     "type": "node",
+                     "tags":[
+                        "VariableDecl"
+                     ]
+                  },
+                  {
+                     "children": [
+                        {
+                           "children": [
+                              {
+                                 "children": [
+                                    {
+                                       "children": [
+                                          {
+                                             "children": [],
+                                             "type": "node",
+                                             "tags":[
+                                                "CompoundStmt"
+                                             ]
+                                          }
+                                       ],
+                                       "type": "node",
+                                       "tags":[
+                                          "For"
+                                       ]
+                                    }
+                                 ],
+                                 "type": "node",
+                                 "tags":[
+                                    "CompoundStmt"
+                                 ]
+                              }
+                           ],
+                           "type": "node",
+                           "tags":[
+                              "If"
                            ]
                         },
                         {
@@ -389,60 +466,7 @@
                      ],
                      "type": "node",
                      "tags":[
-                        "If"
-                     ]
-                  },
-                  {
-                     "children": [],
-                     "type": "node",
-                     "tags":[
-                        "VariableDecl"
-                     ]
-                  },
-                  {
-                     "children": [
-                        {
-                           "children": [
-                              {
-                                 "children": [
-                                    {
-                                       "children": [],
-                                       "type": "node",
-                                       "tags":[
-                                          "CompoundStmt"
-                                       ]
-                                    }
-                                 ],
-                                 "type": "node",
-                                 "tags":[
-                                    "For"
-                                 ]
-                              }
-                           ],
-                           "type": "node",
-                           "tags":[
-                              "CompoundStmt"
-                           ]
-                        }
-                     ],
-                     "type": "node",
-                     "tags":[
-                        "If"
-                     ]
-                  },
-                  {
-                     "children": [
-                        {
-                           "children": [],
-                           "type": "node",
-                           "tags":[
-                              "Return"
-                           ]
-                        }
-                     ],
-                     "type": "node",
-                     "tags":[
-                        "CompoundStmt"
+                        "IfBlock"
                      ]
                   }
                ],

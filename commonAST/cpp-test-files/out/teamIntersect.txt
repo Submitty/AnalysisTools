@@ -24,13 +24,20 @@
                            "children": [],
                            "type": "node",
                            "tags":[
+                              "If"
+                           ]
+                        },
+                        {
+                           "children": [],
+                           "type": "node",
+                           "tags":[
                               "Return"
                            ]
                         }
                      ],
                      "type": "node",
                      "tags":[
-                        "If"
+                        "IfBlock"
                      ]
                   },
                   {

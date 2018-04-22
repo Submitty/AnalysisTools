@@ -31,6 +31,13 @@
                            "children": [],
                            "type": "node",
                            "tags":[
+                              "ifStatement"
+                           ]
+                        },
+                        {
+                           "children": [],
+                           "type": "node",
+                           "tags":[
                               "OpaqueValueExpr"
                            ]
                         },
@@ -52,7 +59,7 @@
                      ],
                      "type": "node",
                      "tags":[
-                        "ifStatement"
+                        "ifBlock"
                      ]
                   },
                   {
