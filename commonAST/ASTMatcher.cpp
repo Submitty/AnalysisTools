@@ -464,7 +464,7 @@ class ASTMatcherVisitor : public RecursiveASTVisitor<ASTMatcherVisitor> {
 				const Stmt* parent = getStmtParent(x, Context);
 				//PROBLEM
 				if(x->getStmtClassName() != "ForStmt" && isFlowControl(x, Context)){
-					return;
+					//return;
 				}
 
 				//if the parent is calling any type of funciton then this node should be enclosed in <args> </args>
@@ -564,8 +564,15 @@ class ASTMatcherVisitor : public RecursiveASTVisitor<ASTMatcherVisitor> {
 					//find if else
 					const IfStmt* ifstmt = (IfStmt*) parent;
 					const Stmt* elseStmt = ifstmt->getElse();
-					if(x == elseStmt){
-						isElse = true;
+					if(elseStmt != NULL){
+						if(debugPrint){
+							cout << "checking if " << x->getLocStart().printToString(Context->getSourceManager());
+							cout << " == " << elseStmt->getLocStart().printToString(Context->getSourceManager());
+							cout << " : " << (x->getLocStart() == elseStmt->getLocStart()) << endl;
+						}
+						if(x->getLocStart() == elseStmt->getLocStart()){
+							isElse = true;
+						}
 					}
 
 				}
@@ -580,6 +587,13 @@ class ASTMatcherVisitor : public RecursiveASTVisitor<ASTMatcherVisitor> {
 				}else if(node == "DoStmt"){
 					output += "<do";		
 				}else if(node == "IfStmt"){
+					if(parent->getStmtClassName() != "IfStmt"){
+						output += "<ifBlock," + level + ">\n";
+						intLevel += 1;
+						stringstream ssif;
+						ssif << intLevel;
+						level = ssif.str();
+					}
 					output += "<ifStatement";
 				}else if(node == "SwitchStmt"){
 					output += "<switch";
@@ -701,9 +715,6 @@ class ASTMatcherVisitor : public RecursiveASTVisitor<ASTMatcherVisitor> {
 						output += ">";
 
 					}
-
-
-
 				}
 
 
@@ -887,7 +898,6 @@ It can be a grandparent, great grand parent etc
 			if(decl == NULL){
 				const Stmt* stmt = getStmtParent(D, Context); 
 				level = getLevelStmt(stmt, level);
-
 			}
 
 			//recurse
@@ -904,7 +914,15 @@ It can be a grandparent, great grand parent etc
 				return level;
 			}
 
+			
 			const Stmt* parent = getStmtParent(S, Context);
+
+			if(S->getStmtClassName() == "IfStmt" and parent != NULL 
+				and parent->getStmtClassName() != "IfStmt"){
+				level += 1;
+			}
+
+
 			//if there are no more parents of type Stmt
 			//continue upwards on the tree nodes of type Decl
 			if(parent == NULL){
