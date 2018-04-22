@@ -1,70 +1,18 @@
 {
    "children": [
       {
-         "children": [],
-         "type": "node",
-         "tags":[
-            "importing"
-         ]
-      },
-      {
          "children": [
             {
                "children": [
                   {
-                     "children": [],
-                     "type": "node",
-                     "tags":[
-                        "DeclStmt"
-                     ]
-                  },
-                  {
                      "children": [
                         {
                            "children": [],
                            "type": "node",
                            "tags":[
-                              "IntegerLiteral"
+                              "DeclStmt"
                            ]
-                        }
-                     ],
-                     "type": "node",
-                     "tags":[
-                        "variableDecl"
-                     ]
-                  },
-                  {
-                     "children": [
-                        {
-                           "children": [],
-                           "type": "node",
-                           "tags":[
-                              "DeclRefExpr"
-                           ]
-                        }
-                     ],
-                     "type": "node",
-                     "tags":[
-                        "unaryOp"
-                     ]
-                  },
-                  {
-                     "children": [
-                        {
-                           "children": [],
-                           "type": "node",
-                           "tags":[
-                              "DeclRefExpr"
-                           ]
-                        }
-                     ],
-                     "type": "node",
-                     "tags":[
-                        "unaryOp"
-                     ]
-                  },
-                  {
-                     "children": [
+                        },
                         {
                            "children": [
                               {
@@ -77,96 +25,37 @@
                            ],
                            "type": "node",
                            "tags":[
-                              "DeclRefExpr"
-                           ]
-                        }
-                     ],
-                     "type": "node",
-                     "tags":[
-                        "assignment"
-                     ]
-                  },
-                  {
-                     "children": [
-                        {
-                           "children": [],
-                           "type": "node",
-                           "tags":[
-                              "DeclRefExpr"
-                           ]
-                        }
-                     ],
-                     "type": "node",
-                     "tags":[
-                        "unaryOp"
-                     ]
-                  },
-                  {
-                     "children": [
-                        {
-                           "children": [],
-                           "type": "node",
-                           "tags":[
-                              "DeclRefExpr"
-                           ]
-                        }
-                     ],
-                     "type": "node",
-                     "tags":[
-                        "unaryOp"
-                     ]
-                  },
-                  {
-                     "children": [
-                        {
-                           "children": [],
-                           "type": "node",
-                           "tags":[
-                              "DeclRefExpr"
+                              "variableDecl"
                            ]
                         },
                         {
-                           "children": [],
+                           "children": [
+                              {
+                                 "children": [],
+                                 "type": "node",
+                                 "tags":[
+                                    "DeclRefExpr"
+                                 ]
+                              }
+                           ],
                            "type": "node",
                            "tags":[
-                              "IntegerLiteral"
+                              "unaryOp"
                            ]
-                        }
-                     ],
-                     "type": "node",
-                     "tags":[
-                        "assignment"
-                     ]
-                  },
-                  {
-                     "children": [],
-                     "type": "node",
-                     "tags":[
-                        "DeclStmt"
-                     ]
-                  },
-                  {
-                     "children": [
+                        },
                         {
-                           "children": [],
+                           "children": [
+                              {
+                                 "children": [],
+                                 "type": "node",
+                                 "tags":[
+                                    "DeclRefExpr"
+                                 ]
+                              }
+                           ],
                            "type": "node",
                            "tags":[
-                              "CXXBoolLiteralExpr"
-                           ]
-                        }
-                     ],
-                     "type": "node",
-                     "tags":[
-                        "variableDecl"
-                     ]
-                  },
-                  {
-                     "children": [
-                        {
-                           "children": [],
-                           "type": "node",
-                           "tags":[
-                              "DeclRefExpr"
+                              "unaryOp"
                            ]
                         },
                         {
@@ -177,13 +66,28 @@
                                        "children": [],
                                        "type": "node",
                                        "tags":[
-                                          "DeclRefExpr"
+                                          "IntegerLiteral"
                                        ]
                                     }
                                  ],
                                  "type": "node",
                                  "tags":[
-                                    "ImplicitCastExpr"
+                                    "DeclRefExpr"
+                                 ]
+                              }
+                           ],
+                           "type": "node",
+                           "tags":[
+                              "assignment"
+                           ]
+                        },
+                        {
+                           "children": [
+                              {
+                                 "children": [],
+                                 "type": "node",
+                                 "tags":[
+                                    "DeclRefExpr"
                                  ]
                               }
                            ],
@@ -191,41 +95,84 @@
                            "tags":[
                               "unaryOp"
                            ]
-                        }
-                     ],
-                     "type": "node",
-                     "tags":[
-                        "assignment"
-                     ]
-                  },
-                  {
-                     "children": [
+                        },
                         {
-                           "children": [],
+                           "children": [
+                              {
+                                 "children": [],
+                                 "type": "node",
+                                 "tags":[
+                                    "DeclRefExpr"
+                                 ]
+                              }
+                           ],
                            "type": "node",
                            "tags":[
-                              "DeclRefExpr"
+                              "unaryOp"
                            ]
                         },
                         {
                            "children": [
                               {
+                                 "children": [],
+                                 "type": "node",
+                                 "tags":[
+                                    "DeclRefExpr"
+                                 ]
+                              },
+                              {
+                                 "children": [],
+                                 "type": "node",
+                                 "tags":[
+                                    "IntegerLiteral"
+                                 ]
+                              }
+                           ],
+                           "type": "node",
+                           "tags":[
+                              "assignment"
+                           ]
+                        },
+                        {
+                           "children": [],
+                           "type": "node",
+                           "tags":[
+                              "DeclStmt"
+                           ]
+                        },
+                        {
+                           "children": [
+                              {
+                                 "children": [],
+                                 "type": "node",
+                                 "tags":[
+                                    "CXXBoolLiteralExpr"
+                                 ]
+                              }
+                           ],
+                           "type": "node",
+                           "tags":[
+                              "variableDecl"
+                           ]
+                        },
+                        {
+                           "children": [
+                              {
+                                 "children": [],
+                                 "type": "node",
+                                 "tags":[
+                                    "DeclRefExpr"
+                                 ]
+                              },
+                              {
                                  "children": [
                                     {
                                        "children": [
                                           {
-                                             "children": [
-                                                {
-                                                   "children": [],
-                                                   "type": "node",
-                                                   "tags":[
-                                                      "DeclRefExpr"
-                                                   ]
-                                                }
-                                             ],
+                                             "children": [],
                                              "type": "node",
                                              "tags":[
-                                                "ImplicitCastExpr"
+                                                "DeclRefExpr"
                                              ]
                                           }
                                        ],
@@ -243,25 +190,79 @@
                            ],
                            "type": "node",
                            "tags":[
-                              "ImplicitCastExpr"
+                              "assignment"
+                           ]
+                        },
+                        {
+                           "children": [
+                              {
+                                 "children": [],
+                                 "type": "node",
+                                 "tags":[
+                                    "DeclRefExpr"
+                                 ]
+                              },
+                              {
+                                 "children": [
+                                    {
+                                       "children": [
+                                          {
+                                             "children": [
+                                                {
+                                                   "children": [
+                                                      {
+                                                         "children": [],
+                                                         "type": "node",
+                                                         "tags":[
+                                                            "DeclRefExpr"
+                                                         ]
+                                                      }
+                                                   ],
+                                                   "type": "node",
+                                                   "tags":[
+                                                      "ImplicitCastExpr"
+                                                   ]
+                                                }
+                                             ],
+                                             "type": "node",
+                                             "tags":[
+                                                "ImplicitCastExpr"
+                                             ]
+                                          }
+                                       ],
+                                       "type": "node",
+                                       "tags":[
+                                          "unaryOp"
+                                       ]
+                                    }
+                                 ],
+                                 "type": "node",
+                                 "tags":[
+                                    "ImplicitCastExpr"
+                                 ]
+                              }
+                           ],
+                           "type": "node",
+                           "tags":[
+                              "assignment"
                            ]
                         }
                      ],
                      "type": "node",
                      "tags":[
-                        "assignment"
+                        "compoundStmt"
                      ]
                   }
                ],
                "type": "node",
                "tags":[
-                  "compoundStmt"
+                  "Function"
                ]
             }
          ],
          "type": "node",
          "tags":[
-            "Function"
+            "importing"
          ]
       }
    ],
