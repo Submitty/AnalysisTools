@@ -28,32 +28,33 @@
                   {
                      "children": [
                         {
-                           "children": [],
-                           "type": "node",
-                           "tags":[
-                              "ifStatement"
-                           ]
-                        },
-                        {
-                           "children": [],
-                           "type": "node",
-                           "tags":[
-                              "OpaqueValueExpr"
-                           ]
-                        },
-                        {
                            "children": [
                               {
                                  "children": [],
                                  "type": "node",
                                  "tags":[
-                                    "CXXBoolLiteralExpr"
+                                    "OpaqueValueExpr"
+                                 ]
+                              },
+                              {
+                                 "children": [
+                                    {
+                                       "children": [],
+                                       "type": "node",
+                                       "tags":[
+                                          "CXXBoolLiteralExpr"
+                                       ]
+                                    }
+                                 ],
+                                 "type": "node",
+                                 "tags":[
+                                    "return"
                                  ]
                               }
                            ],
                            "type": "node",
                            "tags":[
-                              "return"
+                              "ifStatement"
                            ]
                         }
                      ],

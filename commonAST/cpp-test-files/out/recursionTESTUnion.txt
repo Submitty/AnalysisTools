@@ -21,24 +21,25 @@
                   {
                      "children": [
                         {
-                           "children": [],
+                           "children": [
+                              {
+                                 "children": [],
+                                 "type": "node",
+                                 "tags":[
+                                    "OpaqueValueExpr"
+                                 ]
+                              },
+                              {
+                                 "children": [],
+                                 "type": "node",
+                                 "tags":[
+                                    "compoundStmt"
+                                 ]
+                              }
+                           ],
                            "type": "node",
                            "tags":[
                               "ifStatement"
-                           ]
-                        },
-                        {
-                           "children": [],
-                           "type": "node",
-                           "tags":[
-                              "OpaqueValueExpr"
-                           ]
-                        },
-                        {
-                           "children": [],
-                           "type": "node",
-                           "tags":[
-                              "compoundStmt"
                            ]
                         }
                      ],
