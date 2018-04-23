@@ -1,0 +1,164 @@
+{
+   "children": [
+      {
+         "children": [],
+         "type": "node",
+         "tags":[
+            "import"
+         ]
+      },
+      {
+         "children": [
+            {
+               "children": [],
+               "type": "node",
+               "tags":[
+                  "name: MTRand_int32"
+               ]
+            },
+            {
+               "children": [],
+               "type": "node",
+               "tags":[
+                  "bases"
+               ]
+            },
+            {
+               "children": [],
+               "type": "node",
+               "tags":[
+                  "AccessSpec"
+               ]
+            },
+            {
+               "children": [
+                  {
+                     "children": [],
+                     "type": "node",
+                     "tags":[
+                        "name: MTRand_int32"
+                     ]
+                  },
+                  {
+                     "children": [
+                        {
+                           "children": [
+                              {
+                                 "children": [],
+                                 "type": "node",
+                                 "tags":[
+                                    "If"
+                                 ]
+                              },
+                              {
+                                 "children": [
+                                    {
+                                       "children": [],
+                                       "type": "node",
+                                       "tags":[
+                                          "ImplicitCastExpr"
+                                       ]
+                                    }
+                                 ],
+                                 "type": "node",
+                                 "tags":[
+                                    "unaryOp"
+                                 ]
+                              },
+                              {
+                                 "children": [
+                                    {
+                                       "children": [
+                                          {
+                                             "children": [],
+                                             "type": "node",
+                                             "tags":[
+                                                "CXXThisExpr"
+                                             ]
+                                          }
+                                       ],
+                                       "type": "node",
+                                       "tags":[
+                                          "MemberExpr"
+                                       ]
+                                    },
+                                    {
+                                       "children": [],
+                                       "type": "node",
+                                       "tags":[
+                                          "IntegerLiteral"
+                                       ]
+                                    }
+                                 ],
+                                 "type": "node",
+                                 "tags":[
+                                    "Call"
+                                 ]
+                              }
+                           ],
+                           "type": "node",
+                           "tags":[
+                              "IfBlock"
+                           ]
+                        },
+                        {
+                           "children": [
+                              {
+                                 "children": [],
+                                 "type": "node",
+                                 "tags":[
+                                    "DeclRefExpr"
+                                 ]
+                              },
+                              {
+                                 "children": [],
+                                 "type": "node",
+                                 "tags":[
+                                    "CXXBoolLiteralExpr"
+                                 ]
+                              }
+                           ],
+                           "type": "node",
+                           "tags":[
+                              "assignment"
+                           ]
+                        }
+                     ],
+                     "type": "node",
+                     "tags":[
+                        "compoundStmt"
+                     ]
+                  }
+               ],
+               "type": "node",
+               "tags":[
+                  "functionDef"
+               ]
+            },
+            {
+               "children": [
+                  {
+                     "children": [],
+                     "type": "node",
+                     "tags":[
+                        "name: MTRand_int32"
+                     ]
+                  }
+               ],
+               "type": "node",
+               "tags":[
+                  "functionDef"
+               ]
+            }
+         ],
+         "type": "node",
+         "tags":[
+            "classDef"
+         ]
+      }
+   ],
+   "type": "node",
+   "tags":[
+      "module"
+   ]
+}

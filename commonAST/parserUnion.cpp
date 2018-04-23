@@ -26,13 +26,15 @@ class Parser{
 				return parseIfBlock(t->level);
 			}else if(t->value == "ifStatement"){
 				return parseIf(t->level);
+			}else{
+				return parseASTNode(t);	
 			}
 		}
 
 		IfBlock* parseIfBlock(int level){
 			IfBlock* ib = new IfBlock();
 			ib->type = "IfBlock";
-			while(getLookaheadToken()->level > level/* && isStmt(getLookaheadToken()->value)*/){
+			while(getLookaheadToken()->level > level && getLookaheadToken()->value != "END"){
 				ib->children.push_back(parseNode());
 			}
 
