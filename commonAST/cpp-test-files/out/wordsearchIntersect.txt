@@ -420,6 +420,28 @@
                                        "tags":[
                                           "CompoundStmt"
                                        ]
+                                    },
+                                    {
+                                       "children": [
+                                          {
+                                             "children": [],
+                                             "type": "node",
+                                             "tags":[
+                                                "BinOp"
+                                             ]
+                                          }
+                                       ],
+                                       "type": "node",
+                                       "tags":[
+                                          "Comparison"
+                                       ]
+                                    },
+                                    {
+                                       "children": [],
+                                       "type": "node",
+                                       "tags":[
+                                          "UnaryOp"
+                                       ]
                                     }
                                  ],
                                  "type": "node",
@@ -431,6 +453,28 @@
                            "type": "node",
                            "tags":[
                               "CompoundStmt"
+                           ]
+                        },
+                        {
+                           "children": [
+                              {
+                                 "children": [],
+                                 "type": "node",
+                                 "tags":[
+                                    "BinOp"
+                                 ]
+                              }
+                           ],
+                           "type": "node",
+                           "tags":[
+                              "Comparison"
+                           ]
+                        },
+                        {
+                           "children": [],
+                           "type": "node",
+                           "tags":[
+                              "UnaryOp"
                            ]
                         }
                      ],

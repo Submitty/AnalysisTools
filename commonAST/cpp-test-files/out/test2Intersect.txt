@@ -33,6 +33,13 @@
                            "tags":[
                               "CompoundStmt"
                            ]
+                        },
+                        {
+                           "children": [],
+                           "type": "node",
+                           "tags":[
+                              "Comparison"
+                           ]
                         }
                      ],
                      "type": "node",

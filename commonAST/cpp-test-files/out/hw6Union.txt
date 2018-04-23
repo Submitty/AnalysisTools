@@ -1,0 +1,66 @@
+{
+   "children": [
+      {
+         "children": [],
+         "type": "node",
+         "tags":[
+            "importing"
+         ]
+      },
+      {
+         "children": [],
+         "type": "node",
+         "tags":[
+            "/importing"
+         ]
+      },
+      {
+         "children": [
+            {
+               "children": [],
+               "type": "node",
+               "tags":[
+                  "name: Board"
+               ]
+            },
+            {
+               "children": [],
+               "type": "node",
+               "tags":[
+                  "bases"
+               ]
+            },
+            {
+               "children": [],
+               "type": "node",
+               "tags":[
+                  "AccessSpec"
+               ]
+            },
+            {
+               "children": [
+                  {
+                     "children": [],
+                     "type": "node",
+                     "tags":[
+                        "name: Board"
+                     ]
+                  }
+               ],
+               "type": "node",
+               "tags":[
+                  "functionDef"
+               ]
+            }
+         ],
+         "type": "node",
+         "tags":[
+            "classDef"
+         ]
+      }
+   ],
+   "type": "node",
+   "tags":[
+      "module"
+   ]
+}

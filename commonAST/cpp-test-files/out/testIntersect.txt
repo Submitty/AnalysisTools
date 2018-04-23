@@ -29,7 +29,79 @@
                      "children": [],
                      "type": "node",
                      "tags":[
+                        "UnaryOp"
+                     ]
+                  },
+                  {
+                     "children": [],
+                     "type": "node",
+                     "tags":[
+                        "UnaryOp"
+                     ]
+                  },
+                  {
+                     "children": [],
+                     "type": "node",
+                     "tags":[
+                        "Assign"
+                     ]
+                  },
+                  {
+                     "children": [],
+                     "type": "node",
+                     "tags":[
+                        "UnaryOp"
+                     ]
+                  },
+                  {
+                     "children": [],
+                     "type": "node",
+                     "tags":[
+                        "UnaryOp"
+                     ]
+                  },
+                  {
+                     "children": [],
+                     "type": "node",
+                     "tags":[
+                        "Assign"
+                     ]
+                  },
+                  {
+                     "children": [],
+                     "type": "node",
+                     "tags":[
                         "VariableDecl"
+                     ]
+                  },
+                  {
+                     "children": [
+                        {
+                           "children": [],
+                           "type": "node",
+                           "tags":[
+                              "UnaryOp"
+                           ]
+                        }
+                     ],
+                     "type": "node",
+                     "tags":[
+                        "Assign"
+                     ]
+                  },
+                  {
+                     "children": [
+                        {
+                           "children": [],
+                           "type": "node",
+                           "tags":[
+                              "UnaryOp"
+                           ]
+                        }
+                     ],
+                     "type": "node",
+                     "tags":[
+                        "Assign"
                      ]
                   }
                ],
