@@ -34,7 +34,7 @@ class Parser{
 		IfBlock* parseIfBlock(int level){
 			IfBlock* ib = new IfBlock();
 			ib->type = "IfBlock";
-			while(getLookaheadToken()->level > level && getLookaheadToken()->value != "END"){
+			while(getLookaheadToken()->level > level && getLookaheadToken()->value != "END" && (getLookaheadToken()->value == "ifStatement" || getLookaheadToken()->value == "compoundStmt")){
 				ib->children.push_back(parseNode());
 			}
 
@@ -44,7 +44,7 @@ class Parser{
 		If* parseIf(int level){
 			If* i = new If();
 			i->type = "If";
-			while(getLookaheadToken()->level > level && getLookaheadToken()->value != "END"){
+			while(getLookaheadToken()->level >= level && getLookaheadToken()->value != "END"){
 				i->children.push_back(parseNode());
 			}
 
