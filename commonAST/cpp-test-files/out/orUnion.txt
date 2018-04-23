@@ -99,30 +99,14 @@
                                                       {
                                                          "children": [
                                                             {
-                                                               "children": [
-                                                                  {
-                                                                     "children": [],
-                                                                     "type": "node",
-                                                                     "tags":[
-                                                                        "DeclRefExpr"
-                                                                     ]
-                                                                  }
-                                                               ],
+                                                               "children": [],
                                                                "type": "node",
                                                                "tags":[
                                                                   "ImplicitCastExpr"
                                                                ]
                                                             },
                                                             {
-                                                               "children": [
-                                                                  {
-                                                                     "children": [],
-                                                                     "type": "node",
-                                                                     "tags":[
-                                                                        "DeclRefExpr"
-                                                                     ]
-                                                                  }
-                                                               ],
+                                                               "children": [],
                                                                "type": "node",
                                                                "tags":[
                                                                   "ImplicitCastExpr"
@@ -145,30 +129,14 @@
                                                       {
                                                          "children": [
                                                             {
-                                                               "children": [
-                                                                  {
-                                                                     "children": [],
-                                                                     "type": "node",
-                                                                     "tags":[
-                                                                        "DeclRefExpr"
-                                                                     ]
-                                                                  }
-                                                               ],
+                                                               "children": [],
                                                                "type": "node",
                                                                "tags":[
                                                                   "ImplicitCastExpr"
                                                                ]
                                                             },
                                                             {
-                                                               "children": [
-                                                                  {
-                                                                     "children": [],
-                                                                     "type": "node",
-                                                                     "tags":[
-                                                                        "DeclRefExpr"
-                                                                     ]
-                                                                  }
-                                                               ],
+                                                               "children": [],
                                                                "type": "node",
                                                                "tags":[
                                                                   "ImplicitCastExpr"
@@ -197,30 +165,14 @@
                                                 {
                                                    "children": [
                                                       {
-                                                         "children": [
-                                                            {
-                                                               "children": [],
-                                                               "type": "node",
-                                                               "tags":[
-                                                                  "DeclRefExpr"
-                                                               ]
-                                                            }
-                                                         ],
+                                                         "children": [],
                                                          "type": "node",
                                                          "tags":[
                                                             "ImplicitCastExpr"
                                                          ]
                                                       },
                                                       {
-                                                         "children": [
-                                                            {
-                                                               "children": [],
-                                                               "type": "node",
-                                                               "tags":[
-                                                                  "DeclRefExpr"
-                                                               ]
-                                                            }
-                                                         ],
+                                                         "children": [],
                                                          "type": "node",
                                                          "tags":[
                                                             "ImplicitCastExpr"
@@ -249,30 +201,14 @@
                                           {
                                              "children": [
                                                 {
-                                                   "children": [
-                                                      {
-                                                         "children": [],
-                                                         "type": "node",
-                                                         "tags":[
-                                                            "DeclRefExpr"
-                                                         ]
-                                                      }
-                                                   ],
+                                                   "children": [],
                                                    "type": "node",
                                                    "tags":[
                                                       "ImplicitCastExpr"
                                                    ]
                                                 },
                                                 {
-                                                   "children": [
-                                                      {
-                                                         "children": [],
-                                                         "type": "node",
-                                                         "tags":[
-                                                            "DeclRefExpr"
-                                                         ]
-                                                      }
-                                                   ],
+                                                   "children": [],
                                                    "type": "node",
                                                    "tags":[
                                                       "ImplicitCastExpr"
@@ -301,30 +237,14 @@
                                     {
                                        "children": [
                                           {
-                                             "children": [
-                                                {
-                                                   "children": [],
-                                                   "type": "node",
-                                                   "tags":[
-                                                      "DeclRefExpr"
-                                                   ]
-                                                }
-                                             ],
+                                             "children": [],
                                              "type": "node",
                                              "tags":[
                                                 "ImplicitCastExpr"
                                              ]
                                           },
                                           {
-                                             "children": [
-                                                {
-                                                   "children": [],
-                                                   "type": "node",
-                                                   "tags":[
-                                                      "DeclRefExpr"
-                                                   ]
-                                                }
-                                             ],
+                                             "children": [],
                                              "type": "node",
                                              "tags":[
                                                 "ImplicitCastExpr"
@@ -351,15 +271,7 @@
                         {
                            "children": [
                               {
-                                 "children": [
-                                    {
-                                       "children": [],
-                                       "type": "node",
-                                       "tags":[
-                                          "DeclRefExpr"
-                                       ]
-                                    }
-                                 ],
+                                 "children": [],
                                  "type": "node",
                                  "tags":[
                                     "unaryOp"

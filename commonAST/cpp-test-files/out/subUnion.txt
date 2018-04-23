@@ -37,15 +37,7 @@
                         {
                            "children": [
                               {
-                                 "children": [
-                                    {
-                                       "children": [],
-                                       "type": "node",
-                                       "tags":[
-                                          "DeclRefExpr"
-                                       ]
-                                    }
-                                 ],
+                                 "children": [],
                                  "type": "node",
                                  "tags":[
                                     "ImplicitCastExpr"
