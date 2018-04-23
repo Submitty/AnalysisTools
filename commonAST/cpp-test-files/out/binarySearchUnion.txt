@@ -38,16 +38,16 @@
                ]
             },
             {
-               "children": [],
-               "type": "node",
-               "tags":[
-                  "compoundStmt"
-               ]
-            },
-            {
                "children": [
                   {
                      "children": [
+                        {
+                           "children": [],
+                           "type": "node",
+                           "tags":[
+                              "ifStatement"
+                           ]
+                        },
                         {
                            "children": [
                               {
@@ -112,7 +112,7 @@
                      ],
                      "type": "node",
                      "tags":[
-                        "ifStatement"
+                        "ifBlock"
                      ]
                   },
                   {
@@ -375,16 +375,16 @@
                      ]
                   },
                   {
-                     "children": [],
-                     "type": "node",
-                     "tags":[
-                        "compoundStmt"
-                     ]
-                  },
-                  {
                      "children": [
                         {
                            "children": [
+                              {
+                                 "children": [],
+                                 "type": "node",
+                                 "tags":[
+                                    "ifStatement"
+                                 ]
+                              },
                               {
                                  "children": [
                                     {
@@ -438,16 +438,16 @@
                                  ]
                               },
                               {
-                                 "children": [],
-                                 "type": "node",
-                                 "tags":[
-                                    "compoundStmt"
-                                 ]
-                              },
-                              {
                                  "children": [
                                     {
                                        "children": [
+                                          {
+                                             "children": [],
+                                             "type": "node",
+                                             "tags":[
+                                                "ifStatement"
+                                             ]
+                                          },
                                           {
                                              "children": [
                                                 {
@@ -715,13 +715,13 @@
                                        ],
                                        "type": "node",
                                        "tags":[
-                                          "ifStatement"
+                                          "ifBlock"
                                        ]
                                     }
                                  ],
                                  "type": "node",
                                  "tags":[
-                                    "ifBlock"
+                                    "compoundStmt"
                                  ]
                               },
                               {
@@ -923,19 +923,19 @@
                            ],
                            "type": "node",
                            "tags":[
-                              "ifStatement"
+                              "ifBlock"
                            ]
                         }
                      ],
                      "type": "node",
                      "tags":[
-                        "ifBlock"
+                        "compoundStmt"
                      ]
                   }
                ],
                "type": "node",
                "tags":[
-                  "ifBlock"
+                  "compoundStmt"
                ]
             }
          ],
