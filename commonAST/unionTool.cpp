@@ -950,7 +950,8 @@ class ASTMatcherAction : public clang::ASTFrontendAction {
 		//create an astConsumer to perform actions on the AST
 		virtual std::unique_ptr<clang::ASTConsumer> CreateASTConsumer(
 				clang::CompilerInstance &Compiler, llvm::StringRef InFile) {
-			return std::unique_ptr<clang::ASTConsumer>(
+
+				return std::unique_ptr<clang::ASTConsumer>(
 					new astConsumer(&Compiler.getASTContext()));
 		}
 };
@@ -968,12 +969,30 @@ int main(int argc, char** argv){
 
 
 	if (argc > 1) {
-		ifstream f(argv[1]);
-		if(!f.good()){
-			cerr << "can't open: " << argv[1] << endl;
-		}
 		stringstream buffer;
-		buffer << f.rdbuf();
+		string filenames = argv[1];
+		stringstream ss(filenames);
+
+		while(ss){
+			string fname;
+			ss >> fname;	
+
+			if(fname == " " || fname.size() == 0){
+				break;
+			}
+		//for(int i=1; i<argc; i++){
+			ifstream f(fname);
+
+			if(!f.good()){
+				cerr << "can't open: " << fname << endl;
+				exit(1);
+			}
+
+			buffer << f.rdbuf();
+		}
+
+
+		//buffer << f.rdbuf() << f2.rdbuf();
 		cout << "<module,1>" << endl;
 		cout << "<importing,2>" << endl;
 		cout << "</importing,2>" << endl;

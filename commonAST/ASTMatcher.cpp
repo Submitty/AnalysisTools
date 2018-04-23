@@ -588,7 +588,9 @@ class ASTMatcherVisitor : public RecursiveASTVisitor<ASTMatcherVisitor> {
 					output += "<do";		
 				}else if(node == "IfStmt"){
 					if(parent->getStmtClassName() != "IfStmt"){
-						output += "<ifBlock," + level + ">\n";
+						stringstream ssminus;
+						ssminus << (intLevel-1);
+						output += "<ifBlock," + ssminus.str() + ">\n";
 						intLevel += 1;
 						stringstream ssif;
 						ssif << intLevel;

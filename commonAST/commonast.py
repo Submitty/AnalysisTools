@@ -101,14 +101,17 @@ if len(sys.argv) > minNumArgs:
 
 total = 0
 #Main loop
-for fname in filenames:
-	#first get the commonAST XML IR printed to out.txt
-	getCommonASTinOut(lang, fname)
-	#then either print or count nodes 
-	if countMode:
-		total += int(subprocess.check_output([commonASTtraversalPath, "out.txt", countType, countArg]))
-	else:
-		printOption(langOrOption)
+if filename[len(filename)-1] == " ":
+	filename = filename[:len(filename)-1]
+
+#for fname in filenames:
+#first get the commonAST XML IR printed to out.txt
+getCommonASTinOut(lang, filename)
+#then either print or count nodes 
+if countMode:
+	total += int(subprocess.check_output([commonASTtraversalPath, "out.txt", countType, countArg]))
+else:
+	printOption(langOrOption)
 
 #now print the total
 if(countMode):
