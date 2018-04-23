@@ -580,13 +580,17 @@ class ASTMatcherVisitor : public RecursiveASTVisitor<ASTMatcherVisitor> {
 					output += "<do";		
 				}else if(node == "IfStmt"){
 					if(parent->getStmtClassName() != "IfStmt"){
-						stringstream ssminus;
-						ssminus << (intLevel-1);
-						output += "<ifBlock," + ssminus.str() + ">\n";
 						intLevel += 1;
 						stringstream ssif;
 						ssif << intLevel;
 						level = ssif.str();
+						output += "<ifBlock," + level + ">\n";
+
+						intLevel += 1;
+						stringstream ssif2;
+						ssif2 << intLevel;
+						level = ssif2.str();
+
 					}
 					output += "<ifStatement";
 				}else if(node == "SwitchStmt"){
@@ -934,11 +938,19 @@ It can be a grandparent, great grand parent etc
 			}
 
 			const Stmt* parent = getStmtParent(S, Context);
+			const Stmt* gp = getStmtParent(parent, Context);
+			//if(gp != NULL && parent != NULL && parent->getStmtClassName() == "IfStmt" && S->getStmtClassName() == "CompoundStmt"){ cout << gp->getStmtClassName() << endl;}
 
-			if(S->getStmtClassName() == "IfStmt" and parent != NULL 
-				and parent->getStmtClassName() != "IfStmt"){
-				level += 1;
+
+			if(parent != NULL && S->getStmtClassName() == "IfStmt" && parent->getStmtClassName() == "IfStmt"){
+				level += 1; 
+			}else if(S->getStmtClassName() == "CompoundStmt" && gp != NULL && gp->getStmtClassName() == "IfStmt" 
+					&& parent != NULL && parent->getStmtClassName() == "IfStmt"){
+				level = level;
+			}else if(parent != NULL && parent->getStmtClassName() == "IfStmt"){
+				level += 2;
 			}
+			//FIX HERE - issues!
 
 
 			//if there are no more parents of type Stmt

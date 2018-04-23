@@ -22,11 +22,11 @@ class Parser{
 				return NULL;	
 			}else if(t->value == "Function"){
 				return parseFunction(t);
-			}else if(t->value == "ifBlock"){
+			}/*else if(t->value == "ifBlock"){
 				return parseIfBlock(t->level);
 			}else if(t->value == "ifStatement"){
 				return parseIf(t->level);
-			}else{
+			}*/else{
 				return parseASTNode(t);	
 			}
 		}
