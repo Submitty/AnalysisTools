@@ -711,11 +711,11 @@ class ASTMatcherVisitor : public RecursiveASTVisitor<ASTMatcherVisitor> {
 						if(d != NULL){
 							QualType qt = d->getType();
 							if(qt.getAsString() == "std::vector<int, class std::allocator<int> >::const_reference (std::vector::size_type) const noexcept"){
-								output += "<Subscript,";
+								output += "<subscript";
 							}
 						}
 					}else{
-						output += "<" + node + ",";
+						output += "<" + node;
 					}
 
 				}else{

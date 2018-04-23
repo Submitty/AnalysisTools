@@ -135,7 +135,7 @@ class Parser{
 				return (Expr*) parseObjectCallingFunc(t->value, t->level);	
 			}else if(t->value == "END"){
 				return NULL;
-			}else if(t->value == "subscript"){
+			}else if(t->value == "subscript" || t->value == "expr"){
 				Expr* s = new Expr();
 
 				while(getLookaheadToken()->level > t->level){
@@ -705,7 +705,7 @@ bool isExpr(string val){
 
 	string objCompVal("object:");
 	string compVal("calling func");
-	return val == "subscript" || val == "binaryOp" || val == "unaryOp" || val == "comparison"|| val == "container" || (val.compare(0, compVal.length(), compVal) == 0) || val.compare(0, objCompVal.length(), objCompVal) == 0;
+	return val == "expr" || val == "subscript" || val == "binaryOp" || val == "unaryOp" || val == "comparison"|| val == "container" || (val.compare(0, compVal.length(), compVal) == 0) || val.compare(0, objCompVal.length(), objCompVal) == 0;
 }
 
 bool isStmt(string val){

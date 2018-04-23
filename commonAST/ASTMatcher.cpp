@@ -723,7 +723,7 @@ class ASTMatcherVisitor : public RecursiveASTVisitor<ASTMatcherVisitor> {
 								//cout << type << endl;
 
 								//if(type == "vector"){
-								output += "<Expr, ";
+								output += "<expr";
 								//}
 							}
 						}
@@ -1001,12 +1001,28 @@ int main(int argc, char** argv){
 
 
 	if (argc > 1) {
-		ifstream f(argv[1]);
-		if(!f.good()){
-			cerr << "can't open: " << argv[1] << endl;
-		}
 		stringstream buffer;
-		buffer << f.rdbuf();
+		string filenames = argv[1];
+		stringstream ss(filenames);
+
+		while(ss){
+			string fname;
+			ss >> fname;	
+
+			if(fname == " " || fname.size() == 0){
+				break;
+			}
+
+			ifstream f(fname);
+
+			if(!f.good()){
+				cerr << "can't open: " << fname << endl;
+				exit(1);
+			}
+
+			buffer << f.rdbuf();
+		}
+
 		cout << "<module,1>" << endl;
 		cout << "<importing,2>" << endl;
 		cout << "</importing,2>" << endl;

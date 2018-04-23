@@ -41,10 +41,206 @@
                      ]
                   },
                   {
-                     "children": [],
+                     "children": [
+                        {
+                           "children": [],
+                           "type": "node",
+                           "tags":[
+                              "DeclRefExpr"
+                           ]
+                        }
+                     ],
                      "type": "node",
                      "tags":[
                         "unaryOp"
+                     ]
+                  },
+                  {
+                     "children": [
+                        {
+                           "children": [],
+                           "type": "node",
+                           "tags":[
+                              "DeclRefExpr"
+                           ]
+                        }
+                     ],
+                     "type": "node",
+                     "tags":[
+                        "unaryOp"
+                     ]
+                  },
+                  {
+                     "children": [
+                        {
+                           "children": [
+                              {
+                                 "children": [],
+                                 "type": "node",
+                                 "tags":[
+                                    "IntegerLiteral"
+                                 ]
+                              }
+                           ],
+                           "type": "node",
+                           "tags":[
+                              "DeclRefExpr"
+                           ]
+                        }
+                     ],
+                     "type": "node",
+                     "tags":[
+                        "assignment"
+                     ]
+                  },
+                  {
+                     "children": [
+                        {
+                           "children": [],
+                           "type": "node",
+                           "tags":[
+                              "DeclRefExpr"
+                           ]
+                        }
+                     ],
+                     "type": "node",
+                     "tags":[
+                        "unaryOp"
+                     ]
+                  },
+                  {
+                     "children": [
+                        {
+                           "children": [],
+                           "type": "node",
+                           "tags":[
+                              "DeclRefExpr"
+                           ]
+                        }
+                     ],
+                     "type": "node",
+                     "tags":[
+                        "unaryOp"
+                     ]
+                  },
+                  {
+                     "children": [
+                        {
+                           "children": [],
+                           "type": "node",
+                           "tags":[
+                              "DeclRefExpr"
+                           ]
+                        },
+                        {
+                           "children": [],
+                           "type": "node",
+                           "tags":[
+                              "IntegerLiteral"
+                           ]
+                        }
+                     ],
+                     "type": "node",
+                     "tags":[
+                        "assignment"
+                     ]
+                  },
+                  {
+                     "children": [],
+                     "type": "node",
+                     "tags":[
+                        "DeclStmt"
+                     ]
+                  },
+                  {
+                     "children": [
+                        {
+                           "children": [],
+                           "type": "node",
+                           "tags":[
+                              "CXXBoolLiteralExpr"
+                           ]
+                        }
+                     ],
+                     "type": "node",
+                     "tags":[
+                        "variableDecl"
+                     ]
+                  },
+                  {
+                     "children": [
+                        {
+                           "children": [],
+                           "type": "node",
+                           "tags":[
+                              "DeclRefExpr"
+                           ]
+                        },
+                        {
+                           "children": [
+                              {
+                                 "children": [],
+                                 "type": "node",
+                                 "tags":[
+                                    "ImplicitCastExpr"
+                                 ]
+                              }
+                           ],
+                           "type": "node",
+                           "tags":[
+                              "unaryOp"
+                           ]
+                        }
+                     ],
+                     "type": "node",
+                     "tags":[
+                        "assignment"
+                     ]
+                  },
+                  {
+                     "children": [
+                        {
+                           "children": [],
+                           "type": "node",
+                           "tags":[
+                              "DeclRefExpr"
+                           ]
+                        },
+                        {
+                           "children": [
+                              {
+                                 "children": [
+                                    {
+                                       "children": [
+                                          {
+                                             "children": [],
+                                             "type": "node",
+                                             "tags":[
+                                                "ImplicitCastExpr"
+                                             ]
+                                          }
+                                       ],
+                                       "type": "node",
+                                       "tags":[
+                                          "ImplicitCastExpr"
+                                       ]
+                                    }
+                                 ],
+                                 "type": "node",
+                                 "tags":[
+                                    "unaryOp"
+                                 ]
+                              }
+                           ],
+                           "type": "node",
+                           "tags":[
+                              "ImplicitCastExpr"
+                           ]
+                        }
+                     ],
+                     "type": "node",
+                     "tags":[
+                        "assignment"
                      ]
                   }
                ],

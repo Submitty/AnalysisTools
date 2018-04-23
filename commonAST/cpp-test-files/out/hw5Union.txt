@@ -102,7 +102,22 @@
                            ]
                         },
                         {
-                           "children": [],
+                           "children": [
+                              {
+                                 "children": [],
+                                 "type": "node",
+                                 "tags":[
+                                    "DeclRefExpr"
+                                 ]
+                              },
+                              {
+                                 "children": [],
+                                 "type": "node",
+                                 "tags":[
+                                    "CXXBoolLiteralExpr"
+                                 ]
+                              }
+                           ],
                            "type": "node",
                            "tags":[
                               "assignment"
@@ -112,6 +127,21 @@
                      "type": "node",
                      "tags":[
                         "compoundStmt"
+                     ]
+                  }
+               ],
+               "type": "node",
+               "tags":[
+                  "functionDef"
+               ]
+            },
+            {
+               "children": [
+                  {
+                     "children": [],
+                     "type": "node",
+                     "tags":[
+                        "name: MTRand_int32"
                      ]
                   }
                ],
