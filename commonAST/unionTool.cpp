@@ -579,6 +579,15 @@ class ASTMatcherVisitor : public RecursiveASTVisitor<ASTMatcherVisitor> {
 				}else if(node == "DoStmt"){
 					output += "<do";		
 				}else if(node == "IfStmt"){
+					if(parent->getStmtClassName() != "IfStmt"){
+						stringstream ssminus;
+						ssminus << (intLevel-1);
+						output += "<ifBlock," + ssminus.str() + ">\n";
+						intLevel += 1;
+						stringstream ssif;
+						ssif << intLevel;
+						level = ssif.str();
+					}
 					output += "<ifStatement";
 				}else if(node == "SwitchStmt"){
 					output += "<switch";
@@ -925,6 +934,13 @@ It can be a grandparent, great grand parent etc
 			}
 
 			const Stmt* parent = getStmtParent(S, Context);
+
+			if(S->getStmtClassName() == "IfStmt" and parent != NULL 
+				and parent->getStmtClassName() != "IfStmt"){
+				level += 1;
+			}
+
+
 			//if there are no more parents of type Stmt
 			//continue upwards on the tree nodes of type Decl
 			if(parent == NULL){
@@ -1009,8 +1025,7 @@ int main(int argc, char** argv){
 
 		//buffer << f.rdbuf() << f2.rdbuf();
 		cout << "<module,1>" << endl;
-		cout << "<importing,2>" << endl;
-		cout << "</importing,2>" << endl;
+		cout << "<import,2>" << endl;
 		clang::tooling::runToolOnCode(new ASTMatcherAction, buffer.str());
 	}
 

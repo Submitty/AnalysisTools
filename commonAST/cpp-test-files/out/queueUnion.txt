@@ -4,14 +4,7 @@
          "children": [],
          "type": "node",
          "tags":[
-            "importing"
-         ]
-      },
-      {
-         "children": [],
-         "type": "node",
-         "tags":[
-            "/importing"
+            "import"
          ]
       }
    ],
