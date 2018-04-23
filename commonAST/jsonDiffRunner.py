@@ -42,7 +42,6 @@ except subprocess.CalledProcessError:
 
 try:
 	html1 = subprocess.check_output(["python3", "/usr/local/submitty/SubmittyAnalysisTools/make_tree_interactive.py", filename1_extStripped + "Modified.json"]).decode("utf-8")
-
 	html2 = subprocess.check_output(["python3", "/usr/local/submitty/SubmittyAnalysisTools/make_tree_interactive.py", filename2_extStripped + "Modified.json"]).decode("utf-8")
 
 except subprocess.CalledProcessError:

@@ -20,7 +20,7 @@ sourceFiles = []
 #subdirs are student folders
 for subdir in subdirs:
 	#if not os.path.isdir(inputdir + subdir + "/user_assignment_settings.json"): continue
-
+	
 	try:
 		jsonFile = open(inputdir + subdir + "/user_assignment_settings.json")
 	except:
@@ -29,9 +29,13 @@ for subdir in subdirs:
 	assignmentSettings = json.load(jsonFile)
 	nextFolder = str(assignmentSettings["active_version"])
 
-	sourceFile = (inputdir + subdir + "/" + nextFolder + "/*." + lang)
-	
-	sourceFiles.append(sourceFile)
+
+	for root, dirs, files in os.walk(os.path.join(inputdir, subdir, nextFolder), topdown=False):
+		for fname in files:
+			if not fname.endswith("." + lang): continue
+			
+			#sourceFile = (inputdir + subdir + "/" + nextFolder + "/*." + lang)
+			sourceFiles.append(os.path.join(root, fname))
 
 for source in sourceFiles:	
 	print(source)
@@ -45,7 +49,10 @@ for source in sourceFiles:
 			print("Language not supported. Enter py or cpp")
 			exit(1)
 
-		studentName = source[source.rfind("/")+1:]
+		index1 = source.find("/")+1
+		index2 = source.find("/", index1)
+		studentName = source[index1:index2]
+		
 
 		fw = open(outputdir + "/" + studentName + "_" + assignmentName + "Union.txt", "w")
 		fw.write(out.decode('utf-8'))
@@ -58,4 +65,7 @@ for source in sourceFiles:
 		fw2 = open(outputdir + "/" + studentName + "_" + assignmentName + "Intersect.txt", "w")
 		fw2.write(out.decode('utf-8'))
 
-		subprocess.check_call(["python3", "jsonDiffRunnerRunner.py", outputdir, lang])
+try:
+	subprocess.check_call(["python3", "/usr/local/submitty/SubmittyAnalysisTools/jsonDiffRunnerRunner.py", outputdir, lang])
+except subprocess.CalledProcessError:
+	print("error in json diff runner runner")
