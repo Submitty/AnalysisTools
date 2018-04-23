@@ -62,7 +62,7 @@
                            "children": [],
                            "type": "node",
                            "tags":[
-                              "List"
+                              "Container"
                            ]
                         }
                      ],
@@ -91,7 +91,15 @@
                                                          ]
                                                       },
                                                       {
-                                                         "children": [],
+                                                         "children": [
+                                                            {
+                                                               "children": [],
+                                                               "type": "node",
+                                                               "tags":[
+                                                                  "BinOp"
+                                                               ]
+                                                            }
+                                                         ],
                                                          "type": "node",
                                                          "tags":[
                                                             "Expr"
@@ -135,7 +143,15 @@
                                                    ]
                                                 },
                                                 {
-                                                   "children": [],
+                                                   "children": [
+                                                      {
+                                                         "children": [],
+                                                         "type": "node",
+                                                         "tags":[
+                                                            "BinOp"
+                                                         ]
+                                                      }
+                                                   ],
                                                    "type": "node",
                                                    "tags":[
                                                       "Expr"
@@ -144,7 +160,7 @@
                                              ],
                                              "type": "node",
                                              "tags":[
-                                                "Tuple"
+                                                "Container"
                                              ]
                                           }
                                        ],
@@ -163,6 +179,45 @@
                            "type": "node",
                            "tags":[
                               "CompoundStmt"
+                           ]
+                        },
+                        {
+                           "children": [
+                              {
+                                 "children": [
+                                    {
+                                       "children": [
+                                          {
+                                             "children": [
+                                                {
+                                                   "children": [],
+                                                   "type": "node",
+                                                   "tags":[
+                                                      "args"
+                                                   ]
+                                                }
+                                             ],
+                                             "type": "node",
+                                             "tags":[
+                                                "Call"
+                                             ]
+                                          }
+                                       ],
+                                       "type": "node",
+                                       "tags":[
+                                          "BinOp"
+                                       ]
+                                    }
+                                 ],
+                                 "type": "node",
+                                 "tags":[
+                                    "args"
+                                 ]
+                              }
+                           ],
+                           "type": "node",
+                           "tags":[
+                              "Call"
                            ]
                         }
                      ],
@@ -191,14 +246,30 @@
                         {
                            "children": [
                               {
-                                 "children": [],
+                                 "children": [
+                                    {
+                                       "children": [],
+                                       "type": "node",
+                                       "tags":[
+                                          "Expr"
+                                       ]
+                                    }
+                                 ],
                                  "type": "node",
                                  "tags":[
                                     "Expr"
                                  ]
                               },
                               {
-                                 "children": [],
+                                 "children": [
+                                    {
+                                       "children": [],
+                                       "type": "node",
+                                       "tags":[
+                                          "Expr"
+                                       ]
+                                    }
+                                 ],
                                  "type": "node",
                                  "tags":[
                                     "Expr"
@@ -207,7 +278,7 @@
                            ],
                            "type": "node",
                            "tags":[
-                              "Tuple"
+                              "Container"
                            ]
                         }
                      ],
@@ -234,7 +305,7 @@
                "children": [],
                "type": "node",
                "tags":[
-                  "List"
+                  "Container"
                ]
             }
          ],
@@ -280,7 +351,7 @@
                "children": [],
                "type": "node",
                "tags":[
-                  "List"
+                  "Container"
                ]
             }
          ],

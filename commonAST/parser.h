@@ -145,11 +145,10 @@ class Module : public ASTNode{
 		list<ASTNode*> body;
 };
 
-
-class Dict: public Expr{
+class Container: public Expr{
 	public:
 		string getType(){
-			return "Dict";
+			return "Container";
 		}
 
 
@@ -167,98 +166,7 @@ class Dict: public Expr{
 			cout << getIndentation(level);
 			cout << "-----------------" << endl;
 			cout << getIndentation(level);
-			cout << "- Dict: " << endl;
-			cout << getIndentation(level);
-			cout << "-----------------" << endl;
-		}
-
-		list<ASTNode*> values;
-};
-
-
-
-
-class Set: public Expr{
-	public:
-		string getType(){
-			return "Set";
-		}
-
-
-		list<ASTNode*> getChildren(){
-			return values;
-		}
-
-
-		void accept(CounterVisitor& v){
-			v.visit(this);
-		}
-
-
-		void printNode(int level){
-			cout << getIndentation(level);
-			cout << "-----------------" << endl;
-			cout << getIndentation(level);
-			cout << "- Set: " << endl;
-			cout << getIndentation(level);
-			cout << "-----------------" << endl;
-		}
-
-		list<ASTNode*> values;
-};
-
-
-class Tuple: public Expr{
-	public:
-		string getType(){
-			return "Tuple";
-		}
-
-
-		list<ASTNode*> getChildren(){
-			return values;
-		}
-
-
-		void accept(CounterVisitor& v){
-			v.visit(this);
-		}
-
-
-		void printNode(int level){
-			cout << getIndentation(level);
-			cout << "-----------------" << endl;
-			cout << getIndentation(level);
-			cout << "- Tuple: " << endl;
-			cout << getIndentation(level);
-			cout << "-----------------" << endl;
-		}
-
-		list<ASTNode*> values;
-};
-
-class List: public Expr{
-	public:
-		string getType(){
-			return "List";
-		}
-
-
-		list<ASTNode*> getChildren(){
-			return values;
-		}
-
-
-		void accept(CounterVisitor& v){
-			v.visit(this);
-		}
-
-
-		void printNode(int level){
-			cout << getIndentation(level);
-			cout << "-----------------" << endl;
-			cout << getIndentation(level);
-			cout << "- List: " << endl;
+			cout << "- Container: " << endl;
 			cout << getIndentation(level);
 			cout << "-----------------" << endl;
 		}
@@ -555,6 +463,30 @@ class DoWhile: public Stmt{
 		CompoundStmt* compoundStmt;
 };
 
+class IfBlock: public Stmt{
+	public: 
+	
+		string getType(){
+			return "IfBlock";
+		}
+
+		list<ASTNode*> getChildren(){
+			list<ASTNode*> children;
+			list<Stmt*>::iterator itr;
+			for(itr=ifs.begin(); itr != ifs.end(); itr++){
+				children.push_back((ASTNode*) *itr);
+			}
+
+			return children;
+		}
+
+		void accept(CounterVisitor &v){
+			v.visit(this);
+		}
+
+
+	list<Stmt*> ifs;
+};
 
 class If: public Stmt{
 	public:
@@ -581,8 +513,9 @@ class If: public Stmt{
 				}
 			}
 
-			if(orelse){
-				children.push_back((ASTNode*)orelse);
+			list<Stmt*>::iterator itr;
+			for(itr=orelses.begin(); itr != orelses.end(); itr++){
+				children.push_back(*itr);	
 			}
 			return children;
 		}
@@ -607,7 +540,7 @@ class If: public Stmt{
 		Expr* test;
 		CompoundStmt* compoundStmt;
 		list<ASTNode*> body;
-		Stmt* orelse;	
+		list<Stmt*> orelses;	
 };
 
 class Bases: public Stmt{
@@ -920,11 +853,9 @@ class AugAssign: public Stmt{
 
 		list<ASTNode*> getChildren(){
 			list<ASTNode*> children;
-			if(target){
-				children.push_back(target);
-			}
-			if(value){
-				children.push_back(value);
+			list<Expr*>::iterator itr;
+			for(itr=values.begin(); itr != values.end(); itr++){
+				children.push_back((ASTNode*)*itr);
 			}
 			return children;
 		}
@@ -944,11 +875,7 @@ class AugAssign: public Stmt{
 			v.visit(this);
 		}
 
-
-
-
-		Expr* target;
-		Expr* value;
+		list<Expr*> values;
 };
 
 class Raise: public Stmt{

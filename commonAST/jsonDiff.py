@@ -113,20 +113,6 @@ def delAddedTags(node, first):
 	for child in node["children"]:
 		delAddedTags(child, first)
 
-def getBestMatch(potentialMatches):
-	#print("potentialMatches:")
-	#for match in potentialMatches:
-	#	print(match[0]["tags"])
-
-	bestConfValue = -1
-	bestMatch = None
-	for match in potentialMatches:
-		if match.confidence > bestConfValue:
-			bestMatch = match
-			bestConfValue = match.confidence
-
-	return bestMatch
-
 
 '''Main recursive function - Occurs in the following steps:
 (1) For each node in tree2, check if it is an "additional structure" node. 
@@ -155,6 +141,7 @@ def checkChildren(t1Nodes, t2Nodes, parent1, parent2):
 	Step (2) - Find a match in tree2 for each node in tree1
 
 	'''
+	index1 = 0
 	for node in t1Nodes:	
 		if utils.additionalStructure(node,lang):
 			node["matched"] = True
@@ -164,10 +151,12 @@ def checkChildren(t1Nodes, t2Nodes, parent1, parent2):
 			if printAdlStr: print(node["tags"], "is an additional strucutre")
 
 		else:
-			potentialMatches = utils.getAllPotentialMatches(node, t2Nodes, lang)
-			bestMatch = getBestMatch(potentialMatches) 
+			potentialMatches = utils.getAllPotentialMatches(node, t2Nodes, lang, index1)
+			bestMatch = utils.getBestMatch(potentialMatches) 
 			if not node["matched"] and not bestMatch == None:
 				utils.matchNodes(node, bestMatch.node, bestMatch.confidence)
+
+		index1 += 1
 
 	'''
 	Step (3) - Recurse on all children
@@ -206,7 +195,7 @@ def runner():
 
 	if not utils.hasTags(jsonObj1) or not utils.hasTags(jsonObj2):
 		print("error: illformatted json doesn't have tags")
-	elif not utils.tagsMatch(jsonObj1, jsonObj2, None, None, lang):
+	elif not utils.tagsMatch(jsonObj1, jsonObj2, None, None, lang, False, 0, 0):
 		print("error: root nodes don't match")
 	else:
 		utils.editChildren(jsonObj1)
@@ -249,5 +238,6 @@ def runner():
 				"\n\tpercent unmatched: " + str(round(float(unmatched2/totalNodes2)*100, 2))
 				+ "\n\ttotal nodes:" + str(totalNodes2) + "\n\tnum unmatched nodes: " 
 				+ str(unmatched2) + "\n\tnum matched nodes: " + str(matched2) + "\n\tadl struct nodes: " + str(adlStr2)
-				+ "\n\tadl detail nodes: " + str(adlDetail2) + "\n")
+				+ "\n\tadl detail nodes: " + str(adlDetail2) + "\n" +
+				"----------------------------------------------------------------------------------------") 
 runner()

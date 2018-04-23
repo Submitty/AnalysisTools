@@ -78,7 +78,7 @@
                            "children": [],
                            "type": "node",
                            "tags":[
-                              "List"
+                              "Container"
                            ]
                         }
                      ],
@@ -215,7 +215,7 @@
                            ],
                            "type": "node",
                            "tags":[
-                              "List"
+                              "Container"
                            ]
                         }
                      ],
@@ -260,7 +260,7 @@
                            "children": [],
                            "type": "node",
                            "tags":[
-                              "List"
+                              "Container"
                            ]
                         }
                      ],
@@ -315,6 +315,21 @@
                            "type": "node",
                            "tags":[
                               "CompoundStmt"
+                           ]
+                        },
+                        {
+                           "children": [
+                              {
+                                 "children": [],
+                                 "type": "node",
+                                 "tags":[
+                                    "args"
+                                 ]
+                              }
+                           ],
+                           "type": "node",
+                           "tags":[
+                              "Call"
                            ]
                         }
                      ],
