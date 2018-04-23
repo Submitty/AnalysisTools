@@ -638,7 +638,7 @@ class ASTMatcherVisitor : public RecursiveASTVisitor<ASTMatcherVisitor> {
 					Decl* CD = ce->getConstructor();
 
 					string filename;
-					if(isInCurFile(Context, CD, filename)){
+					//if(isInCurFile(Context, CD, filename)){
 						CXXMethodDecl* MD =  ce->getConstructor();
 						output += "<calling func: ";
 						output += MD->getNameInfo().getAsString();
@@ -651,7 +651,7 @@ class ASTMatcherVisitor : public RecursiveASTVisitor<ASTMatcherVisitor> {
 							printCallStack();								
 						}
 
-					}
+					//}
 
 				}else if(node == "BinaryOperator"){
 					BinaryOperator* binaryOp = (BinaryOperator*) x;
@@ -710,6 +710,24 @@ class ASTMatcherVisitor : public RecursiveASTVisitor<ASTMatcherVisitor> {
 
 					}
 
+				}else if(node == "DeclRefExpr"){
+					if(parent != NULL && parent->getStmtClassName() == "ImplicitCastExpr"){
+						DeclRefExpr* dr = (DeclRefExpr*) x;
+						ValueDecl* d = (ValueDecl*) dr->getDecl();
+						//cout << d->getQualType().getAsString() << endl;
+						if(d != NULL){
+							QualType qt = d->getType();
+							//cout << qt.getAsString() << endl;
+							if(qt.getAsString() == "std::vector<int, class std::allocator<int> >::const_reference (std::vector::size_type) const noexcept"){
+								//string type = io->getName().str();
+								//cout << type << endl;
+
+								//if(type == "vector"){
+								output += "<Expr, ";
+								//}
+							}
+						}
+					}
 				}else{
 					if(allNodes){
 						output += "<";
