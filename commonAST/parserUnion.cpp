@@ -5,8 +5,6 @@
 using namespace std;
 
 //prototypes
-bool isExpr(string);
-bool isStmt(string);
 bool printDebug = false;
 
 class Parser{
@@ -24,10 +22,33 @@ class Parser{
 				return NULL;	
 			}else if(t->value == "Function"){
 				return parseFunction(t);
-			}else{
-				return parseASTNode(t);
+			}else if(t->value == "ifBlock"){
+				return parseIfBlock(t->level);
+			}else if(t->value == "ifStatement"){
+				return parseIf(t->level);
 			}
 		}
+
+		IfBlock* parseIfBlock(int level){
+			IfBlock* ib = new IfBlock();
+			ib->type = "IfBlock";
+			while(getLookaheadToken()->level > level/* && isStmt(getLookaheadToken()->value)*/){
+				ib->children.push_back(parseNode());
+			}
+
+			return ib;
+		}
+
+		If* parseIf(int level){
+			If* i = new If();
+			i->type = "If";
+			while(getLookaheadToken()->level > level && getLookaheadToken()->value != "END"){
+				i->children.push_back(parseNode());
+			}
+
+			return i;
+		}
+
 
 		Function* parseFunction(Token* t){
 			Function* func = new Function();	
