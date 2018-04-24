@@ -4,7 +4,6 @@ import glob
 import json
 import os
 
-
 inputdir = sys.argv[1]
 outputdir = sys.argv[2]
 lang = sys.argv[3]
@@ -59,7 +58,6 @@ for source in sourceFiles:
 		index2 = source.find("/", index1) + 1
 		index3 = source.find("/", index2)
 		studentName = source[index2:index3]
-		
 
 		fw = open(outputdir + "/" + studentName + "_" + assignmentName + "Union.txt", "w")
 		fw.write(out.decode('utf-8'))
