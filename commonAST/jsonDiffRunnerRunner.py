@@ -23,8 +23,8 @@ for fname in glob.glob(directory):
 	if "Union" in fname:
 		matcha = fname
 		matchb = getMatchB(matcha)
-		print("matcha: ", matcha, "matchb", matchb)
+		#print("matcha: ", matcha, "matchb", matchb)
 		files.append((matcha, matchb))
 
 for tup in files:
-	subprocess.check_call(["python3", "jsonDiffRunner.py", tup[0], tup[1], "report.txt", lang])
+	subprocess.check_call(["python3", "/usr/local/submitty/SubmittyAnalysisTools/jsonDiffRunner.py", tup[0], tup[1], "report.txt", lang])

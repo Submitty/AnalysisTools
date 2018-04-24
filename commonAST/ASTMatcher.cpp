@@ -464,7 +464,7 @@ class ASTMatcherVisitor : public RecursiveASTVisitor<ASTMatcherVisitor> {
 				const Stmt* parent = getStmtParent(x, Context);
 				//PROBLEM
 				if(x->getStmtClassName() != "ForStmt" && isFlowControl(x, Context)){
-					return;
+					//return;
 				}
 
 				//if the parent is calling any type of funciton then this node should be enclosed in <args> </args>
@@ -564,8 +564,15 @@ class ASTMatcherVisitor : public RecursiveASTVisitor<ASTMatcherVisitor> {
 					//find if else
 					const IfStmt* ifstmt = (IfStmt*) parent;
 					const Stmt* elseStmt = ifstmt->getElse();
-					if(x == elseStmt){
-						isElse = true;
+					if(elseStmt != NULL){
+						if(debugPrint){
+							cout << "checking if " << x->getLocStart().printToString(Context->getSourceManager());
+							cout << " == " << elseStmt->getLocStart().printToString(Context->getSourceManager());
+							cout << " : " << (x->getLocStart() == elseStmt->getLocStart()) << endl;
+						}
+						if(x->getLocStart() == elseStmt->getLocStart()){
+							isElse = true;
+						}
 					}
 
 				}
@@ -580,6 +587,15 @@ class ASTMatcherVisitor : public RecursiveASTVisitor<ASTMatcherVisitor> {
 				}else if(node == "DoStmt"){
 					output += "<do";		
 				}else if(node == "IfStmt"){
+					if(parent->getStmtClassName() != "IfStmt"){
+						stringstream ssminus;
+						ssminus << (intLevel-1);
+						output += "<ifBlock," + ssminus.str() + ">\n";
+						intLevel += 1;
+						stringstream ssif;
+						ssif << intLevel;
+						level = ssif.str();
+					}
 					output += "<ifStatement";
 				}else if(node == "SwitchStmt"){
 					output += "<switch";
@@ -622,7 +638,7 @@ class ASTMatcherVisitor : public RecursiveASTVisitor<ASTMatcherVisitor> {
 					Decl* CD = ce->getConstructor();
 
 					string filename;
-					if(isInCurFile(Context, CD, filename)){
+					//if(isInCurFile(Context, CD, filename)){
 						CXXMethodDecl* MD =  ce->getConstructor();
 						output += "<calling func: ";
 						output += MD->getNameInfo().getAsString();
@@ -635,7 +651,7 @@ class ASTMatcherVisitor : public RecursiveASTVisitor<ASTMatcherVisitor> {
 							printCallStack();								
 						}
 
-					}
+					//}
 
 				}else if(node == "BinaryOperator"){
 					BinaryOperator* binaryOp = (BinaryOperator*) x;
@@ -694,6 +710,24 @@ class ASTMatcherVisitor : public RecursiveASTVisitor<ASTMatcherVisitor> {
 
 					}
 
+				}else if(node == "DeclRefExpr"){
+					if(parent != NULL && parent->getStmtClassName() == "ImplicitCastExpr"){
+						DeclRefExpr* dr = (DeclRefExpr*) x;
+						ValueDecl* d = (ValueDecl*) dr->getDecl();
+						//cout << d->getQualType().getAsString() << endl;
+						if(d != NULL){
+							QualType qt = d->getType();
+							//cout << qt.getAsString() << endl;
+							if(qt.getAsString() == "std::vector<int, class std::allocator<int> >::const_reference (std::vector::size_type) const noexcept"){
+								//string type = io->getName().str();
+								//cout << type << endl;
+
+								//if(type == "vector"){
+								output += "<expr";
+								//}
+							}
+						}
+					}
 				}else{
 					if(allNodes){
 						output += "<";
@@ -701,9 +735,6 @@ class ASTMatcherVisitor : public RecursiveASTVisitor<ASTMatcherVisitor> {
 						output += ">";
 
 					}
-
-
-
 				}
 
 
@@ -887,7 +918,6 @@ It can be a grandparent, great grand parent etc
 			if(decl == NULL){
 				const Stmt* stmt = getStmtParent(D, Context); 
 				level = getLevelStmt(stmt, level);
-
 			}
 
 			//recurse
@@ -904,7 +934,15 @@ It can be a grandparent, great grand parent etc
 				return level;
 			}
 
+			
 			const Stmt* parent = getStmtParent(S, Context);
+
+			if(S->getStmtClassName() == "IfStmt" and parent != NULL 
+				and parent->getStmtClassName() != "IfStmt"){
+				level += 1;
+			}
+
+
 			//if there are no more parents of type Stmt
 			//continue upwards on the tree nodes of type Decl
 			if(parent == NULL){
@@ -963,12 +1001,28 @@ int main(int argc, char** argv){
 
 
 	if (argc > 1) {
-		ifstream f(argv[1]);
-		if(!f.good()){
-			cerr << "can't open: " << argv[1] << endl;
-		}
 		stringstream buffer;
-		buffer << f.rdbuf();
+		string filenames = argv[1];
+		stringstream ss(filenames);
+
+		while(ss){
+			string fname;
+			ss >> fname;	
+
+			if(fname == " " || fname.size() == 0){
+				break;
+			}
+
+			ifstream f(fname);
+
+			if(!f.good()){
+				cerr << "can't open: " << fname << endl;
+				exit(1);
+			}
+
+			buffer << f.rdbuf();
+		}
+
 		cout << "<module,1>" << endl;
 		cout << "<importing,2>" << endl;
 		cout << "</importing,2>" << endl;

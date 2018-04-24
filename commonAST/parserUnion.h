@@ -58,32 +58,31 @@ class ASTNode{
 };
 
 
+class IfBlock: public ASTNode{
+	public: 
+	
+		string getType(){
+			return "IfBlock";
+		}
+
+};
+
+class If: public ASTNode{
+	public:
+		string getType(){
+			return "If";
+		}
+
+};
+
+
+
 class Function : public ASTNode{
 	public:
 		
 		string getType(){
 			return "Function";
 		}
-
-/*
-		list<ASTNode*> getChildren(){
-			list<ASTNode*> _children;
-			list<ASTNode*>::iterator itr;
-			for(itr=children.begin(); itr != children.end(); itr++){
-				if(*itr == NULL){ continue; }
-				_children.push_back(*itr);
-			}
-
-			for(itr=params.begin(); itr != params.end(); itr++){
-				if(*itr == NULL){ continue; }
-				_children.push_back(*itr);
-			}
-
-			return children;
-		}*/
-		
-
-		//list<ASTNode*> params;
 
 };
 

@@ -1,5 +1,0 @@
-word = input('Enter a word: ')
-length = len(word)
-print('*' * (length + 6))
-print('*' * 2, word, '*' * 2)
-print('*' * (length + 6))

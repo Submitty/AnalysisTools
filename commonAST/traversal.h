@@ -17,6 +17,7 @@ class While;
 class Args;
 class VariableDecl;
 class If;
+class IfBlock;
 class Bases;
 class ClassDef;
 class Import;
@@ -34,10 +35,7 @@ class UnaryOp;
 class Comparison;
 class Switch;
 class Case;
-class List;
-class Dict;
-class Set;
-class Tuple;
+class Container;
 class Expr;
 
 
@@ -96,15 +94,13 @@ class CounterVisitor{
 		void visit(Exec* e);
 		void visit(Try* t);
 		void visit(Except* e);
+		void visit(IfBlock* ib);
 		void visit(Bases* b);
 		void visit(Call* c);
 		void visit(BinOp* bo);
 		void visit(UnaryOp* uo);
 		void visit(Comparison* c);
-		void visit(List* l);
-		void visit(Dict* d);
-		void visit(Set* s);
-		void visit(Tuple* t);
+		void visit(Container* l);
 		void visit(Expr* e);
 
 private:
@@ -136,10 +132,6 @@ private:
 		int countSwitch;
 		int countArgs;
 		int complexity;
-		int countList;
-		int countSet;
-		int countTuple;
-		int countDict;
 
 		
 		bool findingComplexity;

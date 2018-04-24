@@ -66,7 +66,7 @@ class Parser{
 				return (Stmt*) parseFunctionDef(t->level);
 			}else if(t->value == "classDef"){
 				return (Stmt*) parseClassDef(t->level);
-			}else if(t->value == "compoundStmt"){
+			}else if(t->value == "compoundStmt") {
 				return (Stmt*) parseCompoundStmt();
 			}else if(t->value == "return"){
 				return (Stmt*) parseReturn(t->level);
@@ -76,6 +76,8 @@ class Parser{
 				return (Stmt*) parseAugAssign(t->level);
 			}else if(t->value == "switch"){
 				return (Stmt*) parseSwitch();
+			}else if(t->value == "elseStatement"){
+				return (Stmt*) parseCompoundStmtHelper(t);
 			}else if(t->value == "case"){
 				return (Stmt*) parseCase(t->level);
 			}else if(t->value == "forLoop"){
@@ -84,8 +86,10 @@ class Parser{
 				return (Stmt*) parseWhile(t->level);
 			}else if(t->value == "do"){
 				return (Stmt*) parseDoWhile(t->level);
-			}else if(t->value == "ifStatement"){
+			}else if(t->value == "ifStatement") {
 				return (Stmt*) parseIf(t->level);
+			}else if(t->value == "ifBlock"){
+				return (Stmt*) parseIfBlock(t->level);
 			}else if(t->value == "importing"){
 				return (Stmt*) parseImport(t->level);	
 			}else if(t->value == "exec"){
@@ -123,21 +127,15 @@ class Parser{
 				return (Expr*) parseUnaryOp(t->level);
 			}else if(t->value == "comparison"){
 				return (Expr*) parseComparison(t->level);
-			}else if(t->value == "list"){
-				return (Expr*) parseList(t->level);
-			}else if(t->value == "set"){
-				return (Expr*) parseSet(t->level);
-			}else if(t->value == "dict"){
-				return (Expr*) parseDict(t->level);
-			}else if(t->value == "tuple"){
-				return (Expr*) parseTuple(t->level);
+			}else if(t->value == "container"){
+				return (Expr*) parseContainer(t->level);
 			}else if(t->value.compare(0, compVal.length(), compVal) == 0){
 				return (Expr*) parseCallingFunc(t->value, t->level);
 			}else if(t->value.compare(0, objCompVal.length(), objCompVal) == 0){
 				return (Expr*) parseObjectCallingFunc(t->value, t->level);	
 			}else if(t->value == "END"){
 				return NULL;
-			}else if(t->value == "subscript"){
+			}else if(t->value == "subscript" || t->value == "expr"){
 				Expr* s = new Expr();
 
 				while(getLookaheadToken()->level > t->level){
@@ -239,7 +237,7 @@ class Parser{
 
 			c->func = val.substr(pos+2);
 			c->argsList = parseArgs();
-			//c->otherChildren = parseBody(level);
+			c->otherChildren = parseBody(level);
 			return c;
 		}
 
@@ -254,6 +252,7 @@ class Parser{
 			c->func = val.substr(pos+2);
 			c->argsList = parseArgs();
 			c->otherChildren = parseBody(level);
+			if(printDebug) { cerr << "Done parsing calling func" << endl; }
 			return c;
 		}
 
@@ -288,8 +287,16 @@ class Parser{
 				exit(1);
 			}
 
+			return parseCompoundStmtHelper(t);
+		}
+
+
+		CompoundStmt* parseCompoundStmtHelper(Token* t){
 			CompoundStmt* cs = new CompoundStmt();
+			if(printDebug) { cerr << "parsing anything with level greater than: " << t->level << endl; }
 			while(getLookaheadToken()->level > t->level){
+				if(printDebug){ cerr << "lookahead level: " << getLookaheadToken()->level << endl; }
+
 				if(isExpr(getLookaheadToken()->value)){
 					cs->body.push_back(parseExpr());	
 				}else if(isStmt(getLookaheadToken()->value)){
@@ -301,6 +308,8 @@ class Parser{
 					exit(1);
 				}
 			}	
+
+			if(printDebug) { cerr << "Done parsing compound stmt" << endl; }
 			return cs;
 		}
 
@@ -375,14 +384,17 @@ class Parser{
 			while(getLookaheadToken()->level > level && getLookaheadToken()->value != "END") {
 				assign->targets.push_back(parseExpr());
 			}
+			
+			if(printDebug){ cout << "done parsing assignment" << endl; }
+	
 			return assign;
 		}
 
 		AugAssign* parseAugAssign(int level){
 			AugAssign* augAssign = new AugAssign();
-			//FIX THIS
-			augAssign->target = NULL;
-			augAssign->value = NULL;
+			while(getLookaheadToken()->level > level){
+				augAssign->values.push_back(parseExpr());
+			}
 
 			return augAssign;
 		}
@@ -428,6 +440,15 @@ class Parser{
 		}
 
 
+		IfBlock* parseIfBlock(int level){
+			IfBlock* ib = new IfBlock();
+			while(getLookaheadToken()->level > level && isStmt(getLookaheadToken()->value)){
+				ib->ifs.push_back(parseStmt());
+			}
+
+			return ib;
+		}
+
 		If* parseIf(int level){
 			If* i = new If();
 
@@ -451,21 +472,27 @@ class Parser{
 				cerr << "parsing If's compoundStmt: " << getLookaheadToken()->value << endl;
 			}
 
+			/*
+			while(getLookaheadToken()->level > level && getLookaheadToken()->value == "ifStatement"){
+				if( printDebug) { cerr << "parsing a sub if statement" << endl; }
+				Token* t = getToken();
+				i->orelses.push_back(parseIf(t->level));
+				if(printDebug) { cout<< "Done parsing sub if statement" << endl;}
+			}
+
+			if(getLookaheadToken()->level > level && getLookaheadToken()->value == "elseStatement"){
+				i->orelses.push_back(parseCompoundStmtHelper(getToken()));
+			}*/
+
+			
 			if(getLookaheadToken()->value == "compoundStmt"){
+				if(printDebug) { cerr << "parsing if's compound stmt" << endl; }
 				i->compoundStmt = parseCompoundStmt();
+				if(printDebug) { cout<< "Done parsing sub if's compound stmt" << endl;}
 			}else{
 				i->body = parseBody(level);	
 			}
 
-
-			if(getLookaheadToken()->level > level && getLookaheadToken()->value == "elseStatement"){
-				i->orelse = parseCompoundStmt();
-			}else if(getLookaheadToken()->level > level && getLookaheadToken()->value == "ifSatement"){
-				Token* t = getToken();
-				i->orelse = parseIf(t->level);
-			}else{
-				i->orelse = NULL;
-			}
 			return i;
 		}
 
@@ -560,44 +587,14 @@ class Parser{
 			return cp;
 		}
 
-		List* parseList(int level){
-			List* l = new List();
-		
-			while(getLookaheadToken()-> level > level){
-				l->values.push_back(parseExpr());
-			}
-
-			return l;
-		}
-
-		Tuple* parseTuple(int level){
-			Tuple* t= new Tuple();
-		
-			while(getLookaheadToken()-> level > level){
-				t->values.push_back(parseExpr());
-			}
-			
-			return t;
-		}
-
-		Dict* parseDict(int level){
-			Dict* d= new Dict();
+		Container* parseContainer(int level){
+			Container* c = new Container();
 
 			while(getLookaheadToken()-> level > level){
-				d->values.push_back(parseExpr());
-			}
-			
-			return d;
-		}
-
-		Set* parseSet(int level){
-			Set* s = new Set();
-
-			while(getLookaheadToken()-> level > level){
-				s->values.push_back(parseExpr());
+				c->values.push_back(parseExpr());
 			}
 	
-			return s;
+			return c;
 		}
 
 		UnaryOp* parseUnaryOp(int level){
@@ -708,7 +705,7 @@ bool isExpr(string val){
 
 	string objCompVal("object:");
 	string compVal("calling func");
-	return val == "subscript" || val == "binaryOp" || val == "unaryOp" || val == "comparison"|| val == "list" || val == "set" || val == "dict" || val == "tuple" || (val.compare(0, compVal.length(), compVal) == 0) || val.compare(0, objCompVal.length(), objCompVal) == 0;
+	return val == "expr" || val == "subscript" || val == "binaryOp" || val == "unaryOp" || val == "comparison"|| val == "container" || (val.compare(0, compVal.length(), compVal) == 0) || val.compare(0, objCompVal.length(), objCompVal) == 0;
 }
 
 bool isStmt(string val){
@@ -718,7 +715,7 @@ bool isStmt(string val){
 
 
 	string compVal("name");
-	return val == "functionDef" || val == "classDef" || val == "compoundStmt" || val == "return" || val == "assignment" || val == "augAssign" || val == "forLoop" || val == "whileLoop" || val == "do" || val == "ifStatement" || val == "importing" || val == "exec" || val == "variableDecl" || val == "try" || val == "except" || val == "raisingException" || val == "switch" || val == "case" || val.compare(0, compVal.length(), compVal) == 0;
+	return val == "functionDef" || val == "classDef" || val == "compoundStmt" || val == "return" || val == "assignment" || val == "augAssign" || val == "forLoop" || val == "whileLoop" || val == "do" || val == "ifBlock" || val == "ifStatement" || val == "elseStatement" || val == "importing" || val == "exec" || val == "variableDecl" || val == "try" || val == "except" || val == "raisingException" || val == "switch" || val == "case" || val.compare(0, compVal.length(), compVal) == 0;
 }
 
 void printASTasJSON(ASTNode* node, int level=0, bool addComma=false){

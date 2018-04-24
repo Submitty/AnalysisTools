@@ -579,12 +579,26 @@ class ASTMatcherVisitor : public RecursiveASTVisitor<ASTMatcherVisitor> {
 				}else if(node == "DoStmt"){
 					output += "<do";		
 				}else if(node == "IfStmt"){
+					if(parent->getStmtClassName() != "IfStmt"){
+						intLevel += 1;
+						stringstream ssif;
+						ssif << intLevel;
+						level = ssif.str();
+						output += "<ifBlock," + level + ">\n";
+
+						intLevel += 1;
+						stringstream ssif2;
+						ssif2 << intLevel;
+						level = ssif2.str();
+
+					}
 					output += "<ifStatement";
 				}else if(node == "SwitchStmt"){
 					output += "<switch";
 				}else if(node == "CaseStmt"){
 					output += "<case";
 				}else if(node == "CXXMemberCallExpr"){
+					/*
 					CXXMemberCallExpr* ce = (CXXMemberCallExpr*) x;
 					Expr* obj = ce->getImplicitObjectArgument();
 					CallExpr* expr = (CallExpr*) x;
@@ -592,8 +606,9 @@ class ASTMatcherVisitor : public RecursiveASTVisitor<ASTMatcherVisitor> {
 					QualType qt = obj->getType();
 					output += qt.getBaseTypeIdentifier()->getName().str();
 					output += "; calling func: ";
-					output += expr->getDirectCallee()->getNameInfo().getAsString();
-					output += ", " + level + ">\n";
+					output += expr->getDirectCallee()->getNameInfo().getAsString();*/
+					//output += ", " + level + ">\n";
+					output += "<Call, " + level + ">\n";
 					/*
 					output += "<args";
 					numClosingArgsNeeded++;
@@ -607,7 +622,7 @@ class ASTMatcherVisitor : public RecursiveASTVisitor<ASTMatcherVisitor> {
 
 				}else if(node == "CallExpr"){
 					CallExpr* expr = (CallExpr*) x;
-					output += "<Call: ";
+					output += "<Call";
 					//output += "<calling func: ";
 					//output += expr->getDirectCallee()->getNameInfo().getAsString();
 					output += ", " + level + ">\n";
@@ -627,7 +642,7 @@ class ASTMatcherVisitor : public RecursiveASTVisitor<ASTMatcherVisitor> {
 					string filename;
 					if(isInCurFile(Context, CD, filename)){
 						CXXMethodDecl* MD =  ce->getConstructor();
-						output += "<Call: ";
+						output += "<Call ";
 						/*
 						output += MD->getNameInfo().getAsString();
 						output += "," + level + ">\n";
@@ -685,7 +700,7 @@ class ASTMatcherVisitor : public RecursiveASTVisitor<ASTMatcherVisitor> {
 					if(isInCurFile(Context, CD, filename)){
 						CXXMethodDecl* MD =  ce->getConstructor();
 
-						output += "<Call: ";
+						output += "<Call ";
 						/*
 
 						output += "<calling func: ";
@@ -702,7 +717,22 @@ class ASTMatcherVisitor : public RecursiveASTVisitor<ASTMatcherVisitor> {
 
 					}
 
+				}else if(node == "DeclRefExpr"){
+					if(parent != NULL && parent->getStmtClassName() == "ImplicitCastExpr"){
+						DeclRefExpr* dr = (DeclRefExpr*) x;
+						ValueDecl* d = (ValueDecl*) dr->getDecl();
+						if(d != NULL){
+							QualType qt = d->getType();
+							if(qt.getAsString() == "std::vector<int, class std::allocator<int> >::const_reference (std::vector::size_type) const noexcept"){
+								output += "<subscript";
+							}
+						}
+					}else{
+						output += "<" + node;
+					}
+
 				}else{
+
 					string node = x->getStmtClassName();
 					output += "\n<" + node + ",";
 					output += level + ">";
@@ -908,6 +938,21 @@ It can be a grandparent, great grand parent etc
 			}
 
 			const Stmt* parent = getStmtParent(S, Context);
+			const Stmt* gp = getStmtParent(parent, Context);
+			//if(gp != NULL && parent != NULL && parent->getStmtClassName() == "IfStmt" && S->getStmtClassName() == "CompoundStmt"){ cout << gp->getStmtClassName() << endl;}
+
+
+			if(parent != NULL && S->getStmtClassName() == "IfStmt" && parent->getStmtClassName() == "IfStmt"){
+				level += 1; 
+			}else if(S->getStmtClassName() == "CompoundStmt" && gp != NULL && gp->getStmtClassName() == "IfStmt" 
+					&& parent != NULL && parent->getStmtClassName() == "IfStmt"){
+				level = level;
+			}else if(parent != NULL && parent->getStmtClassName() == "IfStmt"){
+				level += 2;
+			}
+			//FIX HERE - issues!
+
+
 			//if there are no more parents of type Stmt
 			//continue upwards on the tree nodes of type Decl
 			if(parent == NULL){
@@ -948,7 +993,8 @@ class ASTMatcherAction : public clang::ASTFrontendAction {
 		//create an astConsumer to perform actions on the AST
 		virtual std::unique_ptr<clang::ASTConsumer> CreateASTConsumer(
 				clang::CompilerInstance &Compiler, llvm::StringRef InFile) {
-			return std::unique_ptr<clang::ASTConsumer>(
+
+				return std::unique_ptr<clang::ASTConsumer>(
 					new astConsumer(&Compiler.getASTContext()));
 		}
 };
@@ -966,15 +1012,32 @@ int main(int argc, char** argv){
 
 
 	if (argc > 1) {
-		ifstream f(argv[1]);
-		if(!f.good()){
-			cerr << "can't open: " << argv[1] << endl;
-		}
 		stringstream buffer;
-		buffer << f.rdbuf();
+		string filenames = argv[1];
+		stringstream ss(filenames);
+
+		while(ss){
+			string fname;
+			ss >> fname;	
+
+			if(fname == " " || fname.size() == 0){
+				break;
+			}
+		//for(int i=1; i<argc; i++){
+			ifstream f(fname);
+
+			if(!f.good()){
+				cerr << "can't open: " << fname << endl;
+				exit(1);
+			}
+
+			buffer << f.rdbuf();
+		}
+
+
+		//buffer << f.rdbuf() << f2.rdbuf();
 		cout << "<module,1>" << endl;
-		cout << "<importing,2>" << endl;
-		cout << "</importing,2>" << endl;
+		cout << "<import,2>" << endl;
 		clang::tooling::runToolOnCode(new ASTMatcherAction, buffer.str());
 	}
 

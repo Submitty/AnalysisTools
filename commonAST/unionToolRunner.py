@@ -17,18 +17,13 @@ def printOption(option):
 	subprocess.call([unionTraversalPath, "out.txt", option])
 
 #function to print the commonAST for either language in out.txt
-def getCommonASTinOut(lang, filename):
+def getCommonASTinOut(lang, filenames):
 	f = open("out.txt", "w")
 	try:
-		subprocess.call([unionToolPath, filename], stdout=f)
+		subprocess.call([unionToolPath, filenames], stdout=f)
 	except subprocess.CalledProcessError as e:
 		print (e.output)
 		sys.exit()
-
-#function to add all filenames in *.py to filenames
-def expandStar(filename, filnames):
-	for fname in glob.glob(filename):
-		filenames.append(fname)
 
 unionToolPath = "/usr/local/submitty/clang-llvm/build/bin/UnionTool"
 unionTraversalPath = "/usr/local/submitty/SubmittyAnalysisTools/unionCount.out"
@@ -65,16 +60,9 @@ else:
 	filename = sys.argv[4]
 
 
-#add the first filename to filenames
-if "*." in filename:
-	#if we need to expand, do so
-	expandStar(filename, filenames)
-else:
-	#otherwise, just append
-	filenames.append(filename)
-
 
 #loop to add all filenames to filenames
+'''
 if len(sys.argv) > minNumArgs:
 	count = minNumArgs
 	#while there are still filenames to add
@@ -85,17 +73,20 @@ if len(sys.argv) > minNumArgs:
 		else:
 			filenames.append(sys.argv[count])
 		count+=1
+'''
+
+
+if filename[len(filename)-1] == " ":
+	filename = filename[:len(filename)-1]
 
 total = 0
 #Main loop
-for fname in filenames:
-	#first get the commonAST XML IR printed to out.txt
-	getCommonASTinOut(lang, fname)
-	#then either print or count nodes 
-	if countMode:
-		total += int(subprocess.check_output([unionTraversalPath, "out.txt", countType, countArg]))
-	else:
-		printOption(langOrOption)
+getCommonASTinOut(lang, filename)
+#then either print or count nodes 
+if countMode:
+	total += int(subprocess.check_output([unionTraversalPath, "out.txt", countType, countArg]))
+else:
+	printOption(langOrOption)
 
 #now print the total
 if(countMode):
