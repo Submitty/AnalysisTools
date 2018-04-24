@@ -1,12 +1,15 @@
 import subprocess
 import sys
 import glob
+import os
 
 
+print("in json diff runner")
 filename1_full = sys.argv[1]
 filename2_full = sys.argv[2]
-reportFile = sys.argv[3]
-lang = sys.argv[4]
+outputDir = sys.argv[3]
+reportFile = sys.argv[4]
+lang = sys.argv[5]
 
 end1 = filename1_full.rfind(".") 
 end2 = filename2_full.rfind(".") 
@@ -49,7 +52,8 @@ except subprocess.CalledProcessError:
 	print("error in the tree visualization tool")
 	exit()
 
-combinedFile = filename1_extPrefixStripped + filename2_extPrefixStripped
+combinedFile = os.path.join(outputDir, filename1_extPrefixStripped + filename2_extPrefixStripped)
+print("creating html file:", combinedFile)
 
 
 fw = open(combinedFile + ".html", "w+")
