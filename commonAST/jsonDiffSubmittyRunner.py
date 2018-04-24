@@ -4,11 +4,17 @@ import glob
 import json
 import os
 
+
 inputdir = sys.argv[1]
 outputdir = sys.argv[2]
 lang = sys.argv[3]
 
-assignmentName = inputdir[inputdir.rfind("/")+1:]
+open(os.path.join(outputdir, "report.txt"), "w")
+
+index = inputdir.rfind("/")
+temp = inputdir[:index]
+index2 = temp.rfind("/") + 1
+assignmentName = inputdir[index2:index]
 
 
 subdirs =  [name for name in os.listdir(inputdir)
@@ -49,9 +55,10 @@ for source in sourceFiles:
 			print("Language not supported. Enter py or cpp")
 			exit(1)
 
-		index1 = source.find("/")+1
-		index2 = source.find("/", index1)
-		studentName = source[index1:index2]
+		index1 = source.find(assignmentName) + len(assignmentName)
+		index2 = source.find("/", index1) + 1
+		index3 = source.find("/", index2)
+		studentName = source[index2:index3]
 		
 
 		fw = open(outputdir + "/" + studentName + "_" + assignmentName + "Union.txt", "w")
