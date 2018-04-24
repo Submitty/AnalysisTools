@@ -7,7 +7,7 @@ import glob
 directory = sys.argv[1] + "*.txt"
 lang = sys.argv[2]
 
-open("report.txt", "w")
+open("report.txt", "a")
 
 files = []
 
