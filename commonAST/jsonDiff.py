@@ -228,15 +228,19 @@ def runner():
 		totalNodes1 = matched1 + unmatched1 + adlStr1 + adlDetail1
 		totalNodes2 = matched2 + unmatched2 + adlStr2 + adlDetail2
 
+		percentUnmatched1 = round(float(unmatched1/totalNodes1)*100, 2)
+		percentUnmatched2 = round(float(unmatched2/totalNodes2)*100, 2)
+
 		reportf.write("\n\n\nfile: " + sys.argv[1][0:index1] 
-				+ "\n\tpercent unmatched: " + str(round(float(unmatched1/totalNodes1)*100, 2))
+				+ "\n\tpercent unmatched: " + str(percentUnmatched1)
 				+ "\n\ttotal nodes:" + str(totalNodes1) + "\n\tnum unmatched nodes: " 
 				+ str(unmatched1) + "\n\tnum matched nodes: " + str(matched1) + "\n\tadl struct nodes: " + str(adlStr1)
 				+ "\n\tadl detail nodes: " + str(adlDetail1) + "\n\n"
 				+ "file: " + sys.argv[2][0:index2] + 
-				"\n\tpercent unmatched: " + str(round(float(unmatched2/totalNodes2)*100, 2))
+				"\n\tpercent unmatched: " + str(percentUnmatched2)
 				+ "\n\ttotal nodes:" + str(totalNodes2) + "\n\tnum unmatched nodes: " 
 				+ str(unmatched2) + "\n\tnum matched nodes: " + str(matched2) + "\n\tadl struct nodes: " + str(adlStr2)
 				+ "\n\tadl detail nodes: " + str(adlDetail2) + "\n" +
 				"----------------------------------------------------------------------------------------") 
+
 runner()
