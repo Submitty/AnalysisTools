@@ -12,7 +12,7 @@ lang = sys.argv[2]
 reportdir = os.path.join(dirprefix, "report.txt")
 print("creating html files")
 
-open(reportdir, "a")
+rf = open(reportdir, "r+")
 
 files = []
 
@@ -35,3 +35,19 @@ for root,dirs,fnames in os.walk(dirprefix,topdown=False):
 
 for tup in files:
 	subprocess.check_call(["python3", "/usr/local/submitty/SubmittyAnalysisTools/jsonDiffRunner.py", tup[0], tup[1], dirprefix, reportdir, lang])
+
+#get final stats
+content = rf.read()
+avgs = 0
+index = content.find("percent unmatched: ")
+while index != -1:
+	avg = content[index+len("percent unmatched: "):	content.find("\n", index)]
+	#print("average: ", avg)
+	avgs += float(avg)
+	content = content[content.find("\n", index):]
+	index = content.find("percent unmatched: ")
+
+
+totalAverage = avgs / len(files)
+rf.write("\nTotal Number of files: " + str(len(files)) + "\n")
+rf.write("Average percent of unmatched nodes: " + str(totalAverage)) 
