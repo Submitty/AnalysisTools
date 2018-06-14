@@ -84,7 +84,7 @@ bool isInCurFile(ASTContext *Context, const Stmt* S, string& filename){
 
 	vector<string>::iterator fileItr = find(includeList.begin(), includeList.end(), filename);
 	bool ret = fileItr != includeList.end();
-	if(debugPrint && S->getStmtClassName() == "CXXConstructExpr"){
+	if(debugPrint && S->getStmtClassName() == std::string("CXXConstructExpr")){
 		cerr << "context is is current file: "  << ret << endl;
 
 	}
@@ -232,7 +232,7 @@ class ASTMatcherVisitor : public RecursiveASTVisitor<ASTMatcherVisitor> {
 		bool DeclHelper(Decl *D){
 
 			const Stmt* parent = getStmtParent(D, Context);
-			const Stmt* parentsParent = getStmtParent(parent, Context);
+			//const Stmt* parentsParent = getStmtParent(parent, Context);
 
 			//if it is part of the (init; condition; increment) of a for loop, we don't care about it
 			if(isFlowControl(D, Context)){
@@ -446,7 +446,7 @@ class ASTMatcherVisitor : public RecursiveASTVisitor<ASTMatcherVisitor> {
 		 */
 		void StmtHelper(Stmt *x){
 			//variable used for <cond> </cond>
-			bool condition = false;
+			//bool condition = false;
 			bool isElse = false;
 			if(x != NULL){
 				string output = "";
@@ -463,7 +463,7 @@ class ASTMatcherVisitor : public RecursiveASTVisitor<ASTMatcherVisitor> {
 
 				const Stmt* parent = getStmtParent(x, Context);
 				//PROBLEM
-				if(x->getStmtClassName() != "ForStmt" && isFlowControl(x, Context)){
+				if(x->getStmtClassName() != std::string("ForStmt") && isFlowControl(x, Context)){
 					//return;
 				}
 
@@ -587,7 +587,7 @@ class ASTMatcherVisitor : public RecursiveASTVisitor<ASTMatcherVisitor> {
 				}else if(node == "DoStmt"){
 					output += "<do";		
 				}else if(node == "IfStmt"){
-					if(parent->getStmtClassName() != "IfStmt"){
+                                        if(parent->getStmtClassName() != std::string("IfStmt")){
 						stringstream ssminus;
 						ssminus << (intLevel-1);
 						output += "<ifBlock," + ssminus.str() + ">\n";
@@ -635,7 +635,7 @@ class ASTMatcherVisitor : public RecursiveASTVisitor<ASTMatcherVisitor> {
 
 				}else if(node == "CXXConstructExpr"){
 					CXXConstructExpr* ce = (CXXConstructExpr*) x;
-					Decl* CD = ce->getConstructor();
+					//Decl* CD = ce->getConstructor();
 
 					string filename;
 					//if(isInCurFile(Context, CD, filename)){
@@ -711,7 +711,7 @@ class ASTMatcherVisitor : public RecursiveASTVisitor<ASTMatcherVisitor> {
 					}
 
 				}else if(node == "DeclRefExpr"){
-					if(parent != NULL && parent->getStmtClassName() == "ImplicitCastExpr"){
+                                        if(parent != NULL && parent->getStmtClassName() == std::string("ImplicitCastExpr")){
 						DeclRefExpr* dr = (DeclRefExpr*) x;
 						ValueDecl* d = (ValueDecl*) dr->getDecl();
 						//cout << d->getQualType().getAsString() << endl;
@@ -937,8 +937,8 @@ It can be a grandparent, great grand parent etc
 			
 			const Stmt* parent = getStmtParent(S, Context);
 
-			if(S->getStmtClassName() == "IfStmt" and parent != NULL 
-				and parent->getStmtClassName() != "IfStmt"){
+			if(S->getStmtClassName() == std::string("IfStmt") and parent != NULL 
+                           and parent->getStmtClassName() != std::string("IfStmt")){
 				level += 1;
 			}
 

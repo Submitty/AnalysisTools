@@ -84,7 +84,7 @@ bool isInCurFile(ASTContext *Context, const Stmt* S, string& filename){
 
 	vector<string>::iterator fileItr = find(includeList.begin(), includeList.end(), filename);
 	bool ret = fileItr != includeList.end();
-	if(debugPrint && S->getStmtClassName() == "CXXConstructExpr"){
+	if(debugPrint && S->getStmtClassName() == std::string("CXXConstructExpr")){
 		cerr << "context is is current file: "  << ret << endl;
 
 	}
@@ -232,7 +232,7 @@ class ASTMatcherVisitor : public RecursiveASTVisitor<ASTMatcherVisitor> {
 		bool DeclHelper(Decl *D){
 
 			const Stmt* parent = getStmtParent(D, Context);
-			const Stmt* parentsParent = getStmtParent(parent, Context);
+			//const Stmt* parentsParent = getStmtParent(parent, Context);
 
 			//if it is part of the (init; condition; increment) of a for loop, we don't care about it
 			if(isFlowControl(D, Context)){
@@ -443,7 +443,7 @@ class ASTMatcherVisitor : public RecursiveASTVisitor<ASTMatcherVisitor> {
 		 */
 		void StmtHelper(Stmt *x){
 			//variable used for <cond> </cond>
-			bool condition = false;
+			//bool condition = false;
 			bool isElse = false;
 			if(x != NULL){
 				string output = "";
@@ -460,7 +460,7 @@ class ASTMatcherVisitor : public RecursiveASTVisitor<ASTMatcherVisitor> {
 
 				const Stmt* parent = getStmtParent(x, Context);
 				//PROBLEM
-				if(x->getStmtClassName() != "ForStmt" && isFlowControl(x, Context)){
+				if(x->getStmtClassName() != std::string("ForStmt") && isFlowControl(x, Context)){
 					return;
 				}
 
@@ -533,7 +533,7 @@ class ASTMatcherVisitor : public RecursiveASTVisitor<ASTMatcherVisitor> {
 				}
 
 
-				if(parent != NULL && strcmp(parent->getStmtClassName(), "IfStmt") == 0){
+				if(parent != NULL && strcmp(parent->getStmtClassName(), std::string("IfStmt")) == 0){
 					if(debugPrint){
 						cerr << "possibly an if statement" << endl;
 					}
@@ -579,7 +579,7 @@ class ASTMatcherVisitor : public RecursiveASTVisitor<ASTMatcherVisitor> {
 				}else if(node == "DoStmt"){
 					output += "<do";		
 				}else if(node == "IfStmt"){
-					if(parent->getStmtClassName() != "IfStmt"){
+                                        if(parent->getStmtClassName() != std::string("IfStmt")){
 						intLevel += 1;
 						stringstream ssif;
 						ssif << intLevel;
@@ -621,7 +621,7 @@ class ASTMatcherVisitor : public RecursiveASTVisitor<ASTMatcherVisitor> {
 					}
 
 				}else if(node == "CallExpr"){
-					CallExpr* expr = (CallExpr*) x;
+                                        //CallExpr* expr = (CallExpr*) x;
 					output += "<Call";
 					//output += "<calling func: ";
 					//output += expr->getDirectCallee()->getNameInfo().getAsString();
@@ -641,7 +641,7 @@ class ASTMatcherVisitor : public RecursiveASTVisitor<ASTMatcherVisitor> {
 
 					string filename;
 					if(isInCurFile(Context, CD, filename)){
-						CXXMethodDecl* MD =  ce->getConstructor();
+                                                //CXXMethodDecl* MD =  ce->getConstructor();
 						output += "<Call ";
 						/*
 						output += MD->getNameInfo().getAsString();
@@ -698,7 +698,7 @@ class ASTMatcherVisitor : public RecursiveASTVisitor<ASTMatcherVisitor> {
 
 					string filename;
 					if(isInCurFile(Context, CD, filename)){
-						CXXMethodDecl* MD =  ce->getConstructor();
+                                                //CXXMethodDecl* MD =  ce->getConstructor();
 
 						output += "<Call ";
 						/*
@@ -718,7 +718,7 @@ class ASTMatcherVisitor : public RecursiveASTVisitor<ASTMatcherVisitor> {
 					}
 
 				}else if(node == "DeclRefExpr"){
-					if(parent != NULL && parent->getStmtClassName() == "ImplicitCastExpr"){
+                                        if(parent != NULL && parent->getStmtClassName() == std::string("ImplicitCastExpr")){
 						DeclRefExpr* dr = (DeclRefExpr*) x;
 						ValueDecl* d = (ValueDecl*) dr->getDecl();
 						if(d != NULL){
@@ -939,15 +939,15 @@ It can be a grandparent, great grand parent etc
 
 			const Stmt* parent = getStmtParent(S, Context);
 			const Stmt* gp = getStmtParent(parent, Context);
-			//if(gp != NULL && parent != NULL && parent->getStmtClassName() == "IfStmt" && S->getStmtClassName() == "CompoundStmt"){ cout << gp->getStmtClassName() << endl;}
+			//if(gp != NULL && parent != NULL && parent->getStmtClassName() == std::string("IfStmt") && S->getStmtClassName() == std::string("CompoundStmt")){ cout << gp->getStmtClassName() << endl;}
 
 
-			if(parent != NULL && S->getStmtClassName() == "IfStmt" && parent->getStmtClassName() == "IfStmt"){
+			if(parent != NULL && S->getStmtClassName() == std::string("IfStmt") && parent->getStmtClassName() == std::string("IfStmt")){
 				level += 1; 
-			}else if(S->getStmtClassName() == "CompoundStmt" && gp != NULL && gp->getStmtClassName() == "IfStmt" 
-					&& parent != NULL && parent->getStmtClassName() == "IfStmt"){
-				level = level;
-			}else if(parent != NULL && parent->getStmtClassName() == "IfStmt"){
+			}else if(S->getStmtClassName() == std::string("CompoundStmt") && gp != NULL && gp->getStmtClassName() == std::string("IfStmt")
+                                 && parent != NULL && parent->getStmtClassName() == std::string("IfStmt")){
+                                //level = level;
+			}else if(parent != NULL && parent->getStmtClassName() == std::string("IfStmt")){
 				level += 2;
 			}
 			//FIX HERE - issues!
