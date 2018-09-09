@@ -23,10 +23,11 @@ script:
 - "./bin/hlint '--ignore=Parse error' src"
 - "./bin/hlint '--ignore=Parse error' app"
 - PATH=./bin:$PATH danger
+
 deploy:
   provider: releases
   api_key:
-    secure: XcnEfQ5VBYFRrfj3ekIWXzoxFIbeSkV/+/1viioCsdhzN9E5D4zZKQEAwVui8BNo4zqyHR6bHDVLv/g0UI6/z+vsAgvxFc3JsajNUBB6KX2seEa6Rm25q9fq1lUbDqmDuRp29E/9S0iUv7IXs03KpotPS4i48VWXzP1yhmiIXXSQH0cV+BH7EyVIz9RSqEvQoMgbEWP8RiN9sJoRv8EV5wVfC9wE86s+19fPkkF45tQOvhFaeW8AxDtCWIixcdy+1gKX1jVyBBsQ8KgW8QVdoMxdEcL+UU6/HeSG49yi64hi5RMlpRd+ue6jFLHpg+atZtD1FQSe9Iu4XAuuApvdmRq3vuIKt3/5/lE9o96mCZdonAfoKc+Bz69zYXbkbSNBLUnJzhjrDn6BZyMxbjoU6m4IceLfXwPV/Ao5CxRBeEop+FzZe+gDwDNrOd/EG9Lvx8sY60wkdCiQje/BGJzotW9C2fEixHar09Eb0/5mTYVGk/NlzOpc2yMhiwz2f3uQXZDijuQ7NKWqQq81KKUxU0AUHsNOHU60MOtXJify9psMcjj1KLURsAj2iRTdiX3gm9idEqKB3Rs9crUAwqmQOTBGIibbP3dLbR3b0YwGxSC0WaBUZMyHacKKN7S16YET5JH9xyQS2SnxsOleZ0SwIASCj9XmrhOCQ1jRRPusefw=
+    secure: jFoXeyPLYm1ZrtFpTa2TCQkNFfNzv/yxxXYn7aSyOpocKbEXNJhjD8gZZcREr4cHQMzYq3AWJBIZFP32/OZb5wO1fDoQ9URZvH3yKmWvWH7mXhhqivfHG2iG7/USsHfDNZoXpo+YLZLWDPyo4VBHpkiCbNkMr8I8XR84ErgoteNxkuOJ0m+Z7Yu9uVXsOYqNEaNpj0e0gCsk3Tzx5WUNcIeJY48XGgV/xU1qucM5bU4sy0Zk/6XLTZ9F/em384d6RaHU3TCdVUQ36yn8WCb8t6xj/LvJCMjV/rlC+HXT+NbONGoLLPN+5R4/S3zY7lIvl8rcTHRMvZYk2fkygC5+lJ/9bKSZv7iuq3+VoNeRSaRD5oojIg5C9gZSPdMYhnRjfJDm6y64RG2kazcw5/UoCiYTxVe4yUhhgjm3DTZdPHAyvBeu8tusqbleowfgibTjcbm5fGuNGVIJkz1CrzFg7s/M+W2A2caeH3Dc/7OekMeafWAkswjtf6b/9/ocpfuMV5kDJ96i1WMYLnMw/pRDzi6sMAt3WhF/18mwBujDIUJQ1VBBL4/WRbT0mTzv4XfBU6ZV1DdvriukVvsnacVUaDyyjxz3xVTnvKMNZh1HfEk0MEA+e2O+bO4uyiMmq2L4svwFL02OpoOfhcSDAnA8M+DXavm2r7mmzdN1m0r9TXg=
   file:
   - bin/count
   - bin/plagiarism
