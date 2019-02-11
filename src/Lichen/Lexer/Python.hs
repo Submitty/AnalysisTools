@@ -32,7 +32,7 @@ data Tok = False | None | True | And | As | Assert | Break | Class | Continue
 instance Hashable Tok
 
 sc :: Parser ()
-sc = L.space (void spaceChar) (L.skipLineComment "#") (L.skipBlockComment "\"\"\"" "\"\"\"")
+sc = L.space (void spaceChar) (L.skipLineComment "#") (L.skipBlockComment "\"\"\"" "\"\"\"" <|> L.skipBlockComment "'''" "'''")
 
 onetoken :: Parser (Tagged Tok)
 onetoken = wrap (reserved "False") Lichen.Lexer.Python.False
