@@ -1,4 +1,4 @@
-# Analysis Tools [![Build Status](https://travis-ci.org/Submitty/AnalysisTools.svg?branch=master)](https://travis-ci.org/Submitty/AnalysisTools)
+# Analysis Tools [![Build Status](https://travis-ci.com/Submitty/AnalysisTools.svg?branch=master)](https://travis-ci.com/Submitty/AnalysisTools)
 This repository contains a variety of tools used for source code analysis.
 
 ## Building
