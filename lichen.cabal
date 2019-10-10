@@ -54,6 +54,7 @@ library
                      , text == 1.2.2.1
                      , bytestring
                      , mtl == 2.2.1
+                     , monads-tf == 0.1.0.3
                      , hashable == 1.2.5.0
                      , process
                      , directory
@@ -63,13 +64,14 @@ library
                      , aeson-pretty == 0.8.2
                      , megaparsec == 5.2.0
                      , optparse-applicative
-                     , language-python
+                     , language-python == 0.5.4
                      , blaze-html == 0.8.1.3
                      , blaze-markup == 0.7.1.1
                      , clay == 0.12.1
                      , jmacro == 0.6.14
                      , QuickCheck
                      , hspec == 2.4.2
+                     , happy == 1.19.5
   ghc-options:         -O2 -Wall
   default-language:    Haskell2010
 
