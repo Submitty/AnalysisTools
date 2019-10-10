@@ -20,14 +20,15 @@ data Tok = False | None | True | And | As | Assert | Break | Class | Continue
          | Def | Del | Elif | Else | Except | Finally | For | From | Global | If
          | Import | In | Is | Lambda | Nonlocal | Not | Or | Pass | Raise
          | Return | Try | While | With | Yield | Identifier | IntegerLiteral
-         | ImaginaryLiteral | FloatLiteral | StringLiteral | BytesLiteral
-         | Plus | Minus | Asterisk | Slash | DoubleSlash | Percent
+         | ImaginaryLiteral | FloatLiteral | FormattedStringLiteral | StringLiteral
+         | BytesLiteral | Plus | Minus | Asterisk | Slash | DoubleSlash | Percent
          | DoubleAsterisk | EqOp | NeOp | LessThan | GreaterThan | LeOp | GeOp
          | Ampersand | Pipe | Tilde | Caret | LeftOp | RightOp | LeftParen
          | RightParen | LeftSquare | RightSquare | LeftCurly | RightCurly | Dot
          | Comma | Colon | Semicolon | At | Equal | AddAssign | SubAssign
          | MulAssign | DivAssign | IntDivAssign | ModAssign | PowAssign
          | AndAssign | OrAssign | XorAssign | LeftAssign | RightAssign | Unknown
+         | async | await
          deriving (Show, Read, Eq, Generic)
 instance Hashable Tok
 
@@ -68,9 +69,12 @@ onetoken = wrap (reserved "False") Lichen.Lexer.Python.False
        <|> wrap (reserved "while") While
        <|> wrap (reserved "with") With
        <|> wrap (reserved "yield") Yield
+       <|> wrap (reserved "async") async
+       <|> wrap (reserved "await") await
        <|> wrap ident Identifier
        <|> wrap (show <$> L.integer) IntegerLiteral
        <|> wrap (show <$> L.float) FloatLiteral
+       <|> wrap (quote <$> (char 'f' *> (strLit <|> charLit))) FormattedStringLiteral
        <|> wrap (quote <$> (strLit <|> charLit)) StringLiteral
        <|> wrap (quote <$> (char 'b' *> (strLit <|> charLit))) BytesLiteral
        <|> wrap (operator "**=") PowAssign

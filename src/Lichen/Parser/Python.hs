@@ -29,6 +29,7 @@ convertExpr (Ellipsis _) = pure $ Node [Tag "ellipsis", Tag "..."] []
 convertExpr (ByteStrings strs _) = pure $ Node [Tag "string", Tag "bytes"] $ DataBytes . BS.C8.pack <$> strs
 convertExpr (Strings strs _) = pure $ Node [Tag "string"] $ DataStr . T.pack <$> strs
 convertExpr (UnicodeStrings strs _) = pure $ Node [Tag "string", Tag "unicode"] $ DataStr . T.pack <$> strs
+convertExpr (FormattedStrings strs _) = pure $ Node [Tag "string", Tag "formatted"] $ DataStr . T.pack <$> strs
 convertExpr (Call f args _) = Node [Tag "call"] <$> ((:) <$> convertExpr f <*> mapM convertArgument args)
 convertExpr (Subscript l expr _) = Node [Tag "subscript"] <$> ((+:) <$> convertExpr l <*> convertExpr expr)
 convertExpr (SlicedExpr l s _) = Node [Tag "subscript", Tag "slice"] <$> ((:) <$> convertExpr l <*> mapM convertSlice s)
