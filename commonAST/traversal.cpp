@@ -1,5 +1,6 @@
 #include "traversal.h"
 #include "parser.h"
+#include <cassert>
 
 using namespace std;
 
@@ -218,7 +219,9 @@ int CounterVisitor::getComplexity() const{
 }
 
 string CounterVisitor::getClassesAndBases() const{
-
+        // This function was previously empty (no return statement).
+        assert (0);
+        return "";
 }
 
 void CounterVisitor::visit(For* f){
