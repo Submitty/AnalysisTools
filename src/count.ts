@@ -1,6 +1,14 @@
 import type { Tree } from "tree-sitter";
 
-export function countToken(token: string, tree: Tree): number {
+export enum Counter {
+  token = 'token',
+  node = 'node',
+  call = 'call',
+  func = 'func',
+  depth = 'depth',
+}
+
+export function countToken(tree: Tree, counter: Counter, token: string): number {
   let count = 0;
 
   const cursor = tree.rootNode.walk()
